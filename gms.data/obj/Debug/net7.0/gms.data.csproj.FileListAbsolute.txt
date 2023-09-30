@@ -1,0 +1,11 @@
+D:\gms\gms.data\bin\Debug\net7.0\gms.data.deps.json
+D:\gms\gms.data\bin\Debug\net7.0\gms.data.dll
+D:\gms\gms.data\bin\Debug\net7.0\gms.data.pdb
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.GeneratedMSBuildEditorConfig.editorconfig
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.AssemblyInfoInputs.cache
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.AssemblyInfo.cs
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.csproj.CoreCompileInputs.cache
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.dll
+D:\gms\gms.data\obj\Debug\net7.0\refint\gms.data.dll
+D:\gms\gms.data\obj\Debug\net7.0\gms.data.pdb
+D:\gms\gms.data\obj\Debug\net7.0\ref\gms.data.dll

@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "gms/1.0.0": {
+        "dependencies": {
+          "gms.dto": "1.0.0",
+          "gms.service": "1.0.0"
+        },
+        "runtime": {
+          "gms.dll": {}
+        }
+      },
+      "gms.dto/1.0.0": {
+        "runtime": {
+          "gms.dto.dll": {}
+        }
+      },
+      "gms.service/1.0.0": {
+        "runtime": {
+          "gms.service.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "gms/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "gms.dto/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "gms.service/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
