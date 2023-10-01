@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gms.dto\gms.dto.csproj" />
+    <ProjectReference Include="..\gms.common\gms.common.csproj" />
     <ProjectReference Include="..\gms.service\gms.service.csproj" />
   </ItemGroup>
 
