@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 
-namespace gms.common.Localization;
+namespace gms.Localization;
 public class JsonStringLocalizerFactory : IStringLocalizerFactory
 {
     public IStringLocalizer Create(Type resourceSource) => new JsonStringLocalizer();

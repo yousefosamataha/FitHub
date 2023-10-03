@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 
-namespace gms.common.Localization;
+namespace gms.Localization;
 public class JsonStringLocalizer : IStringLocalizer
 {
     private readonly JsonSerializer _serializer = new();

@@ -1,5 +1,6 @@
 ﻿using gms.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 
 namespace gms.Controllers
@@ -8,13 +9,16 @@ namespace gms.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
+		private readonly IStringLocalizer<HomeController> _localizer;
+		public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer) 
 		{
 			_logger = logger;
+			_localizer = localizer;
 		}
 
 		public IActionResult Index()
 		{
+			ViewBag.WelcomeMessage = _localizer["welcome"];
 			return View();
 		}
 

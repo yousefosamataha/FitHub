@@ -1,10 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Resources\ar-EG.json" />
+    <Content Remove="Resources\en-US.json" />
+    <Content Remove="Resources\fr-FR.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\ar-EG.json" />
+    <None Include="Resources\en-US.json" />
+    <None Include="Resources\fr-FR.json" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\gms.common\gms.common.csproj" />
