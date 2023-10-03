@@ -4,6 +4,8 @@
 
 # Visual Studio Code
 .vscode/
+.vs/
+.vs/gms/v17/
 
 # NuGet packages
 *.nupkg
