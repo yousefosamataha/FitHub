@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.data", "gms.data\gms.da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.service", "gms.service\gms.service.csproj", "{030EFB4B-4B8A-467E-854C-BFBAADE6C18F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gms.common", "gms.common\gms.common.csproj", "{75E76327-638A-4C4F-9943-8D54E6CA9BC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.common", "gms.common\gms.common.csproj", "{75E76327-638A-4C4F-9943-8D54E6CA9BC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{939B9CF9-040F-4F8A-B0D4-2752217718B3}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,27 @@
+# .NET Core build output
+/bin/
+/obj/
+
+# Visual Studio Code
+.vscode/
+
+# NuGet packages
+*.nupkg
+**/packages/
+*.cache
+
+# MSTest test Results
+TestResults/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+msbuild.log
