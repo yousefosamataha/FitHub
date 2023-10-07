@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 
-namespace gms.Localization;
+namespace gms.common.Localization;
 public class JsonStringLocalizer : IStringLocalizer
 {
     private readonly JsonSerializer _serializer = new();
     public LocalizedString this[string name]
     {
-        get => new LocalizedString(name, GetString(name).Result);
+        get => new LocalizedString(name, GetString(name));
     }
 
     public LocalizedString this[string name, params object[] arguments]
@@ -21,7 +21,7 @@ public class JsonStringLocalizer : IStringLocalizer
 
     public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
     {
-        string? fullFilePath = Path.GetFullPath($"/Resources/{Thread.CurrentThread.CurrentCulture.Name}.json");
+        string? fullFilePath = Path.GetFullPath($"Resources/{Thread.CurrentThread.CurrentCulture.Name}.json");
 
         using FileStream stream = new(fullFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
         using StreamReader streamReader = new(stream);
@@ -40,12 +40,13 @@ public class JsonStringLocalizer : IStringLocalizer
         }
 
     }
-    private async Task<string> GetString(string key)
+    private string GetString(string key)
     {
-        string? fullFilePath = Path.GetFullPath($"/Resources/{Thread.CurrentThread.CurrentCulture.Name}.json");
-        return File.Exists(fullFilePath) ? await GetStringFromJson(key, fullFilePath) : string.Empty;
+        string? fullFilePath = Path.GetFullPath($"Resources/{Thread.CurrentThread.CurrentCulture.Name}.json");
+        var fileExists = File.Exists(fullFilePath);
+        return File.Exists(fullFilePath) ? GetStringFromJson(key, fullFilePath) : string.Empty;
     }
-    private async Task<string> GetStringFromJson(string key, string filePath)
+    private string GetStringFromJson(string key, string filePath)
     {
         if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(filePath))
             return string.Empty;
@@ -59,7 +60,7 @@ public class JsonStringLocalizer : IStringLocalizer
         {
             if (reader.TokenType == JsonToken.PropertyName && reader.Value as string == key)
             {
-                await reader.ReadAsync();
+                reader.Read();
                 return _serializer.Deserialize<string>(reader);
             }
         }
