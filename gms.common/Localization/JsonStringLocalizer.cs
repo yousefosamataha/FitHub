@@ -43,7 +43,6 @@ public class JsonStringLocalizer : IStringLocalizer
     private string GetString(string key)
     {
         string? fullFilePath = Path.GetFullPath($"Resources/{Thread.CurrentThread.CurrentCulture.Name}.json");
-        var fileExists = File.Exists(fullFilePath);
         return File.Exists(fullFilePath) ? GetStringFromJson(key, fullFilePath) : string.Empty;
     }
     private string GetStringFromJson(string key, string filePath)
