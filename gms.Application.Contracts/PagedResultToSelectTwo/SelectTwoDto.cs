@@ -1,11 +1,11 @@
-﻿namespace gms.shared.PagedResultToSelectTwo;
+﻿namespace gms.Application.Contracts.PagedResultToSelectTwo;
 
 public abstract class SelectTwoBaseDto<TId>
 {
     public TId Id { get; set; }
 
     public SelectTwoBaseDto(TId id) => Id = id;
-    
+
     public class StructDto<T> : SelectTwoBaseDto<T> where T : struct
     {
         public StructDto() : base(default) { }
@@ -21,17 +21,17 @@ public abstract class SelectTwoBaseDto<TId>
 
 }
 
-public class SelectTwoDto<TId> : SelectTwoBaseDto<TId> 
+public class SelectTwoDto<TId> : SelectTwoBaseDto<TId>
 {
     public string Text { get; set; }
-    
+
     public bool? Disabled { get; set; }
-    
+
     public bool? Selected { get; set; }
 
     public SelectTwoDto(TId id) : base(id)
     {
         Id = id;
     }
-    
+
 }

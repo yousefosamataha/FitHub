@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using gms.domain.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace gms.entityframeworkcore.Data;
 public class ApplicationDbContext : DbContext
@@ -7,6 +8,7 @@ public class ApplicationDbContext : DbContext
     {
 
     }
+    public DbSet<UserEntity> Users { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

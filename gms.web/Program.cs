@@ -1,9 +1,18 @@
+using gms.Application.Contracts.Settings;
+using gms.Application.Settings;
+using gms.entityframeworkcore.Data;
+using gms.shared.Settings;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+
+TenantSettings options = new();
+builder.Configuration.GetSection(nameof(TenantSettings)).Bind(options);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -34,6 +43,33 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedLanguages;
 
 });
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped<ITenantService, TenantService>();
+
+string? dbProvider = options.Defaults.DBProvider;
+
+if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
+}
+
+foreach (Tenant tenant in options.Tenants)
+{
+    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
+
+    using var scope = builder.Services.BuildServiceProvider().CreateScope();
+
+    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    dbcontext.Database.SetConnectionString(connectionString);
+
+    if (dbcontext.Database.GetPendingMigrations().Any())
+    {
+        dbcontext.Database.Migrate();
+    }
+}
 
 var app = builder.Build();
 
