@@ -5,17 +5,15 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\gms.common\gms.common.csproj" />
-		<ProjectReference Include="..\gms.service\gms.service.csproj" />
-	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.11" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Models\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\gms.shared\gms.shared.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace gms.common.PagedResultToSelectTwo;
+﻿namespace gms.shared.PagedResultToSelectTwo;
 
 public abstract class SelectTwoBaseDto<TId>
 {

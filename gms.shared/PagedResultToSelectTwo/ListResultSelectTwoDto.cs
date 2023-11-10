@@ -1,4 +1,4 @@
-﻿namespace gms.common.PagedResultToSelectTwo;
+﻿namespace gms.shared.PagedResultToSelectTwo;
 
 [Serializable]
 public class ListResultSelectTwoDto<T> : IListResultToSelect<T>

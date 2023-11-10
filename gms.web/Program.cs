@@ -1,5 +1,3 @@
-using gms.common;
-using gms.common.Localization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Localization;

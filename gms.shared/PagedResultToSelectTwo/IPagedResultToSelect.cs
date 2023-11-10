@@ -1,6 +1,6 @@
 ﻿using Volo.Abp.Application.Dtos;
 
-namespace gms.common.PagedResultToSelectTwo;
+namespace gms.shared.PagedResultToSelectTwo;
 
 public interface IPagedResultToSelect<T> : IListResultToSelect<T>, IHasTotalCount
 {
