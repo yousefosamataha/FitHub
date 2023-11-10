@@ -1,6 +1,14 @@
 # .NET Core build output
 /bin/
 /obj/
+/gms/obj/
+/gms.common/obj/
+/gms.data/bin/
+/gms.data/obj/
+/gms.services/bin/
+/gms.services/obj/
+/gms.services/bin/
+/gms.web/obj/
 
 # Visual Studio Code
 .vscode/
