@@ -10,9 +10,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Models\" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="..\gms.shared\gms.shared.csproj" />
 	</ItemGroup>
 

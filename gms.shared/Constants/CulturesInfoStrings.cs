@@ -1,4 +1,4 @@
-﻿namespace gms.shared;
+﻿namespace gms.shared.Constants;
 public static class CulturesInfoStrings
 {
     public const string English = "en-US";
