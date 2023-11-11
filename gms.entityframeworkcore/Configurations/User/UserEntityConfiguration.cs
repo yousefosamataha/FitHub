@@ -8,7 +8,7 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".Author", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbTablePrefix + ".user", gmsDbProperties.DbSchema);
 
         builder.Property(a => a.Name).IsRequired().HasMaxLength(250);
     }

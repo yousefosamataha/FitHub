@@ -8,6 +8,10 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.11" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\gms.Application.Contracts\gms.Application.Contracts.csproj" />

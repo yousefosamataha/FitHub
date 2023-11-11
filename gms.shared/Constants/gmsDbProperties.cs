@@ -3,5 +3,5 @@
 public static class gmsDbProperties
 {
     public static string DbSchema { get; set; } = null;
-    public static string DbTablePrefix { get; set; } = "RepositoryWithUOW";
+    public static string DbTablePrefix { get; set; } = "gms";
 }
