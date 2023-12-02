@@ -1,4 +1,4 @@
-﻿namespace gms.common.PagedResultToSelectTwo;
+﻿namespace gms.Application.Contracts.PagedResultToSelectTwo;
 
 public interface IListResultToSelect<T>
 {
