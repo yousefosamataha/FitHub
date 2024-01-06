@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<!--begin::Head-->
+@* <html direction="rtl" dir="rtl" style="direction: rtl">
+ *@<!--begin::Head-->
 <head>
 	<base href="" />
 	<title>@ViewData["Title"] - gms</title>
@@ -21,14 +22,28 @@
 	<!--begin::Fonts(mandatory for all pages)-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 	<!--end::Fonts-->
+	<!--begin:: Font Awesome-->
+	<link rel="stylesheet" href="~/assets/css/Font Awesome 6.4.2/all.min.css" />
+	<!--end:: Font Awesome-->
+
 	<!--begin::Vendor Stylesheets(used for this page only)-->
 	<link href="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Vendor Stylesheets-->
+
+	@* <!--begin::Page Vendor Stylesheets(used by this page)-->
+	<link href="assets/plugins/custom/prismjs/prismjs.bundle.rtl.css" rel="stylesheet" type="text/css" />
+	<!--end::Page Vendor Stylesheets-->
+	<!--begin::Global Stylesheets Bundle(used by all pages)-->
+	<link href="assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
+	<!--end::Global Stylesheets Bundle--> *@
+
 	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 	<link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Global Stylesheets Bundle-->
+
 	<!--begin::Custom Css Stylesheets-->
 	<link href="~/assets/css/customCss/custom.css" rel="stylesheet" type="text/css" />
 	<!--end::Custom Css Stylesheets-->
@@ -959,24 +974,24 @@
 							data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto"
 							data-kt-scroll-dependencies="#kt_app_header"
 							data-kt-scroll-wrappers="#kt_app_sidebar_wrapper" data-kt-scroll-offset="5px">
-							
+							<!--begin::Sidebar toggle-->
 							<div class="position-relative h-40px">
-								<div id="kt_app_sidebar_toggle" class="app-sidebar-toggle-custom active position-absolute top-50" style="transform: translateY(-50%);right: 0;"
+								<div id="kt_app_sidebar_toggle" onclick="sidebarMinimizeClick(this)" class="app-sidebar-toggle-custom position-absolute top-50 active" style="transform: translateY(-50%);right: 0;cursor: pointer;"
 									 data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
 									 data-kt-toggle-name="app-sidebar-minimize">
 									<i class="ki-solid ki-pin fs-3"></i>
 								</div>
 							</div>
-
+							<!--end::Sidebar toggle-->
 							<!--begin::Sidebar menu-->
 							<div id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false"
 								class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary px-3 mb-5">
 								<!--begin:Menu item-->
-								<div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<!--begin:Menu link-->
 									<span class="menu-link">
 										<span class="menu-icon">
-											<i class="ki-outline ki-home-2 fs-2"></i>
+											<i class="fa-solid fa-house fs-3"></i>
 										</span>
 										<span class="menu-title">Dashboards</span>
 										<span class="menu-arrow"></span>
@@ -985,49 +1000,1666 @@
 									<!--begin:Menu sub-->
 									<div class="menu-sub menu-sub-accordion">
 										<!--begin:Menu item-->
-										<div class="menu-item">
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
 											<!--begin:Menu link-->
 											<a class="menu-link" href="@Url.Action("Index", "Home")">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Default</span>
+												<span class="menu-title">Sales</span>	
 											</a>
 											<!--end:Menu link-->
 										</div>
 										<!--end:Menu item-->
 										<!--begin:Menu item-->
-										<div class="menu-item">
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
 											<!--begin:Menu link-->
 											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">eCommerce</span>
+												<span class="menu-title">Human Resources</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-receipt fs-3"></i>
+										</span>
+										<span class="menu-title">Sales</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="3">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Invoices</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
 										<!--end:Menu item-->
 										<!--begin:Menu item-->
-										<div class="menu-item">
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="4">
 											<!--begin:Menu link-->
 											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Projects</span>
+												<span class="menu-title">Create Invoice</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
 										<!--end:Menu item-->
 										<!--begin:Menu item-->
-										<div class="menu-item">
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="5">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Estimates</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="6">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Create Estimate</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="7">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Credit Notes</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="8">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Refund Receipts</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="9">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Subscriptions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="10">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Trainee Payments</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="11">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Sales Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-clipboard-list fs-2"></i>
+										</span>
+										<span class="menu-title">Training Programs</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="12">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Programs</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="13">
 											<!--begin:Menu link-->
 											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Online Courses</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-user-group fs-4"></i>
+										</span>
+										<span class="menu-title">Trainees</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="14">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Trainees</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="15">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Add New Trainees</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="16">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Appointments</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="17">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Contacts List</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="18">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Trainees Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-credit-card fs-3"></i>
+										</span>
+										<span class="menu-title">Points & Credits</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="19">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Credit Charges</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="20">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Credit Usages</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="21">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Packages</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="22">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-id-card-clip fs-3"></i>
+										</span>
+										<span class="menu-title">Memberships</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="23">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Memberships</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="24">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Subscriptions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="25">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-calendar-day fs-2"></i>
+										</span>
+										<span class="menu-title">Trainees Attendance</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="26">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Trainees Attendance logs</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-box-open fs-3"></i>
+										</span>
+										<span class="menu-title">Inventory</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="27">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Products & Services</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="28">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Requisitions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="29">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Price List</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="30">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Warehouses</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="31">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Stocktakings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="32">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Inventory Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="33">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Products Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-truck-arrow-right fs-3"></i>
+										</span>
+										<span class="menu-title">Purchases</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="34">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Purchase Invoices</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="35">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Purchase Refunds</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="36">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Suppliers</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="37">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Suppliers Payments</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="38">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Purchase Invoice Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="39">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Suppliers Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-vault fs-3"></i>
+										</span>
+										<span class="menu-title">Finance</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="40">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Expenses</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="41">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Incomes</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item--> 
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="42">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Treasuries & Bank Accounts</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="43">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Finance Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-money-bills fs-3"></i>
+										</span>
+										<span class="menu-title">Accounting</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="44">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Journal Entries</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="45">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Add Entry</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="46">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Chart of Accounts</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="47">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Cost Centers</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="48">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Assets</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="49">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Accounting Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-file-lines fs-2"></i>
+										</span>
+										<span class="menu-title">Requests</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="50">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Requests</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="51">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-user-group fs-4"></i>
+										</span>
+										<span class="menu-title">Employees</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="52">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Employees</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="53">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Employee Roles</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="54">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-sitemap fs-2"></i>
+										</span>
+										<span class="menu-title">Organizational Structure</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="55">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Designations</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="56">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Departments</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="57">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Employee Levels</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="58">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Employment Types</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-calendar-days fs-2"></i>
+										</span>
+										<span class="menu-title">Attendance</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="59">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Logs</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="60">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Days</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="61">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Sheets</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="62">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Permissions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="63">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Shifts Management</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="64">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Allocated Shifts</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="65">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Log Sessions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="66">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-money-bills fs-3"></i>
+										</span>
+										<span class="menu-title">Payroll</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="67">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Contracts</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="68">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pay Runs</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="69">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Payslips</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="70">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Loans</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="71">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Salary Components</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="72">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Salary Structures</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="73">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-chart-pie fs-2"></i>
+										</span>
+										<span class="menu-title">Reports</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="74">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Sales Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="75">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Purchases Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="76">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Accounting Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="77">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SMS Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="78">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Attendance Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="79">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Payroll Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="80">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Points and Credits Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="90">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Memberships Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="91">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Workflow Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="92">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Trainees Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="93">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Store Reports</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="94">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">System Activity Log</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-money-bills fs-3"></i>
+										</span>
+										<span class="menu-title">Installments Management</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="95">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Installment Agreements</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="96">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Installments</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-money-bills fs-3"></i>
+										</span>
+										<span class="menu-title">Sales Target & Commissions</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="97">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Index", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Commission Rules</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="98">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Sales Commissions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="99">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Sales Periods</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-location-dot fs-2"></i>
+										</span>
+										<span class="menu-title">Branches</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Branches Management</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="101">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Add Branch</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="102">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Branches Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-file-lines fs-2"></i>
+										</span>
+										<span class="menu-title">Templates</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="103">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Printable Templates</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="104">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Prefilled Templates</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="105">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Email Templates</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="106">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SMS Templates</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="107">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Terms & Conditions</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="108">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Manage Files/Documents</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="109">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Auto Reminder Rules</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-icon">
+											<i class="fa-solid fa-gear fs-2"></i>
+										</span>
+										<span class="menu-title">Settings</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="110">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Account Information</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="111">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Account Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="112">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SMTP Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="113">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Payment Methods</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="114">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SMS Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="115">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Auto Number Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="116">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Tax Settings</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="117">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Apps Manager</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="118">
+											<!--begin:Menu link-->
+											<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">System Logo & Color</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -1045,20 +2677,11 @@
 				<!--end::Sidebar-->
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-					<!--begin::Content wrapper-->
-					<div class="d-flex flex-column flex-column-fluid">
-						<!--begin::Content-->
-						<div id="kt_app_content" class="app-content flex-column-fluid">
-							@RenderBody()
-						</div>
-						<!--end::Content-->
-					</div>
-					<!--end::Content wrapper-->
+					@RenderBody()
 					<!--begin::Footer-->
-					<div id="kt_app_footer" class="app-footer">
+					@*<div id="kt_app_footer" class="app-footer">
 						<!--begin::Footer container-->
-						<div
-							class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
+						<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
 								<span class="text-muted fw-semibold me-1">2023&copy;</span>
@@ -1083,7 +2706,7 @@
 							<!--end::Menu-->
 						</div>
 						<!--end::Footer container-->
-					</div>
+					</div>*@
 					<!--end::Footer-->
 				</div>
 				<!--end:::Main-->
@@ -1091,7 +2714,7 @@
 				<div id="kt_app_aside" class="app-aside flex-column" data-kt-drawer="true"
 					data-kt-drawer-name="app-aside" data-kt-drawer-activate="{default: true, lg: false}"
 					data-kt-drawer-overlay="true" data-kt-drawer-width="auto" data-kt-drawer-direction="end"
-					data-kt-drawer-toggle="#kt_app_aside_mobile_toggle">
+					data-kt-drawer-toggle="#kt_app_aside_mobile_toggle" style="padding-top: 30px;">
 					<!--begin::Wrapper-->
 					<div id="kt_app_aside_wrapper"
 						class="d-flex flex-column align-items-center hover-scroll-y mt-lg-n3 py-5 py-lg-0 gap-4"
@@ -1162,7 +2785,7 @@
 	<script src="~/assets/js/custom/utilities/modals/users-search.js"></script>
 	<!--end::Custom Javascript-->
 	<!--begin::Custom Javascript-->
-	<script src="~/assets/js/custom/custom.js"></script>
+	<script src="~/assets/js/customJs/custom.js"></script>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
 	@await RenderSectionAsync("Scripts", required: false)
