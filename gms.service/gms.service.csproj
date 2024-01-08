@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="BaseRepository\**" />
+      <EmbeddedResource Remove="BaseRepository\**" />
+      <None Remove="BaseRepository\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.34" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\gms.common\gms.common.csproj" />
+    </ItemGroup>
+</Project>
