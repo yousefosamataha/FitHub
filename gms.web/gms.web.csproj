@@ -14,9 +14,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\gms.Application.Contracts\gms.Application.Contracts.csproj" />
-	  <ProjectReference Include="..\gms.Application\gms.Application.csproj" />
-	  <ProjectReference Include="..\gms.entityframeworkcore\gms.entityframeworkcore.csproj" />
+	  <ProjectReference Include="..\gms.common\gms.common.csproj" />
+	  <ProjectReference Include="..\gms.data\gms.data.csproj" />
+	  <ProjectReference Include="..\gms.service\gms.service.csproj" />
 	</ItemGroup>
 
 </Project>
