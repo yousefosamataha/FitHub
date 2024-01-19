@@ -1,4 +1,6 @@
-using gms.shared.Settings;
+using gms.common.Settings;
+using gms.entityframeworkcore.Data;
+using gms.service.Settings;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Localization;
