@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations.GymEventPlace;
-internal class GymEventPlaceeConfiguration : IEntityTypeConfiguration<GymEventPlaceEntity>
+internal class GymEventPlaceConfiguration : IEntityTypeConfiguration<GymEventPlaceEntity>
 {
     public void Configure(EntityTypeBuilder<GymEventPlaceEntity> builder)
     {
