@@ -1,10 +1,6 @@
-using gms.Application.Contracts.Settings;
-using gms.Application.Settings;
-using gms.entityframeworkcore.Data;
 using gms.shared.Settings;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -33,8 +29,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedLanguages = new[]
     {
-        new CultureInfo(CulturesInfoStrings.English),
         new CultureInfo(CulturesInfoStrings.Arabic),
+        new CultureInfo(CulturesInfoStrings.English),
         new CultureInfo(CulturesInfoStrings.French)
     };
 
@@ -44,32 +40,32 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 });
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-builder.Services.AddScoped<ITenantService, TenantService>();
+//builder.Services.AddScoped<ITenantService, TenantService>();
 
-string? dbProvider = options.Defaults.DBProvider;
+//string? dbProvider = options.Defaults.DBProvider;
 
-if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
-}
+//if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
+//{
+//    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
+//}
 
-foreach (Tenant tenant in options.Tenants)
-{
-    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
+//foreach (Tenant tenant in options.Tenants)
+//{
+//    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
 
-    using var scope = builder.Services.BuildServiceProvider().CreateScope();
+//    using var scope = builder.Services.BuildServiceProvider().CreateScope();
 
-    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    dbcontext.Database.SetConnectionString(connectionString);
+//    dbcontext.Database.SetConnectionString(connectionString);
 
-    if (dbcontext.Database.GetPendingMigrations().Any())
-    {
-        dbcontext.Database.Migrate();
-    }
-}
+//    if (dbcontext.Database.GetPendingMigrations().Any())
+//    {
+//        dbcontext.Database.Migrate();
+//    }
+//}
 
 var app = builder.Build();
 
@@ -86,7 +82,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-var supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+var supportedCultures = new[] { CulturesInfoStrings.Arabic, CulturesInfoStrings.English, CulturesInfoStrings.French };
 
 app.UseRequestLocalization(new RequestLocalizationOptions()
     .SetDefaultCulture(supportedCultures[0])
