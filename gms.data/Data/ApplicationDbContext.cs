@@ -1,5 +1,4 @@
-﻿using gms.data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace gms.entityframeworkcore.Data;
 public class ApplicationDbContext : DbContext
@@ -8,7 +7,7 @@ public class ApplicationDbContext : DbContext
     {
 
     }
-    public DbSet<CategoryEntity> Categories { get; set; }
+    //public DbSet<CategoryEntity> Categories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
