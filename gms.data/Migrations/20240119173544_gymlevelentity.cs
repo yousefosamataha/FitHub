@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gms.data.Migrations
 {
     /// <inheritdoc />
-    public partial class addgymlevelentity : Migration
+    public partial class gymlevelentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

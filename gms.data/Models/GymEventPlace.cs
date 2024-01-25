@@ -3,5 +3,5 @@
 namespace gms.data.Models;
 public class GymEventPlaceEntity : BaseEntity
 {
-    public string Place { get; set; }
+    public string? Place { get; set; }
 }

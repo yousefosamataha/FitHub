@@ -12,7 +12,7 @@ using gms.entityframeworkcore.Data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119161135_addgymeventplaceentity")]
+    [Migration("20240119173038_addgymeventplaceentity")]
     partial class addgymeventplaceentity
     {
         /// <inheritdoc />
@@ -66,7 +66,6 @@ namespace gms.data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Place")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

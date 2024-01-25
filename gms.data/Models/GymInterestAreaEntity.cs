@@ -3,5 +3,5 @@
 namespace gms.data.Models;
 public class GymInterestAreaEntity : BaseEntity
 {
-    public string Interest { get; set; }
+    public string? Interest { get; set; }
 }

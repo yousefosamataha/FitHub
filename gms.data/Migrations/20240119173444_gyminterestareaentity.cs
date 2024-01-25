@@ -6,24 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gms.data.Migrations
 {
     /// <inheritdoc />
-    public partial class addgymeventplaceentity : Migration
+    public partial class gyminterestareaentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "gms.gym_event_place",
+                name: "gms.gym_interest_area",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Place = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Interest = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.gym_event_place", x => x.Id);
+                    table.PrimaryKey("PK_gms.gym_interest_area", x => x.Id);
                 });
         }
 
@@ -31,7 +31,7 @@ namespace gms.data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "gms.gym_event_place");
+                name: "gms.gym_interest_area");
         }
     }
 }

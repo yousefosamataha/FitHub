@@ -12,7 +12,7 @@ using gms.entityframeworkcore.Data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119165753_addgymgroupentity")]
+    [Migration("20240119173159_addgymgroupentity")]
     partial class addgymgroupentity
     {
         /// <inheritdoc />
@@ -66,7 +66,6 @@ namespace gms.data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Place")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -85,7 +84,6 @@ namespace gms.data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -96,7 +94,6 @@ namespace gms.data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

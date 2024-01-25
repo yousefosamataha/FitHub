@@ -3,7 +3,7 @@ using gms.data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.GymEventPlace;
+namespace gms.data.Configurations.GymGroup;
 internal class GymGroupConfiguration : IEntityTypeConfiguration<GymGroupEntity>
 {
     public void Configure(EntityTypeBuilder<GymGroupEntity> builder)
