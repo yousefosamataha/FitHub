@@ -1,11 +1,31 @@
-﻿<!DOCTYPE html>
+﻿﻿@using System.Globalization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+@{
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+<!DOCTYPE html>
 <html lang="en">
 @* <html direction="rtl" dir="rtl" style="direction: rtl">
  *@<!--begin::Head-->
 <head>
 	<base href="" />
-	<title>@ViewData["Title"] - gms</title>
+
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Json Based Localization</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	@if (IsRTL)
+	{
+		<link rel="stylesheet"
+			  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css"
+			  integrity="sha384-+qdLaIRZfNu4cVPK/PxJJEy0B0f3Ugv8i482AKY7gwXwhaCroABd086ybrVKTa0q"
+			  crossorigin="anonymous" />
+
+	}
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/JsonBasedLocalization.web.styles.css" asp-append-version="true" />
+	<title>@ViewData["Title"] - gms</title>
 	<meta name="description"
 		content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
 	<meta name="keywords"
@@ -92,6 +112,7 @@
 					<div class="app-navbar flex-grow-1 justify-content-end" id="kt_app_header_navbar">
 						<!--begin::Notifications-->
 						<div class="app-navbar-item ms-2 ms-lg-6">
+							
 							<!--begin::Menu- wrapper-->
 							<div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px"
 								data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
@@ -955,6 +976,9 @@
 						<!--end::Header menu toggle-->
 					</div>
 					<!--end::Navbar-->
+					<div class="p-4">
+						<partial name="_SelectLanguage" />
+					</div>
 				</div>
 				<!--end::Header main-->
 				<!--begin::Separator-->
