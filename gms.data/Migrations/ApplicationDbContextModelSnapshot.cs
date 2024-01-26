@@ -45,6 +45,50 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1d9feabc-27cc-43d6-a9f1-47785c4af200"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8681),
+                            IsDeleted = false,
+                            Name = "Regular"
+                        },
+                        new
+                        {
+                            Id = new Guid("d8878e02-a940-4615-af6e-7202c6615532"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8814),
+                            IsDeleted = false,
+                            Name = "Limited"
+                        },
+                        new
+                        {
+                            Id = new Guid("9aea944f-a256-4712-8500-089f43078b8a"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8820),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Abs (Abdomininals)"
+                        },
+                        new
+                        {
+                            Id = new Guid("3fe45a27-1ae8-42b1-accf-2f512284c2a6"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8823),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Legs"
+                        },
+                        new
+                        {
+                            Id = new Guid("f2c7f5ea-10ae-4438-ba0b-17d0679da74a"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8827),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Biceps"
+                        },
+                        new
+                        {
+                            Id = new Guid("82f7936b-90cc-4f5d-bbf2-8ad9d1c8e9db"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 128, DateTimeKind.Local).AddTicks(8835),
+                            IsDeleted = false,
+                            Name = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.GymEventPlaceEntity", b =>
@@ -145,6 +189,15 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.gym_levels", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ffe704ac-9d79-4c00-8d05-fdffb3a49c69"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 10, 30, 129, DateTimeKind.Local).AddTicks(9066),
+                            IsDeleted = false,
+                            Level = "Level 1"
+                        });
                 });
 #pragma warning restore 612, 618
         }

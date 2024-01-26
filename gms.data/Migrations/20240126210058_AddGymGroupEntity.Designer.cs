@@ -12,8 +12,8 @@ using gms.entityframeworkcore.Data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119173544_gymlevelentity")]
-    partial class gymlevelentity
+    [Migration("20240126210058_AddGymGroupEntity")]
+    partial class AddGymGroupEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,50 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bf2b3035-002b-448d-a58b-57eedfe33753"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(337),
+                            IsDeleted = false,
+                            Name = "Regular"
+                        },
+                        new
+                        {
+                            Id = new Guid("147685ef-4a69-437a-a094-0872db3deb2c"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(407),
+                            IsDeleted = false,
+                            Name = "Limited"
+                        },
+                        new
+                        {
+                            Id = new Guid("aba5f6d7-cccd-48ba-8383-98563a5cf1d5"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(411),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Abs (Abdomininals)"
+                        },
+                        new
+                        {
+                            Id = new Guid("53ba090c-bf88-4670-b798-068155c685e5"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(414),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Legs"
+                        },
+                        new
+                        {
+                            Id = new Guid("fa6ecd08-5b12-43e1-953e-1a80cfb1b9d3"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(439),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Biceps"
+                        },
+                        new
+                        {
+                            Id = new Guid("fa917e0f-c660-4d35-b1e8-e0ec1a03033d"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 0, 58, 302, DateTimeKind.Local).AddTicks(447),
+                            IsDeleted = false,
+                            Name = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.GymEventPlaceEntity", b =>
@@ -100,54 +144,6 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.gym_group", (string)null);
-                });
-
-            modelBuilder.Entity("gms.data.Models.GymInterestAreaEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Interest")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.gym_interest_area", (string)null);
-                });
-
-            modelBuilder.Entity("gms.data.Models.GymLevelEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Level")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.gym_levels", (string)null);
                 });
 #pragma warning restore 612, 618
         }
