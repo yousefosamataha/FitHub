@@ -12,8 +12,8 @@ using gms.entityframeworkcore.Data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119173159_addgymgroupentity")]
-    partial class addgymgroupentity
+    [Migration("20240126210349_AddGymInterestAreaEntity")]
+    partial class AddGymInterestAreaEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,50 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("edcd2a1f-e190-4dd5-8d7a-98f6f9a57527"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5690),
+                            IsDeleted = false,
+                            Name = "Regular"
+                        },
+                        new
+                        {
+                            Id = new Guid("c5072230-ae51-443e-9a75-40857b084a7f"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5758),
+                            IsDeleted = false,
+                            Name = "Limited"
+                        },
+                        new
+                        {
+                            Id = new Guid("87702882-51a4-4926-a362-ad4b13482e2c"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5761),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Abs (Abdomininals)"
+                        },
+                        new
+                        {
+                            Id = new Guid("1f587690-2567-4633-adb3-64d5f590c916"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5765),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Legs"
+                        },
+                        new
+                        {
+                            Id = new Guid("6353a480-efdc-4512-996f-1ddf39dcbd31"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5768),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Biceps"
+                        },
+                        new
+                        {
+                            Id = new Guid("b59c7106-26cf-420b-a529-e5aa9225b9ea"),
+                            CreatedAt = new DateTime(2024, 1, 26, 23, 3, 49, 50, DateTimeKind.Local).AddTicks(5799),
+                            IsDeleted = false,
+                            Name = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.GymEventPlaceEntity", b =>
@@ -100,6 +144,30 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.gym_group", (string)null);
+                });
+
+            modelBuilder.Entity("gms.data.Models.GymInterestAreaEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Interest")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("gms.gym_interest_area", (string)null);
                 });
 #pragma warning restore 612, 618
         }
