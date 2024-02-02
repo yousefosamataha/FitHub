@@ -1,16 +1,15 @@
 {
-  "culture": "English Us",
-  "welcome": "Welcome {0}, How are You?",
-  "home": "Home",
-  "privacy": "Privacy",
+  "---layout---": "------",
+  "---1.user menu---": "------",
+  "my_profile": "My Profile",
+  "appearance": "Appearance",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System",
   "language": "Language",
-  "languages": "Languages",
-  "uiLanguage": "UI Language",
-  "date": "Date",
-  "currency": "Currency",
-  "numbers": "Numbers",
-  "create": "Create",
-  "save": "Save",
-  "required": "Required Field",
-  "name": "Name"
+  "arabic": "Arabic",
+  "english": "English",
+  "french": "French",
+  "settings": "Settings",
+  "sign_out": "Sign Out"
 }

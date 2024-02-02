@@ -35213,7 +35213,8 @@ textarea.form-control-lg {
     }
 
 .menu-sub-indention .menu-sub:not([data-popper-placement]) {
-    margin-left: 1rem
+    margin-left: 1rem;
+    margin-top: 0.5rem;
 }
 
 .menu-sub-indention .menu-item .menu-item .menu-link.active {
@@ -40870,13 +40871,13 @@ textarea.form-control-lg {
     color: var(--bs-text-primary)
 }
 
-.btn-check:active + .btn.btn-active-color-primary .svg-icon, .btn-check:active + .btn.btn-active-color-primary i, .btn-check:checked + .btn.btn-active-color-primary .svg-icon, .btn-check:checked + .btn.btn-active-color-primary i, .btn.btn-active-color-primary.active .svg-icon, .btn.btn-active-color-primary.active i, .btn.btn-active-color-primary.show .svg-icon, .btn.btn-active-color-primary.show i, .btn.btn-active-color-primary:active:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:active:not(.btn-active) i, .btn.btn-active-color-primary:focus:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:focus:not(.btn-active) i, .btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:hover:not(.btn-active) i, .show > .btn.btn-active-color-primary .svg-icon, .show > .btn.btn-active-color-primary i {
-    color: var(--bs-text-primary)
-}
+    .btn-check:active + .btn.btn-active-color-primary .svg-icon, .btn-check:active + .btn.btn-active-color-primary i, .btn-check:checked + .btn.btn-active-color-primary .svg-icon, .btn-check:checked + .btn.btn-active-color-primary i, .btn.btn-active-color-primary.active .svg-icon, .btn.btn-active-color-primary.active i, .btn.btn-active-color-primary.show .svg-icon, .btn.btn-active-color-primary.show i, .btn.btn-active-color-primary:active:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:active:not(.btn-active) i, .btn.btn-active-color-primary:focus:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:focus:not(.btn-active) i, .btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon, .btn.btn-active-color-primary:hover:not(.btn-active) i, .show > .btn.btn-active-color-primary .svg-icon, .show > .btn.btn-active-color-primary i {
+        color: var(--bs-text-primary)
+    }
 
-.btn-check:active + .btn.btn-active-color-primary.dropdown-toggle:after, .btn-check:checked + .btn.btn-active-color-primary.dropdown-toggle:after, .btn.btn-active-color-primary.active.dropdown-toggle:after, .btn.btn-active-color-primary.show.dropdown-toggle:after, .btn.btn-active-color-primary:active:not(.btn-active).dropdown-toggle:after, .btn.btn-active-color-primary:focus:not(.btn-active).dropdown-toggle:after, .btn.btn-active-color-primary:hover:not(.btn-active).dropdown-toggle:after, .show > .btn.btn-active-color-primary.dropdown-toggle:after {
-    color: var(--bs-text-primary)
-}
+    .btn-check:active + .btn.btn-active-color-primary.dropdown-toggle:after, .btn-check:checked + .btn.btn-active-color-primary.dropdown-toggle:after, .btn.btn-active-color-primary.active.dropdown-toggle:after, .btn.btn-active-color-primary.show.dropdown-toggle:after, .btn.btn-active-color-primary:active:not(.btn-active).dropdown-toggle:after, .btn.btn-active-color-primary:focus:not(.btn-active).dropdown-toggle:after, .btn.btn-active-color-primary:hover:not(.btn-active).dropdown-toggle:after, .show > .btn.btn-active-color-primary.dropdown-toggle:after {
+        color: var(--bs-text-primary)
+    }
 
 .btn.btn-icon-primary.dropdown-toggle:after {
     color: var(--bs-text-primary)
@@ -56728,7 +56729,7 @@ router-outlet {
         }
 
         .app-sidebar-menu-primary.menu > .menu-item > .menu-link .menu-icon, .app-sidebar-menu-primary.menu > .menu-item > .menu-link .menu-icon .svg-icon, .app-sidebar-menu-primary.menu > .menu-item > .menu-link .menu-icon i {
-            color: var(--bs-gray-500)
+            color: var(--bs-gray-800)
         }
 
         .app-sidebar-menu-primary.menu > .menu-item > .menu-link .menu-bullet .bullet {
@@ -57018,7 +57019,9 @@ router-outlet {
             color: var(--bs-white)
         }
 
-        .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon, .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon .svg-icon, .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon i {
+        .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon,
+        .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon .svg-icon,
+        .app-sidebar-menu-primary.menu > .menu-item .menu-item .menu-link.active .menu-icon i {
             color: var(--bs-primary)
         }
 
@@ -57034,13 +57037,6 @@ router-outlet {
             background-color: var(--bs-primary);
             -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6' fill='var%28--bs-primary%29'%3e%3cpath d='M2.72011 2.76429L4.46358 1.02083C4.63618 0.848244 4.63617 0.568419 4.46358 0.395831C4.29099 0.223244 4.01118 0.223244 3.83861 0.395831L1.52904 2.70537C1.36629 2.86808 1.36629 3.13191 1.52904 3.29462L3.83861 5.60419C4.01117 5.77675 4.29099 5.77675 4.46358 5.60419C4.63617 5.43156 4.63617 5.15175 4.46358 4.97919L2.72011 3.23571C2.58994 3.10554 2.58994 2.89446 2.72011 2.76429Z'/%3e%3c/svg%3e");
             mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6' fill='var%28--bs-primary%29'%3e%3cpath d='M2.72011 2.76429L4.46358 1.02083C4.63618 0.848244 4.63617 0.568419 4.46358 0.395831C4.29099 0.223244 4.01118 0.223244 3.83861 0.395831L1.52904 2.70537C1.36629 2.86808 1.36629 3.13191 1.52904 3.29462L3.83861 5.60419C4.01117 5.77675 4.29099 5.77675 4.46358 5.60419C4.63617 5.43156 4.63617 5.15175 4.46358 4.97919L2.72011 3.23571C2.58994 3.10554 2.58994 2.89446 2.72011 2.76429Z'/%3e%3c/svg%3e");
-            mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            background-color: var(--bs-primary);
-            -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6' fill='var%28--bs-primary%29'%3e%3cpath d='M3.27989 3.23571L1.53642 4.97917C1.36382 5.15176 1.36383 5.43158 1.53642 5.60417C1.70901 5.77676 1.98882 5.77676 2.16139 5.60417L4.47096 3.29463C4.63371 3.13192 4.63371 2.86809 4.47096 2.70538L2.16139 0.395812C1.98883 0.22325 1.70901 0.22325 1.53642 0.395812C1.36383 0.568437 1.36383 0.84825 1.53642 1.02081L3.27989 2.76429C3.41006 2.89446 3.41006 3.10554 3.27989 3.23571Z'/%3e%3c/svg%3e");
-            mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6' fill='var%28--bs-primary%29'%3e%3cpath d='M3.27989 3.23571L1.53642 4.97917C1.36382 5.15176 1.36383 5.43158 1.53642 5.60417C1.70901 5.77676 1.98882 5.77676 2.16139 5.60417L4.47096 3.29463C4.63371 3.13192 4.63371 2.86809 4.47096 2.70538L2.16139 0.395812C1.98883 0.22325 1.70901 0.22325 1.53642 0.395812C1.36383 0.568437 1.36383 0.84825 1.53642 1.02081L3.27989 2.76429C3.41006 2.89446 3.41006 3.10554 3.27989 3.23571Z'/%3e%3c/svg%3e")
         }
 
 @media (min-width:992px) {
@@ -57177,3 +57173,15 @@ router-outlet {
         display: none !important
     }
 }
+
+#kt_app_sidebar_toggle {
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+    #kt_app_sidebar_toggle i {
+        transform: rotate(35deg);
+        font-size: 1.2rem !important;
+    }
+
