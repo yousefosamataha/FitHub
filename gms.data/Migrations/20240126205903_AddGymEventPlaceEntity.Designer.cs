@@ -12,8 +12,8 @@ using gms.entityframeworkcore.Data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119173038_addgymeventplaceentity")]
-    partial class addgymeventplaceentity
+    [Migration("20240126205903_AddGymEventPlaceEntity")]
+    partial class AddGymEventPlaceEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,50 @@ namespace gms.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("gms.category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ebcbe191-6fef-47c0-9fe0-34216dcd194b"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1135),
+                            IsDeleted = false,
+                            Name = "Regular"
+                        },
+                        new
+                        {
+                            Id = new Guid("2b131b6a-0f99-43be-ba1b-2f3f4e440940"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1222),
+                            IsDeleted = false,
+                            Name = "Limited"
+                        },
+                        new
+                        {
+                            Id = new Guid("dae0c103-e52d-459d-b5c9-6d02dcbf59f5"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1227),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Abs (Abdomininals)"
+                        },
+                        new
+                        {
+                            Id = new Guid("13c825c4-b6c2-449d-ba97-7f552e17cce7"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1231),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Legs"
+                        },
+                        new
+                        {
+                            Id = new Guid("12220ade-9671-444b-a15f-a92c023ecc2b"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1234),
+                            IsDeleted = false,
+                            Name = "Total Gym Exercises for Biceps"
+                        },
+                        new
+                        {
+                            Id = new Guid("a98e2629-0768-4b45-8d02-bae3a216f60b"),
+                            CreatedAt = new DateTime(2024, 1, 26, 22, 59, 3, 518, DateTimeKind.Local).AddTicks(1241),
+                            IsDeleted = false,
+                            Name = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.GymEventPlaceEntity", b =>

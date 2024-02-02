@@ -14,8 +14,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\gms.common\gms.common.csproj" />
-	  <ProjectReference Include="..\gms.data\gms.data.csproj" />
 	  <ProjectReference Include="..\gms.service\gms.service.csproj" />
 	</ItemGroup>
 
