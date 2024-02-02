@@ -7,8 +7,8 @@ namespace gms.web.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
     private readonly IStringLocalizer<HomeController> _localizer;
+
     public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer)
     {
         _logger = logger;
@@ -17,14 +17,14 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        ViewBag.WelcomeMessage = _localizer["welcome"];
+        ViewBag.localizer = _localizer;
         return View();
     }
 
     public IActionResult Privacy()
     {
         return View();
-    }
+    }  
 
     [HttpPost]
     public IActionResult SetLanguage(string culture, string redirecturl)

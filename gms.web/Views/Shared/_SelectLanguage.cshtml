@@ -13,12 +13,133 @@
                                            .ToList();
     string reduirectUrl = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
 }
-<div>
-    <form method="post" asp-controller="Home" asp-action="SetLanguage" asp-route-redirecturl="@reduirectUrl">
-        <select name="culture"
-                asp-for="@requestCulture.RequestCulture.UICulture.Name"
-                asp-items="@cultures"
-                onchange="this.form.submit();">
-        </select>
-    </form>
+
+<form id="setLanguageForm" method="post" asp-controller="Home" asp-action="SetLanguage" asp-route-redirecturl="@reduirectUrl" hidden>
+    <input id="setLanguageInput" name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" />
+</form>
+<!--begin::Menu item-->
+<div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
+    <a href="#" class="menu-link px-5">
+        <span class="menu-icon" data-kt-element="icon">
+            <i class="fa-solid fa-globe fs-2"></i>
+        </span>
+        <span class="menu-title position-relative">
+            @localizer["language"]
+            @switch (requestCulture.RequestCulture.UICulture.Name)
+            {
+                case "ar-EG":
+                    <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
+                        @localizer["arabic"]
+                        <img class="w-15px h-15px rounded-1 ms-2" src="~/assets/media/flags/saudi-arabia.svg" alt="" />
+                    </span>
+                    break;
+                case "en-US":
+                    <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
+                        @localizer["english"]
+                        <img class="w-15px h-15px rounded-1 ms-2" src="~/assets/media/flags/united-states.svg" alt="" />
+                    </span>
+                    break;
+                case "fr-FR":
+                    <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
+                        @localizer["french"]
+                        <img class="w-15px h-15px rounded-1 ms-2" src="~/assets/media/flags/france.svg" alt="" />
+                    </span>
+                    break;
+            }
+        </span>
+    </a>
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+        @foreach (var culture in cultures)
+        {
+            switch (culture.Value)
+            {
+                case "ar-EG":
+                    <!--begin::Menu item-->
+                    <div class="menu-item px-3" value="ar-EG" onclick="setLanguage(this);">
+                        <div class="menu-link d-flex px-5 @( requestCulture.RequestCulture.UICulture.Name == "ar-EG" ? "active" : "" )">
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="~/assets/media/flags/saudi-arabia.svg" alt="" />
+                            </span>
+                            @localizer["arabic"]
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+                    break;
+                case "en-US":
+                    <!--begin::Menu item-->
+                    <div class="menu-item px-3" value="en-US" onclick="setLanguage(this);">
+                        <div class="menu-link d-flex px-5 @( requestCulture.RequestCulture.UICulture.Name == "en-US" ? "active" : "" )">
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="~/assets/media/flags/united-states.svg" alt="" />
+                            </span>
+                            @localizer["english"]
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+                    break;
+                case "fr-FR":
+                    <!--begin::Menu item-->
+                    <div class="menu-item px-3" value="fr-FR" onclick="setLanguage(this);">
+                        <div class="menu-link d-flex px-5 @( requestCulture.RequestCulture.UICulture.Name == "fr-FR" ? "active" : "" )">
+                            <span class="symbol symbol-20px me-4">
+                                <img class="rounded-1" src="~/assets/media/flags/france.svg" alt="" />
+                            </span>
+                            @localizer["french"]
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+                    break;
+            }
+        }
+        
+		<div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
+            <!--begin::Menu item-->
+            <div class="menu-item px-3">
+                <a href="../../demo39/dist/account/settings.html"
+                   class="menu-link d-flex px-5">
+                    <span class="symbol symbol-20px me-4">
+                        <img class="rounded-1" src="assets/media/flags/spain.svg" alt="" />
+                    </span>Spanish
+                </a>
+            </div>
+            <!--end::Menu item-->
+            <!--begin::Menu item-->
+            <div class="menu-item px-3">
+                <a href="../../demo39/dist/account/settings.html"
+                   class="menu-link d-flex px-5">
+                    <span class="symbol symbol-20px me-4">
+                        <img class="rounded-1" src="assets/media/flags/germany.svg" alt="" />
+                    </span>German
+                </a>
+            </div>
+            <!--end::Menu item-->
+		</div>
+		<div class="menu-item">
+			<div class="menu-content">
+				<a class="btn btn-flex btn-color-primary d-flex flex-stack fs-base p-0 ms-2 mb-2 toggle collapsible collapsed"
+				   data-bs-toggle="collapse"
+				   href="#kt_app_sidebar_menu_dashboards_collapse"
+				   data-kt-toggle-text="Show Less">
+					<span data-kt-toggle-text-target="true">Show 2 More</span>
+					<i class="ki-outline ki-minus-square toggle-on fs-2 me-0"></i>
+					<i class="ki-outline ki-plus-square toggle-off fs-2 me-0"></i>
+				</a>
+			</div>
+		</div>
+    </div>
+    <!--end::Menu sub-->
 </div>
+<!--end::Menu item-->
+
+<script>
+    function setLanguage(e) {
+        const form = document.getElementById('setLanguageForm');
+        const input = document.getElementById('setLanguageInput');
+        const selectedLanguage = e.getAttribute('value');
+
+        console.log(e.getAttribute('value'));
+        input.value = selectedLanguage;
+        form.submit();
+    }
+</script>
