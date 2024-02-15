@@ -8,72 +8,73 @@ using System.Globalization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 {
-	TenantSettings options = new();
-	builder.Configuration.GetSection(nameof(TenantSettings)).Bind(options);
+    TenantSettings options = new();
+    builder.Configuration.GetSection(nameof(TenantSettings)).Bind(options);
 
-	builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer
-												(
-													builder.Configuration.GetConnectionString("DefaultConnection"),
-													b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-												));
+    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer
+                                                (
+                                                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                                                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
 
-	// Add services to the container.
-	builder.Services.AddControllersWithViews();
+                                                ));
 
-	builder.Services.AddLocalization();
+    // Add services to the container.
+    builder.Services.AddControllersWithViews();
 
-	builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+    builder.Services.AddLocalization();
 
-	builder.Services.AddMvc()
-					.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-					.AddDataAnnotationsLocalization(options =>
-					{
-						options.DataAnnotationLocalizerProvider = (type, factory) =>
-							factory.Create(typeof(JsonStringLocalizerFactory));
-					});
+    builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
-	builder.Services.Configure<RequestLocalizationOptions>(options =>
-	{
-		var supportedLanguages = new[]
-		{
-		new CultureInfo(CulturesInfoStrings.English),
-		new CultureInfo(CulturesInfoStrings.Arabic),
-		new CultureInfo(CulturesInfoStrings.English),
-		new CultureInfo(CulturesInfoStrings.French)
-	};
+    builder.Services.AddMvc()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization(options =>
+                    {
+                        options.DataAnnotationLocalizerProvider = (type, factory) =>
+                            factory.Create(typeof(JsonStringLocalizerFactory));
+                    });
 
-		options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
-		options.SupportedCultures = supportedLanguages;
-		options.SupportedUICultures = supportedLanguages;
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        var supportedLanguages = new[]
+        {
+        new CultureInfo(CulturesInfoStrings.English),
+        new CultureInfo(CulturesInfoStrings.Arabic),
+        new CultureInfo(CulturesInfoStrings.English),
+        new CultureInfo(CulturesInfoStrings.French)
+    };
 
-	});
+        options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
+        options.SupportedCultures = supportedLanguages;
+        options.SupportedUICultures = supportedLanguages;
 
-	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    });
 
-	//builder.Services.AddScoped<ITenantService, TenantService>();
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-	string? dbProvider = options.Defaults.DBProvider;
+    //builder.Services.AddScoped<ITenantService, TenantService>();
 
-	//if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
-	//{
-	//    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
-	//}
+    string? dbProvider = options.Defaults.DBProvider;
 
-	//foreach (Tenant tenant in options.Tenants)
-	//{
-	//    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
+    //if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
+    //{
+    //    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
+    //}
 
-	//    using var scope = builder.Services.BuildServiceProvider().CreateScope();
+    //foreach (Tenant tenant in options.Tenants)
+    //{
+    //    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
 
-	//    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    //    using var scope = builder.Services.BuildServiceProvider().CreateScope();
 
-	//    dbcontext.Database.SetConnectionString(connectionString);
+    //    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-	//    if (dbcontext.Database.GetPendingMigrations().Any())
-	//    {
-	//        dbcontext.Database.Migrate();
-	//    }
-	//}
+    //    dbcontext.Database.SetConnectionString(connectionString);
+
+    //    if (dbcontext.Database.GetPendingMigrations().Any())
+    //    {
+    //        dbcontext.Database.Migrate();
+    //    }
+    //}
 }
 
 
@@ -82,33 +83,33 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-	// Configure the HTTP request pipeline.
-	if (!app.Environment.IsDevelopment())
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-	app.UseHttpsRedirection();
-	app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-	app.UseRouting();
+    app.UseRouting();
 
-	var supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+    var supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
+    app.UseRequestLocalization(new RequestLocalizationOptions()
+        .SetDefaultCulture(supportedCultures[0])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures));
 
-	app.UseAuthorization();
+    app.UseAuthorization();
 
-	app.MapControllerRoute(
-		name: "default",
-		pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 
-	app.Run();
+    app.Run();
 }
 
 
