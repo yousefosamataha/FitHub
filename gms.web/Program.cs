@@ -1,5 +1,6 @@
 using gms.common.Settings;
 using gms.entityframeworkcore.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +16,13 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
                                                 (
                                                     builder.Configuration.GetConnectionString("DefaultConnection"),
                                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-
                                                 ));
+
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+    builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultUI();
 
     // Add services to the container.
     builder.Services.AddControllersWithViews();
@@ -51,30 +57,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    //builder.Services.AddScoped<ITenantService, TenantService>();
-
     string? dbProvider = options.Defaults.DBProvider;
-
-    //if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
-    //{
-    //    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
-    //}
-
-    //foreach (Tenant tenant in options.Tenants)
-    //{
-    //    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
-
-    //    using var scope = builder.Services.BuildServiceProvider().CreateScope();
-
-    //    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    //    dbcontext.Database.SetConnectionString(connectionString);
-
-    //    if (dbcontext.Database.GetPendingMigrations().Any())
-    //    {
-    //        dbcontext.Database.Migrate();
-    //    }
-    //}
 }
 
 
@@ -108,6 +91,26 @@ var app = builder.Build();
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    //using var scope = app.Services.CreateScope();
+    //IServiceProvider services = scope.ServiceProvider;
+    //ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+    //ILogger logger = LoggerProvider.CreateLogger("app");
+    //try
+    //{
+    //    UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    //    RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+    //    await Seeds.SeedRolesAsync(roleManager);
+    //    await Seeds.SeedBasicUserAsync(userManager);
+    //    await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+    //    logger.LogInformation("Data Seeded");
+    //    logger.LogInformation("Application Started");
+    //}
+    //catch (Exception ex)
+    //{
+    //    logger.LogWarning(ex, "An error Occured While Seeding Data");
+    //}
 
     app.Run();
 }
