@@ -1,6 +1,5 @@
 ﻿using gms.common.Constants;
 using gms.common.Contracts.Base;
-using gms.entityframeworkcore.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
