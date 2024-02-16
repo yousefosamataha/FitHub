@@ -8,6 +8,6 @@ internal class IdentityUserRoleConfiguration : IEntityTypeConfiguration<Identity
 {
     public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".UserRole", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".UserRole", gmsDbProperties.DbSchema);
     }
 }

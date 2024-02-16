@@ -8,6 +8,6 @@ internal class IdentityUserConfiguration : IEntityTypeConfiguration<IdentityUser
 {
     public void Configure(EntityTypeBuilder<IdentityUser> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".User", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".User", gmsDbProperties.DbSchema);
     }
 }

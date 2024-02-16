@@ -8,6 +8,6 @@ internal class IdentityUserClaimConfiguration : IEntityTypeConfiguration<Identit
 {
     public void Configure(EntityTypeBuilder<IdentityUserClaim<string>> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".UserClaim", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".UserClaim", gmsDbProperties.DbSchema);
     }
 }

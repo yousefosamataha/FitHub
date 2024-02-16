@@ -8,6 +8,6 @@ internal class IdentityRoleClaimConfiguration : IEntityTypeConfiguration<Identit
 {
     public void Configure(EntityTypeBuilder<IdentityRoleClaim<string>> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".RoleClaim", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".RoleClaim", gmsDbProperties.DbSchema);
     }
 }

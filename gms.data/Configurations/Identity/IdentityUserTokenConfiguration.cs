@@ -8,6 +8,6 @@ internal class IdentityUserTokenConfiguration : IEntityTypeConfiguration<Identit
 {
     public void Configure(EntityTypeBuilder<IdentityUserToken<string>> builder)
     {
-        builder.ToTable(gmsDbProperties.DbTablePrefix + ".UserToken", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".UserToken", gmsDbProperties.DbSchema);
     }
 }
