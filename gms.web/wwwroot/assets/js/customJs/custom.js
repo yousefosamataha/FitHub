@@ -1,48 +1,111 @@
-﻿// [1] save activated tabs and navigate between them
+﻿"use strict";
 
-function sideMenuTabClick(e, event) {
-    sessionStorage.setItem("activated-menu-item-tab", e.dataset.menuItemTab);
-}
+// Class definition
+var globalClass = function () {
 
-function activeSideMenuTab() {
-    let activeSideMenuTab = sessionStorage.getItem("activated-menu-item-tab");
-    let menuItemList = document.querySelectorAll(".menu-item.menu-accordion");
+    // [1] Activat SideMenu Tab
+    var activeSideMenuTab = function () {
+        let pathname = window.location.pathname;
 
-    menuItemList.forEach(e => {
-        e.querySelectorAll(".menu-item .menu-sub .menu-item").forEach(x => {
-            if (x.dataset.menuItemTab == activeSideMenuTab) {
-                x.querySelector(".menu-link").classList.add("active");
+        document.querySelectorAll("[side-menu-item='true']").forEach(x => {
+            if (pathname === x.querySelector("a").getAttribute("href")) {
+                x.querySelector("a").classList.add("active");
                 const parentWithClass = x.closest('.menu-item.menu-accordion');
-                parentWithClass.classList.add("show");
-                parentWithClass.querySelector(".menu-link").classList.add("active");
+                const grandparentWithClass = x.closest('.menu-item.menu-accordion.grand-parent');
+                if (grandparentWithClass) {
+                    grandparentWithClass.classList.add("show");
+                    grandparentWithClass.querySelector(".menu-link").classList.add("active");
+                    parentWithClass.classList.add("show");
+                }else if (parentWithClass) {
+                    parentWithClass.classList.add("show");
+                    parentWithClass.querySelector(".menu-link").classList.add("active");
+                }
             }
         });
-    });
-}
-
-// [2] save Sidebar Minimiz Status
-
-function sidebarMinimizeClick(e) {
-    if (e.classList.contains("active")) {
-        sessionStorage.setItem("sidebar-minimize", false);
-    } else {
-        sessionStorage.setItem("sidebar-minimize", true);
     }
-}
 
-function activeSidebarMinimize() {
-    let sidebarMinimizeStatus = sessionStorage.getItem("sidebar-minimize");
-
-    if (sidebarMinimizeStatus == "true") {
-        document.getElementById("kt_app_sidebar_toggle").classList.add("active");
-        document.querySelector("body").dataset.ktAppSidebarMinimize = "on";
-    } else if (sidebarMinimizeStatus == "false") {
-        document.getElementById("kt_app_sidebar_toggle").classList.remove("active");
-        document.querySelector("body").dataset.ktAppSidebarMinimize = "";
+    // [2] Sidebar Minimiz Status
+    var sidebarMinimizeClick = function () {
+        document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
+            if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
+                sessionStorage.setItem("sidebar-minimize", true);
+            } else {
+                sessionStorage.setItem("sidebar-minimize", false);
+            }
+        });
     }
-}
 
+    var activeSidebarMinimize = function () {
+        let sidebarMinimizeStatus = sessionStorage.getItem("sidebar-minimize");
 
+        if (sessionStorage.getItem("sidebar-minimize") == "true") {
+            document.getElementById("kt_app_sidebar_toggle").classList.add("active");
+            document.querySelector("body").dataset.ktAppSidebarMinimize = "on";
+        } else if (sidebarMinimizeStatus == "false") {
+            document.getElementById("kt_app_sidebar_toggle").classList.remove("active");
+            document.querySelector("body").dataset.ktAppSidebarMinimize = "";
+        }
+    }
 
-activeSideMenuTab();
-activeSidebarMinimize();
+    // [3] Check Language
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    // [4] Specify Flatpickr Language
+    function specifyFlatpickrLanguage() {
+        let currentLanguage = getCookie(".AspNetCore.Culture").split("=").slice(-1)[0];
+        let flatpickrOptions = currentLanguage === "ar-EG" ? {
+            months: {
+                shorthand: ['۰', '۱', '۲', '۳', '٤', '٥', '٦', '۷', '۸', '۹', "۱۰", "۱۱", "۱۲"],
+                longhand: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+            },
+            weekdays: {
+                shorthand: ["ح", "ن", "ث", "ر", "خ", "ج", "س"],
+                longhand: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"]
+            },
+            rangeSeparator: " إلى ",
+            weekAbbreviation: "أس",
+            scrollTitle: "قم بالتمرير للزيادة",
+            toggleTitle: "اضغط للتبديل",
+            amPM: ["ص", "م"],
+            yearAriaLabel: "سنة",
+            monthAriaLabel: "شهر",
+            hourAriaLabel: "ساعة",
+            minuteAriaLabel: "دقيقة",
+        } : currentLanguage === "fr-FR" ? "fr" : "en";
+
+        return flatpickrOptions;
+    }
+
+    return {
+        init: function () {
+            activeSideMenuTab();
+            sidebarMinimizeClick();
+            activeSidebarMinimize();
+        },
+        checkLanguage: function (cname) {
+            return getCookie(cname);
+        },
+        flatpickrLanguage: specifyFlatpickrLanguage()
+    };
+}();
+
+// On document ready
+KTUtil.onDOMContentLoaded(function () {
+    globalClass.init();
+});
+
+export { globalClass };

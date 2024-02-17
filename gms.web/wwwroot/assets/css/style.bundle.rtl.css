@@ -6747,6 +6747,7 @@ textarea.form-control-lg {
     text-align: center;
     background-color: var(--bs-tooltip-bg);
     border-radius: var(--bs-tooltip-border-radius);
+    font-weight: bold;
 }
 
 .popover {
@@ -33788,6 +33789,10 @@ textarea.form-control-lg {
         font-size: 1.35rem !important;
     }
 
+    .fs-3-custom {
+        font-size: 1.45rem !important
+    }
+
     .fs-2x {
         font-size: 2rem !important;
     }
@@ -39819,7 +39824,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
     .btn:not(.btn-outline):not(.btn-dashed):not(.btn-bordered):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
         border: 0;
-        padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
+        padding: calc(0.7rem + 1px) calc(1.5rem + 1px);
     }
 
         .btn:not(.btn-outline):not(.btn-dashed):not(.btn-bordered):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon).btn-lg, .btn-group-lg > .btn:not(.btn-outline):not(.btn-dashed):not(.btn-bordered):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
@@ -55607,7 +55612,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-size: 13px !important;
     font-weight: 400;
-    font-family: Inter, Helvetica, "sans-serif";
+    font-family: Cairo, Helvetica, "sans-serif";
 }
 
 @media (max-width: 991.98px) {
@@ -57446,7 +57451,8 @@ body,
     }
 
     [data-kt-app-aside-fixed=true] .app-wrapper {
-        margin-left: calc(var(--bs-app-aside-width) + var(--bs-app-aside-gap-start, 0px) + var(--bs-app-aside-gap-end, 0px));
+       /* margin-left: calc(var(--bs-app-aside-width) + var(--bs-app-aside-gap-start, 0px) + var(--bs-app-aside-gap-end, 0px));*/
+       margin-left: 10px;
     }
 
     [data-kt-app-footer-fixed=true] .app-wrapper {
@@ -57990,7 +57996,8 @@ body,
     }
 
     [data-kt-app-aside-enabled=true] .app-header-separator {
-        margin-left: 80px;
+        /*margin-left: 80px;*/
+        margin-left: 10px;
     }
 
     body:not([data-kt-app-aside-enabled=true]) .app-header-separator {
