@@ -39,7 +39,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
         {
             new CultureInfo(CulturesInfoStrings.English),
             new CultureInfo(CulturesInfoStrings.Arabic),
-            new CultureInfo(CulturesInfoStrings.English),
             new CultureInfo(CulturesInfoStrings.French)
         };
 

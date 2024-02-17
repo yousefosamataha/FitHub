@@ -1,9 +1,9 @@
 ﻿using gms.common.Constants;
-using gms.common.Contracts.Base;
+using gms.data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace gms.data.Services.Base;
+namespace gms.services.Base;
 public class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     private readonly ApplicationDbContext _context;
