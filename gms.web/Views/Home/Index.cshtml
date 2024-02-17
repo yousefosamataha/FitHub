@@ -1,10 +1,9 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+@{
     ViewData["Title"] = "Home Page";
 }
-
-@* <div class="text-center">
-    <h1 class="display-4">@ViewBag.WelcomeMessage</h1>
-</div> *@
 
 <!--begin::Content wrapper-->
 <div class="d-flex flex-column flex-column-fluid">
@@ -77,14 +76,13 @@
 				<!--begin::Card body-->
 				<div class="card-body">
 					<!--begin::Stepper-->
-					<div class="stepper stepper-links d-flex flex-column pt-15"
-						 id="kt_create_account_stepper">
+					<div class="stepper stepper-links d-flex flex-column pt-15" id="kt_create_account_stepper">
+						<div class="text-center">
+							<h1 class="display-4">@localizer["welcome"]</h1>
+						</div>
 						<!--begin::Nav-->
 						<div class="stepper-nav mb-5">
 							<!--begin::Step 1-->
-							<div class="text-center">
-								<h1 class="display-4">@ViewBag.WelcomeMessage</h1>
-							</div>
 							<div class="stepper-item current" data-kt-stepper-element="nav">
 								<h3 class="stepper-title">Account Type</h3>
 							</div>

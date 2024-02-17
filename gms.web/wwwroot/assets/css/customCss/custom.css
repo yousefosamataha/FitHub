@@ -4,7 +4,7 @@
 
 
 #kt_app_sidebar_toggle.app-sidebar-toggle-custom.active i {
-    color: var(--bs-text-muted);
+    color: var(--bs-gray-800);
 }
 
 @media (max-width:991.98px) {
