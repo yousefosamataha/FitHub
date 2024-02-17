@@ -1,0 +1,370 @@
+﻿﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+@{
+	ViewData["Title"] = localizer["addnewmember"];
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+	<!--begin::Toolbar-->
+	<div id="kt_app_toolbar" class="app-toolbar pt-6 pb-2">
+		<!--begin::Toolbar container-->
+		<div id="kt_app_toolbar_container"
+			 class="app-container container-fluid d-flex align-items-stretch">
+			<!--begin::Toolbar wrapper-->
+			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+						@localizer["addnewmember"]
+					</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
+						<li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
+						<li class="breadcrumb-item text-gray-600">@localizer["manageusers"]</li>
+						<li class="breadcrumb-item text-gray-600">@localizer["managemembers"]</li>
+						@* <li class="breadcrumb-item text-gray-600">@localizer["addnewmember"]</li> *@
+					</ol>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar wrapper-->
+		</div>
+		<!--end::Toolbar container-->
+	</div>
+	<!--end::Toolbar-->
+	<!--begin::Content-->
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<!--begin::Content container-->
+		<div id="kt_app_content_container" class="app-container container-fluid">
+			<!--begin::Form-->
+			<form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo39/dist/apps/ecommerce/catalog/categories.html">
+				<!--begin::Aside column-->
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+					<!--begin::Thumbnail settings-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2>@localizer["photo"]</h2>
+							</div>
+							<!--end::Card title-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body text-center pt-0">
+							<!--begin::Image input-->
+							<!--begin::Image input placeholder-->
+							<style>
+								.image-input-placeholder {
+									background-image: url('assets/media/svg/files/blank-image.svg');
+								}
+
+								[data-bs-theme="dark"] .image-input-placeholder {
+									background-image: url('assets/media/svg/files/blank-image-dark.svg');
+								}</style>
+							<!--end::Image input placeholder-->
+							<!--begin::Image input-->
+							<div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+								<!--begin::Preview existing avatar-->
+								<div class="image-input-wrapper w-150px h-150px"></div>
+								<!--end::Preview existing avatar-->
+								<!--begin::Label-->
+								<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+									<!--begin::Icon-->
+									<i class="ki-outline ki-pencil fs-7"></i>
+									<!--end::Icon-->
+									<!--begin::Inputs-->
+									<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+									<input type="hidden" name="avatar_remove" />
+									<!--end::Inputs-->
+								</label>
+								<!--end::Label-->
+								<!--begin::Cancel-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+									<i class="ki-outline ki-cross fs-2"></i>
+								</span>
+								<!--end::Cancel-->
+								<!--begin::Remove-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+									<i class="ki-outline ki-cross fs-2"></i>
+								</span>
+								<!--end::Remove-->
+							</div>
+							<!--end::Image input-->
+							<!--begin::Description-->
+							<div class="text-muted fs-7">Set the category thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+							<!--end::Description-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					<!--end::Thumbnail settings-->
+					<!--begin::Status-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2>Status</h2>
+							</div>
+							<!--end::Card title-->
+							<!--begin::Card toolbar-->
+							<div class="card-toolbar">
+								<div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_category_status"></div>
+							</div>
+							<!--begin::Card toolbar-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Select2-->
+							<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select">
+								<option></option>
+								<option value="published" selected="selected">Published</option>
+								<option value="scheduled">Scheduled</option>
+								<option value="unpublished">Unpublished</option>
+							</select>
+							<!--end::Select2-->
+							<!--begin::Description-->
+							<div class="text-muted fs-7">Set the category status.</div>
+							<!--end::Description-->
+							<!--begin::Datepicker-->
+							<div class="d-none mt-10">
+								<label for="kt_ecommerce_add_category_status_datepicker" class="form-label">Select publishing date and time</label>
+								<input class="form-control" id="kt_ecommerce_add_category_status_datepicker" placeholder="Pick date & time" />
+							</div>
+							<!--end::Datepicker-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					<!--end::Status-->
+				</div>
+				<!--end::Aside column-->
+				<!--begin::Main column-->
+				<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+					<!--begin::General options-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>General</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Input group-->
+							<div class="mb-10 fv-row">
+								<!--begin::Label-->
+								<label class="required form-label">Membership Name</label>
+								<!--end::Label-->
+								<!--begin::Input-->
+								<input type="text" name="MembershipMame" class="form-control mb-2" placeholder="Membership name" value="" />
+								<!--end::Input-->
+								<!--begin::Description-->
+								<div class="text-muted fs-7">A Membership name is required and recommended to be unique.</div>
+								<!--end::Description-->
+							</div>
+							<!--end::Input group-->
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="col mb-10 fv-row">
+									<!--begin::Label-->
+									<label class="required form-label">Duration</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input type="number" name="Duration" class="form-control mb-2" placeholder="Membership Duration" value="" />
+									<!--end::Input-->
+									<!--begin::Description-->
+									<div class="text-muted fs-7">A Membership name is required and recommended to be unique.</div>
+									<!--end::Description-->
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col mb-10 fv-row">
+									<!--begin::Label-->
+									<label class="required form-label">Duration Type</label>
+									<!--end::Label-->
+									<!--begin::Select Status-->
+									<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Duration Type" membership-list-filter="status">
+										<option></option>
+										<option value="@localizer["year"].Value">@localizer["year"]</option>
+										<option value="@localizer["month"].Value">@localizer["month"]</option>
+										<option value="@localizer["day"].Value">@localizer["day"]</option>
+									</select>
+									<!--end::Select Status-->
+									<!--begin::Description-->
+									<div class="text-muted fs-7">A Membership name is required and recommended to be unique.</div>
+									<!--end::Description-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--begin::Input group-->
+							<div>
+								<!--begin::Label-->
+								<label class="form-label">Description</label>
+								<!--end::Label-->
+								<!--begin::Editor-->
+								<div id="kt_ecommerce_add_category_meta_description" name="kt_ecommerce_add_category_meta_description" class="min-h-100px mb-2"></div>
+								<!--end::Editor-->
+								<!--begin::Description-->
+								<div class="text-muted fs-7">Set a description to the category for better visibility.</div>
+								<!--end::Description-->
+							</div>
+							<!--end::Input group-->
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::General options-->
+					<!--begin::Automation-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>Class</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Label-->
+							<label class="form-label">Class Limitation</label>
+							<!--end::Label-->
+							<!--begin::Conditions-->
+							<div class="d-flex flex-wrap align-items-center text-gray-700 gap-5 mb-7">
+								<!--begin::Radio-->
+								<div class="form-check form-check-custom form-check-solid">
+									<input class="form-check-input" name="method" type="radio" name="conditions" value="1" id="limited" checked="checked" />
+									<label class="form-check-label" for="limited">Limited</label>
+								</div>
+								<!--end::Radio-->
+								<!--begin::Radio-->
+								<div class="form-check form-check-custom form-check-solid">
+									<input class="form-check-input" name="method" type="radio" name="conditions" value="0" id="unlimited" />
+									<label class="form-check-label" for="unlimited">Unlimited</label>
+								</div>
+								<!--end::Radio-->
+							</div>
+							<!--end::Conditions-->
+							<!--begin::Input group-->
+							<div class="mt-10" data-kt-ecommerce-catalog-add-category="auto-options">
+								<!--begin::Repeater-->
+								<div id="kt_ecommerce_add_category_conditions">
+									<!--begin::Form group-->
+									<div class="form-group">
+										<div data-repeater-list="kt_ecommerce_add_category_conditions" class="d-flex flex-column gap-3">
+											<div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+												<!--begin::Select2-->
+												<div class="w-100 w-md-200px">
+													<select class="form-select" name="condition_type" data-placeholder="Select an option" data-kt-ecommerce-catalog-add-category="condition_type">
+														<option></option>
+														<option value="title">Product Title</option>
+														<option value="tag" selected="selected">Product Tag</option>
+														<option value="price">Prodict Price</option>
+													</select>
+												</div>
+												<!--end::Select2-->
+												<!--begin::Select2-->
+												<div class="w-100 w-md-200px">
+													<select class="form-select" name="condition_equals" data-placeholder="Select an option" data-kt-ecommerce-catalog-add-category="condition_equals">
+														<option></option>
+														<option value="equal" selected="selected">is equal to</option>
+														<option value="notequal">is not equal to</option>
+														<option value="greater">is greater than</option>
+														<option value="less">is less than</option>
+														<option value="starts">starts with</option>
+														<option value="ends">ends with</option>
+													</select>
+												</div>
+												<!--end::Select2-->
+												<!--begin::Input-->
+												<input type="text" class="form-control mw-100 w-200px" name="condition_label" placeholder="" />
+												<!--end::Input-->
+												<!--begin::Button-->
+												<button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
+													<i class="ki-outline ki-cross fs-2"></i>
+												</button>
+												<!--end::Button-->
+											</div>
+										</div>
+									</div>
+									<!--end::Form group-->
+									<!--begin::Form group-->
+									<div class="form-group mt-5">
+										<!--begin::Button-->
+										<button type="button" data-repeater-create="" class="btn btn-sm btn-light-primary">
+											<i class="ki-outline ki-plus fs-2"></i>Add another condition
+										</button>
+										<!--end::Button-->
+									</div>
+									<!--end::Form group-->
+								</div>
+								<!--end::Repeater-->
+							</div>
+							<!--end::Input group-->
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::Automation-->
+					<!--begin::Meta options-->
+					<div class="card card-flush py-4">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>Pricing</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Input group-->
+							<div>
+								<!--begin::Label-->
+								<label class="form-label">Meta Tag Keywords</label>
+								<!--end::Label-->
+								<!--begin::Editor-->
+								<input id="kt_ecommerce_add_category_meta_keywords" name="kt_ecommerce_add_category_meta_keywords" class="form-control mb-2" />
+								<!--end::Editor-->
+								<!--begin::Description-->
+								<div class="text-muted fs-7">
+									Set a list of keywords that the category is related to. Separate the keywords by adding a comma
+									<code>,</code>between each keyword.
+								</div>
+								<!--end::Description-->
+							</div>
+							<!--end::Input group-->
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::Meta options-->
+					<div class="d-flex justify-content-end">
+						<!--begin::Button-->
+						<a href="../../demo39/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+						<!--end::Button-->
+						<!--begin::Button-->
+						<button type="submit" id="kt_ecommerce_add_category_submit" class="btn btn-primary">
+							<span class="indicator-label">Save Changes</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<!--end::Button-->
+					</div>
+				</div>
+				<!--end::Main column-->
+			</form>
+			<!--end::Form-->
+		</div>
+		<!--end::Content container-->
+	</div>
+	<!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
