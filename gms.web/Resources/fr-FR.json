@@ -12,5 +12,6 @@
   "create": "Create",
   "save": "Save",
   "required": "Required Field",
-  "name": "Name"
+  "name": "Name",
+  "Email": "Email"
 }
