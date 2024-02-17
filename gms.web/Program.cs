@@ -1,115 +1,110 @@
-using gms.common.Settings;
-using gms.entityframeworkcore.Data;
+using gms.data;
+using gms.data.Seeds;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-	TenantSettings options = new();
-	builder.Configuration.GetSection(nameof(TenantSettings)).Bind(options);
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-	builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer
-												(
-													builder.Configuration.GetConnectionString("DefaultConnection"),
-													b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-												));
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                                                        options.UseSqlServer(connectionString));
 
-	// Add services to the container.
-	builder.Services.AddControllersWithViews();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-	builder.Services.AddLocalization();
+    builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
 
-	builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+    builder.Services.AddControllersWithViews();
 
-	builder.Services.AddMvc()
-					.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-					.AddDataAnnotationsLocalization(options =>
-					{
-						options.DataAnnotationLocalizerProvider = (type, factory) =>
-							factory.Create(typeof(JsonStringLocalizerFactory));
-					});
+    builder.Services.AddLocalization();
 
-	builder.Services.Configure<RequestLocalizationOptions>(options =>
-	{
-		var supportedLanguages = new[]
-		{
-		new CultureInfo(CulturesInfoStrings.English),
-		new CultureInfo(CulturesInfoStrings.Arabic),
-		new CultureInfo(CulturesInfoStrings.English),
-		new CultureInfo(CulturesInfoStrings.French)
-	};
+    builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
-		options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
-		options.SupportedCultures = supportedLanguages;
-		options.SupportedUICultures = supportedLanguages;
+    builder.Services.AddMvc()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization(options =>
+                    {
+                        options.DataAnnotationLocalizerProvider = (type, factory) =>
+                            factory.Create(typeof(JsonStringLocalizerFactory));
+                    });
 
-	});
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        var supportedLanguages = new[]
+        {
+            new CultureInfo(CulturesInfoStrings.English),
+            new CultureInfo(CulturesInfoStrings.Arabic),
+            new CultureInfo(CulturesInfoStrings.English),
+            new CultureInfo(CulturesInfoStrings.French)
+        };
 
-	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
+        options.SupportedCultures = supportedLanguages;
+        options.SupportedUICultures = supportedLanguages;
 
-	//builder.Services.AddScoped<ITenantService, TenantService>();
+    });
 
-	string? dbProvider = options.Defaults.DBProvider;
-
-	//if (string.Equals(dbProvider, "mssql", StringComparison.OrdinalIgnoreCase))
-	//{
-	//    builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer());
-	//}
-
-	//foreach (Tenant tenant in options.Tenants)
-	//{
-	//    string connectionString = tenant.ConnectionString ?? options.Defaults.ConnectionString;
-
-	//    using var scope = builder.Services.BuildServiceProvider().CreateScope();
-
-	//    ApplicationDbContext? dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-	//    dbcontext.Database.SetConnectionString(connectionString);
-
-	//    if (dbcontext.Database.GetPendingMigrations().Any())
-	//    {
-	//        dbcontext.Database.Migrate();
-	//    }
-	//}
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 }
 
-
-
-
-
-var app = builder.Build();
+WebApplication? app = builder.Build();
 {
-	// Configure the HTTP request pipeline.
-	if (!app.Environment.IsDevelopment())
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMigrationsEndPoint();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-	app.UseHttpsRedirection();
-	app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-	app.UseRouting();
+    app.UseRouting();
 
-	var supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+    string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
+    app.UseRequestLocalization(new RequestLocalizationOptions()
+        .SetDefaultCulture(supportedCultures[0])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures));
 
-	app.UseAuthorization();
+    app.UseAuthorization();
 
-	app.MapControllerRoute(
-		name: "default",
-		pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapRazorPages();
 
-	app.Run();
+    using var scope = app.Services.CreateScope();
+    IServiceProvider services = scope.ServiceProvider;
+    ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+    ILogger logger = LoggerProvider.CreateLogger("app");
+    try
+    {
+        UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+        RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await Seeds.SeedBasicUserAsync(userManager);
+        await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+        logger.LogInformation("Data Seeded");
+        logger.LogInformation("Application Started");
+    }
+    catch (Exception ex)
+    {
+        logger.LogWarning(ex, "An error Occured While Seeding Data");
+    }
+
+    app.Run();
 }
-
 
 
