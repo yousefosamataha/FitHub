@@ -1,6 +1,7 @@
 ﻿
 using gms.common.Constants;
 using gms.common.Enums;
+using gms.data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
@@ -8,32 +9,38 @@ namespace gms.data.Seeds;
 
 public static partial class Seeds
 {
-    public static async Task SeedBasicUserAsync(UserManager<IdentityUser> userManger)
+    public static async Task SeedBasicUserAsync(UserManager<GymUserEntity> userManger)
     {
-        IdentityUser defaultUser = new()
+        GymUserEntity defaultUser = new()
         {
             UserName = "basicuser@domain.com",
             Email = "basicuser@domain.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "Basic",
+            LastName = "User",
+            PhoneNumber = "+201100241976"
         };
 
-        IdentityUser user = await userManger.FindByEmailAsync(defaultUser.Email);
+        GymUserEntity user = await userManger.FindByEmailAsync(defaultUser.Email);
         if (user is null)
         {
             await userManger.CreateAsync(defaultUser, "P@ssWord123");
             await userManger.AddToRoleAsync(defaultUser, RolesEnum.Basic.ToString());
         }
     }
-    public static async Task SeedSuperAdminUserAsync(UserManager<IdentityUser> userManger, RoleManager<IdentityRole> roleManger)
+    public static async Task SeedSuperAdminUserAsync(UserManager<GymUserEntity> userManger, RoleManager<IdentityRole> roleManger)
     {
-        IdentityUser defaulSuperAdminUser = new()
+        GymUserEntity defaulSuperAdminUser = new()
         {
             UserName = "superadmin@domain.com",
             Email = "superadmin@domain.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "super",
+            LastName = "admin",
+            PhoneNumber = "+201100241976"
         };
 
-        IdentityUser user = await userManger.FindByEmailAsync(defaulSuperAdminUser.Email);
+        GymUserEntity user = await userManger.FindByEmailAsync(defaulSuperAdminUser.Email);
         if (user is null)
         {
             await userManger.CreateAsync(defaulSuperAdminUser, "P@ssWord123");

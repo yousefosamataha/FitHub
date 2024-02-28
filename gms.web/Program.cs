@@ -1,4 +1,5 @@
 using gms.data;
+using gms.data.Models;
 using gms.data.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -16,7 +17,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
 
     builder.Services.AddControllersWithViews();
@@ -91,7 +92,7 @@ WebApplication? app = builder.Build();
     ILogger logger = LoggerProvider.CreateLogger("app");
     try
     {
-        UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+        UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
         RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
         await Seeds.SeedBasicUserAsync(userManager);
