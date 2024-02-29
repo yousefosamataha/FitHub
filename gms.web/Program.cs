@@ -1,6 +1,8 @@
 using gms.data;
 using gms.data.Models;
 using gms.data.Seeds;
+using gms.web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -10,7 +12,11 @@ using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+    builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
+    builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
                                                         options.UseSqlServer(connectionString));
@@ -18,7 +24,13 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultUI();
+
+    builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+    {
+        options.ValidationInterval = TimeSpan.Zero;
+    });
 
     builder.Services.AddControllersWithViews();
 
@@ -36,7 +48,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.Configure<RequestLocalizationOptions>(options =>
     {
-        var supportedLanguages = new[]
+        CultureInfo[]? supportedLanguages = new[]
         {
             new CultureInfo(CulturesInfoStrings.English),
             new CultureInfo(CulturesInfoStrings.Arabic),
