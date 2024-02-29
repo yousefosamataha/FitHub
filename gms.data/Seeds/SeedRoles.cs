@@ -9,9 +9,10 @@ public static partial class Seeds
     {
         if (!roleManger.Roles.Any())
         {
-            await roleManger.CreateAsync(new IdentityRole(RolesEnum.Basic.ToString()));
-            await roleManger.CreateAsync(new IdentityRole(RolesEnum.Admin.ToString()));
-            await roleManger.CreateAsync(new IdentityRole(RolesEnum.SuperAdmin.ToString()));
+            foreach (var role in Enum.GetValues(typeof(RolesEnum)))
+            {
+                await roleManger.CreateAsync(new IdentityRole(role.ToString()));
+            }
         }
     }
 }

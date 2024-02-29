@@ -12,7 +12,7 @@ using gms.data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240227011734_initalmigration")]
+    [Migration("20240229201613_initalmigration")]
     partial class initalmigration
     {
         /// <inheritdoc />
@@ -54,19 +54,19 @@ namespace gms.data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0e481b92-1a9f-436f-bb5f-0851c3573fc5",
+                            Id = "8f193e1c-796e-4f5f-860c-44c70cff6ae4",
                             Name = "Basic",
                             NormalizedName = "BASIC"
                         },
                         new
                         {
-                            Id = "e0d97aa5-f2ba-43df-9461-921c7cbf0205",
+                            Id = "3cecb829-4266-40b1-834c-4e6dfff16e1e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a1d40e57-c5b3-44f4-887b-adffaae9b995",
+                            Id = "4b5c09ad-f3db-4759-b1ff-2637d2ab7093",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         });
@@ -187,14 +187,12 @@ namespace gms.data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -246,7 +244,6 @@ namespace gms.data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

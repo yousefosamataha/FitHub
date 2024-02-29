@@ -22,9 +22,9 @@ namespace gms.data.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GenderId = table.Column<int>(type: "int", nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -170,9 +170,9 @@ namespace gms.data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0e481b92-1a9f-436f-bb5f-0851c3573fc5", null, "Basic", "BASIC" },
-                    { "a1d40e57-c5b3-44f4-887b-adffaae9b995", null, "SuperAdmin", "SUPERADMIN" },
-                    { "e0d97aa5-f2ba-43df-9461-921c7cbf0205", null, "Admin", "ADMIN" }
+                    { "3cecb829-4266-40b1-834c-4e6dfff16e1e", null, "Admin", "ADMIN" },
+                    { "4b5c09ad-f3db-4759-b1ff-2637d2ab7093", null, "SuperAdmin", "SUPERADMIN" },
+                    { "8f193e1c-796e-4f5f-860c-44c70cff6ae4", null, "Basic", "BASIC" }
                 });
 
             migrationBuilder.CreateIndex(

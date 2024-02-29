@@ -9,5 +9,8 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
     public void Configure(EntityTypeBuilder<GymUserEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUser", gmsDbProperties.DbSchema);
+        builder.Property(gu => gu.Address).IsRequired(false);
+        builder.Property(gu => gu.City).IsRequired(false);
+        builder.Property(gu => gu.State).IsRequired(false);
     }
 }
