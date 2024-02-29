@@ -1,5 +1,7 @@
 ﻿namespace gms.common.Enums;
 
-public class ModulesEnum
+public enum ModulesEnum
 {
+    Gym,
+    GymClass
 }
