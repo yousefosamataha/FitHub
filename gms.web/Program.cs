@@ -1,8 +1,7 @@
 using gms.data;
 using gms.data.Models;
 using gms.data.Seeds;
-using gms.web.Filters;
-using Microsoft.AspNetCore.Authorization;
+using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -14,10 +13,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
     string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-    builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-
-    builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
                                                         options.UseSqlServer(connectionString));
 
@@ -26,6 +21,10 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultUI();
+
+    //builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
+    //builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
     {
@@ -62,6 +61,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     });
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+    builder.Services.AddScoped<IGymUserService, GymUserService>();
 }
 
 WebApplication? app = builder.Build();
