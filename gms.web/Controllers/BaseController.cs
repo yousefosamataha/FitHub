@@ -16,7 +16,4 @@ public class BaseController<T> : Controller where T : BaseController<T>
 	protected IStringLocalizer<T>? localizer =>
 		_localizer ?? HttpContext.RequestServices.GetRequiredService<IStringLocalizer<T>>();
 	#endregion
-
-
-
 }

@@ -1,6 +1,7 @@
 using gms.data;
 using gms.data.Models;
 using gms.data.Seeds;
+using gms.service.GymRolesRepository;
 using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -11,113 +12,114 @@ using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-    string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                                                        options.UseSqlServer(connectionString));
+	builder.Services.AddDbContext<ApplicationDbContext>(options =>
+														options.UseSqlServer(connectionString));
 
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultUI();
+	builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+					.AddEntityFrameworkStores<ApplicationDbContext>()
+					.AddDefaultUI();
 
-    //builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+	//builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
-    //builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+	//builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-    builder.Services.Configure<SecurityStampValidatorOptions>(options =>
-    {
-        options.ValidationInterval = TimeSpan.Zero;
-    });
+	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+	{
+		options.ValidationInterval = TimeSpan.Zero;
+	});
 
-    builder.Services.AddControllersWithViews();
+	builder.Services.AddControllersWithViews();
 
-    builder.Services.AddLocalization();
+	builder.Services.AddLocalization();
 
-    builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+	builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
-    builder.Services.AddMvc()
-                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                    .AddDataAnnotationsLocalization(options =>
-                    {
-                        options.DataAnnotationLocalizerProvider = (type, factory) =>
-                            factory.Create(typeof(JsonStringLocalizerFactory));
-                    });
+	builder.Services.AddMvc()
+					.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+					.AddDataAnnotationsLocalization(options =>
+					{
+						options.DataAnnotationLocalizerProvider = (type, factory) =>
+							factory.Create(typeof(JsonStringLocalizerFactory));
+					});
 
-    builder.Services.Configure<RequestLocalizationOptions>(options =>
-    {
-        CultureInfo[]? supportedLanguages = new[]
-        {
-            new CultureInfo(CulturesInfoStrings.English),
-            new CultureInfo(CulturesInfoStrings.Arabic),
-            new CultureInfo(CulturesInfoStrings.French)
-        };
+	builder.Services.Configure<RequestLocalizationOptions>(options =>
+	{
+		CultureInfo[]? supportedLanguages = new[]
+		{
+			new CultureInfo(CulturesInfoStrings.English),
+			new CultureInfo(CulturesInfoStrings.Arabic),
+			new CultureInfo(CulturesInfoStrings.French)
+		};
 
-        options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
-        options.SupportedCultures = supportedLanguages;
-        options.SupportedUICultures = supportedLanguages;
+		options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
+		options.SupportedCultures = supportedLanguages;
+		options.SupportedUICultures = supportedLanguages;
 
-    });
+	});
 
-    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    builder.Services.AddScoped<IGymUserService, GymUserService>();
+	builder.Services.AddScoped<IGymUserService, GymUserService>();
+	builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 }
 
 WebApplication? app = builder.Build();
 {
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseMigrationsEndPoint();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
+	// Configure the HTTP request pipeline.
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseMigrationsEndPoint();
+	}
+	else
+	{
+		app.UseExceptionHandler("/Home/Error");
+		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+		app.UseHsts();
+	}
 
-    app.UseHttpsRedirection();
-    app.UseStaticFiles();
+	app.UseHttpsRedirection();
+	app.UseStaticFiles();
 
-    app.UseRouting();
+	app.UseRouting();
 
-    string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-    app.UseRequestLocalization(new RequestLocalizationOptions()
-        .SetDefaultCulture(supportedCultures[0])
-        .AddSupportedCultures(supportedCultures)
-        .AddSupportedUICultures(supportedCultures));
+	app.UseRequestLocalization(new RequestLocalizationOptions()
+		.SetDefaultCulture(supportedCultures[0])
+		.AddSupportedCultures(supportedCultures)
+		.AddSupportedUICultures(supportedCultures));
 
-    app.UseAuthorization();
+	app.UseAuthorization();
 
-    app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-    app.MapRazorPages();
+	app.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Index}/{id?}");
+	app.MapRazorPages();
 
-    using var scope = app.Services.CreateScope();
-    IServiceProvider services = scope.ServiceProvider;
-    ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-    ILogger logger = LoggerProvider.CreateLogger("app");
-    try
-    {
-        UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
-        RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+	using var scope = app.Services.CreateScope();
+	IServiceProvider services = scope.ServiceProvider;
+	ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+	ILogger logger = LoggerProvider.CreateLogger("app");
+	try
+	{
+		UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+		RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-        await Seeds.SeedBasicUserAsync(userManager);
-        await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
-        logger.LogInformation("Data Seeded");
-        logger.LogInformation("Application Started");
-    }
-    catch (Exception ex)
-    {
-        logger.LogWarning(ex, "An error Occured While Seeding Data");
-    }
+		await Seeds.SeedBasicUserAsync(userManager);
+		await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+		logger.LogInformation("Data Seeded");
+		logger.LogInformation("Application Started");
+	}
+	catch (Exception ex)
+	{
+		logger.LogWarning(ex, "An error Occured While Seeding Data");
+	}
 
-    app.Run();
+	app.Run();
 }
 
 

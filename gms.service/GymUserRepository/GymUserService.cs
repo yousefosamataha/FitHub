@@ -9,12 +9,10 @@ public class GymUserService : IGymUserService
 {
 	private readonly UserManager<GymUserEntity> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
-	private readonly SignInManager<GymUserEntity> _signInManager;
-	public GymUserService(UserManager<GymUserEntity> userManager, RoleManager<IdentityRole> roleManager, SignInManager<GymUserEntity> signInManager)
+	public GymUserService(UserManager<GymUserEntity> userManager, RoleManager<IdentityRole> roleManager)
 	{
 		_userManager = userManager;
 		_roleManager = roleManager;
-		_signInManager = signInManager;
 	}
 	public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
 	{
