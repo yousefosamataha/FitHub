@@ -22,6 +22,7 @@ public class SuperadminController : BaseController<SuperadminController>
 		GymUserRolesViewModel user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
 		return View(user);
 	}
+
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public async Task<IActionResult> UpdateUserRoles(GymUserRolesViewModel userRoles)
