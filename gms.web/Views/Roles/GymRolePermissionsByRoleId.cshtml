@@ -1,0 +1,53 @@
+﻿@model GymRolePermissionsViewModel;
+@{
+	ViewData["Title"] = localizer["staffslist"];
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+<form asp-action="UpdateRolePermissions" asp-controller="Roles" method="post">
+	<div class="card mt-4">
+		<div class="card-header">
+			<h2>@Model.RoleName</h2>
+			Add/Remove Permissions
+		</div>
+		<div class="card-body">
+			<input type="hidden" asp-for="RoleId" />
+			<table class="table align-middle table-row-dashed fs-6" id="membership_list">
+				<thead>
+					<tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
+						<th class="text-center min-w-50px"></th>
+						<th class="text-start min-w-100px">Module</th>
+						<th class="text-start min-w-100px">Permission</th>
+					</tr>
+				</thead>
+				<tbody class="fw-semibold text-gray-700">
+					@for (int i = 0; i < Model.Permissions.Count; i++)
+					{
+						<tr>
+							<td class="text-center">
+								<div class="form-check m-1">
+									<input type="hidden" asp-for="@Model.Permissions[i].Text" />
+									<input asp-for="@Model.Permissions[i].IsSelected" class="form-check-input" />
+								</div>
+							</td>
+							<td class="text-center">
+								@Model.Permissions[i].Text.Split(".")[1]
+							</td>
+							<td class="text-center">
+								@Model.Permissions[i].Text.Split(".")[2]
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<div asp-validation-summary="All" class="text-danger"></div>
+		</div>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["save"]" data-bs-custom-class="tooltip-inverse">
+				<i class="ki-solid ki-pencil fs-2"></i>
+			</button>
+			<a asp-action="GymUsers" asp-controller="Superadmin" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["cancel"]" data-bs-custom-class="tooltip-inverse">
+				<i class="ki-solid ki-trash fs-2"></i>
+			</a>
+		</div>
+	</div>
+</form>

@@ -14,24 +14,17 @@ namespace gms.data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "gms.Identity.Role",
+                name: "gms.Identity.GymUser",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_gms.Identity.Role", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "gms.Identity.User",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GenderId = table.Column<int>(type: "int", nullable: false),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -49,7 +42,82 @@ namespace gms.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.User", x => x.Id);
+                    table.PrimaryKey("PK_gms.Identity.GymUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.Role",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gms.Identity.Role", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.UserClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gms.Identity.UserClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_gms.Identity.UserClaim_gms.Identity.GymUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "gms.Identity.GymUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.UserLogin",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gms.Identity.UserLogin", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_gms.Identity.UserLogin_gms.Identity.GymUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "gms.Identity.GymUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.UserToken",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gms.Identity.UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_gms.Identity.UserToken_gms.Identity.GymUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "gms.Identity.GymUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,47 +142,6 @@ namespace gms.data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.UserClaim",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_gms.Identity.UserClaim", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_gms.Identity.UserClaim_gms.Identity.User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "gms.Identity.User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "gms.Identity.UserLogin",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_gms.Identity.UserLogin", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_gms.Identity.UserLogin_gms.Identity.User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "gms.Identity.User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "gms.Identity.UserRole",
                 columns: table => new
                 {
@@ -125,35 +152,15 @@ namespace gms.data.Migrations
                 {
                     table.PrimaryKey("PK_gms.Identity.UserRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
+                        name: "FK_gms.Identity.UserRole_gms.Identity.GymUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "gms.Identity.GymUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_gms.Identity.UserRole_gms.Identity.Role_RoleId",
                         column: x => x.RoleId,
                         principalTable: "gms.Identity.Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_gms.Identity.UserRole_gms.Identity.User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "gms.Identity.User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "gms.Identity.UserToken",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_gms.Identity.UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_gms.Identity.UserToken_gms.Identity.User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "gms.Identity.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -163,10 +170,22 @@ namespace gms.data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "30775cd3-0236-4789-a189-8850710fbef3", null, "SuperAdmin", "SUPERADMIN" },
-                    { "6de773d4-5c21-4303-a637-20671e26cb24", null, "Admin", "ADMIN" },
-                    { "9fd19eb0-815c-4b63-aafe-2cfc459c5d75", null, "Basic", "BASIC" }
+                    { "3cecb829-4266-40b1-834c-4e6dfff16e1e", null, "Admin", "ADMIN" },
+                    { "4b5c09ad-f3db-4759-b1ff-2637d2ab7093", null, "SuperAdmin", "SUPERADMIN" },
+                    { "8f193e1c-796e-4f5f-860c-44c70cff6ae4", null, "Basic", "BASIC" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "gms.Identity.GymUser",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "gms.Identity.GymUser",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -179,18 +198,6 @@ namespace gms.data.Migrations
                 name: "IX_gms.Identity.RoleClaim_RoleId",
                 table: "gms.Identity.RoleClaim",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "gms.Identity.User",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "gms.Identity.User",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_gms.Identity.UserClaim_UserId",
@@ -230,7 +237,7 @@ namespace gms.data.Migrations
                 name: "gms.Identity.Role");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.User");
+                name: "gms.Identity.GymUser");
         }
     }
 }

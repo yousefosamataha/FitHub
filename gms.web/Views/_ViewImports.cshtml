@@ -6,6 +6,8 @@
 @using Microsoft.Extensions.Options;
 ﻿@using System.Globalization;
 @using gms.common.ViewModels;
+@using gms.data.Models;
 @inject IViewLocalizer localizer;
-
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<input type="hidden" id="localizer" value="@localizer" />
