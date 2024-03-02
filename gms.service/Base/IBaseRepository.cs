@@ -1,8 +1,7 @@
 ﻿using gms.common.Constants;
 using System.Linq.Expressions;
 
-namespace gms.common.Contracts.Base;
-
+namespace gms.services.Base;
 public interface IBaseRepository<T> where T : class
 {
 	T GetById(Guid id);

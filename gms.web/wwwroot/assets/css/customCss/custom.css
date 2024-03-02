@@ -13,3 +13,18 @@
     }
 }
 
+.image-input-placeholder, .symbol-label {
+    background-image: url('../../media/svg/files/blank-image.svg');
+}
+
+[data-bs-theme="dark"] .image-input-placeholder, [data-bs-theme="dark"] .symbol-label {
+    background-image: url('../../media/svg/files/blank-image-dark.svg');
+}
+
+.symbol-label-blank {
+    background-image: url('../../media/svg/avatars/blank.svg');
+}
+
+[data-bs-theme="dark"] .symbol-label-blank {
+    background-image: url('../../media/svg/avatars/blank-dark.svg');
+}

@@ -2,50 +2,86 @@
 import { globalClass } from './custom.js';
 
 // Class definition
-var addNewMembership = function () {
+var addNewMember = function () {
     // Shared variables
-    const addNewMembershipForm = document.getElementById('add_new_membership_form');
+    const addNewMemberForm = document.getElementById('add_new_member_form');
     const selectClassesInputElm = document.querySelector('#select_classes');
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
-    var validator = FormValidation.formValidation(addNewMembershipForm,
+    var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
+    var validator = FormValidation.formValidation(addNewMemberForm,
         {
             fields: {
-                'MembershipName': {
+                'FirstName': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
                         }
                     }
                 },
-                'Duration': {
+                'LastName': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
                         }
                     }
                 },
-                'DurationType': {
+                'Birthdate': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
                         }
                     }
                 },
-                'SelectedClasses': {
+                'Gender': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
                         }
                     }
                 },
-                'NumberOfClasses': {
+                'Email': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
                         }
                     }
                 },
-                'RepetitionType': {
+                'Mobile': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This Field Is Required!'
+                        }
+                    }
+                },
+                'State': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This Field Is Required!'
+                        }
+                    }
+                },
+                'City': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This Field Is Required!'
+                        }
+                    }
+                },
+                'Address': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This Field Is Required!'
+                        }
+                    }
+                },
+                'Username': {
+                    validators: {
+                        notEmpty: {
+                            message: 'This Field Is Required!'
+                        }
+                    }
+                },
+                'Password': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
@@ -64,20 +100,31 @@ var addNewMembership = function () {
             }
         }
     );
-    var classesList = [
-        { value: 1, name: 'Yoga Class' },
-        { value: 2, name: 'Aerobics Class' },
-        { value: 3, name: 'Hit Class' },
-        { value: 4, name: 'Cardio Class' },
-        { value: 5, name: 'Pilates' },
-        { value: 6, name: 'Zumba Class' },
-        { value: 7, name: 'Power Yoga Class' },
+    var birthDateFlatpickr;
+    const groupsList = [
+        { value: 1, name: 'Aerobics', image: 'https://img.freepik.com/free-vector/running-abstract-concept-vector-illustration-sports-lifestyle-daily-workout-training-exercise-speed-race-morning-jogging-outdoor-stadium-marathon-athlete-track-activity-abstract-metaphor_335657-4260.jpg?t=st=1709327762~exp=1709331362~hmac=2684bd0d55a82e65a4e8fb1c0fb117d77a883367a257a0a83d80c3312e9211b4&w=740' },
+        { value: 2, name: 'Body Building', image: 'https://img.freepik.com/free-vector/protein-shake-illustration_23-2150017421.jpg?t=st=1709327868~exp=1709331468~hmac=18aca94170607f4193f4f9ea73c87c091d84e0eab82932fc9f7bbd84dc74e98c&w=740' },
+        { value: 3, name: 'General Training', image: '' },
+        { value: 4, name: 'Weight Gain', image: '' },
+        { value: 5, name: 'Weight Loss', image: '' },
+        { value: 6, name: 'Yoga', image: '' }
     ];
 
-    // Membership Status Handler
-    const handleMembershipStatus = () => {
-        const target = document.getElementById('membership_status');
-        const select = document.getElementById('membership_status_select');
+    // Init Birth Date Flatpickr
+    var initFlatpickr = () => {
+        const birthDateElement = document.querySelector('#birthdate_date_picker');
+
+        $(birthDateElement).flatpickr({
+            locale: globalClass.flatpickrLanguage,
+            dateFormat: "Y-m-d",
+            altFormat: "d/m/Y",
+        });
+    }
+
+    // Member Status Handler
+    const handleMemberStatus = () => {
+        const target = document.getElementById('member_tatus');
+        const select = document.getElementById('member_status_select');
         const statusClasses = ['bg-success', 'bg-danger'];
 
         $(select).on('change', function (e) {
@@ -98,73 +145,52 @@ var addNewMembership = function () {
         });
     }
 
-    // Membership Class Limitation
-    const handleClassLimitation = () => {
-        const allConditions = document.querySelectorAll('[name="method"][type="radio"]');
-        const conditionMatch = document.querySelector('[data-kt-ecommerce-catalog-add-category="auto-options"]');
-        allConditions.forEach(radio => {
-            radio.addEventListener('change', e => { 
-                if (e.target.value === '1') {
-                    conditionMatch.classList.remove('d-none');
-                    validator.addField("NumberOfClasses", {
-                        validators: {
-                            notEmpty: {
-                                message: "Number Of Classes is required!"
-                            }
-                        }
-                    });
-                    validator.addField("RepetitionType", {
-                        validators: {
-                            notEmpty: {
-                                message: "Repetition Type is required!"
-                            }
-                        }
-                    });
-                } else {
-                    conditionMatch.classList.add('d-none');
-                    validator.removeField("NumberOfClasses");
-                    validator.removeField("RepetitionType");
-                }
-            });
-        })
-    }
-
-    // Membership Classes Selection
+    // Member Group Selection
     function tagTemplate(tagData) {
         return `
         <tag title="${tagData.name}" contenteditable='false' spellcheck='false' tabIndex="-1" class="${this.settings.classNames.tag}" ${this.getAttributes(tagData)}>
             <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
             <div class="d-flex align-items-center">
+                ${tagData.image.length > 0 ?
+                    `<img class="rounded-circle w-30px h-30px me-2" src="${tagData.image}">` :
+                    `<span class='rounded-circle w-30px h-30px me-2 symbol-label' style="display: block;background-size: cover;background-position: center;"></span>`
+                }
                 <span class='tagify__tag-text'>${tagData.name}</span>
             </div>
         </tag>`
     }
-
     function suggestionItemTemplate(tagData) {
         return `
-        <div ${this.getAttributes(tagData)} class='tagify__dropdown__item' tabindex="0" role="option">
-        ${tagData.name}
+        <div ${this.getAttributes(tagData)} class='tagify__dropdown__item d-flex align-items-center' tabindex="0"  role="option">
+            ${tagData.image.length > 0 ?
+                `<img class="rounded-circle w-30px h-30px me-2" src="${tagData.image}">` :
+                `<span class='rounded-circle w-30px h-30px me-2 symbol-label' style="display: block;background-size: cover;background-position: center;"></span>`
+            }
+            <div class="d-flex flex-column">
+                <strong>${tagData.name}</strong>
+            </div>
         </div>`
     }
 
     var tagify = new Tagify(selectClassesInputElm, {
-        whitelist: classesList,
+        //tagTextProp: 'name',
+        //enforceWhitelist: true,
         dropdown: {
             closeOnSelect: false,
             enabled: 0,
-            maxItems: 20,
-            classname: 'tagify__inline__suggestions',
+            classname: '',
             searchKeys: ['name']
         },
         templates: {
             tag: tagTemplate,
             dropdownItem: suggestionItemTemplate
-        }
+        },
+        whitelist: groupsList
     })
 
     // Add New Membership Form Submition
     const formSubmition = () => {
-        const submitButton = document.getElementById('add_new_membership_form_submit');
+        const submitButton = document.getElementById('add_new_member_form_submit');
         submitButton.addEventListener('click', function (e) {
             // Prevent default button action
             e.preventDefault();
@@ -206,8 +232,8 @@ var addNewMembership = function () {
 
     return {
         init: function () {
-            handleMembershipStatus();
-            handleClassLimitation();
+            initFlatpickr();
+            handleMemberStatus();
             formSubmition();
         }
     };
@@ -215,5 +241,11 @@ var addNewMembership = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    addNewMembership.init();
+    addNewMember.init();
 });
+
+//${
+//    tagData.avatar.length > 0 ?
+//    `<img onerror="this.style.visibility='hidden'" class="rounded-circle w-40px me-2" src="assets/media/${tagData.avatar}">` :
+//    `<span class='rounded-circle w-40px h-40px me-2 symbol-label' style="display: block;background-size: cover;"></span>`
+//}
