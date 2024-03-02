@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*!
- * Bootstrap  v5.3.0 (https://getbootstrap.com/)
- * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
 :root,
 [data-bs-theme=light] {
     --bs-blue: #0d6efd;
@@ -37,6 +33,8 @@
     --bs-warning: #ffc700;
     --bs-danger: #f1416c;
     --bs-dark: #071437;
+    --bs-female: #EC49A7;
+    --bs-female-light: #ec49a71a;
     --bs-light-rgb: 249, 249, 249;
     --bs-primary-rgb: 62, 151, 255;
     --bs-secondary-rgb: 219, 223, 233;
@@ -34302,6 +34300,8 @@ textarea.form-control-lg {
     --bs-warning: #ffc700;
     --bs-danger: #f1416c;
     --bs-dark: #071437;
+    --bs-female: #EC49A7;
+    --bs-female-light: #ec49a71a;
     --bs-primary-active: #2884Ef;
     --bs-secondary-active: #B5B5C3;
     --bs-light-active: #F1F1F2;
@@ -51381,7 +51381,7 @@ code:not([class*=language-]) {
     }
 
 .badge-light-secondary {
-    color: var(--bs-secondary);
+    color: var(--bs-secondary-inverse);
     background-color: var(--bs-secondary-light);
 }
 
@@ -51463,6 +51463,11 @@ code:not([class*=language-]) {
 .badge-light-dark {
     color: var(--bs-dark);
     background-color: var(--bs-dark-light);
+}
+
+.badge-light-female {
+    color: var(--bs-female);
+    background-color: var(--bs-female-light)
 }
 
 .indicator-progress {
@@ -55693,8 +55698,8 @@ body,
 
 @media (min-width: 992px) {
     .app-container {
-        padding-right: 35px !important;
-        padding-left: 35px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important
     }
 
     .app-container-fit-desktop {
@@ -57513,8 +57518,8 @@ body,
 
 @media (min-width: 992px) {
     .app-content {
-        padding-top: 35px;
-        padding-bottom: 35px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         padding-right: 0;
         padding-left: 0;
     }
@@ -57987,7 +57992,7 @@ body,
     .app-content {
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
-        padding-top: 25px;
+        padding-top: 20px;
     }
 
     .app-header-separator {

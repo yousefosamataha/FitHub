@@ -47950,7 +47950,7 @@ span.flatpickr-weekday {
 .tagify .tagify__tag .tagify__tag__removeBtn {
   width: 0.6rem;
   height: 0.6rem;
-  margin: 0 0.5rem 0 0;
+  margin: 0 0 0 0.5rem;
   border-radius: 0;
   content: " ";
   mask-repeat: no-repeat;
