@@ -11,6 +11,8 @@ internal class SubscriptionTypeEnumConfiguration : IEntityTypeConfiguration<Subs
     public void Configure(EntityTypeBuilder<SubscriptionTypeEnumEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SubscriptionTypeEnum", gmsDbProperties.DbSchema);
+        builder.HasKey(st => st.Id);
+
         builder.Property(st => st.SubscriptionType).IsRequired(true);
         builder.Property(st => st.SubscriptionType).HasMaxLength(100);
         builder.HasData(GetSubscriptionTypes());

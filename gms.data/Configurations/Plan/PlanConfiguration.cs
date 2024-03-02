@@ -10,7 +10,15 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
     public void Configure(EntityTypeBuilder<PlanEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SystemPlan", gmsDbProperties.DbSchema);
+        
+        builder.HasKey(p => p.Id);
+        
         builder.Property(p => p.PlanName).IsRequired(true);
+
+        builder.Property(p => p.PricePerMonth).HasPrecision(18, 2);
+        
+        builder.Property(p => p.PricePerYear).HasPrecision(18, 2);
+
         builder.HasData(GetSystemPlans());
     }
     public List<PlanEntity> GetSystemPlans()

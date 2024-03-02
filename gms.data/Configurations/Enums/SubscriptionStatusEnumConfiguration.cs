@@ -11,8 +11,12 @@ internal class SubscriptionStatusEnumConfiguration : IEntityTypeConfiguration<Su
     public void Configure(EntityTypeBuilder<SubscriptionStatusEnumEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SubscriptionStatusEnum", gmsDbProperties.DbSchema);
-        builder.Property(st => st.SubscriptionStatus).IsRequired(true);
-        builder.Property(st => st.SubscriptionStatus).HasMaxLength(100);
+
+        builder.HasKey(ss => ss.Id);
+
+        builder.Property(ss => ss.SubscriptionStatus).IsRequired(true);
+        builder.Property(ss => ss.SubscriptionStatus).HasMaxLength(100);
+
         builder.HasData(GetSubscriptionStatuses());
     }
 

@@ -11,7 +11,10 @@ internal class PaymentMethodEnumConfiguration : IEntityTypeConfiguration<Payment
     public void Configure(EntityTypeBuilder<PaymentMethodEnumEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".PaymentMethodEnum", gmsDbProperties.DbSchema);
-        builder.Property(st => st.PaymentMethod).IsRequired(true).HasMaxLength(100);
+
+        builder.HasKey(pm => pm.Id);
+
+        builder.Property(pm => pm.PaymentMethod).IsRequired(true).HasMaxLength(100);
         builder.HasData(GetPaymentMethods());
     }
     public List<PaymentMethodEnumEntity> GetPaymentMethods()
