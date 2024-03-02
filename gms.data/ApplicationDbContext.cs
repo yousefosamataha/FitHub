@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     //public DbSet<IdentityUserToken<string>> UserTokens { get; set; }
     public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
     public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
+    public DbSet<PlanEntity> SystemPlans { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
