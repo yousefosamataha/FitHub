@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Enums;
 
-public enum SubscriptionTypeEnum : byte
+public enum SubscriptionStatusEnum : byte
 {
     Active = 1,
     Suspend = 2,

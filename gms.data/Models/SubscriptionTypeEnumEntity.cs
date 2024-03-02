@@ -2,7 +2,7 @@
 
 namespace gms.data.Models;
 
-public class SubscriptionTypeEnumEntity : BaseEntity
+public class SubscriptionStatusEnumEntity : BaseEntity
 {
-    public required string SubscriptionType { get; set; }
+    public required string SubscriptionStatus { get; set; }
 }

@@ -22,7 +22,7 @@ namespace gms.data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("gms.data.Models.SubscriptionTypeEnumEntity", b =>
+            modelBuilder.Entity("gms.data.Models.SubscriptionStatusEnumEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,43 +39,43 @@ namespace gms.data.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SubscriptionType")
+                    b.Property<string>("SubscriptionStatus")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("gms.SubscriptionTypeEnum", (string)null);
+                    b.ToTable("gms.SubscriptionStatusEnum", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3036),
+                            CreatedAt = new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(150),
                             IsDeleted = false,
-                            SubscriptionType = "Active"
+                            SubscriptionStatus = "Active"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3051),
+                            CreatedAt = new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(159),
                             IsDeleted = false,
-                            SubscriptionType = "Suspend"
+                            SubscriptionStatus = "Suspend"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3054),
+                            CreatedAt = new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(161),
                             IsDeleted = false,
-                            SubscriptionType = "Cancelled"
+                            SubscriptionStatus = "Cancelled"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3057),
+                            CreatedAt = new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(163),
                             IsDeleted = false,
-                            SubscriptionType = "Expired"
+                            SubscriptionStatus = "Expired"
                         });
                 });
 #pragma warning restore 612, 618

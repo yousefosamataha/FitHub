@@ -8,36 +8,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gms.data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddSubscriptionTypeEnumEntity : Migration
+    public partial class AddSubscriptionStatusEnumEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "gms.SubscriptionTypeEnum",
+                name: "gms.SubscriptionStatusEnum",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubscriptionType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SubscriptionStatus = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.SubscriptionTypeEnum", x => x.Id);
+                    table.PrimaryKey("PK_gms.SubscriptionStatusEnum", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
-                table: "gms.SubscriptionTypeEnum",
-                columns: new[] { "Id", "CreatedAt", "IsDeleted", "ModifiedAt", "SubscriptionType" },
+                table: "gms.SubscriptionStatusEnum",
+                columns: new[] { "Id", "CreatedAt", "IsDeleted", "ModifiedAt", "SubscriptionStatus" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3036), false, null, "Active" },
-                    { 2, new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3051), false, null, "Suspend" },
-                    { 3, new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3054), false, null, "Cancelled" },
-                    { 4, new DateTime(2024, 3, 2, 7, 49, 3, 127, DateTimeKind.Utc).AddTicks(3057), false, null, "Expired" }
+                    { 1, new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(150), false, null, "Active" },
+                    { 2, new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(159), false, null, "Suspend" },
+                    { 3, new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(161), false, null, "Cancelled" },
+                    { 4, new DateTime(2024, 3, 2, 8, 2, 9, 910, DateTimeKind.Utc).AddTicks(163), false, null, "Expired" }
                 });
         }
 
@@ -45,7 +45,7 @@ namespace gms.data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "gms.SubscriptionTypeEnum");
+                name: "gms.SubscriptionStatusEnum");
         }
     }
 }
