@@ -17,16 +17,22 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddDbContext<ApplicationDbContext>(options =>
 														options.UseSqlServer(connectionString));
 
+	//builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
+	//builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 	builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddEntityFrameworkStores<ApplicationDbContext>()
 					.AddDefaultUI();
 
-	//builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
-	//builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
+	builder.Services.ConfigureApplicationCookie(options =>
+	{
+		options.LoginPath = "/Identity/Account/Login";
+		options.LogoutPath = "/Identity/Account/Logout";
+	});
 	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 	{
 		options.ValidationInterval = TimeSpan.Zero;
