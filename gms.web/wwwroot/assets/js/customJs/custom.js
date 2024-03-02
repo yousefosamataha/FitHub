@@ -28,9 +28,9 @@ var globalClass = function () {
     var sidebarMinimizeClick = function () {
         document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
             if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
-                sessionStorage.setItem("sidebar-minimize", true);
-            } else {
                 sessionStorage.setItem("sidebar-minimize", false);
+            } else {
+                sessionStorage.setItem("sidebar-minimize", true);
             }
         });
     }

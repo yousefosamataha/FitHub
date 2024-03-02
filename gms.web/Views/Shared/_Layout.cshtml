@@ -119,14 +119,6 @@
 					<!--end::Header Logo-->
 					<!--begin::Navbar-->
 					<div class="app-navbar flex-grow-1 justify-content-end" id="kt_app_header_navbar">
-						@*<!--begin::Header menu toggle-->
-						<div class="app-navbar-item d-flex d-lg-none">
-							<div class="btn btn-icon btn-custom btn-color-gray-800 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px"
-								id="kt_app_aside_mobile_toggle">
-								<i class="ki-solid ki-burger-menu-2 fs-2"></i>
-							</div>
-						</div>
-						<!--end::Header menu toggle-->*@
 						<!--begin::Shop Cart-->
 						<div class="app-navbar-item">
 							<!--begin::Menu wrapper-->
@@ -265,7 +257,7 @@
 						<!--begin::User menu-->
 						<div class="app-navbar-item ms-2 ms-lg-7 me-lg-7 me-3" id="kt_header_user_menu_toggle">
 							<!--begin::Menu wrapper-->
-							<div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="@(IsRTL ? "bottom-start" : "bottom-end")">
+							<div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
 								<img src="~/assets/media/avatars/300-2.jpg" alt="user" />
 							</div>
 							<!--begin::User account menu-->
@@ -444,7 +436,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["addnewmembership"]</span>
+												<span class="menu-title">@localizer["add_new_membership"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -456,7 +448,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["membershipslist"]</span>
+												<span class="menu-title">@localizer["memberships_list"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -472,7 +464,7 @@
 										<span class="menu-icon">
 											<i class="ki-solid ki-profile-user fs-1"></i>
 										</span>
-										<span class="menu-title">@localizer["manageusers"]</span>
+										<span class="menu-title">@localizer["manage_users"]</span>
 										<span class="menu-arrow"></span>
 									</span>
 									<!--end:Menu link-->
@@ -485,7 +477,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["managemembers"]</span>
+												<span class="menu-title">@localizer["manage_members"]</span>
 												<span class="menu-arrow"></span>
 											</span>
 											<!--end:Menu link-->
@@ -498,7 +490,7 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">@localizer["addnewmember"]</span>
+														<span class="menu-title">@localizer["add_new_member"]</span>
 													</a>
 													<!--end:Menu link-->
 												</div>
@@ -510,7 +502,7 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">@localizer["memberslist"]</span>
+														<span class="menu-title">@localizer["members_list"]</span>
 													</a>
 													<!--end:Menu link-->
 												</div>
@@ -526,7 +518,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["managestaffs"]</span>
+												<span class="menu-title">@localizer["manage_staffs"]</span>
 												<span class="menu-arrow"></span>
 											</span>
 											<!--end:Menu link-->
@@ -539,7 +531,7 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">@localizer["addnewstaff"]</span>
+														<span class="menu-title">@localizer["add_new_staff"]</span>
 													</a>
 													<!--end:Menu link-->
 												</div>
@@ -551,7 +543,7 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">@localizer["staffslist"]</span>
+														<span class="menu-title">@localizer["staffs_list"]</span>
 													</a>
 													<!--end:Menu link-->
 												</div>
@@ -625,7 +617,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["addnewgroup"]</span>
+												<span class="menu-title">@localizer["add_new_group"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -637,7 +629,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["groupslist"]</span>
+												<span class="menu-title">@localizer["groups_list"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -653,7 +645,7 @@
 										<span class="menu-icon">
 											<i class="ki-solid ki-calendar-2 fs-1"></i>
 										</span>
-										<span class="menu-title">@localizer["trainingclasses"]</span>
+										<span class="menu-title">@localizer["training_classes"]</span>
 										<span class="menu-arrow"></span>
 									</span>
 									<!--end:Menu link-->
@@ -666,7 +658,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["addnewclass"]</span>
+												<span class="menu-title">@localizer["add_new_class"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -678,7 +670,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["classeslist"]</span>
+												<span class="menu-title">@localizer["classes_list"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -690,7 +682,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["classesschedule"]</span>
+												<span class="menu-title">@localizer["classes_schedule"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -706,7 +698,7 @@
 										<span class="menu-icon">
 											<i class="fa-solid fa-dumbbell fs-4"></i>
 										</span>
-										<span class="menu-title">@localizer["workoutplans"]</span>
+										<span class="menu-title">@localizer["workout_plans"]</span>
 										<span class="menu-arrow"></span>
 									</span>
 									<!--end:Menu link-->
@@ -719,7 +711,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["assignworkoutplans"]</span>
+												<span class="menu-title">@localizer["assign_workout_plans"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -731,7 +723,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["dailyworkoutplans"]</span>
+												<span class="menu-title">@localizer["daily_workout_plans"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -747,7 +739,7 @@
 										<span class="menu-icon">
 											<i class="fa-solid fa-plate-wheat fs-3 fs-3-custom"></i>
 										</span>
-										<span class="menu-title">@localizer["nuritionplans"]</span>
+										<span class="menu-title">@localizer["nurition_plans"]</span>
 										<span class="menu-arrow"></span>
 									</span>
 									<!--end:Menu link-->
@@ -760,7 +752,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["assignnuritionplans"]</span>
+												<span class="menu-title">@localizer["assign_nurition_plans"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -870,7 +862,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["membersattendance"]</span>
+												<span class="menu-title">@localizer["members_attendance"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -882,7 +874,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">@localizer["staffsattendance"]</span>
+												<span class="menu-title">@localizer["staffs_attendance"]</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -898,7 +890,7 @@
 										<span class="menu-icon">
 											<i class="fa-solid fa-store fs-3"></i>
 										</span>
-										<span class="menu-title">@localizer["storeandproducts"]</span>
+										<span class="menu-title">@localizer["store_and_products"]</span>
 										<span class="menu-arrow"></span>
 									</span>
 									<!--end:Menu link-->

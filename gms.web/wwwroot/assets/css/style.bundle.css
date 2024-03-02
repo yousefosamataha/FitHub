@@ -33982,6 +33982,7 @@ textarea.form-control-lg {
     --bs-warning: #ffc700;
     --bs-danger: #f1416c;
     --bs-dark: #071437;
+    --bs-female: #EC49A7;
     --bs-primary-active: #2884Ef;
     --bs-secondary-active: #B5B5C3;
     --bs-light-active: #F1F1F2;
@@ -33997,6 +33998,7 @@ textarea.form-control-lg {
     --bs-warning-light: #fff8dd;
     --bs-danger-light: #fff5f8;
     --bs-dark-light: #F1F1F2;
+    --bs-female-light: #ec49a71a;
     --bs-primary-inverse: #FFFFFF;
     --bs-secondary-inverse: #4B5675;
     --bs-light-inverse: #78829D;
@@ -34130,6 +34132,7 @@ textarea.form-control-lg {
     --bs-warning: #ffc700;
     --bs-danger: #f1416c;
     --bs-dark: #FFFFFF;
+    --bs-female: #EC49A7;
     --bs-secondary: #323248;
     --bs-primary-active: #2884Ef;
     --bs-secondary-active: #474761;
@@ -34145,6 +34148,7 @@ textarea.form-control-lg {
     --bs-warning-light: #392f28;
     --bs-danger-light: #3a2434;
     --bs-dark-light: #2B2B40;
+    --bs-female-light: #ec49a71a;
     --bs-secondary-light: #1b1b29;
     --bs-primary-inverse: #FFFFFF;
     --bs-secondary-inverse: #92929F;
@@ -50598,8 +50602,8 @@ code:not([class*=language-]) {
     }
 
 .badge-light-secondary {
-    color: var(--bs-secondary);
-    background-color: var(--bs-secondary-light)
+    background-color: var(--bs-secondary-light);
+    color: var(--bs-secondary-inverse);
 }
 
 .badge-success {
@@ -50671,15 +50675,20 @@ code:not([class*=language-]) {
     background-color: var(--bs-dark)
 }
 
-    .badge-dark.badge-outline {
-        border: 1px solid var(--bs-dark);
-        color: var(--bs-dark);
-        background-color: transparent
-    }
+.badge-dark.badge-outline {
+    border: 1px solid var(--bs-dark);
+    color: var(--bs-dark);
+    background-color: transparent
+}
 
 .badge-light-dark {
     color: var(--bs-dark);
     background-color: var(--bs-dark-light)
+}
+
+.badge-light-female {
+    color: var(--bs-female);
+    background-color: var(--bs-female-light)
 }
 
 .indicator-progress {
@@ -54779,8 +54788,8 @@ router-outlet {
 
 @media (min-width:992px) {
     .app-container {
-        padding-left: 35px !important;
-        padding-right: 35px !important
+        padding-left: 20px !important;
+        padding-right: 20px !important
     }
 
     .app-container-fit-desktop {
@@ -56559,8 +56568,8 @@ router-outlet {
 
 @media (min-width:992px) {
     .app-content {
-        padding-top: 35px;
-        padding-bottom: 35px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         padding-left: 0;
         padding-right: 0
     }
@@ -57065,7 +57074,7 @@ router-outlet {
     .app-content {
         border-bottom-right-radius: 12px;
         border-bottom-left-radius: 12px;
-        padding-top: 25px
+        padding-top: 20px
     }
 
     .app-header-separator {

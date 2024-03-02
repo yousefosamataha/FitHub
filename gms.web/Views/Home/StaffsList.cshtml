@@ -2,32 +2,31 @@
 @using Microsoft.AspNetCore.Mvc.Localization;
 @inject IViewLocalizer localizer;
 @{
-	ViewData["Title"] = localizer["staffslist"];
+	ViewData["Title"] = localizer["staffs_list"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
 <!--begin::Content wrapper-->
 <div class="d-flex flex-column flex-column-fluid">
 	<!--begin::Toolbar-->
-	<div id="kt_app_toolbar" class="app-toolbar pt-6 pb-2">
+	<div id="kt_app_toolbar" class="app-toolbar" style="padding-top: 10px;">
 		<!--begin::Toolbar container-->
 		<div id="kt_app_toolbar_container"
 			 class="app-container container-fluid d-flex align-items-stretch">
 			<!--begin::Toolbar wrapper-->
-			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100 px-5">
 				<!--begin::Page title-->
 				<div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
 					<!--begin::Title-->
 					<h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-						@localizer["staffslist"]
+						@localizer["staffs_list"]
 					</h1>
 					<!--end::Title-->
 					<!--begin::Breadcrumb-->
 					<ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
 						<li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
-						<li class="breadcrumb-item text-gray-600">@localizer["manageusers"]</li>
-						<li class="breadcrumb-item text-gray-600">@localizer["managestaffs"]</li>
-						@* <li class="breadcrumb-item text-gray-600">@localizer["staffslist"]</li> *@
+						<li class="breadcrumb-item text-gray-600">@localizer["manage_users"]</li>
+						<li class="breadcrumb-item text-gray-600">@localizer["manage_staffs"]</li>
 					</ol>
 					<!--end::Breadcrumb-->
 				</div>
@@ -51,34 +50,117 @@
 						<!--begin::Search-->
 						<div class="d-flex align-items-center position-relative my-1">
 							<i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-							<input type="text" membership-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["searchbymembershipname"]" />
+							<input type="text" members-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_member_name"]" />
 						</div>
 						<!--end::Search-->
+						<!--begin::Export buttons-->
+						<div id="kt_ecommerce_report_views_export" class="d-none"></div>
+						<!--end::Export buttons-->
 					</div>
 					<!--end::Card title-->
 					<!--begin::Card toolbar-->
 					<div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-						<!--begin::Flatpickr-->
-						<div class="input-group w-250px">
-							<input class="form-control rounded rounded-end-0" placeholder="@localizer["pickdaterange"]" id="kt_ecommerce_sales_flatpickr" />
-							<button class="btn btn-icon btn-light" id="kt_ecommerce_sales_flatpickr_clear">
-								<i class="ki-outline ki-cross fs-2"></i>
+						<!--begin::Filter-->
+						<div>
+							<button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-bs-toggle="tooltip" title="Filter" data-bs-custom-class="tooltip-inverse">
+								<i class="ki-solid ki-filter fs-2"></i>
 							</button>
+							<!--begin::Filter Menu-->
+							<div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+								<!--begin::Header-->
+								<div class="px-7 py-5">
+									<div class="fs-5 text-dark fw-bold">Filter Options</div>
+								</div>
+								<!--end::Header-->
+								<!--begin::Separator-->
+								<div class="separator border-gray-200"></div>
+								<!--end::Separator-->
+								<!--begin::Content-->
+								<div class="px-7 py-5" members-list-filter="form">
+									<!--begin::Filter Member Status-->
+									<div class="mb-5">
+										<label class="form-label fs-6 fw-semibold">Member Status:</label>
+										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["status"]" membership-list-filter="status">
+											<option></option>
+											<option value="@localizer["active"].Value">@localizer["active"]</option>
+											<option value="@localizer["inactive"].Value">@localizer["inactive"]</option>
+										</select>
+									</div>
+									<!--end::Filter Member Status-->
+									<!--begin::Filter Joining DateRange-->
+									<div class="mb-5">
+										<label class="form-label fs-6 fw-semibold">Joining Date Range:</label>
+										<div class="input-group">
+											<input class="form-control rounded" placeholder="@localizer["pick_date_range"]" members-list-date-range-filter="filter" />
+										</div>
+									</div>
+									<!--end::Filter Joining DateRange-->
+									<!--begin::Expiring Joining DateRange-->
+									<div class="mb-5">
+										<label class="form-label fs-6 fw-semibold">Expiring Date Range:</label>
+										<div class="input-group">
+											<input class="form-control rounded" placeholder="@localizer["pick_date_range"]" members-list-date-range-filter="filter" />
+										</div>
+									</div>
+									<!--end::Expiring Joining DateRange-->
+									<!--begin::Filter Membership Status-->
+									<div class="mb-5">
+										<label class="form-label fs-6 fw-semibold">Member Status:</label>
+										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["status"]" membership-list-filter="status">
+											<option></option>
+											<option value="@localizer["activated"].Value">@localizer["activated"]</option>
+											<option value="@localizer["expired"].Value">@localizer["expired"]</option>
+											<option value="@localizer["suspended"].Value">@localizer["suspended"]</option>
+											<option value="@localizer["cancelled"].Value">@localizer["cancelled"]</option>
+										</select>
+									</div>
+									<!--end::Filter Membership Status-->
+									<!--begin::Actions-->
+									<div class="d-flex justify-content-end">
+										<button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" members-list-table-reset="reset">Reset</button>
+										<button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" members-list-table-filter="filter">Apply</button>
+									</div>
+									<!--end::Actions-->
+								</div>
+								<!--end::Content-->
+							</div>
+							<!--end::Filter Menu-->
 						</div>
-						<!--end::Flatpickr-->
-						<!--begin::Select Status-->
-						<div class="w-100 mw-150px">
-							<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["status"]" membership-list-filter="status">
-								<option></option>
-								<option value="all">@localizer["all"]</option>
-								<option value="@localizer["active"].Value">@localizer["active"]</option>
-								<option value="@localizer["inactive"].Value">@localizer["inactive"]</option>
-							</select>
+						<!--end::Filter-->
+						<!--begin::Export-->
+						<div>
+							<button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-bs-toggle="tooltip" title="Export" data-bs-custom-class="tooltip-inverse">
+								<i class="fa-solid fa-download fs-3"></i>
+							</button>
+							<!--begin::Export Menu-->
+							<div id="kt_ecommerce_report_views_export_menu" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+								<!--begin::Menu item-->
+								<div class="menu-item px-3">
+									<a href="#" class="menu-link px-3" data-kt-ecommerce-export="copy">Copy to clipboard</a>
+								</div>
+								<!--end::Menu item-->
+								<!--begin::Menu item-->
+								<div class="menu-item px-3">
+									<a href="#" class="menu-link px-3" data-kt-ecommerce-export="excel">Export as Excel</a>
+								</div>
+								<!--end::Menu item-->
+								<!--begin::Menu item-->
+								<div class="menu-item px-3">
+									<a href="#" class="menu-link px-3" data-kt-ecommerce-export="csv">Export as CSV</a>
+								</div>
+								<!--end::Menu item-->
+								<!--begin::Menu item-->
+								<div class="menu-item px-3">
+									<a href="#" class="menu-link px-3" data-kt-ecommerce-export="pdf">Export as PDF</a>
+								</div>
+								<!--end::Menu item-->
+							</div>
+							<!--end::Export Menu-->
 						</div>
-						<!--end::Select Status-->
+						<!--end::Export-->
 						<!--begin::Add Membership-->
 						<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
-							<i class="ki-outline ki-plus fs-2"></i>@localizer["addnewmembership"]
+							<i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_member"]
 						</a>
 						<!--end::Add Membership-->
 					</div>
@@ -88,16 +170,16 @@
 				<!--begin::Card body-->
 				<div class="card-body pt-0">
 					<!--begin::Table-->
-					<table class="table align-middle table-row-dashed fs-6" id="membership_list">
+					<table class="table align-middle table-row-dashed fs-6" id="members-list">
 						<thead>
 							<tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
-								<th class="text-center min-w-50px">@localizer["photo"]</th>
-								<th class="text-start min-w-150px">@localizer["membershipname"]</th>
-								<th class="text-start min-w-100px">@localizer["duration"]</th>
-								<th class="text-start min-w-100px">@localizer["price"]</th>
-								<th class="text-start min-w-100px">@localizer["signupfee"]</th>
+								<th class="text-center min-w-50px">@localizer["image"]</th>
+								<th class="text-start min-w-150px">@localizer["member_name"]</th>
 								<th class="text-center min-w-100px">@localizer["status"]</th>
-								<th class="text-center min-w-100px">@localizer["creationdate"]</th>
+								<th class="text-start min-w-150px">@localizer["membership_name"]</th>
+								<th class="text-center min-w-100px">@localizer["joining_date"]</th>
+								<th class="text-center min-w-100px">@localizer["expiring_date"]</th>
+								<th class="text-center min-w-100px">@localizer["membership_status"]</th>
 								<th class="text-center min-w-100px">@localizer["actions"]</th>
 							</tr>
 						</thead>
@@ -105,29 +187,34 @@
 							<tr>
 								<td class="text-center">
 									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label"></span>
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank" style="background-image:url('https://media.licdn.com/dms/image/D4D03AQFkI8PJxujpKg/profile-displayphoto-shrink_800_800/0/1703540805074?e=1714003200&v=beta&t=KyxOsDLlvsDrGFBmGSD46LiroS5IhABdqWlxI81sGWE') !important;"></span>
 									</a>
 									<!--end::Thumbnail-->
 								</td>
 								<td class="text-start">
 									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">Gold Membership</a>
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">Yousef Osama Taha</a>
 									<!--end::Title-->
 								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">1</span>
-									<span class="fw-bold">@localizer["year"]</span>
-								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$1000</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$100</td>
-								<td class="text-center" data-order="@localizer["active"]">
+								<td class="text-center" data-order="@localizer["inactive"]">
 									<!--begin::Badges-->
-									<div class="badge badge-light-success">@localizer["active"]</div>
+									<div class="badge badge-light-danger">@localizer["inactive"]</div>
 									<!--end::Badges-->
+								</td>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
 								</td>
 								<td class="text-center" data-order="2024-02-05">
 									<span class="fw-bold">05/02/2024</span>
+								</td>
+								<td class="text-center" data-order="2025-02-05">
+									<span class="fw-bold">05/02/2025</span>
+								</td>
+								<td class="text-center" data-order="@localizer["suspended"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-warning">@localizer["suspended"]</div>
+									<!--end::Badges-->
 								</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center flex-shrink-0">
@@ -146,32 +233,40 @@
 							<tr>
 								<td class="text-center">
 									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label" style="background-image:url('../assets/media//stock/ecommerce/1.png') !important;"></span>
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank"></span>
 									</a>
 									<!--end::Thumbnail-->
 								</td>
 								<td class="text-start">
 									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">Silver Membership</a>
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">Mohamed Ashraf</a>
 									<!--end::Title-->
 								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">3</span>
-									<span class="fw-bold">@localizer["months"]</span>
-								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$500</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$50</td>
 								<td class="text-center" data-order="@localizer["active"]">
 									<!--begin::Badges-->
 									<div class="badge badge-light-success">@localizer["active"]</div>
 									<!--end::Badges-->
 								</td>
-								<td class="text-center" data-order="2024-02-06">
-									<span class="fw-bold">06/02/2024</span>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
+								</td>
+								<td class="text-center" data-order="2024-01-05">
+									<span class="fw-bold">05/01/2024</span>
+								</td>
+								<td class="text-center" data-order="2024-02-05">
+									<span class="fw-bold">05/02/2024</span>
+								</td>
+								<td class="text-center" data-order="@localizer["activated"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-success">@localizer["activated"]</div>
+									<!--end::Badges-->
 								</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center flex-shrink-0">
+										@* <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+										<i class="ki-solid ki-switch fs-2"></i>
+										</a> *@
 										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
 											<i class="ki-solid ki-pencil fs-2"></i>
 										</a>
@@ -184,32 +279,132 @@
 							<tr>
 								<td class="text-center">
 									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label"></span>
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank"></span>
 									</a>
 									<!--end::Thumbnail-->
 								</td>
 								<td class="text-start">
 									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">Bronze Membership</a>
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">Yousef Ahmed Elsaaed</a>
 									<!--end::Title-->
 								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">1</span>
-									<span class="fw-bold">@localizer["month"]</span>
+								<td class="text-center" data-order="@localizer["inactive"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-danger">@localizer["inactive"]</div>
+									<!--end::Badges-->
 								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$300</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">$50</td>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
+								</td>
+								<td class="text-center" data-order="2024-03-05">
+									<span class="fw-bold">05/03/2024</span>
+								</td>
+								<td class="text-center" data-order="2024-05-05">
+									<span class="fw-bold">05/05/2024</span>
+								</td>
+								<td class="text-center" data-order="@localizer["expired"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-danger">@localizer["expired"]</div>
+									<!--end::Badges-->
+								</td>
+								<td class="text-center">
+									<div class="d-flex justify-content-center flex-shrink-0">
+										@* <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+										<i class="ki-solid ki-switch fs-2"></i>
+										</a> *@
+										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+											<i class="ki-solid ki-pencil fs-2"></i>
+										</a>
+										<a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+											<i class="ki-solid ki-trash fs-2"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center">
+									<!--begin::Thumbnail-->
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank"></span>
+									</a>
+									<!--end::Thumbnail-->
+								</td>
+								<td class="text-start">
+									<!--begin::Title-->
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">Mostafa Ayman</a>
+									<!--end::Title-->
+								</td>
+								<td class="text-center" data-order="@localizer["inactive"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-danger">@localizer["inactive"]</div>
+									<!--end::Badges-->
+								</td>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
+								</td>
+								<td class="text-center" data-order="2024-06-05">
+									<span class="fw-bold">05/06/2024</span>
+								</td>
+								<td class="text-center" data-order="2024-07-05">
+									<span class="fw-bold">05/07/2024</span>
+								</td>
+								<td class="text-center" data-order="@localizer["cancelled"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-secondary">@localizer["cancelled"]</div>
+									<!--end::Badges-->
+								</td>
+								<td class="text-center">
+									<div class="d-flex justify-content-center flex-shrink-0">
+										@* <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+										<i class="ki-solid ki-switch fs-2"></i>
+										</a> *@
+										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+											<i class="ki-solid ki-pencil fs-2"></i>
+										</a>
+										<a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+											<i class="ki-solid ki-trash fs-2"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-center">
+									<!--begin::Thumbnail-->
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank"></span>
+									</a>
+									<!--end::Thumbnail-->
+								</td>
+								<td class="text-start">
+									<!--begin::Title-->
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">Mohamed Gamal</a>
+									<!--end::Title-->
+								</td>
 								<td class="text-center" data-order="@localizer["active"]">
 									<!--begin::Badges-->
 									<div class="badge badge-light-success">@localizer["active"]</div>
 									<!--end::Badges-->
 								</td>
-								<td class="text-center" data-order="2024-02-07">
-									<span class="fw-bold">07/02/2024</span>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
+								</td>
+								<td class="text-center" data-order="2024-08-05">
+									<span class="fw-bold">05/08/2024</span>
+								</td>
+								<td class="text-center" data-order="2024-09-05">
+									<span class="fw-bold">05/09/2024</span>
+								</td>
+								<td class="text-center" data-order="@localizer["activated"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-success">@localizer["activated"]</div>
+									<!--end::Badges-->
 								</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center flex-shrink-0">
+										@* <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+										<i class="ki-solid ki-switch fs-2"></i>
+										</a> *@
 										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
 											<i class="ki-solid ki-pencil fs-2"></i>
 										</a>
@@ -222,108 +417,40 @@
 							<tr>
 								<td class="text-center">
 									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label"></span>
+									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+										<span class="symbol-label symbol-label-blank"></span>
 									</a>
 									<!--end::Thumbnail-->
 								</td>
 								<td class="text-start">
 									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">Free Trial</a>
+									<a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">عبد الرحمان عمر</a>
 									<!--end::Title-->
 								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">10</span>
-									<span class="fw-bold">@localizer["days"]</span>
-								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-center" data-order="@localizer["inactive"]">
+								<td class="text-center" data-order="@localizer["active"]">
 									<!--begin::Badges-->
-									<div class="badge badge-light-danger">@localizer["inactive"]</div>
+									<div class="badge badge-light-success">@localizer["active"]</div>
 									<!--end::Badges-->
 								</td>
-								<td class="text-center" data-order="2024-02-08">
-									<span class="fw-bold">08/02/2024</span>
+								<td class="text-start">
+									<span class="fw-bold">Gold Membership</span>
+								</td>
+								<td class="text-center" data-order="2024-01-01">
+									<span class="fw-bold">01/01/2024</span>
+								</td>
+								<td class="text-center" data-order="2024-02-01">
+									<span class="fw-bold">01/02/2024</span>
+								</td>
+								<td class="text-center" data-order="@localizer["activated"]">
+									<!--begin::Badges-->
+									<div class="badge badge-light-success">@localizer["activated"]</div>
+									<!--end::Badges-->
 								</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center flex-shrink-0">
-										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
-											<i class="ki-solid ki-pencil fs-2"></i>
-										</a>
-										<a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
-											<i class="ki-solid ki-trash fs-2"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-center">
-									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label"></span>
-									</a>
-									<!--end::Thumbnail-->
-								</td>
-								<td class="text-start">
-									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">تجربة مجانية</a>
-									<!--end::Title-->
-								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">10</span>
-									<span class="fw-bold">@localizer["days"]</span>
-								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-center" data-order="@localizer["inactive"]">
-									<!--begin::Badges-->
-									<div class="badge badge-light-danger">@localizer["inactive"]</div>
-									<!--end::Badges-->
-								</td>
-								<td class="text-center" data-order="2024-02-09">
-									<span class="fw-bold">09/02/2024</span>
-								</td>
-								<td class="text-center">
-									<div class="d-flex justify-content-center flex-shrink-0">
-										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
-											<i class="ki-solid ki-pencil fs-2"></i>
-										</a>
-										<a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
-											<i class="ki-solid ki-trash fs-2"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-center">
-									<!--begin::Thumbnail-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-circle symbol-50px">
-										<span class="symbol-label"></span>
-									</a>
-									<!--end::Thumbnail-->
-								</td>
-								<td class="text-start">
-									<!--begin::Title-->
-									<a href="../../demo39/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="membership_name">Free Trial</a>
-									<!--end::Title-->
-								</td>
-								<td class="text-start">
-									<span class="fw-bold @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">10</span>
-									<span class="fw-bold">@localizer["days"]</span>
-								</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-start @( IsRTL ? "convert-english-digits-to-arabic-digits" : "" )">0</td>
-								<td class="text-center" data-order="@localizer["inactive"]">
-									<!--begin::Badges-->
-									<div class="badge badge-light-danger">@localizer["inactive"]</div>
-									<!--end::Badges-->
-								</td>
-								<td class="text-center" data-order="2024-02-10">
-									<span class="fw-bold">10/02/2024</span>
-								</td>
-								<td class="text-center">
-									<div class="d-flex justify-content-center flex-shrink-0">
+										@* <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+										<i class="ki-solid ki-switch fs-2"></i>
+										</a> *@
 										<a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
 											<i class="ki-solid ki-pencil fs-2"></i>
 										</a>

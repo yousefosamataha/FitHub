@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.data", "gms.data\gms.da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.service", "gms.service\gms.service.csproj", "{6120DF05-5A56-44B7-A66C-DCA284CA2C40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gms.web", "gms.web\gms.web.csproj", "{09AC0ABE-013B-4D11-ADDA-6779A671FB6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gms.web", "gms.web\gms.web.csproj", "{09AC0ABE-013B-4D11-ADDA-6779A671FB6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
