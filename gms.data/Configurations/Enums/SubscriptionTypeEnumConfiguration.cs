@@ -21,13 +21,13 @@ internal class SubscriptionTypeEnumConfiguration : IEntityTypeConfiguration<Subs
         List<SubscriptionTypeEnumEntity> subscriptionTypes = new();
         foreach (var subscriptionType in Enum.GetValues(typeof(SubscriptionTypeEnum)))
         {
-            SubscriptionTypeEnumEntity newSubscriptiontType = new()
+            SubscriptionTypeEnumEntity newSubscriptionType = new()
             {
                 Id = (byte)subscriptionType,
                 SubscriptionType = subscriptionType.ToString(),
                 CreatedAt = DateTime.UtcNow
             };
-            subscriptionTypes.Add(newSubscriptiontType);
+            subscriptionTypes.Add(newSubscriptionType);
         };
         return subscriptionTypes;
     }
