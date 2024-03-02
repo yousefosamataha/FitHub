@@ -87,7 +87,6 @@ public static partial class Seeds
         IList<Claim> allRoleClaims = await roleManger.GetClaimsAsync(role);
 
         List<string> permissionList = PermissionsConstants.GenerateAllPermissionsList();
-
         foreach (var permission in permissionList)
         {
             if (!allRoleClaims.Any(c => c.Type == PermissionsConstants.Permission && c.Value == permission))
