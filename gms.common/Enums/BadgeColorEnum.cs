@@ -8,5 +8,5 @@ public enum BadgeColorEnum : byte
     warning = 4,
     info = 5,
     secondary = 6,
-    female = 7,
+    female = 7
 }
