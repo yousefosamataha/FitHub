@@ -1,0 +1,9 @@
+﻿@model AddRoleViewModel;
+
+<form asp-action="AddGymRole" asp-controller="Roles" method="post">
+    <input type="text" class="form-control" asp-for="RoleName" placeholder="Role name..." />
+    <div class="input-group-append">
+        <button type="submit" class="btn btn-primary">Add New Role</button>
+    </div>
+    <span asp-validation-for="RoleName" class="text-danger"></span>
+</form>
