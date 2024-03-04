@@ -8,34 +8,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gms.data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddSubscriptionTypeEnumEntity : Migration
+    public partial class AddPaymentMethodEnumEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "gms.SubscriptionTypeEnum",
+                name: "gms.PaymentMethodEnum",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubscriptionType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.SubscriptionTypeEnum", x => x.Id);
+                    table.PrimaryKey("PK_gms.PaymentMethodEnum", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
-                table: "gms.SubscriptionTypeEnum",
-                columns: new[] { "Id", "CreatedAt", "IsDeleted", "ModifiedAt", "SubscriptionType" },
+                table: "gms.PaymentMethodEnum",
+                columns: new[] { "Id", "CreatedAt", "IsDeleted", "ModifiedAt", "PaymentMethod" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5900), false, null, "Monthly" },
-                    { 2, new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5924), false, null, "Annually" }
+                    { 1, new DateTime(2024, 3, 3, 16, 8, 50, 417, DateTimeKind.Utc).AddTicks(4392), false, null, "Cash" },
+                    { 2, new DateTime(2024, 3, 3, 16, 8, 50, 417, DateTimeKind.Utc).AddTicks(4476), false, null, "Credit" }
                 });
         }
 
@@ -43,7 +43,7 @@ namespace gms.data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "gms.SubscriptionTypeEnum");
+                name: "gms.PaymentMethodEnum");
         }
     }
 }
