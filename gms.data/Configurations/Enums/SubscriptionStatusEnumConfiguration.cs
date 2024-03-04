@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models;
+using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,6 +15,7 @@ internal class SubscriptionStatusEnumConfiguration : IEntityTypeConfiguration<Su
         builder.HasKey(ss => ss.Id);
 
         builder.Property(ss => ss.SubscriptionStatus).IsRequired(true);
+
         builder.Property(ss => ss.SubscriptionStatus).HasMaxLength(100);
 
         builder.HasData(GetSubscriptionStatuses());
@@ -23,14 +24,16 @@ internal class SubscriptionStatusEnumConfiguration : IEntityTypeConfiguration<Su
     public List<SubscriptionStatusEnumEntity> GetSubscriptionStatuses()
     {
         List<SubscriptionStatusEnumEntity> subscriptionStatuses = new();
+
         var bageColors = Enum.GetValues(typeof(BadgeColorEnum));
+
         foreach (var subscriptionStatus in Enum.GetValues(typeof(SubscriptionStatusEnum)))
         {
             SubscriptionStatusEnumEntity newSubscriptionStatus = new()
             {
                 Id = (byte)subscriptionStatus,
                 SubscriptionStatus = subscriptionStatus.ToString(),
-                BadgeColorId = (byte)subscriptionStatus switch 
+                BadgeColorId = (byte)subscriptionStatus switch
                 {
                     1 => BadgeColorEnum.success,
                     2 => BadgeColorEnum.warning,

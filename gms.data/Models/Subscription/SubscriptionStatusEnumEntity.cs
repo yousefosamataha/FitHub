@@ -1,7 +1,7 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
 
-namespace gms.data.Models;
+namespace gms.data.Models.Subscription;
 
 public class SubscriptionStatusEnumEntity : BaseEntity
 {
