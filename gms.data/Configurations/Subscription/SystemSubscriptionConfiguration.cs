@@ -1,5 +1,5 @@
 ﻿using gms.common.Constants;
-using gms.data.Models;
+using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
