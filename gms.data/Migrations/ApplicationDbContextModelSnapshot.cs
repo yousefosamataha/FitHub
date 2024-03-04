@@ -52,114 +52,16 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 706, DateTimeKind.Utc).AddTicks(8867),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(7590),
                             IsDeleted = false,
                             PaymentMethod = "Cash"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 706, DateTimeKind.Utc).AddTicks(8876),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(7599),
                             IsDeleted = false,
                             PaymentMethod = "Credit"
-                        });
-                });
-
-            modelBuilder.Entity("gms.data.Models.PlanEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MaxBranchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxMemberNumberPerBranch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxStaffNumberPerBranch")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PlanName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PricePerMonth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PricePerYear")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ReminderDays")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.SystemPlan", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(9002),
-                            IsDeleted = false,
-                            MaxBranchNumber = 1,
-                            MaxMemberNumberPerBranch = 50,
-                            MaxStaffNumberPerBranch = 20,
-                            PlanName = "free_trial",
-                            PricePerMonth = 0m,
-                            PricePerYear = 0m,
-                            ReminderDays = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(9011),
-                            IsDeleted = false,
-                            MaxBranchNumber = 3,
-                            MaxMemberNumberPerBranch = 100,
-                            MaxStaffNumberPerBranch = 30,
-                            PlanName = "startup",
-                            PricePerMonth = 500m,
-                            PricePerYear = 5000m,
-                            ReminderDays = 10
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(9014),
-                            IsDeleted = false,
-                            MaxBranchNumber = 5,
-                            MaxMemberNumberPerBranch = 200,
-                            MaxStaffNumberPerBranch = 40,
-                            PlanName = "business",
-                            PricePerMonth = 1000m,
-                            PricePerYear = 10000m,
-                            ReminderDays = 10
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(9016),
-                            IsDeleted = false,
-                            MaxBranchNumber = 10,
-                            MaxMemberNumberPerBranch = 400,
-                            MaxStaffNumberPerBranch = 50,
-                            PlanName = "enterprise",
-                            PricePerMonth = 2000m,
-                            PricePerYear = 20000m,
-                            ReminderDays = 10
                         });
                 });
 
@@ -197,7 +99,7 @@ namespace gms.data.Migrations
                         {
                             Id = 1,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(2962),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(9974),
                             IsDeleted = false,
                             SubscriptionStatus = "Active"
                         },
@@ -205,7 +107,7 @@ namespace gms.data.Migrations
                         {
                             Id = 2,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(2972),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(9982),
                             IsDeleted = false,
                             SubscriptionStatus = "Suspend"
                         },
@@ -213,7 +115,7 @@ namespace gms.data.Migrations
                         {
                             Id = 3,
                             BadgeColorId = (byte)6,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(2974),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(9985),
                             IsDeleted = false,
                             SubscriptionStatus = "Cancelled"
                         },
@@ -221,7 +123,7 @@ namespace gms.data.Migrations
                         {
                             Id = 4,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(2977),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 718, DateTimeKind.Utc).AddTicks(9987),
                             IsDeleted = false,
                             SubscriptionStatus = "Expired"
                         });
@@ -257,14 +159,14 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(6374),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 719, DateTimeKind.Utc).AddTicks(2621),
                             IsDeleted = false,
                             SubscriptionType = "Monthly"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 10, 26, 3, 707, DateTimeKind.Utc).AddTicks(6385),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 28, 5, 719, DateTimeKind.Utc).AddTicks(2628),
                             IsDeleted = false,
                             SubscriptionType = "Annually"
                         });

@@ -12,8 +12,8 @@ using gms.data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240302084117_AddSubscriptionTypeEnumEntity")]
-    partial class AddSubscriptionTypeEnumEntity
+    [Migration("20240303160851_AddPaymentMethodEnumEntity")]
+    partial class AddPaymentMethodEnumEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace gms.data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("gms.data.Models.SubscriptionTypeEnumEntity", b =>
+            modelBuilder.Entity("gms.data.Models.PaymentMethodEnumEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,29 +42,29 @@ namespace gms.data.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SubscriptionType")
+                    b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("gms.SubscriptionTypeEnum", (string)null);
+                    b.ToTable("gms.PaymentMethodEnum", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5900),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 8, 50, 417, DateTimeKind.Utc).AddTicks(4392),
                             IsDeleted = false,
-                            SubscriptionType = "Monthly"
+                            PaymentMethod = "Cash"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5924),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 8, 50, 417, DateTimeKind.Utc).AddTicks(4476),
                             IsDeleted = false,
-                            SubscriptionType = "Annually"
+                            PaymentMethod = "Credit"
                         });
                 });
 #pragma warning restore 612, 618

@@ -20,6 +20,7 @@ namespace gms.data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubscriptionStatus = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    BadgeColorId = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -29,15 +30,29 @@ namespace gms.data.Migrations
                     table.PrimaryKey("PK_gms.SubscriptionStatusEnum", x => x.Id);
                 });
 
+            migrationBuilder.UpdateData(
+                table: "gms.PaymentMethodEnum",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "CreatedAt",
+                value: new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(1566));
+
+            migrationBuilder.UpdateData(
+                table: "gms.PaymentMethodEnum",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedAt",
+                value: new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(1573));
+
             migrationBuilder.InsertData(
                 table: "gms.SubscriptionStatusEnum",
-                columns: new[] { "Id", "CreatedAt", "IsDeleted", "ModifiedAt", "SubscriptionStatus" },
+                columns: new[] { "Id", "BadgeColorId", "CreatedAt", "IsDeleted", "ModifiedAt", "SubscriptionStatus" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1696), false, null, "Active" },
-                    { 2, new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1705), false, null, "Suspend" },
-                    { 3, new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1708), false, null, "Cancelled" },
-                    { 4, new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1710), false, null, "Expired" }
+                    { 1, (byte)2, new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4106), false, null, "Active" },
+                    { 2, (byte)4, new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4115), false, null, "Suspend" },
+                    { 3, (byte)6, new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4117), false, null, "Cancelled" },
+                    { 4, (byte)3, new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4119), false, null, "Expired" }
                 });
 
             migrationBuilder.UpdateData(
@@ -45,14 +60,14 @@ namespace gms.data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(3833));
+                value: new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(6976));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(3840));
+                value: new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(6982));
         }
 
         /// <inheritdoc />
@@ -62,18 +77,32 @@ namespace gms.data.Migrations
                 name: "gms.SubscriptionStatusEnum");
 
             migrationBuilder.UpdateData(
+                table: "gms.PaymentMethodEnum",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "CreatedAt",
+                value: new DateTime(2024, 3, 3, 16, 10, 37, 111, DateTimeKind.Utc).AddTicks(7765));
+
+            migrationBuilder.UpdateData(
+                table: "gms.PaymentMethodEnum",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedAt",
+                value: new DateTime(2024, 3, 3, 16, 10, 37, 111, DateTimeKind.Utc).AddTicks(7773));
+
+            migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5900));
+                value: new DateTime(2024, 3, 3, 16, 10, 37, 112, DateTimeKind.Utc).AddTicks(301));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 2, 8, 41, 15, 984, DateTimeKind.Utc).AddTicks(5924));
+                value: new DateTime(2024, 3, 3, 16, 10, 37, 112, DateTimeKind.Utc).AddTicks(308));
         }
     }
 }
