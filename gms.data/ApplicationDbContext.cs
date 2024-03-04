@@ -20,8 +20,8 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
     public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
     public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
-    //public DbSet<PlanEntity> SystemPlans { get; set; }
-    //public DbSet<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
+    public DbSet<PlanEntity> SystemPlans { get; set; }
+    public DbSet<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
