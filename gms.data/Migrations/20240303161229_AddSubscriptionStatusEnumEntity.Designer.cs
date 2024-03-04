@@ -12,7 +12,7 @@ using gms.data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240302084510_AddSubscriptionStatusEnumEntity")]
+    [Migration("20240303161229_AddSubscriptionStatusEnumEntity")]
     partial class AddSubscriptionStatusEnumEntity
     {
         /// <inheritdoc />
@@ -25,6 +25,49 @@ namespace gms.data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("gms.data.Models.PaymentMethodEnumEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("gms.PaymentMethodEnum", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(1566),
+                            IsDeleted = false,
+                            PaymentMethod = "Cash"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(1573),
+                            IsDeleted = false,
+                            PaymentMethod = "Credit"
+                        });
+                });
+
             modelBuilder.Entity("gms.data.Models.SubscriptionStatusEnumEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +75,9 @@ namespace gms.data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte>("BadgeColorId")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -55,28 +101,32 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1696),
+                            BadgeColorId = (byte)2,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4106),
                             IsDeleted = false,
                             SubscriptionStatus = "Active"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1705),
+                            BadgeColorId = (byte)4,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4115),
                             IsDeleted = false,
                             SubscriptionStatus = "Suspend"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1708),
+                            BadgeColorId = (byte)6,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4117),
                             IsDeleted = false,
                             SubscriptionStatus = "Cancelled"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(1710),
+                            BadgeColorId = (byte)3,
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(4119),
                             IsDeleted = false,
                             SubscriptionStatus = "Expired"
                         });
@@ -112,14 +162,14 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(3833),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(6976),
                             IsDeleted = false,
                             SubscriptionType = "Monthly"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 2, 8, 45, 9, 534, DateTimeKind.Utc).AddTicks(3840),
+                            CreatedAt = new DateTime(2024, 3, 3, 16, 12, 28, 469, DateTimeKind.Utc).AddTicks(6982),
                             IsDeleted = false,
                             SubscriptionType = "Annually"
                         });

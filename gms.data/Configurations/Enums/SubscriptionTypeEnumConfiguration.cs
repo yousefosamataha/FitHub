@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models;
+using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,16 +11,20 @@ internal class SubscriptionTypeEnumConfiguration : IEntityTypeConfiguration<Subs
     public void Configure(EntityTypeBuilder<SubscriptionTypeEnumEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SubscriptionTypeEnum", gmsDbProperties.DbSchema);
+
         builder.HasKey(st => st.Id);
 
         builder.Property(st => st.SubscriptionType).IsRequired(true);
+
         builder.Property(st => st.SubscriptionType).HasMaxLength(100);
+
         builder.HasData(GetSubscriptionTypes());
     }
 
     public List<SubscriptionTypeEnumEntity> GetSubscriptionTypes()
     {
         List<SubscriptionTypeEnumEntity> subscriptionTypes = new();
+
         foreach (var subscriptionType in Enum.GetValues(typeof(SubscriptionTypeEnum)))
         {
             SubscriptionTypeEnumEntity newSubscriptionType = new()
@@ -31,6 +35,7 @@ internal class SubscriptionTypeEnumConfiguration : IEntityTypeConfiguration<Subs
             };
             subscriptionTypes.Add(newSubscriptionType);
         };
+
         return subscriptionTypes;
     }
 }

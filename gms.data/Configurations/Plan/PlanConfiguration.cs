@@ -1,5 +1,6 @@
 ﻿using gms.common.Constants;
-using gms.data.Models;
+using gms.common.Enums;
+using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,13 +11,14 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
     public void Configure(EntityTypeBuilder<PlanEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SystemPlan", gmsDbProperties.DbSchema);
-        
+
         builder.HasKey(p => p.Id);
-        
+        builder.Property(b => b.Id).ValueGeneratedNever();
+
         builder.Property(p => p.PlanName).IsRequired(true);
 
         builder.Property(p => p.PricePerMonth).HasPrecision(18, 2);
-        
+
         builder.Property(p => p.PricePerYear).HasPrecision(18, 2);
 
         builder.HasData(GetSystemPlans());
@@ -26,8 +28,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         List<PlanEntity> plans = new();
         plans.Add(new PlanEntity()
         {
-            Id = 1,
-            PlanName = "free_trial",
+            Id = (int)PlansEnum.free_trial,
+            PlanName = PlansEnum.free_trial.ToString(),
             ReminderDays = 0,
             PricePerMonth = 0,
             PricePerYear = 0,
@@ -38,8 +40,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         });
         plans.Add(new PlanEntity()
         {
-            Id = 2,
-            PlanName = "startup",
+            Id = (int)PlansEnum.startup,
+            PlanName = PlansEnum.startup.ToString(),
             ReminderDays = 10,
             PricePerMonth = 500,
             PricePerYear = 5000,
@@ -50,8 +52,9 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         });
         plans.Add(new PlanEntity()
         {
-            Id = 3,
-            PlanName = "business",
+
+            Id = (int)PlansEnum.business,
+            PlanName = PlansEnum.business.ToString(),
             ReminderDays = 10,
             PricePerMonth = 1000,
             PricePerYear = 10000,
@@ -62,8 +65,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         });
         plans.Add(new PlanEntity()
         {
-            Id = 4,
-            PlanName = "enterprise",
+            Id = (int)PlansEnum.enterprise,
+            PlanName = PlansEnum.enterprise.ToString(),
             ReminderDays = 10,
             PricePerMonth = 2000,
             PricePerYear = 20000,
