@@ -31,6 +31,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
 	#region Gym
 	public DbSet<GymEntity> Gyms { get; set; }
+	public DbSet<GymBranchEntity> GymBranches { get; set; }
 	#endregion
 
 	#region Shared
