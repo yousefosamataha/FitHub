@@ -12,10 +12,9 @@ using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
+	// Add DbContext Configuration 
 	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-	builder.Services.AddDbContext<ApplicationDbContext>(options =>
-														options.UseSqlServer(connectionString));
+	builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 	//builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 

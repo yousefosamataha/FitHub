@@ -30,6 +30,9 @@
   "filter_options": "خيارات التصفية",
   "apply": "تطبيق",
   "export_as": "تصدير ك",
+  "membership": "العضوية",
+  "valid_from": "صالح من",
+  "to": "إلى",
   "---badge_status---": "------------------------------------------",
   "status": "الحالة",
   "all": "الكل",
@@ -130,5 +133,17 @@
   "address": "العنوان",
   "login_info": "معلومات تسجيل الدخول",
   "username": "اسم المستخدم",
-  "password": "كلمة المرور"
+  "password": "كلمة المرور",
+  "more_info": "مزيد من المعلومات",
+  "select_groups": "حدد المجموعات",
+  "search_by_group_name": "البحث بأسم المجموعة",
+  "---manage_users/manage_staffs/add_new_staff---": "------------------",
+  "assign_role": "تعيين وظيفة",
+  "select_specialization": "حدد التخصص",
+  "search_by_specialization_name": "البحث بأسم التخصص",
+  "---manage_users/manage_staffs/staffs_list---": "------------------",
+  "search_by_staff_name": "البحث بأسم الموظف",
+  "staff_name": "اسم الموظف",
+  "role": "الوظيفة",
+  "staff_status": "حالة الموظف"
 }

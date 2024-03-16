@@ -41,7 +41,7 @@
 			<!--begin::Form-->
 			<form id="add_new_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<!--begin::Aside column-->
-				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
 					@* <!--begin::Image-->
 					<div class="card card-flush">
 						<!--begin::Card header-->
@@ -247,7 +247,7 @@
 						<div class="card-body pt-0">
 							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
 								<!--begin::Input group-->
-								<div class="col fv-row">
+								<div class="col mb-5 mb-sm-5 mb-md-5 mb-lg-0 fv-row">
 									<label class="required form-label ms-2">@localizer["price"]</label>
 									<input type="number" name="Amount" class="form-control" placeholder="@localizer["enter"] @localizer["price"] @localizer["here"]" min="0" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
 								</div>
