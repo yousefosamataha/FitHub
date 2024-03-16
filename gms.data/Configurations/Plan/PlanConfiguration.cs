@@ -13,6 +13,7 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SystemPlan", gmsDbProperties.DbSchema);
 
         builder.HasKey(p => p.Id);
+
         builder.Property(b => b.Id).ValueGeneratedNever();
 
         builder.Property(p => p.PlanName).IsRequired(true);
