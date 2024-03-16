@@ -30,6 +30,9 @@
   "filter_options": "Filter Options",
   "apply": "Apply",
   "export_as": "Export As",
+  "membership": "Membership",
+  "valid_from": "Valid From",
+  "to": "To",
   "---badge_status---": "------------------------------------------",
   "status": "Status",
   "all": "All",
@@ -131,6 +134,16 @@
   "login_info": "Login Info",
   "username": "Username",
   "password": "Password",
-
-  "more_info": "More Info"
+  "more_info": "More Info",
+  "select_groups": "Select Groups",
+  "search_by_group_name": "Search By Group Name",
+  "---manage_users/manage_staffs/add_new_staff---": "------------------",
+  "assign_role": "Assign Role",
+  "select_specialization": "Select Specialization",
+  "search_by_specialization_name": "Search By Specialization Name",
+  "---manage_users/manage_staffs/staffs_list---": "------------------",
+  "search_by_staff_name": "Search By Staff Name",
+  "staff_name": "Staff Name",
+  "role": "Role",
+  "staff_status": "Staff Status"
 }

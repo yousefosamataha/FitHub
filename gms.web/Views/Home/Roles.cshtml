@@ -1,7 +1,4 @@
-﻿﻿@using Microsoft.AspNetCore.Localization;
-@using Microsoft.AspNetCore.Mvc.Localization;
-@inject IViewLocalizer localizer;
-@{
+﻿@{
 	ViewData["Title"] = localizer["roles"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
@@ -9,12 +6,12 @@
 <!--begin::Content wrapper-->
 <div class="d-flex flex-column flex-column-fluid">
 	<!--begin::Toolbar-->
-	<div id="kt_app_toolbar" class="app-toolbar pt-6 pb-2">
+	<div id="kt_app_toolbar" class="app-toolbar" style="padding-top: 10px;">
 		<!--begin::Toolbar container-->
 		<div id="kt_app_toolbar_container"
 			 class="app-container container-fluid d-flex align-items-stretch">
 			<!--begin::Toolbar wrapper-->
-			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100 px-5">
 				<!--begin::Page title-->
 				<div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
 					<!--begin::Title-->
@@ -25,9 +22,8 @@
 					<!--begin::Breadcrumb-->
 					<ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
 						<li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
-						<li class="breadcrumb-item text-gray-600">@localizer["manageusers"]</li>
+						<li class="breadcrumb-item text-gray-600">@localizer["manage_users"]</li>
 						<li class="breadcrumb-item text-gray-600">@localizer["settings"]</li>
-						@* <li class="breadcrumb-item text-gray-600">@localizer["roles"]</li> *@
 					</ol>
 					<!--end::Breadcrumb-->
 				</div>
@@ -325,7 +321,9 @@
 				<!--begin::Add new card-->
 			</div>
 			<!--end::Row-->
+
 			<!--begin::Modals-->
+
 			<!--begin::Modal - Add role-->
 			<div class="modal fade" id="kt_modal_add_role" tabindex="-1" aria-hidden="true">
 				<!--begin::Modal dialog-->
@@ -1134,3 +1132,5 @@
 	<!--end::Content-->
 </div>
 <!--end::Content wrapper-->
+
+<script type="module" src="~/assets/js/customJs/Roles.js"></script>
