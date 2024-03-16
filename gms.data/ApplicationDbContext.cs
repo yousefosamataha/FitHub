@@ -1,4 +1,5 @@
 ﻿using gms.data.Models.Gym;
+using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +30,11 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 	#endregion
 
 	#region Gym
-	public DbSet<GymEntity> Gym { get; set; }
+	public DbSet<GymEntity> Gyms { get; set; }
+	#endregion
+
+	#region Shared
+	public DbSet<CountryEntity> Countries { get; set; }
 	#endregion
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

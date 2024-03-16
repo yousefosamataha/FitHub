@@ -8,4 +8,5 @@ public class CountryEntity : BaseEntity
 	public string Currency { get; set; }
 	public string TimeZone { get; set; }
 	public string Language { get; set; }
+	public byte[] Flag { get; set; }
 }
