@@ -22,7 +22,6 @@ internal class CountryConfiguration : IEntityTypeConfiguration<CountryEntity>
 		builder.Property(c => c.Flag).IsRequired();
 
 		builder.Property(c => c.Language).IsRequired().HasMaxLength(256);
-
 		//builder.HasData(GetCountries());
 	}
 

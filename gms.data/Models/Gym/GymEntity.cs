@@ -9,5 +9,5 @@ public class GymEntity : BaseEntity
 	// TODO: Should Add General Setting Entity And Gym Branch 
 	// Navigation properties
 	//public virtual gymgeneralsetting generalsetting { get; set; }
-	//public virtual icollection<gymbranch> branches { get; set; }
+	public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
 }

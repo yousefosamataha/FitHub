@@ -23,6 +23,12 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
 		
 		builder.Property(gb => gb.Email).IsRequired();
 
-		//builder.HasOne(gb => gb.Gym).WithMany(g => g.)
+		builder.HasOne(gb => gb.Gym)
+			   .WithMany(g => g.GymBranches)
+			   .HasForeignKey(gb => gb.GymId);
+
+		builder.HasOne(gb => gb.Country)
+			   .WithMany()
+			   .HasForeignKey(gb => gb.CountryId);
 	}
 }
