@@ -1,7 +1,4 @@
-﻿﻿@using Microsoft.AspNetCore.Localization;
-@using Microsoft.AspNetCore.Mvc.Localization;
-@inject IViewLocalizer localizer;
-@{
+﻿@{
 	ViewData["Title"] = localizer["memberships_list"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
@@ -104,7 +101,7 @@
 						</div>
 						<!--end::Filter-->
 						<!--begin::Add Membership-->
-						<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+						<a href="@Url.Action("AddNewMembership", "Home")" class="btn btn-primary">
 							<i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_membership"]
 						</a>
 						<!--end::Add Membership-->

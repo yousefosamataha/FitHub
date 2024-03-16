@@ -1,7 +1,4 @@
-﻿﻿@using Microsoft.AspNetCore.Localization;
-@using Microsoft.AspNetCore.Mvc.Localization;
-@inject IViewLocalizer localizer;
-@{
+﻿@{
 	ViewData["Title"] = localizer["members_list"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
@@ -80,7 +77,7 @@
 									<!--begin::Filter Member Status-->
 									<div class="mb-5">
 										<label class="form-label fs-6 fw-semibold ms-2">@localizer["member_status"]:</label>
-										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" membership-list-filter="status">
+										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" members-list-filter="status">
 											<option></option>
 											<option value="@localizer["active"].Value">@localizer["active"]</option>
 											<option value="@localizer["inactive"].Value">@localizer["inactive"]</option>
@@ -95,18 +92,18 @@
 										</div>
 									</div>
 									<!--end::Filter Joining DateRange-->
-									<!--begin::Expiring Joining DateRange-->
+									<!--begin::Filter Expiring DateRange-->
 									<div class="mb-5">
 										<label class="form-label fs-6 fw-semibold ms-2">@localizer["expiring_date"]:</label>
 										<div class="input-group">
 											<input class="form-control rounded" placeholder="@localizer["pick_date_range"]" members-list-date-range-filter="filter" />
 										</div>
 									</div>
-									<!--end::Expiring Joining DateRange-->
+									<!--end::Filter Expiring DateRange-->
 									<!--begin::Filter Membership Status-->
 									<div class="mb-5">
 										<label class="form-label fs-6 fw-semibold ms-2">@localizer["membership_status"]:</label>
-										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" membership-list-filter="status">
+										<select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" members-list-filter="status">
 											<option></option>
 											<option value="@localizer["activated"].Value">@localizer["activated"]</option>
 											<option value="@localizer["expired"].Value">@localizer["expired"]</option>
@@ -153,11 +150,11 @@
 							<!--end::Export Menu-->
 						</div>
 						<!--end::Export-->
-						<!--begin::Add Membership-->
-						<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+						<!--begin::Add Member-->
+						<a href="@Url.Action("AddNewMember", "Home")" class="btn btn-primary">
 							<i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_member"]
 						</a>
-						<!--end::Add Membership-->
+						<!--end::Add Member-->
 					</div>
 					<!--end::Card toolbar-->
 				</div>
@@ -182,11 +179,25 @@
 						<tbody class="fw-semibold text-gray-700">
 							<tr>
 								<td class="text-center">
-									<!--begin::Thumbnail-->
+									@* <!--begin::Thumbnail-->
 									<a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
 										<span class="symbol-label symbol-label-blank" style="background-image:url('https://media.licdn.com/dms/image/D4D03AQFkI8PJxujpKg/profile-displayphoto-shrink_800_800/0/1703540805074?e=1714003200&v=beta&t=KyxOsDLlvsDrGFBmGSD46LiroS5IhABdqWlxI81sGWE') !important;"></span>
 									</a>
-									<!--end::Thumbnail-->
+									<!--end::Thumbnail--> *@
+									<!--begin::Overlay-->
+									<a class="d-block overlay d-flex justify-content-center" data-fslightbox="lightbox-basic" href="https://media.licdn.com/dms/image/D4D03AQFkI8PJxujpKg/profile-displayphoto-shrink_800_800/0/1703540805074?e=1714003200&v=beta&t=KyxOsDLlvsDrGFBmGSD46LiroS5IhABdqWlxI81sGWE">
+										<!--begin::Image-->
+										<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover symbol symbol-circle w-40px h-40px"
+											 style="background-image:url('https://media.licdn.com/dms/image/D4D03AQFkI8PJxujpKg/profile-displayphoto-shrink_800_800/0/1703540805074?e=1714003200&v=beta&t=KyxOsDLlvsDrGFBmGSD46LiroS5IhABdqWlxI81sGWE') !important;">
+										</div>
+										<!--end::Image-->
+										<!--begin::Action-->
+										<div class="overlay-layer symbol symbol-circle bg-dark bg-opacity-25 shadow w-40px h-40px" style="@( IsRTL ? "right: 50%;transform: translateX(50%);" : "left: 50%;transform: translateX(-50%);" )">
+											<i class="bi bi-eye-fill text-white fs-3"></i>
+										</div>
+										<!--end::Action-->
+									</a>
+									<!--end::Overlay-->
 								</td>
 								<td class="text-start">
 									<!--begin::Title-->

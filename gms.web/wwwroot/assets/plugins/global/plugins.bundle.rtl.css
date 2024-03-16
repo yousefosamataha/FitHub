@@ -47092,7 +47092,8 @@ readers do not read off random characters that represent icons */
 }
 
 .fslightbox-toolbar {
-  border-bottom-left-radius: 0.75rem;
+    direction: ltr;
+    border-bottom-left-radius: 0.75rem;
 }
 
 .select2-container--bootstrap5 .select2-selection {

@@ -1,7 +1,4 @@
-﻿﻿@using Microsoft.AspNetCore.Localization;
-@using Microsoft.AspNetCore.Mvc.Localization;
-@inject IViewLocalizer localizer;
-@{
+﻿@{
 	ViewData["Title"] = localizer["add_new_member"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
@@ -44,7 +41,7 @@
 			<!--begin::Form-->
 			<form id="add_new_member_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<!--begin::Aside column-->
-				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
 					<!--begin::Image-->
 					<div class="card card-flush">
 						<!--begin::Card header-->
@@ -153,7 +150,7 @@
 							</div>
 							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
 								<!--begin::Input group-->
-								<div class="col mb-5 mb-sm-0 fv-row">
+								<div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
 									<label class="required form-label ms-2">@localizer["birthdate"]</label>
 									<input class="form-control" name="Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
 								</div>
@@ -162,7 +159,7 @@
 								<div class="col fv-row">
 									<label class="required form-label ms-2">@localizer["gender"]</label>
 									<!--begin::Select Status-->
-									<select class="form-select" name="Gender" data-control="select2" data-hide-search="true" data-placeholder="@localizer["enter"] @localizer["gender"] @localizer["here"]">
+									<select class="form-select" name="Gender" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
 										<option></option>
 										<option value="@localizer["male"]">@localizer["male"]</option>
 										<option value="@localizer["female"]">@localizer["female"]</option>
@@ -237,7 +234,7 @@
 						<div class="card-body pt-0">
 							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
 								<!--begin::Input group-->
-								<div class="col mb-5 mb-sm-0 fv-row">
+								<div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
 									<label class="required form-label ms-2">@localizer["username"]</label>
 									<input type="text" name="Username" class="form-control" placeholder="@localizer["enter"] @localizer["username"] @localizer["here"]" />
 								</div>
@@ -265,16 +262,36 @@
 						<!--begin::Card body-->
 						<div class="card-body pt-0">
 							<!--begin::Input group-->
-							<div class="fv-row">
-								<label class="required form-label ms-2">@localizer["select_classes"]</label>
-								<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_class_name"]" id="select_classes" name="SelectedClasses" />
+							<div class="fv-row mb-5">
+								<label class="required form-label ms-2">@localizer["select_groups"]</label>
+								<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_group_name"]" id="select_groups" name="SelectedGroups" />
 							</div>
 							<!--end::Input group-->
-							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+							<div class="row row-cols-1 row-cols-sm-1 rol-cols-md-2 row-cols-lg-3">
+								<!--begin::Input group-->
+								<div class="col mb-5 mb-lg-0 fv-row">
+									<label class="required form-label ms-2">@localizer["membership"]</label>
+									<!--begin::Select Status-->
+									<select class="form-select" name="Membership" data-control="select2" data-hide-search="false" data-placeholder="@localizer["select_an_option"]">
+										<option></option>
+										<option value="1">Gold Membership</option>
+										<option value="2">Silver Membership</option>
+										<option value="3">Bronze Membership</option>
+										<option value="4">Free Trial</option>
+									</select>
+									<!--end::Select Status-->
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col mb-5 mb-sm-5 mb-md-5 mb-lg-0 fv-row">
+									<label class="required form-label ms-2">@localizer["valid_from"]</label>
+									<input class="form-control" name="Joiningdate" id="joiningdate_date_picker" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
 								<!--begin::Input group-->
 								<div class="col fv-row">
-									<label class="required form-label ms-2">@localizer["password"]</label>
-									<input type="password" name="Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
+									<label class="form-label ms-2">@localizer["to"]</label>
+									<input class="form-control" name="Expiringdate" id="expiringdate_date_picker" placeholder="@localizer["expiring_date"]" disabled />
 								</div>
 								<!--end::Input group-->
 							</div>
