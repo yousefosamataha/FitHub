@@ -78,7 +78,7 @@ var MembersList = function () {
 
             // Get filter values
             selectOptions.forEach((item, index) => {
-                if (item.value && item.value !== '') {
+                if (item.value !== '') {
                     if (index !== 0) {
                         filterString += ' ';
                     }
