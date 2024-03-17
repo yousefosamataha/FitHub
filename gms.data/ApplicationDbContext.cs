@@ -37,6 +37,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Shared
     public DbSet<CountryEntity> Countries { get; set; }
+    public DbSet<GenderEnumEntity> Gender { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
