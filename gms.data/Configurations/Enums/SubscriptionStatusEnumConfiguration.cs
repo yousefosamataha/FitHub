@@ -25,8 +25,6 @@ internal class SubscriptionStatusEnumConfiguration : IEntityTypeConfiguration<Su
     {
         List<SubscriptionStatusEnumEntity> subscriptionStatuses = new();
 
-        var bageColors = Enum.GetValues(typeof(BadgeColorEnum));
-
         foreach (var subscriptionStatus in Enum.GetValues(typeof(SubscriptionStatusEnum)))
         {
             SubscriptionStatusEnumEntity newSubscriptionStatus = new()
