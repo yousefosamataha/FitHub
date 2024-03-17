@@ -26,5 +26,13 @@ internal class GymGeneralSettingConfiguration : IEntityTypeConfiguration<GymGene
 
         builder.Property(gg => gg.Fat).IsRequired(false);
 
+        builder.HasOne(gg => gg.Gym)
+               .WithOne(g => g.GeneralSetting)
+               .HasForeignKey<GymEntity>(g => g.GeneralSettingId);
+
+        builder.HasOne(gg => gg.GymBranch)
+               .WithOne(gb => gb.GeneralSetting)
+               .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
+
     }
 }

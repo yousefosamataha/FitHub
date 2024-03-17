@@ -17,11 +17,8 @@ public class GymGeneralSettingEntity : BaseEntity
     public bool IsShared { get; set; }
     public byte[] ReportHeader { get; set; }
     public byte[] ReportFooter { get; set; }
-
-
-    //TODO: Add Gym and Country GymBranch
-    //public int? GymId { get; set; }
-    //public int? BranchId { get; set; }
-    //public virtual GymEntity Gym { get; set; }
-    //public virtual GymBranchEntity Branch { get; set; }
+    public int? GymId { get; set; }
+    public int? BranchId { get; set; }
+    public virtual GymEntity Gym { get; set; }
+    public virtual GymBranchEntity GymBranch { get; set; }
 }
