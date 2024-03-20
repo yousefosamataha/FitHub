@@ -10,8 +10,8 @@ internal class ActivityVideoConfiguration : IEntityTypeConfiguration<ActivityVid
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".ActivityVideo", gmsDbProperties.DbSchema);
 
-        builder.HasKey(ac => ac.Id);
+        builder.HasKey(av => av.Id);
 
-        builder.Property(ac => ac.VideoPath).IsRequired();
+        builder.Property(av => av.VideoPath).IsRequired();
     }
 }
