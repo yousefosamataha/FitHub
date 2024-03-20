@@ -43,6 +43,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Activity
     public DbSet<ActivityCategoryEntity> ActivityCategories { get; set; }
+    public DbSet<ActivityVideoEntity> ActivityVideos { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
