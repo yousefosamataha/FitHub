@@ -1,4 +1,5 @@
-﻿using gms.data.Models.Gym;
+﻿using gms.data.Models.Activity;
+using gms.data.Models.Gym;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,10 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Shared
     public DbSet<CountryEntity> Countries { get; set; }
     public DbSet<GenderEnumEntity> Gender { get; set; }
+    #endregion
+
+    #region Activity
+    public DbSet<ActivityCategoryEntity> ActivityCategories { get; set; }
     #endregion
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
