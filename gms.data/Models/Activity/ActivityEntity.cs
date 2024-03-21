@@ -7,9 +7,9 @@ public class ActivityEntity : BaseEntity
     public int ActivityCategoryId { get; set; }
     public virtual ActivityCategoryEntity ActivityCategory { get; set; }
     public virtual ICollection<ActivityVideoEntity> ActivityVideos { get; set; }
+    public virtual ICollection<MembershipActivityEntity> MembershipActivities { get; set; }
 
     //TODO: Add Relation Entities
     //public int? AssignedTo { get; set; }
     //public int CreatedById { get; set; } // FK
-    //public ICollection<MembershipActivity> MembershipActivities { get; set; }
 }

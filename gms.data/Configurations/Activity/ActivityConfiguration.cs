@@ -17,5 +17,9 @@ internal class ActivityConfiguration : IEntityTypeConfiguration<ActivityEntity>
         builder.HasOne(a => a.ActivityCategory)
                .WithMany(ac => ac.Activities)
                .HasForeignKey(a => a.ActivityCategoryId);
+
+        builder.HasMany(a => a.MembershipActivities)
+               .WithOne(ma => ma.Activity)
+               .HasForeignKey(ma => ma.ActivityId);
     }
 }
