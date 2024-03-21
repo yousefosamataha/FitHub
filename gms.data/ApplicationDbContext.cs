@@ -1,4 +1,5 @@
 ﻿using gms.data.Models.Activity;
+using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
