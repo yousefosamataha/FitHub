@@ -1,4 +1,5 @@
 ﻿using gms.data.Models.Activity;
+using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
@@ -22,9 +23,6 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
 
     #region Subscription
-    public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
-    public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
-    public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
     public DbSet<PlanEntity> SystemPlans { get; set; }
     public DbSet<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
     public DbSet<SubscriptionPaymentEntity> SubscriptionsPayments { get; set; }
@@ -38,15 +36,23 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Shared
     public DbSet<CountryEntity> Countries { get; set; }
-    public DbSet<GenderEnumEntity> Gender { get; set; }
     #endregion
 
     #region Activity
     public DbSet<ActivityCategoryEntity> ActivityCategories { get; set; }
     public DbSet<ActivityVideoEntity> ActivityVideos { get; set; }
     public DbSet<ActivityEntity> Activities { get; set; }
-    #endregion
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+	#endregion
+
+	#region Enum
+    public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
+    public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
+    public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
+    public DbSet<GenderEnumEntity> Gender { get; set; }
+    public DbSet<MemberLevelEnumEntity> MemberLevels { get; set; }
+	#endregion
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using gms.data;
 
@@ -11,9 +12,11 @@ using gms.data;
 namespace gms.data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321035427_AddMemberLevelEnumEntity")]
+    partial class AddMemberLevelEnumEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,7 +92,7 @@ namespace gms.data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ActivityId")
+                    b.Property<int?>("ActivityEntityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -107,7 +110,7 @@ namespace gms.data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityId");
+                    b.HasIndex("ActivityEntityId");
 
                     b.ToTable("gms.ActivityVideo", (string)null);
                 });
@@ -588,94 +591,6 @@ namespace gms.data.Migrations
                     b.ToTable("gms.Country", (string)null);
                 });
 
-            modelBuilder.Entity("gms.data.Models.Shared.GenderEnumEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("BadgeColorId")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GenderName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.GenderEnum", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BadgeColorId = (byte)1,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(3910),
-                            GenderName = "Male",
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BadgeColorId = (byte)7,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(3919),
-                            GenderName = "Female",
-                            IsDeleted = false
-                        });
-                });
-
-            modelBuilder.Entity("gms.data.Models.Subscription.PaymentMethodEnumEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.PaymentMethodEnum", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(6933),
-                            IsDeleted = false,
-                            PaymentMethod = "Cash"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(6941),
-                            IsDeleted = false,
-                            PaymentMethod = "Credit"
-                        });
-                });
-
             modelBuilder.Entity("gms.data.Models.Subscription.PlanEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -722,7 +637,7 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 344, DateTimeKind.Utc).AddTicks(8730),
+                            CreatedAt = new DateTime(2024, 3, 21, 3, 54, 25, 64, DateTimeKind.Utc).AddTicks(6293),
                             IsDeleted = false,
                             MaxBranchNumber = 1,
                             MaxMemberNumberPerBranch = 50,
@@ -735,7 +650,7 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 344, DateTimeKind.Utc).AddTicks(8742),
+                            CreatedAt = new DateTime(2024, 3, 21, 3, 54, 25, 64, DateTimeKind.Utc).AddTicks(6303),
                             IsDeleted = false,
                             MaxBranchNumber = 3,
                             MaxMemberNumberPerBranch = 100,
@@ -748,7 +663,7 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 344, DateTimeKind.Utc).AddTicks(8744),
+                            CreatedAt = new DateTime(2024, 3, 21, 3, 54, 25, 64, DateTimeKind.Utc).AddTicks(6306),
                             IsDeleted = false,
                             MaxBranchNumber = 5,
                             MaxMemberNumberPerBranch = 200,
@@ -761,7 +676,7 @@ namespace gms.data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 344, DateTimeKind.Utc).AddTicks(8748),
+                            CreatedAt = new DateTime(2024, 3, 21, 3, 54, 25, 64, DateTimeKind.Utc).AddTicks(6309),
                             IsDeleted = false,
                             MaxBranchNumber = 10,
                             MaxMemberNumberPerBranch = 400,
@@ -813,113 +728,6 @@ namespace gms.data.Migrations
                         .IsUnique();
 
                     b.ToTable("gms.SubscriptionPayment", (string)null);
-                });
-
-            modelBuilder.Entity("gms.data.Models.Subscription.SubscriptionStatusEnumEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<byte>("BadgeColorId")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SubscriptionStatus")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.SubscriptionStatusEnum", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(9327),
-                            IsDeleted = false,
-                            SubscriptionStatus = "Active"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(9336),
-                            IsDeleted = false,
-                            SubscriptionStatus = "Suspend"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BadgeColorId = (byte)6,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(9339),
-                            IsDeleted = false,
-                            SubscriptionStatus = "Cancelled"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 336, DateTimeKind.Utc).AddTicks(9341),
-                            IsDeleted = false,
-                            SubscriptionStatus = "Expired"
-                        });
-                });
-
-            modelBuilder.Entity("gms.data.Models.Subscription.SubscriptionTypeEnumEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SubscriptionType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gms.SubscriptionTypeEnum", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 337, DateTimeKind.Utc).AddTicks(1818),
-                            IsDeleted = false,
-                            SubscriptionType = "Monthly"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 21, 23, 36, 30, 337, DateTimeKind.Utc).AddTicks(1826),
-                            IsDeleted = false,
-                            SubscriptionType = "Annually"
-                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.Subscription.SystemSubscriptionEntity", b =>
@@ -976,13 +784,9 @@ namespace gms.data.Migrations
 
             modelBuilder.Entity("gms.data.Models.Activity.ActivityVideoEntity", b =>
                 {
-                    b.HasOne("gms.data.Models.Activity.ActivityEntity", "Activity")
+                    b.HasOne("gms.data.Models.Activity.ActivityEntity", null)
                         .WithMany("ActivityVideos")
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
+                        .HasForeignKey("ActivityEntityId");
                 });
 
             modelBuilder.Entity("gms.data.Models.Activity.MembershipActivityEntity", b =>
