@@ -12,7 +12,7 @@ public class SystemSubscriptionEntity : BaseEntity
     public SubscriptionTypeEnum SubscriptionTypeId { get; set; }
     public SubscriptionStatusEnum SubscriptionStatusId { get; set; }
 
-    //TODO: ADD GYM ENTITY Navegation
+    //TODO: Add Relation Entities 
     //public int GymId { get; set; }
     //public virtual Gym Gym { get; set; }
 }
