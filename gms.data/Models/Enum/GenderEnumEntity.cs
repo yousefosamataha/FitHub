@@ -1,7 +1,7 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
 
-namespace gms.data.Models.Shared;
+namespace gms.data.Models.Enum;
 
 public class GenderEnumEntity : BaseEntity
 {

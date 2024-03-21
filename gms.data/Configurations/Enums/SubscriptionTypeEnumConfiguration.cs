@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models.Subscription;
+using gms.data.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
