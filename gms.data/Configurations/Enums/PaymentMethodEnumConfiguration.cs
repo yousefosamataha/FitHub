@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models.Subscription;
+using gms.data.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,6 +15,7 @@ internal class PaymentMethodEnumConfiguration : IEntityTypeConfiguration<Payment
         builder.HasKey(pm => pm.Id);
 
         builder.Property(pm => pm.PaymentMethod).IsRequired(true).HasMaxLength(100);
+
         builder.HasData(GetPaymentMethods());
     }
     public List<PaymentMethodEnumEntity> GetPaymentMethods()
