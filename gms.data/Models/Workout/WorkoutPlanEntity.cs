@@ -10,9 +10,10 @@ public class WorkoutPlanEntity : BaseEntity
 	public DateTime EndDate { get; set; }
 	public string? Description { get; set; }
 
+	public virtual ICollection<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
+
 	// TODO: Add Relation Entities
 	// public int MemberId { get; set; }
 	// public int AssignedById { get; set; }
 	// public int CreatedById { get; set; }
-	// public ICollection<WorkoutPlanActivity> WorkoutPlanActivities { get; set; }
 }

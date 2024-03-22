@@ -12,6 +12,8 @@ internal class ActivityCategoryConfiguration : IEntityTypeConfiguration<Activity
 
         builder.HasKey(ac => ac.Id);
 
-        builder.Property(ac => ac.Name).IsRequired().HasMaxLength(100);
+        builder.Property(ac => ac.Name)
+               .IsRequired()
+               .HasMaxLength(100);
     }
 }
