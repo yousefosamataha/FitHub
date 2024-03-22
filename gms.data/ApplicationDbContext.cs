@@ -56,6 +56,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     
     #region Workout
     public DbSet<WorkoutPlanEntity> WorkoutPlans { get; set; }
+    public DbSet<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
