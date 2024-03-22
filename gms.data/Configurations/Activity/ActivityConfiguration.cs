@@ -25,5 +25,9 @@ internal class ActivityConfiguration : IEntityTypeConfiguration<ActivityEntity>
         builder.HasMany(a => a.ActivityVideos)
                .WithOne(av => av.Activity)
                .HasForeignKey(av => av.ActivityId);
+
+        builder.HasMany(a => a.WorkoutPlanActivities)
+               .WithOne(wpa => wpa.Activity)
+               .HasForeignKey(wpa => wpa.ActivityId);
     }
 }
