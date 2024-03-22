@@ -51,7 +51,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Enum
     public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
     public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
-    public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
+    public DbSet<StatusEnumEntity> Statuses { get; set; }
     public DbSet<GenderEnumEntity> Gender { get; set; }
     public DbSet<MemberLevelEnumEntity> MemberLevels { get; set; }
     public DbSet<GymResultMeasurementEnumEntity> GymResultMeasurements { get; set; }
