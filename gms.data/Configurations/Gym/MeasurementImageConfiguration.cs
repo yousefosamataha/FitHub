@@ -12,5 +12,9 @@ internal class MeasurementImageConfiguration : IEntityTypeConfiguration<Measurem
 		builder.ToTable(gmsDbProperties.DbTablePrefix + ".MeasurementImage", gmsDbProperties.DbSchema);
 
 		builder.HasKey(m => m.Id);
+
+		builder.HasOne(mi => mi.GymMeasurement)
+			   .WithMany(gm => gm.MeasurementImages)
+			   .HasForeignKey(mi => mi.MeasurementId);
 	}
 }

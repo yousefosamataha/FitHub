@@ -5,8 +5,7 @@ namespace gms.data.Models.Gym;
 public class MeasurementImageEntity : BaseEntity
 {
 	public byte[] Image { get; set; }
+	public int MeasurementId { get; set; }
 
-	// TODO: Add Relation Entities
-	// public int MeasurementId { get; set; }
-	// public GymMeasurement GymMeasurement { get; set; }
+	public GymMeasurementEntity GymMeasurement { get; set; }
 }
