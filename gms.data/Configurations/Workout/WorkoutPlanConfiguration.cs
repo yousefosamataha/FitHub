@@ -12,5 +12,9 @@ internal class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlanEn
 		builder.ToTable(gmsDbProperties.DbTablePrefix + ".WorkoutPlan", gmsDbProperties.DbSchema);
 
 		builder.HasKey(wp => wp.Id);
+
+		builder.HasMany(wp => wp.WorkoutPlanActivities)
+			   .WithOne(wpa => wpa.WorkoutPlan)
+			   .HasForeignKey(wpa => wpa.WorkoutPlanId);
 	}
 }
