@@ -10,7 +10,7 @@ public class SystemSubscriptionEntity : BaseEntity
     public DateTime SubscriptionEndTime { get; set; }
     public PlansEnum PlanId { get; set; }
     public SubscriptionTypeEnum SubscriptionTypeId { get; set; }
-    public SubscriptionStatusEnum SubscriptionStatusId { get; set; }
+    public StatusEnum SubscriptionStatusId { get; set; }
 
     //TODO: Add Relation Entities 
     //public int GymId { get; set; }
