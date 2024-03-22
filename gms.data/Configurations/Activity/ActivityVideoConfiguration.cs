@@ -13,5 +13,8 @@ internal class ActivityVideoConfiguration : IEntityTypeConfiguration<ActivityVid
         builder.HasKey(av => av.Id);
 
         builder.Property(av => av.VideoPath).IsRequired();
+
+        builder.HasOne(av => av.Activity)
+               .WithMany(a => a.ActivityVideos);
     }
 }
