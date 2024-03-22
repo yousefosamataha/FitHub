@@ -32,6 +32,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<GymEntity> Gyms { get; set; }
     public DbSet<GymBranchEntity> GymBranches { get; set; }
     public DbSet<GymGeneralSettingEntity> GymGeneralSettings { get; set; }
+    public DbSet<GymNotificationEntity> GymNotifications { get; set; }
     #endregion
 
     #region Shared
@@ -42,17 +43,17 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<ActivityCategoryEntity> ActivityCategories { get; set; }
     public DbSet<ActivityVideoEntity> ActivityVideos { get; set; }
     public DbSet<ActivityEntity> Activities { get; set; }
-	#endregion
+    #endregion
 
-	#region Enum
+    #region Enum
     public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
     public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
     public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
     public DbSet<GenderEnumEntity> Gender { get; set; }
     public DbSet<MemberLevelEnumEntity> MemberLevels { get; set; }
-	#endregion
+    #endregion
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
