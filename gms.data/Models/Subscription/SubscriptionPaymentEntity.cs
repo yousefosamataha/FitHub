@@ -9,7 +9,5 @@ public class SubscriptionPaymentEntity : BaseEntity
     public decimal PaidAmount { get; set; }
     public string TransactionId { get; set; }
     public DateTime PaidDate { get; set; }
-
-    // Navigation properties
     public virtual SystemSubscriptionEntity Subscription { get; set; }
 }
