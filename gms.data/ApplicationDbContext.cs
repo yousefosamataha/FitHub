@@ -34,6 +34,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<GymBranchEntity> GymBranches { get; set; }
     public DbSet<GymGeneralSettingEntity> GymGeneralSettings { get; set; }
     public DbSet<GymNotificationEntity> GymNotifications { get; set; }
+    public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     #endregion
 
     #region Shared
