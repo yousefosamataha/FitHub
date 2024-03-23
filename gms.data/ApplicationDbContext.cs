@@ -2,6 +2,7 @@
 using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
+using gms.data.Models.Membership;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
@@ -58,7 +59,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<GymResultMeasurementEnumEntity> GymResultMeasurements { get; set; }
 
     #endregion
-    
+
     #region Workout
     public DbSet<WorkoutPlanEntity> WorkoutPlans { get; set; }
     public DbSet<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
