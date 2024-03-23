@@ -1,6 +1,7 @@
 ﻿using gms.data.Models.Activity;
 using gms.data.Models.Enum;
 using gms.data.Models.Gym;
+using gms.data.Models.Nutrition;
 using gms.data.Models.Membership;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
@@ -64,11 +65,12 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
     #endregion
 
-    #region Membership
-    public DbSet<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
+    #region Nutrition
+    public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
     #endregion
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 
     {
         //base.OnModelCreating(modelBuilder);
