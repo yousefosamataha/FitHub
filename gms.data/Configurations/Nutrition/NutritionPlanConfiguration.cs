@@ -13,9 +13,8 @@ internal class NutritionPlanConfiguration : IEntityTypeConfiguration<NutritionPl
 
         builder.HasKey(np => np.Id);
 
-        // TODO: Run Migration
-        // builder.HasMany(np => np.NutritionPlanMeals)
-        // 	   .WithOne(npm => npm.NutritionPlan)
-        // 	   .HasForeignKey(npm => npm.NutritionPlanId);
+        builder.HasMany(np => np.NutritionPlanMeals)
+               .WithOne(npm => npm.NutritionPlan)
+               .HasForeignKey(npm => npm.NutritionPlanId);
     }
 }
