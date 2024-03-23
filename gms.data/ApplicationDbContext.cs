@@ -35,6 +35,8 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<GymBranchEntity> GymBranches { get; set; }
     public DbSet<GymGeneralSettingEntity> GymGeneralSettings { get; set; }
     public DbSet<GymNotificationEntity> GymNotifications { get; set; }
+    public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
+    public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
     #endregion
 
     #region Shared
@@ -50,19 +52,21 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Enum
     public DbSet<PaymentMethodEnumEntity> PaymentMethods { get; set; }
     public DbSet<SubscriptionTypeEnumEntity> SubscriptionTypes { get; set; }
-    public DbSet<SubscriptionStatusEnumEntity> SubscriptionStatuses { get; set; }
+    public DbSet<StatusEnumEntity> Statuses { get; set; }
     public DbSet<GenderEnumEntity> Gender { get; set; }
     public DbSet<MemberLevelEnumEntity> MemberLevels { get; set; }
+    public DbSet<GymResultMeasurementEnumEntity> GymResultMeasurements { get; set; }
+
     #endregion
     
     #region Workout
     public DbSet<WorkoutPlanEntity> WorkoutPlans { get; set; }
     public DbSet<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
-	#endregion
 
-	#region Nutrition
-	public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
-	#endregion
+    #region Nutrition
+    public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
+    #endregion
+
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 
