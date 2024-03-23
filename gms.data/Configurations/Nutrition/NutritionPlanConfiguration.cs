@@ -11,10 +11,11 @@ internal class NutritionPlanConfiguration : IEntityTypeConfiguration<NutritionPl
 	{
 		builder.ToTable(gmsDbProperties.DbTablePrefix + ".NutritionPlan", gmsDbProperties.DbSchema);
 
-		builder.HasKey(wp => wp.Id);
+		builder.HasKey(np => np.Id);
 
-		//builder.HasMany(wp => wp.WorkoutPlanActivities)
-		//	   .WithOne(wpa => wpa.WorkoutPlan)
-		//	   .HasForeignKey(wpa => wpa.WorkoutPlanId);
+		// TODO: Run Migration
+		// builder.HasMany(np => np.NutritionPlanMeals)
+		// 	   .WithOne(npm => npm.NutritionPlan)
+		// 	   .HasForeignKey(npm => npm.NutritionPlanId);
 	}
 }
