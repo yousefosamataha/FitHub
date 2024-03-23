@@ -67,6 +67,8 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Nutrition
     public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
+    // TODO: Run Migration
+    // public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
     #endregion
 
 
