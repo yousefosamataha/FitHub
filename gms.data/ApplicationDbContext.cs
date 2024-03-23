@@ -2,7 +2,6 @@
 using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
-using gms.data.Models.Membership;
 using gms.data.Models.Shared;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
@@ -69,6 +68,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
     // TODO: Run Migration
     // public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
+    // public DbSet<MealTimeEntity> MealTimes { get; set; }
     #endregion
 
 

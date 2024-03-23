@@ -18,5 +18,9 @@
 //		builder.HasOne(npm => npm.NutritionPlan)
 //			   .WithMany(np => np.NutritionPlanMeals)
 //			   .HasForeignKey(npm => npm.NutritionPlanId);
+
+//		builder.HasOne(npm => npm.MealTime)
+//			   .WithMany(mt => mt.NutritionPlanMeals)
+//			   .HasForeignKey(npm => npm.MealTimeId);
 //	}
 //}
