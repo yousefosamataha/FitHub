@@ -58,7 +58,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<GymResultMeasurementEnumEntity> GymResultMeasurements { get; set; }
 
     #endregion
-    
+
     #region Workout
     public DbSet<WorkoutPlanEntity> WorkoutPlans { get; set; }
     public DbSet<WorkoutPlanActivityEntity> WorkoutPlanActivities { get; set; }
@@ -66,6 +66,10 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Nutrition
     public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
+    // TODO: Run Migration
+    // public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
+    // public DbSet<MealTimeEntity> MealTimes { get; set; }
+    // public DbSet<MealIngredientEntity> MealIngredients { get; set; }
     #endregion
 
 
