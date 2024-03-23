@@ -65,11 +65,10 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #endregion
 
     #region Nutrition
-    // TODO: Run Migration
     public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
     public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
     public DbSet<MealTimeEntity> MealTimes { get; set; }
-    //public DbSet<MealIngredientEntity> MealIngredients { get; set; }
+    public DbSet<MealIngredientEntity> MealIngredients { get; set; }
     #endregion
 
 
