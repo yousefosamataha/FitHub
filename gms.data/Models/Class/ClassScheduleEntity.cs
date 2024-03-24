@@ -13,8 +13,8 @@ public class ClassScheduleEntity : BaseEntity
 	// TODO: Add Migration
 	// public virtual ClassLocationEntity ClassLocation { get; set; }
 	// public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
+	// public virtual ICollection<StaffClassEntity> StaffClasses { get; set; }
 
 	// TODO: Add Relation Entities
-	// public ICollection<GymStaffClass> GymStaffClasses { get; set; }
 	// public int CreatedById { get; set; }
 }
