@@ -66,14 +66,13 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 
     #region Nutrition
     public DbSet<NutritionPlanEntity> NutritionPlans { get; set; }
-    // TODO: Run Migration
-    // public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
-    // public DbSet<MealTimeEntity> MealTimes { get; set; }
-    // public DbSet<MealIngredientEntity> MealIngredients { get; set; }
+    public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
+    public DbSet<MealTimeEntity> MealTimes { get; set; }
+    public DbSet<MealIngredientEntity> MealIngredients { get; set; }
     #endregion
 
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
 
     {
         //base.OnModelCreating(modelBuilder);

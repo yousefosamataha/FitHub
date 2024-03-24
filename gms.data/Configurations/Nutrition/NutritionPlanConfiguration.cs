@@ -7,15 +7,14 @@ namespace gms.data.Configurations.Nutrition;
 
 internal class NutritionPlanConfiguration : IEntityTypeConfiguration<NutritionPlanEntity>
 {
-	public void Configure(EntityTypeBuilder<NutritionPlanEntity> builder)
-	{
-		builder.ToTable(gmsDbProperties.DbTablePrefix + ".NutritionPlan", gmsDbProperties.DbSchema);
+    public void Configure(EntityTypeBuilder<NutritionPlanEntity> builder)
+    {
+        builder.ToTable(gmsDbProperties.DbTablePrefix + ".NutritionPlan", gmsDbProperties.DbSchema);
 
-		builder.HasKey(np => np.Id);
+        builder.HasKey(np => np.Id);
 
-		// TODO: Run Migration
-		// builder.HasMany(np => np.NutritionPlanMeals)
-		// 	   .WithOne(npm => npm.NutritionPlan)
-		// 	   .HasForeignKey(npm => npm.NutritionPlanId);
-	}
+        builder.HasMany(np => np.NutritionPlanMeals)
+               .WithOne(npm => npm.NutritionPlan)
+               .HasForeignKey(npm => npm.NutritionPlanId);
+    }
 }
