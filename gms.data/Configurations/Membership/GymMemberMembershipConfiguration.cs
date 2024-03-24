@@ -15,5 +15,9 @@ internal class GymMemberMembershipConfiguration : IEntityTypeConfiguration<GymMe
         builder.HasMany(gmm => gmm.MembershipPaymentHistories)
                .WithOne(gmph => gmph.GymMemberMembership)
                .HasForeignKey(gmph => gmph.GymMemberMembershipId);
+
+        builder.HasOne(gmm => gmm.GymMembershipPlan)
+               .WithMany(gmp => gmp.GymMemberMemberships)
+               .HasForeignKey(gmp => gmp.GymMembershipPlanId);
     }
 }
