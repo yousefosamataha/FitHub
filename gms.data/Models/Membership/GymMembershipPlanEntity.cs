@@ -18,8 +18,6 @@ public class GymMembershipPlanEntity : BaseEntity
 
     // TODO: Add Relation Entities
     //public int CreatedById { get; set; } // FK
-    //public int InstallmentPlanId { get; set; } // FK
-    //public decimal InstallmentAmount { get; set; }
     //public ICollection<MembershipPlanClass> MembershipPlanClasses { get; set; }
     //public int ClassIsLimit { get; set; }
     //public int ClassLimitDays { get; set; }
