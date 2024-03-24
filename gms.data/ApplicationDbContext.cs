@@ -1,4 +1,5 @@
 ﻿using gms.data.Models.Activity;
+using gms.data.Models.Class;
 using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
@@ -69,22 +70,22 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
     public DbSet<MealTimeEntity> MealTimes { get; set; }
     public DbSet<MealIngredientEntity> MealIngredients { get; set; }
-	#endregion
+    #endregion
 
-	#region Class
-	// TODO: Add Migration
-	// public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
-	// public DbSet<ClassLocationEntity> ClassLocations { get; set; }
-	// public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
-	#endregion
+    #region Class
+    // TODO: Add Migration
+    public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
+    // public DbSet<ClassLocationEntity> ClassLocations { get; set; }
+    // public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
+    #endregion
 
-	#region Staff
-	// TODO: Add Migration
-	// public DbSet<StaffClassEntity> StaffClasses { get; set; }
-	#endregion
+    #region Staff
+    // TODO: Add Migration
+    // public DbSet<StaffClassEntity> StaffClasses { get; set; }
+    #endregion
 
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
 
     {
         //base.OnModelCreating(modelBuilder);
