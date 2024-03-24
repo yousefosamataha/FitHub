@@ -12,6 +12,7 @@
 //		builder.ToTable(gmsDbProperties.DbTablePrefix + ".ClassLocation", gmsDbProperties.DbSchema);
 
 //		builder.HasKey(cl => cl.Id);
+//		builder.Property(cl => cl.Name).IsRequired().HasMaxLength(256);
 
 //		builder.HasMany(cl => cl.ClassSchedules)
 //			   .WithOne(cs => cs.ClassLocation)
