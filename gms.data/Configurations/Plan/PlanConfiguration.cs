@@ -29,8 +29,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         List<PlanEntity> plans = new();
         plans.Add(new PlanEntity()
         {
-            Id = (int)PlansEnum.free_trial,
-            PlanName = PlansEnum.free_trial.ToString(),
+            Id = (int)PlansEnum.FreeTrial,
+            PlanName = PlansEnum.FreeTrial.ToString(),
             ReminderDays = 0,
             PricePerMonth = 0,
             PricePerYear = 0,
@@ -41,8 +41,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         });
         plans.Add(new PlanEntity()
         {
-            Id = (int)PlansEnum.startup,
-            PlanName = PlansEnum.startup.ToString(),
+            Id = (int)PlansEnum.Startup,
+            PlanName = PlansEnum.Startup.ToString(),
             ReminderDays = 10,
             PricePerMonth = 500,
             PricePerYear = 5000,
@@ -54,8 +54,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         plans.Add(new PlanEntity()
         {
 
-            Id = (int)PlansEnum.business,
-            PlanName = PlansEnum.business.ToString(),
+            Id = (int)PlansEnum.Business,
+            PlanName = PlansEnum.Business.ToString(),
             ReminderDays = 10,
             PricePerMonth = 1000,
             PricePerYear = 10000,
@@ -66,8 +66,8 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
         });
         plans.Add(new PlanEntity()
         {
-            Id = (int)PlansEnum.enterprise,
-            PlanName = PlansEnum.enterprise.ToString(),
+            Id = (int)PlansEnum.Enterprise,
+            PlanName = PlansEnum.Enterprise.ToString(),
             ReminderDays = 10,
             PricePerMonth = 2000,
             PricePerYear = 20000,
