@@ -10,9 +10,9 @@ public class ClassScheduleEntity : BaseEntity
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     public virtual ClassLocationEntity ClassLocation { get; set; }
+    public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
 
     // TODO: Add Relation Entities
-    // public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     // public virtual ICollection<StaffClassEntity> StaffClasses { get; set; }
 
     // TODO: Add Relation Entities

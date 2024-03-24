@@ -19,9 +19,9 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
                .WithMany(cl => cl.ClassSchedules)
                .HasForeignKey(cs => cs.ClassLocationId);
 
-        //builder.HasMany(cs => cs.ClassScheduleDays)
-        //       .WithOne(csd => csd.ClassSchedule)
-        //       .HasForeignKey(csd => csd.ClassId);
+        builder.HasMany(cs => cs.ClassScheduleDays)
+               .WithOne(csd => csd.ClassSchedule)
+               .HasForeignKey(csd => csd.ClassId);
 
         //builder.HasMany(cs => cs.StaffClasses)
         //       .WithOne(sc => sc.ClassSchedule)

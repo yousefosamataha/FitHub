@@ -75,7 +75,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Class
     public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
     public DbSet<ClassLocationEntity> ClassLocations { get; set; }
-    // public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
+    public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     #endregion
 
     #region Staff
