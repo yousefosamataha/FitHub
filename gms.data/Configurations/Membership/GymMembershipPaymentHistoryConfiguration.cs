@@ -10,8 +10,12 @@ internal class GymMembershipPaymentHistoryConfiguration : IEntityTypeConfigurati
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".GymMembershipPaymentHistory", gmsDbProperties.DbSchema);
 
-        builder.HasKey(mph => mph.Id);
+        builder.HasKey(gmph => gmph.Id);
 
-        builder.Property(mph => mph.PaidAmount).HasPrecision(18, 2);
+        builder.Property(gmph => gmph.PaidAmount).HasPrecision(18, 2);
+
+        builder.HasOne(gmph => gmph.GymMemberMembership)
+               .WithMany(gmm => gmm.MembershipPaymentHistories)
+               .HasForeignKey(gmm => gmm.GymMemberMembershipId);
     }
 }
