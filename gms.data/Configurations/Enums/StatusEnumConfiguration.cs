@@ -39,7 +39,10 @@ internal class StatusEnumConfiguration : IEntityTypeConfiguration<StatusEnumEnti
                     2 => BadgeColorEnum.danger,
                     3 => BadgeColorEnum.warning,
                     4 => BadgeColorEnum.secondary,
-                    5 => BadgeColorEnum.danger
+                    5 => BadgeColorEnum.danger,
+                    6 => BadgeColorEnum.danger,
+                    7 => BadgeColorEnum.warning,
+                    8 => BadgeColorEnum.success
                 },
                 CreatedAt = DateTime.UtcNow
             };
