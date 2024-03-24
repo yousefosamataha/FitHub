@@ -1,16 +1,20 @@
-﻿using gms.common.Constants;
-using gms.data.Models.Class;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿//using gms.common.Constants;
+//using gms.data.Models.Class;
+//using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Class;
+//namespace gms.data.Configurations.Class;
 
-internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassScheduleEntity>
-{
-	public void Configure(EntityTypeBuilder<ClassScheduleEntity> builder)
-	{
-		builder.ToTable(gmsDbProperties.DbTablePrefix + ".ClassSchedule", gmsDbProperties.DbSchema);
+//internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassScheduleEntity>
+//{
+//	public void Configure(EntityTypeBuilder<ClassScheduleEntity> builder)
+//	{
+//		builder.ToTable(gmsDbProperties.DbTablePrefix + ".ClassSchedule", gmsDbProperties.DbSchema);
 
-		builder.HasKey(cs => cs.Id);
-	}
-}
+//		builder.HasKey(cs => cs.Id);
+
+//		builder.HasOne(cs => cs.ClassLocation)
+//			   .WithMany(cl => cl.ClassSchedules)
+//			   .HasForeignKey(cs => cs.ClassLocationId);
+//	}
+//}
