@@ -1,8 +1,8 @@
 ﻿namespace gms.common.Enums;
 public enum PlansEnum : byte
 {
-    free_trial = 1,
-    startup = 2,
-    business = 3,
-    enterprise = 4
+    FreeTrial = 1,
+    Startup = 2,
+    Business = 3,
+    Enterprise = 4
 }
