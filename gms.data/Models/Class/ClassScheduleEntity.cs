@@ -11,7 +11,8 @@ public class ClassScheduleEntity : BaseEntity
 	public TimeOnly EndTime { get; set; }
 
 	// TODO: Add Migration
-	// public ClassLocationEntity ClassLocation { get; set; }
+	// public virtual ClassLocationEntity ClassLocation { get; set; }
+	// public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
 
 	// TODO: Add Relation Entities
 	// public ICollection<GymStaffClass> GymStaffClasses { get; set; }

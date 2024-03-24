@@ -16,5 +16,9 @@
 //		builder.HasOne(cs => cs.ClassLocation)
 //			   .WithMany(cl => cl.ClassSchedules)
 //			   .HasForeignKey(cs => cs.ClassLocationId);
+
+//		builder.HasMany(cs => cs.ClassScheduleDays)
+//			   .WithOne(csd => csd.ClassSchedule)
+//			   .HasForeignKey(csd => csd.ClassId);
 //	}
 //}

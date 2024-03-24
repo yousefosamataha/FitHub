@@ -7,5 +7,5 @@ public class ClassLocationEntity : BaseEntity
 	public string Name { get; set; }
 
 	// TODO: Add Migration
-	// public ICollection<ClassScheduleEntity> ClassSchedules { get; set; }
+	// public virtual ICollection<ClassScheduleEntity> ClassSchedules { get; set; }
 }
