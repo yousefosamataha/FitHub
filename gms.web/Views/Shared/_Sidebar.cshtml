@@ -1,0 +1,600 @@
+﻿<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+	<!--begin::Wrapper-->
+	<div id="kt_app_sidebar_wrapper" class="app-sidebar-wrapper">
+		<div class="hover-scroll-y my-5 my-lg-2" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_header" data-kt-scroll-wrappers="#kt_app_sidebar_wrapper" data-kt-scroll-offset="5px" style="margin-left: 0.5rem;margin-right: 0.5rem;">
+			<!--begin::Sidebar toggle-->
+			<div class="position-relative h-40px">
+				<div id="kt_app_sidebar_toggle" class="app-sidebar-toggle-custom position-absolute top-50 active" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
+					<i class="fa-solid fa-thumbtack"></i>
+				</div>
+			</div>
+			<!--end::Sidebar toggle-->
+			<!--begin::Sidebar menu-->
+			<div id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false" class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary px-3 mb-5">
+				<!--begin::Menu Item-->
+				<div class="menu-item" side-menu-item="true">
+					<!--begin::Menu link-->
+					<a class="menu-link" href="@Url.Action("Index", "Home")">
+						<!--begin::icone-->
+						<span class="menu-icon">
+							<i class="ki-solid ki-chart-pie-4 fs-1"></i>
+						</span>
+						<!--begin::icon-->
+						<!--begin::Title-->
+						<span class="menu-title">@localizer["dashboard"]</span>
+						<!--end::Title-->
+					</a>
+					<!--end::Menu link-->
+				</div>
+				<!--end::Menu Item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-badge fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["memberships"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("AddNewMembership", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["add_new_membership"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("MembershipsList", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["memberships_list"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion grand-parent">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-profile-user fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["manage_users"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+							<!--begin:Menu link-->
+							<span class="menu-link">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["manage_members"]</span>
+								<span class="menu-arrow"></span>
+							</span>
+							<!--end:Menu link-->
+							<!--begin:Menu sub-->
+							<div class="menu-sub menu-sub-accordion">
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("AddNewMember", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["add_new_member"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("MembersList", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["members_list"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							</div>
+							<!--end:Menu sub-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+							<!--begin:Menu link-->
+							<span class="menu-link">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["manage_staffs"]</span>
+								<span class="menu-arrow"></span>
+							</span>
+							<!--end:Menu link-->
+							<!--begin:Menu sub-->
+							<div class="menu-sub menu-sub-accordion">
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("AddNewStaff", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["add_new_staff"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("StaffsList", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["staffs_list"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							</div>
+							<!--end:Menu sub-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+							<!--begin:Menu link-->
+							<span class="menu-link">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["settings"]</span>
+								<span class="menu-arrow"></span>
+							</span>
+							<!--end:Menu link-->
+							<!--begin:Menu sub-->
+							<div class="menu-sub menu-sub-accordion">
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("Roles", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["roles"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="@Url.Action("Permissions", "Home")">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["permissions"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							</div>
+							<!--end:Menu sub-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="fa-solid fa-people-group fs-3"></i>
+						</span>
+						<span class="menu-title">@localizer["groups"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("AddNewGroup", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["add_new_group"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("GroupsList", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["groups_list"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-calendar-2 fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["training_classes"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("AddNewClass", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["add_new_class"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("ClassesList", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["classes_list"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" side-menu-item="true">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("ClassesSchedule", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["classes_schedule"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="fa-solid fa-dumbbell fs-4"></i>
+						</span>
+						<span class="menu-title">@localizer["workout_plans"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["assign_workout_plans"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["daily_workout_plans"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="fa-solid fa-plate-wheat fs-3 fs-3-custom"></i>
+						</span>
+						<span class="menu-title">@localizer["nurition_plans"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["assign_nurition_plans"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin::Menu Item-->
+				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
+					<!--begin::Menu link-->
+					<a class="menu-link" href="@Url.Action("Index", "Home")">
+						<!--begin::icone-->
+						<span class="menu-icon">
+							<i class="ki-solid ki-message-text-2 fs-1"></i>
+						</span>
+						<!--begin::icon-->
+						<!--begin::Title-->
+						<span class="menu-title">@localizer["messages"]</span>
+						<!--end::Title-->
+					</a>
+					<!--end::Menu link-->
+				</div>
+				<!--end::Menu Item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-wallet fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["finances"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["incomes"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["expenses"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Membership Payment</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Subscription History</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-calendar-add fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["attendance"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["members_attendance"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">@localizer["staffs_attendance"]</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="fa-solid fa-store fs-3"></i>
+						</span>
+						<span class="menu-title">@localizer["store_and_products"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Class List</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add Class</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu link-->
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="ki-solid ki-document fs-1"></i>
+						</span>
+						<span class="menu-title">@localizer["reports"]</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--end:Menu link-->
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Index", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Class List</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add Class</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin::Menu Item-->
+				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
+					<!--begin::Menu link-->
+					<a class="menu-link" href="@Url.Action("Index", "Home")">
+						<!--begin::icone-->
+						<span class="menu-icon">
+							<i class="ki-solid ki-gear fs-1"></i>
+						</span>
+						<!--begin::icon-->
+						<!--begin::Title-->
+						<span class="menu-title">@localizer["settings"]</span>
+						<!--end::Title-->
+					</a>
+					<!--end::Menu link-->
+				</div>
+				<!--end::Menu Item-->
+			</div>
+			<!--end::Sidebar menu-->
+		</div>
+	</div>
+	<!--end::Wrapper-->
+</div>
