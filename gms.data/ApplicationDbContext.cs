@@ -73,9 +73,8 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #endregion
 
     #region Class
-    // TODO: Add Migration
     public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
-    // public DbSet<ClassLocationEntity> ClassLocations { get; set; }
+    public DbSet<ClassLocationEntity> ClassLocations { get; set; }
     // public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     #endregion
 

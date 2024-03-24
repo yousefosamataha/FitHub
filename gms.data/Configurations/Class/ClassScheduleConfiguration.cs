@@ -15,9 +15,9 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
         builder.Property(cs => cs.ClassName).IsRequired().HasMaxLength(256);
         builder.Property(cs => cs.ClassFees).HasPrecision(18, 2);
 
-        //builder.HasOne(cs => cs.ClassLocation)
-        //       .WithMany(cl => cl.ClassSchedules)
-        //       .HasForeignKey(cs => cs.ClassLocationId);
+        builder.HasOne(cs => cs.ClassLocation)
+               .WithMany(cl => cl.ClassSchedules)
+               .HasForeignKey(cs => cs.ClassLocationId);
 
         //builder.HasMany(cs => cs.ClassScheduleDays)
         //       .WithOne(csd => csd.ClassSchedule)
