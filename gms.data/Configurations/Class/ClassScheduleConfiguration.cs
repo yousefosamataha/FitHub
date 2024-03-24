@@ -12,6 +12,8 @@
 //		builder.ToTable(gmsDbProperties.DbTablePrefix + ".ClassSchedule", gmsDbProperties.DbSchema);
 
 //		builder.HasKey(cs => cs.Id);
+//		builder.Property(cs => cs.ClassName).IsRequired().HasMaxLength(256);
+//		builder.Property(cs => cs.ClassFees).HasPrecision(18, 2);
 
 //		builder.HasOne(cs => cs.ClassLocation)
 //			   .WithMany(cl => cl.ClassSchedules)
@@ -20,5 +22,9 @@
 //		builder.HasMany(cs => cs.ClassScheduleDays)
 //			   .WithOne(csd => csd.ClassSchedule)
 //			   .HasForeignKey(csd => csd.ClassId);
+
+//		builder.HasMany(cs => cs.StaffClasses)
+//			   .WithOne(sc => sc.ClassSchedule)
+//			   .HasForeignKey(sc => sc.ClassId);
 //	}
 //}

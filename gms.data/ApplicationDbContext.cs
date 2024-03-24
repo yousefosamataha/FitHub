@@ -78,6 +78,11 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
 	// public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
 	#endregion
 
+	#region Staff
+	// TODO: Add Migration
+	// public DbSet<StaffClassEntity> StaffClasses { get; set; }
+	#endregion
+
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 
