@@ -23,8 +23,8 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
                .WithOne(csd => csd.ClassSchedule)
                .HasForeignKey(csd => csd.ClassId);
 
-        //builder.HasMany(cs => cs.StaffClasses)
-        //       .WithOne(sc => sc.ClassSchedule)
-        //       .HasForeignKey(sc => sc.ClassId);
+        builder.HasMany(cs => cs.StaffClasses)
+               .WithOne(sc => sc.ClassSchedule)
+               .HasForeignKey(sc => sc.ClassId);
     }
 }

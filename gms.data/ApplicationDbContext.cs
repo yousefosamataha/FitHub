@@ -4,6 +4,7 @@ using gms.data.Models.Enum;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
+using gms.data.Models.Staff;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
 using Microsoft.EntityFrameworkCore;
@@ -79,8 +80,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #endregion
 
     #region Staff
-    // TODO: Add Migration
-    // public DbSet<StaffClassEntity> StaffClasses { get; set; }
+    public DbSet<StaffClassEntity> StaffClasses { get; set; }
     #endregion
 
 
