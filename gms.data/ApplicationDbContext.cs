@@ -1,6 +1,7 @@
 ﻿using gms.data.Models.Activity;
 using gms.data.Models.Class;
 using gms.data.Models.Enum;
+using gms.data.Models.Event;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
@@ -82,7 +83,9 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Staff
     public DbSet<StaffClassEntity> StaffClasses { get; set; }
     #endregion
-
+    #region Event
+    public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
+    #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 
