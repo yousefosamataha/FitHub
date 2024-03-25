@@ -84,8 +84,13 @@ public class HomeController : BaseController<HomeController>
     {
         return View();
     }
+	public IActionResult Login()
+	{
+		return View();
+	}
 
-    [HttpPost]
+
+	[HttpPost]
     public IActionResult SetLanguage(string culture, string redirecturl)
     {
         Response.Cookies.Append
