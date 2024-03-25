@@ -3,7 +3,7 @@ using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.SubscriptionPayment;
+namespace gms.data.Configurations.Subscription;
 internal class SubscriptionPaymentConfiguration : IEntityTypeConfiguration<SubscriptionPaymentEntity>
 {
     public void Configure(EntityTypeBuilder<SubscriptionPaymentEntity> builder)
