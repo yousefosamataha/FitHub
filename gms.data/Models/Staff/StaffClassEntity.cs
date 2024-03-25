@@ -1,14 +1,13 @@
 ﻿using gms.data.Models.Base;
+using gms.data.Models.Class;
 
 namespace gms.data.Models.Staff;
 
 public class StaffClassEntity : BaseEntity
 {
-	public int ClassId { get; set; }
+    public int ClassId { get; set; }
+    public virtual ClassScheduleEntity ClassSchedule { get; set; }
 
-	// TODO: Add Migration
-	// public virtual ClassScheduleEntity ClassSchedule { get; set; }
-
-	// TODO: Add Relation Entities
-	// public int StaffId { get; set; }
+    // TODO: Add Relation Entities
+    // public int StaffId { get; set; }
 }
