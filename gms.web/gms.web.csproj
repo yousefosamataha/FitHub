@@ -39,4 +39,14 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Activity\" />
+    <Folder Include="Views\Class\" />
+    <Folder Include="Views\Membership\" />
+    <Folder Include="Views\Workout\" />
+    <Folder Include="Views\Subscription\" />
+    <Folder Include="Views\Staff\" />
+    <Folder Include="Views\Nutrition\" />
+  </ItemGroup>
+
 </Project>
