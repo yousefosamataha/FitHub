@@ -5,9 +5,7 @@ namespace gms.data.Models.Class;
 
 public class ClassScheduleDayEntity : BaseEntity
 {
-	public int ClassId { get; set; }
-	public WeekDayEnum WeekDayId { get; set; }
-
-	// TODO: Add Migration
-	// public virtual ClassScheduleEntity ClassSchedule { get; set; }
+    public int ClassId { get; set; }
+    public WeekDayEnum WeekDayId { get; set; }
+    public virtual ClassScheduleEntity ClassSchedule { get; set; }
 }

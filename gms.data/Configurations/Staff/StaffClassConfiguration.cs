@@ -1,20 +1,20 @@
-﻿//using gms.common.Constants;
-//using gms.data.Models.Staff;
-//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using gms.common.Constants;
+using gms.data.Models.Staff;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-//namespace gms.data.Configurations.Staff;
+namespace gms.data.Configurations.Staff;
 
-//internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEntity>
-//{
-//	public void Configure(EntityTypeBuilder<StaffClassEntity> builder)
-//	{
-//		builder.ToTable(gmsDbProperties.DbTablePrefix + ".StaffClass", gmsDbProperties.DbSchema);
+internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEntity>
+{
+    public void Configure(EntityTypeBuilder<StaffClassEntity> builder)
+    {
+        builder.ToTable(gmsDbProperties.DbTablePrefix + ".StaffClass", gmsDbProperties.DbSchema);
 
-//		builder.HasKey(sc => sc.Id);
+        builder.HasKey(sc => sc.Id);
 
-//		builder.HasOne(sc => sc.ClassSchedule)
-//			   .WithMany(cs => cs.StaffClasses)
-//			   .HasForeignKey(sc => sc.ClassId);
-//	}
-//}
+        builder.HasOne(sc => sc.ClassSchedule)
+               .WithMany(cs => cs.StaffClasses)
+               .HasForeignKey(sc => sc.ClassId);
+    }
+}
