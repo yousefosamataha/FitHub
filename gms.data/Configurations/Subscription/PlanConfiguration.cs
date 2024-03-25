@@ -4,7 +4,7 @@ using gms.data.Models.Subscription;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Plan;
+namespace gms.data.Configurations.Subscription;
 
 internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
 {

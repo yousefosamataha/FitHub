@@ -1,8 +1,11 @@
 ﻿using gms.data.Models.Activity;
+using gms.data.Models.Class;
 using gms.data.Models.Enum;
+using gms.data.Models.Event;
 using gms.data.Models.Gym;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
+using gms.data.Models.Staff;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +74,18 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     public DbSet<MealIngredientEntity> MealIngredients { get; set; }
     #endregion
 
+    #region Class
+    public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
+    public DbSet<ClassLocationEntity> ClassLocations { get; set; }
+    public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
+    #endregion
+
+    #region Staff
+    public DbSet<StaffClassEntity> StaffClasses { get; set; }
+    #endregion
+    #region Event
+    public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
+    #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 
