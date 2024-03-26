@@ -84,7 +84,12 @@ public class HomeController : BaseController<HomeController>
     {
         return View();
     }
-	public IActionResult Login()
+	public IActionResult SignIn()
+	{
+		return View();
+	}
+
+	public IActionResult SignUp()
 	{
 		return View();
 	}

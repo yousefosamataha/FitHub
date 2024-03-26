@@ -83,6 +83,7 @@ public class ApplicationDbContext : DbContext //IdentityDbContext<GymUserEntity>
     #region Staff
     public DbSet<StaffClassEntity> StaffClasses { get; set; }
     #endregion
+
     #region Event
     public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
     #endregion
