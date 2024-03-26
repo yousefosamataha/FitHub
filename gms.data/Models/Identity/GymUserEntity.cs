@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace gms.data.Models;
+namespace gms.data.Models.Identity;
 public class GymUserEntity : IdentityUser
 {
     public string FirstName { get; set; }
