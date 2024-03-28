@@ -3,6 +3,7 @@
 #nullable disable
 
 using gms.data.Models;
+using gms.data.Models.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

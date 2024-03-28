@@ -1,7 +1,7 @@
 ﻿
 using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models;
+using gms.data.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
