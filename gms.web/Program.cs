@@ -103,10 +103,13 @@ WebApplication? app = builder.Build();
 
     app.UseAuthorization();
 
-    app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
     app.MapRazorPages();
+
+    app.MapGet("/", context =>
+    {
+        context.Response.Redirect("/Identity/Account/Register");
+        return Task.CompletedTask;
+    });
 
     using var scope = app.Services.CreateScope();
     IServiceProvider services = scope.ServiceProvider;
