@@ -3,6 +3,8 @@ using gms.data.Models.Identity;
 using gms.data.Seeds;
 using gms.service.GymRolesRepository;
 using gms.service.GymUserRepository;
+using gms.web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -12,13 +14,13 @@ using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-    // Add DbContext Configuration 
     string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
     builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-    //builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+    builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
-    //builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+    builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -32,6 +34,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
         options.LoginPath = "/Identity/Account/Login";
         options.LogoutPath = "/Identity/Account/Logout";
     });
+
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
     {
         options.ValidationInterval = TimeSpan.Zero;
@@ -112,11 +115,15 @@ WebApplication? app = builder.Build();
     try
     {
         UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+
         RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
         await Seeds.SeedBasicUserAsync(userManager);
+
         await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+
         logger.LogInformation("Data Seeded");
+
         logger.LogInformation("Application Started");
     }
     catch (Exception ex)

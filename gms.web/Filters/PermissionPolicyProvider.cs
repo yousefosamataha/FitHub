@@ -18,7 +18,7 @@ public class PermissionPolicyProvider : IAuthorizationPolicyProvider
 
     public async Task<AuthorizationPolicy?> GetFallbackPolicyAsync()
     {
-        return await FallBackPolicyProvider.GetDefaultPolicyAsync();
+        return await FallBackPolicyProvider.GetFallbackPolicyAsync();
     }
 
     public Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)

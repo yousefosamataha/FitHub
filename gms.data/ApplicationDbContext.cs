@@ -20,6 +20,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
     {
 
     }
+
     #region Identity
     public DbSet<IdentityRoleClaim<string>> RoleClaims { get; set; }
     public DbSet<IdentityRole> Roles { get; set; }
@@ -29,8 +30,6 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
     public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
     public DbSet<IdentityUserToken<string>> UserTokens { get; set; }
     #endregion
-
-
 
     #region Subscription
     public DbSet<PlanEntity> SystemPlans { get; set; }
@@ -88,14 +87,14 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
     #region Staff
     public DbSet<StaffClassEntity> StaffClasses { get; set; }
     #endregion
+
     #region Event
     public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-
     {
-        //base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }
