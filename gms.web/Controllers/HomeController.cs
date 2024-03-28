@@ -84,8 +84,18 @@ public class HomeController : BaseController<HomeController>
     {
         return View();
     }
+	public IActionResult SignIn()
+	{
+		return View();
+	}
 
-    [HttpPost]
+	public IActionResult SignUp()
+	{
+		return View();
+	}
+
+
+	[HttpPost]
     public IActionResult SetLanguage(string culture, string redirecturl)
     {
         Response.Cookies.Append
