@@ -33,5 +33,9 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithMany(gss => gss.GymUsers)
                .HasForeignKey(gu => gu.GymStaffSpecializationId).IsRequired(false);
 
+        builder.HasOne(gu => gu.Gym)
+               .WithMany(g => g.GymUsers)
+               .HasForeignKey(gu => gu.GymId);
+
     }
 }
