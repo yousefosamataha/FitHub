@@ -20,7 +20,8 @@ public static partial class Seeds
                 EmailConfirmed = true,
                 FirstName = "Basic",
                 LastName = "User",
-                PhoneNumber = "+201100241976"
+                PhoneNumber = "+201100241976",
+                GymUserTypeId = GymUserTypeEnum.Staff
             };
 
             GymUserEntity user = await userManger.FindByEmailAsync(defaultUser.Email);
@@ -47,7 +48,8 @@ public static partial class Seeds
                 EmailConfirmed = true,
                 FirstName = "super",
                 LastName = "admin",
-                PhoneNumber = "+201100241976"
+                PhoneNumber = "+201100241976",
+                GymUserTypeId = GymUserTypeEnum.Staff
             };
 
             GymUserEntity user = await userManger.FindByEmailAsync(defaulSuperAdminUser.Email);
