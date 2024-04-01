@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class StaffController : Controller
+public class StaffController : BaseController<StaffController>
 {
 	public IActionResult Index()
 	{
