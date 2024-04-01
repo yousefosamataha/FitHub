@@ -17,7 +17,7 @@ public class SuperadminController : BaseController<SuperadminController>
 		return View(users);
 
 	}
-	public async Task<IActionResult> GymUserRoles(string userId)
+	public async Task<IActionResult> GymUserRoles(int userId)
 	{
 		GymUserRolesViewModel user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
 		return View(user);

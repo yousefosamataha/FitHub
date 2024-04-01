@@ -1,24 +1,26 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using Microsoft.AspNetCore.Identity;
+using gms.data.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations.Identity;
-internal class IdentityRoleConfiguration : IEntityTypeConfiguration<IdentityRole>
+internal class GymIdentityRoleConfiguration : IEntityTypeConfiguration<GymIdentityRoleEntity>
 {
-    public void Configure(EntityTypeBuilder<IdentityRole> builder)
+    public void Configure(EntityTypeBuilder<GymIdentityRoleEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymRole", gmsDbProperties.DbSchema);
-        builder.HasData(GetSystemRoles());
+        
+        //builder.HasData(GetSystemRoles());
     }
-    public List<IdentityRole> GetSystemRoles()
+    public List<GymIdentityRoleEntity> GetSystemRoles()
     {
-        List<IdentityRole> roles = new();
+        List<GymIdentityRoleEntity> roles = new();
         foreach (var role in Enum.GetValues(typeof(RolesEnum)))
         {
-            IdentityRole newRole = new()
+            GymIdentityRoleEntity newRole = new()
             {
+                Id = (int)role,
                 Name = role.ToString(),
                 NormalizedName = role.ToString().ToUpper()
             };

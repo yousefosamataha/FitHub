@@ -37,7 +37,7 @@ public static partial class Seeds
         }
 
     }
-    public static async Task SeedSuperAdminUserAsync(UserManager<GymUserEntity> userManger, RoleManager<IdentityRole> roleManger)
+    public static async Task SeedSuperAdminUserAsync(UserManager<GymUserEntity> userManger, RoleManager<GymIdentityRoleEntity> roleManger)
     {
         try
         {
@@ -65,12 +65,12 @@ public static partial class Seeds
 
         }
     }
-    private static async Task SeedClaimsForSuperAdminUser(this RoleManager<IdentityRole> roleManger)
+    private static async Task SeedClaimsForSuperAdminUser(this RoleManager<GymIdentityRoleEntity> roleManger)
     {
-        IdentityRole superadminRole = await roleManger.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
+        GymIdentityRoleEntity superadminRole = await roleManger.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
         await roleManger.AddAllPermissionClaims(superadminRole);
     }
-    private static async Task AddPermissionClaims(this RoleManager<IdentityRole> roleManger, IdentityRole role, string module)
+    private static async Task AddPermissionClaims(this RoleManager<GymIdentityRoleEntity> roleManger, GymIdentityRoleEntity role, string module)
     {
         IList<Claim> allRoleClaims = await roleManger.GetClaimsAsync(role);
 
@@ -84,7 +84,7 @@ public static partial class Seeds
                 await roleManger.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
         }
     }
-    private static async Task AddAllPermissionClaims(this RoleManager<IdentityRole> roleManger, IdentityRole role)
+    private static async Task AddAllPermissionClaims(this RoleManager<GymIdentityRoleEntity> roleManger, GymIdentityRoleEntity role)
     {
         IList<Claim> allRoleClaims = await roleManger.GetClaimsAsync(role);
 

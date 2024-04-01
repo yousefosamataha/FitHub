@@ -1,12 +1,12 @@
 ﻿using gms.common.Constants;
-using Microsoft.AspNetCore.Identity;
+using gms.data.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations.Identity;
-internal class IdentityUserTokenConfiguration : IEntityTypeConfiguration<IdentityUserToken<string>>
+internal class GymUserTokenConfiguration : IEntityTypeConfiguration<GymUserTokenEntity>
 {
-    public void Configure(EntityTypeBuilder<IdentityUserToken<string>> builder)
+    public void Configure(EntityTypeBuilder<GymUserTokenEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUserToken", gmsDbProperties.DbSchema);
     }

@@ -9,12 +9,11 @@ using gms.data.Models.Shared;
 using gms.data.Models.Staff;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace gms.data;
-public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
+public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentityRoleEntity, int, GymUserClaimEntity, GymUserRoleEntity, GymUserLoginEntity, GymRoleClaimEntity, GymUserTokenEntity>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -22,13 +21,13 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
     }
 
     #region Identity
-    public DbSet<IdentityRoleClaim<string>> RoleClaims { get; set; }
-    public DbSet<IdentityRole> Roles { get; set; }
-    public DbSet<IdentityUserClaim<string>> UserClaims { get; set; }
+    public DbSet<GymRoleClaimEntity> RoleClaims { get; set; }
+    public DbSet<GymIdentityRoleEntity> Roles { get; set; }
+    public DbSet<GymUserClaimEntity> UserClaims { get; set; }
     public DbSet<GymUserEntity> Users { get; set; }
-    public DbSet<IdentityUserLogin<string>> UserLogins { get; set; }
-    public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
-    public DbSet<IdentityUserToken<string>> UserTokens { get; set; }
+    public DbSet<GymUserLoginEntity> UserLogins { get; set; }
+    public DbSet<GymUserRoleEntity> UserRoles { get; set; }
+    public DbSet<GymUserTokenEntity> UserTokens { get; set; }
     #endregion
 
     #region Subscription

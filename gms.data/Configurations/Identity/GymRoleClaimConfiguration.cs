@@ -1,12 +1,12 @@
 ﻿using gms.common.Constants;
-using Microsoft.AspNetCore.Identity;
+using gms.data.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations.Identity;
-internal class IdentityRoleClaimConfiguration : IEntityTypeConfiguration<IdentityRoleClaim<string>>
+internal class GymRoleClaimConfiguration : IEntityTypeConfiguration<GymRoleClaimEntity>
 {
-    public void Configure(EntityTypeBuilder<IdentityRoleClaim<string>> builder)
+    public void Configure(EntityTypeBuilder<GymRoleClaimEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymRoleClaim", gmsDbProperties.DbSchema);
     }

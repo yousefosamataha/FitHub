@@ -8,8 +8,8 @@ namespace gms.service.GymUserRepository;
 public class GymUserService : IGymUserService
 {
     private readonly UserManager<GymUserEntity> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    public GymUserService(UserManager<GymUserEntity> userManager, RoleManager<IdentityRole> roleManager)
+    private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+    public GymUserService(UserManager<GymUserEntity> userManager, RoleManager<GymIdentityRoleEntity> roleManager)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -33,13 +33,13 @@ public class GymUserService : IGymUserService
         }
         return gymUsers;
     }
-    public async Task<GymUserRolesViewModel> GetUserRolesByUserIdAsync(string userId)
+    public async Task<GymUserRolesViewModel> GetUserRolesByUserIdAsync(int userId)
     {
-        GymUserEntity user = await _userManager.FindByIdAsync(userId);
+        GymUserEntity user = await _userManager.FindByIdAsync(userId.ToString());
         if (user is null)
             return new GymUserRolesViewModel();
 
-        List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
+        List<GymIdentityRoleEntity> roles = await _roleManager.Roles.ToListAsync();
 
         GymUserRolesViewModel gymuserRolesViewModel = new()
         {
@@ -56,7 +56,7 @@ public class GymUserService : IGymUserService
     }
     public async Task<GymUserRolesViewModel> UpdateGymUserRolesAsyn(GymUserRolesViewModel gymUserRoles)
     {
-        GymUserEntity user = await _userManager.FindByIdAsync(gymUserRoles.UserId);
+        GymUserEntity user = await _userManager.FindByEmailAsync(gymUserRoles.Email);
         if (user is null)
             return new GymUserRolesViewModel();
 
@@ -65,7 +65,7 @@ public class GymUserService : IGymUserService
         await _userManager.RemoveFromRolesAsync(user, userRoles);
         await _userManager.AddToRolesAsync(user, gymUserRoles.Roles.Where(role => role.IsSelected).Select(role => role.Text));
 
-        List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
+        List<GymIdentityRoleEntity> roles = await _roleManager.Roles.ToListAsync();
 
         GymUserRolesViewModel updatedGymUserRolesViewModel = new()
         {
