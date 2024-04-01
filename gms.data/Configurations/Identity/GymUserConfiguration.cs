@@ -1,4 +1,5 @@
 ﻿using gms.common.Constants;
+using gms.common.Enums;
 using gms.data.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -21,7 +22,16 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
         builder.Property(gu => gu.City).IsRequired(false);
 
         builder.Property(gu => gu.BirthDate)
-            .HasConversion(dateOnlyConverter)
-            .HasColumnType("date");
+               .HasConversion(dateOnlyConverter)
+               .HasColumnType("date");
+
+        builder.Property(gu => gu.GymUserTypeId)
+               .IsRequired()
+               .HasDefaultValue(GymUserTypeEnum.Member);
+
+        builder.HasOne(gu => gu.GymStaffSpecialization)
+               .WithMany(gss => gss.GymUsers)
+               .HasForeignKey(gu => gu.GymStaffSpecializationId).IsRequired(false);
+
     }
 }
