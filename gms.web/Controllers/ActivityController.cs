@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class ActivityController : Controller
+public class ActivityController : BaseController<ActivityController>
 {
 	public IActionResult Index()
 	{

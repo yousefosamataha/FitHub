@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class WorkoutController : Controller
+public class WorkoutController : BaseController<WorkoutController>
 {
 	public IActionResult Index()
 	{
