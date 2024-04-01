@@ -17,4 +17,5 @@ public class GymBranchEntity : BaseEntity
     public virtual CountryEntity Country { get; set; }
     public virtual GymEntity Gym { get; set; }
     public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
+    public virtual ICollection<GymBranchUsersEntity> GymBranchUsers { get; set;}
 }

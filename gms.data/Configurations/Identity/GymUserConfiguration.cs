@@ -17,6 +17,8 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
 
         builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUser", gmsDbProperties.DbSchema);
 
+        builder.HasKey(gu => gu.Id);
+
         builder.Property(gu => gu.Address).IsRequired(false);
 
         builder.Property(gu => gu.City).IsRequired(false);
@@ -36,6 +38,10 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
         builder.HasOne(gu => gu.Gym)
                .WithMany(g => g.GymUsers)
                .HasForeignKey(gu => gu.GymId);
+
+        //builder.HasMany(gu => gu.GymBranchUsers)
+        //       .WithOne(gbu => gbu.GymUser)
+        //       .HasForeignKey(gu => gu.GymUserId);
 
     }
 }
