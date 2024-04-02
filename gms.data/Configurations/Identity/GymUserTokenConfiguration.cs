@@ -8,6 +8,6 @@ internal class GymUserTokenConfiguration : IEntityTypeConfiguration<GymUserToken
 {
     public void Configure(EntityTypeBuilder<GymUserTokenEntity> builder)
     {
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUserToken", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUserToken", gmsDbProperties.DbSchema);
     }
 }

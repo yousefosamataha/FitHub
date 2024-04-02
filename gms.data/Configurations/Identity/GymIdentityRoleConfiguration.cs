@@ -9,7 +9,7 @@ internal class GymIdentityRoleConfiguration : IEntityTypeConfiguration<GymIdenti
 {
     public void Configure(EntityTypeBuilder<GymIdentityRoleEntity> builder)
     {
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymRole", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityRole", gmsDbProperties.DbSchema);
         
         //builder.HasData(GetSystemRoles());
     }

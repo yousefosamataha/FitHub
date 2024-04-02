@@ -15,7 +15,7 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                                                                     dateTime => DateOnly.FromDateTime(dateTime)
                                                                 );
 
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUser", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUser", gmsDbProperties.DbSchema);
 
         builder.HasKey(gu => gu.Id);
 

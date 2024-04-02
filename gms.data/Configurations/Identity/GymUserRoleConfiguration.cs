@@ -8,6 +8,6 @@ internal class GymUserRoleConfiguration : IEntityTypeConfiguration<GymUserRoleEn
 {
     public void Configure(EntityTypeBuilder<GymUserRoleEntity> builder)
     {
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymUserRole", gmsDbProperties.DbSchema);
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUserRole", gmsDbProperties.DbSchema);
     }
 }
