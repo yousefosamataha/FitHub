@@ -34,5 +34,11 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
         builder.HasOne(gb => gb.GeneralSetting)
                .WithOne(gg => gg.GymBranch)
                .HasForeignKey<GymGeneralSettingEntity>(gg => gg.BranchId);
+
+        //builder.HasMany(gb => gb.GymBranchUsers)
+        //       .WithOne(gbu => gbu.GymBranch)
+        //       .HasForeignKey(gb => gb.GymBranchId);
+
+
     }
 }

@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace gms.data.Migrations
 {
     /// <inheritdoc />
@@ -14,33 +12,73 @@ namespace gms.data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymRole",
+                name: "gms.Identity.GymIdentityRole",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymRole", x => x.Id);
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityRole", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymUser",
+                name: "GymStaffSpecializationEntity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GymStaffSpecializationEntity", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.GymIdentityRoleClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityRoleClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_gms.Identity.GymIdentityRoleClaim_gms.Identity.GymIdentityRole_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "gms.Identity.GymIdentityRole",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "gms.Identity.GymIdentityUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GymId = table.Column<int>(type: "int", nullable: false),
-                    GymBranchId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GenderId = table.Column<byte>(type: "tinyint", nullable: false),
                     StatusId = table.Column<byte>(type: "tinyint", nullable: false),
+                    GymUserTypeId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)2),
                     BirthDate = table.Column<DateTime>(type: "date", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GymStaffSpecializationId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -58,111 +96,101 @@ namespace gms.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "gms.Identity.GymRoleClaim",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_gms.Identity.GymRoleClaim", x => x.Id);
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityUser", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymRoleClaim_gms.Identity.GymRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "gms.Identity.GymRole",
+                        name: "FK_gms.Identity.GymIdentityUser_GymStaffSpecializationEntity_GymStaffSpecializationId",
+                        column: x => x.GymStaffSpecializationId,
+                        principalTable: "GymStaffSpecializationEntity",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_gms.Identity.GymIdentityUser_gms.Gym_GymId",
+                        column: x => x.GymId,
+                        principalTable: "gms.Gym",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymUserClaim",
+                name: "gms.Identity.GymIdentityUserClaim",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymUserClaim", x => x.Id);
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityUserClaim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymUserClaim_gms.Identity.GymUser_UserId",
+                        name: "FK_gms.Identity.GymIdentityUserClaim_gms.Identity.GymIdentityUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "gms.Identity.GymUser",
+                        principalTable: "gms.Identity.GymIdentityUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymUserLogin",
+                name: "gms.Identity.GymIdentityUserLogin",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymUserLogin", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityUserLogin", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymUserLogin_gms.Identity.GymUser_UserId",
+                        name: "FK_gms.Identity.GymIdentityUserLogin_gms.Identity.GymIdentityUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "gms.Identity.GymUser",
+                        principalTable: "gms.Identity.GymIdentityUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymUserRole",
+                name: "gms.Identity.GymIdentityUserRole",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymUserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityUserRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymUserRole_gms.Identity.GymRole_RoleId",
+                        name: "FK_gms.Identity.GymIdentityUserRole_gms.Identity.GymIdentityRole_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "gms.Identity.GymRole",
+                        principalTable: "gms.Identity.GymIdentityRole",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymUserRole_gms.Identity.GymUser_UserId",
+                        name: "FK_gms.Identity.GymIdentityUserRole_gms.Identity.GymIdentityUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "gms.Identity.GymUser",
+                        principalTable: "gms.Identity.GymIdentityUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "gms.Identity.GymUserToken",
+                name: "gms.Identity.GymIdentityUserToken",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_gms.Identity.GymUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_gms.Identity.GymIdentityUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_gms.Identity.GymUserToken_gms.Identity.GymUser_UserId",
+                        name: "FK_gms.Identity.GymIdentityUserToken_gms.Identity.GymIdentityUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "gms.Identity.GymUser",
+                        principalTable: "gms.Identity.GymIdentityUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -172,244 +200,244 @@ namespace gms.data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(4534));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 760, DateTimeKind.Utc).AddTicks(8677));
 
             migrationBuilder.UpdateData(
                 table: "gms.GenderEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(4549));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 760, DateTimeKind.Utc).AddTicks(8687));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8185));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1842));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8197));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1850));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8202));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1854));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8206));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1856));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8210));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1859));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8217));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1863));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 922, DateTimeKind.Utc).AddTicks(8220));
-
-            migrationBuilder.InsertData(
-                table: "gms.Identity.GymRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "00c1c658-a75b-4e39-8305-d23038ebaba7", null, "SuperAdmin", "SUPERADMIN" },
-                    { "078fa778-fa81-422f-b87d-60bc68bb4042", null, "Admin", "ADMIN" },
-                    { "93edc39e-68dc-48de-b7e0-24b4c6f5f2a4", null, "Basic", "BASIC" }
-                });
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(1866));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(1642));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(5053));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(1654));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(5061));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(1658));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(5064));
 
             migrationBuilder.UpdateData(
                 table: "gms.PaymentMethodEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(5045));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(7838));
 
             migrationBuilder.UpdateData(
                 table: "gms.PaymentMethodEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(5058));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 761, DateTimeKind.Utc).AddTicks(7846));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9193));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(977));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9208));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(984));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9214));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(987));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9219));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(989));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9223));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(992));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9231));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(996));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9236));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(999));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 8,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 923, DateTimeKind.Utc).AddTicks(9241));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(1001));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 924, DateTimeKind.Utc).AddTicks(2872));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(3628));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 924, DateTimeKind.Utc).AddTicks(2886));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 762, DateTimeKind.Utc).AddTicks(3636));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 978, DateTimeKind.Utc).AddTicks(6122));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 787, DateTimeKind.Utc).AddTicks(6426));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 978, DateTimeKind.Utc).AddTicks(6144));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 787, DateTimeKind.Utc).AddTicks(6439));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 978, DateTimeKind.Utc).AddTicks(6149));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 787, DateTimeKind.Utc).AddTicks(6443));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 3, 28, 2, 20, 18, 978, DateTimeKind.Utc).AddTicks(6157));
+                value: new DateTime(2024, 4, 2, 6, 9, 50, 787, DateTimeKind.Utc).AddTicks(6446));
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                table: "gms.Identity.GymRole",
+                table: "gms.Identity.GymIdentityRole",
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_gms.Identity.GymRoleClaim_RoleId",
-                table: "gms.Identity.GymRoleClaim",
+                name: "IX_gms.Identity.GymIdentityRoleClaim_RoleId",
+                table: "gms.Identity.GymIdentityRoleClaim",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "gms.Identity.GymUser",
+                table: "gms.Identity.GymIdentityUser",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_gms.Identity.GymIdentityUser_GymId",
+                table: "gms.Identity.GymIdentityUser",
+                column: "GymId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_gms.Identity.GymIdentityUser_GymStaffSpecializationId",
+                table: "gms.Identity.GymIdentityUser",
+                column: "GymStaffSpecializationId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "gms.Identity.GymUser",
+                table: "gms.Identity.GymIdentityUser",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_gms.Identity.GymUserClaim_UserId",
-                table: "gms.Identity.GymUserClaim",
+                name: "IX_gms.Identity.GymIdentityUserClaim_UserId",
+                table: "gms.Identity.GymIdentityUserClaim",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_gms.Identity.GymUserLogin_UserId",
-                table: "gms.Identity.GymUserLogin",
+                name: "IX_gms.Identity.GymIdentityUserLogin_UserId",
+                table: "gms.Identity.GymIdentityUserLogin",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_gms.Identity.GymUserRole_RoleId",
-                table: "gms.Identity.GymUserRole",
+                name: "IX_gms.Identity.GymIdentityUserRole_RoleId",
+                table: "gms.Identity.GymIdentityUserRole",
                 column: "RoleId");
         }
 
@@ -417,25 +445,28 @@ namespace gms.data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymRoleClaim");
+                name: "gms.Identity.GymIdentityRoleClaim");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymUserClaim");
+                name: "gms.Identity.GymIdentityUserClaim");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymUserLogin");
+                name: "gms.Identity.GymIdentityUserLogin");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymUserRole");
+                name: "gms.Identity.GymIdentityUserRole");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymUserToken");
+                name: "gms.Identity.GymIdentityUserToken");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymRole");
+                name: "gms.Identity.GymIdentityRole");
 
             migrationBuilder.DropTable(
-                name: "gms.Identity.GymUser");
+                name: "gms.Identity.GymIdentityUser");
+
+            migrationBuilder.DropTable(
+                name: "GymStaffSpecializationEntity");
 
             migrationBuilder.UpdateData(
                 table: "gms.GenderEnum",
