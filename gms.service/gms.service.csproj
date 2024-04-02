@@ -15,4 +15,8 @@
       <ProjectReference Include="..\gms.common\gms.common.csproj" />
       <ProjectReference Include="..\gms.data\gms.data.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Gym\GymStaffSpecializationRepository\" />
+    </ItemGroup>
 </Project>
