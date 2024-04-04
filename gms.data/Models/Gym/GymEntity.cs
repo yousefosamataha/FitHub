@@ -1,4 +1,4 @@
-﻿using gms.data.Models.Base;
+﻿using gms.data.Models.Base.Entities;
 using gms.data.Models.Identity;
 
 namespace gms.data.Models.Gym;

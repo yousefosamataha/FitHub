@@ -1,5 +1,5 @@
-﻿namespace gms.data.Models.Base;
-public class BaseEntity
+﻿namespace gms.data.Models.Base.Entities;
+public abstract class BaseEntity
 {
     public int Id { get; set; }
     public DateTime CreatedAt { get; set; }
