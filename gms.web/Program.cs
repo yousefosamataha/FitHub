@@ -1,10 +1,4 @@
 using gms.data;
-using gms.data.Models.Identity;
-using gms.data.Seeds;
-using gms.service.GymRolesRepository;
-using gms.service.GymUserRepository;
-using gms.web.Filters;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -24,16 +18,16 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultUI();
+    //builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
+    //                .AddEntityFrameworkStores<ApplicationDbContext>()
+    //                .AddDefaultUI();
 
 
-    builder.Services.ConfigureApplicationCookie(options =>
-    {
-        options.LoginPath = "/Identity/Account/Login";
-        options.LogoutPath = "/Identity/Account/Logout";
-    });
+    //builder.Services.ConfigureApplicationCookie(options =>
+    //{
+    //    options.LoginPath = "/Identity/Account/Login";
+    //    options.LogoutPath = "/Identity/Account/Logout";
+    //});
 
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
     {
@@ -71,8 +65,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    builder.Services.AddScoped<IGymUserService, GymUserService>();
-    builder.Services.AddScoped<IGymRolesService, GymRolesService>();
+    //builder.Services.AddScoped<IGymUserService, GymUserService>();
+    //builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 }
 
 WebApplication? app = builder.Build();
