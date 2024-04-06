@@ -2,4 +2,7 @@
 
 namespace gms.data.Models.Identity;
 
-public class GymUserTokenEntity : IdentityUserToken<int> { }
+public class GymUserTokenEntity : IdentityUserToken<int>
+{
+
+}
