@@ -73,9 +73,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     //builder.Services.AddScoped<IGymUserService, GymUserService>();
     //builder.Services.AddScoped<IGymRolesService, GymRolesService>();
-
-    builder.Services.AddDefaultIdentity<GymUserEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
 }
 
 

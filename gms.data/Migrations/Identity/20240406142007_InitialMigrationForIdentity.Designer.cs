@@ -12,7 +12,7 @@ using gms.data;
 namespace gms.data.Migrations.Identity
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20240406131630_InitialMigrationForIdentity")]
+    [Migration("20240406142007_InitialMigrationForIdentity")]
     partial class InitialMigrationForIdentity
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace gms.data.Migrations.Identity
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -52,7 +52,27 @@ namespace gms.data.Migrations.Identity
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityRole", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Basic",
+                            NormalizedName = "BASIC"
+                        });
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymRoleClaimEntity", b =>
@@ -76,7 +96,7 @@ namespace gms.data.Migrations.Identity
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityRoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymUserClaimEntity", b =>
@@ -100,7 +120,7 @@ namespace gms.data.Migrations.Identity
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityUserClaim", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymUserEntity", b =>
@@ -117,7 +137,7 @@ namespace gms.data.Migrations.Identity
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("BirthDate")
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("date");
 
                     b.Property<string>("City")
@@ -141,8 +161,10 @@ namespace gms.data.Migrations.Identity
                     b.Property<byte>("GenderId")
                         .HasColumnType("tinyint");
 
-                    b.Property<byte?>("GymUserTypeId")
-                        .HasColumnType("tinyint");
+                    b.Property<byte>("GymUserTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)2);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -194,16 +216,18 @@ namespace gms.data.Migrations.Identity
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityUser", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymUserLoginEntity", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -215,7 +239,7 @@ namespace gms.data.Migrations.Identity
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityUserLogin", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymUserRoleEntity", b =>
@@ -230,7 +254,7 @@ namespace gms.data.Migrations.Identity
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityUserRole", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymUserTokenEntity", b =>
@@ -239,17 +263,19 @@ namespace gms.data.Migrations.Identity
                         .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("gms.Identity.GymIdentityUserToken", (string)null);
                 });
 
             modelBuilder.Entity("gms.data.Models.Identity.GymRoleClaimEntity", b =>

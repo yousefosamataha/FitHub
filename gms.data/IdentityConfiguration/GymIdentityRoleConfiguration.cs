@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.IdentityConfiguration;
+
 internal class GymIdentityRoleConfiguration : IEntityTypeConfiguration<GymIdentityRoleEntity>
 {
     public void Configure(EntityTypeBuilder<GymIdentityRoleEntity> builder)

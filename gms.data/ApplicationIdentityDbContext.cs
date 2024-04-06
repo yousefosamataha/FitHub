@@ -32,6 +32,6 @@ public class ApplicationIdentityDbContext : IdentityDbContext<GymUserEntity, Gym
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(assembly: Assembly.GetExecutingAssembly(),
-        predicate: t => t.Namespace != null && t.Namespace.Equals(nameof(gms.data.Configurations)));
+        predicate: t => t.Namespace != null && t.Namespace.Equals("gms.data.IdentityConfiguration"));
     }
 }
