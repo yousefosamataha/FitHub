@@ -3,7 +3,8 @@ using gms.data.Models.Membership;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Membership;
+namespace gms.data.Configurations;
+
 internal class GymMembershipPaymentHistoryConfiguration : IEntityTypeConfiguration<GymMembershipPaymentHistoryEntity>
 {
     public void Configure(EntityTypeBuilder<GymMembershipPaymentHistoryEntity> builder)

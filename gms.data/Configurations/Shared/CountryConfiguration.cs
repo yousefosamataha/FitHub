@@ -3,7 +3,7 @@ using gms.data.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Shared;
+namespace gms.data.Configurations;
 
 internal class CountryConfiguration : IEntityTypeConfiguration<CountryEntity>
 {

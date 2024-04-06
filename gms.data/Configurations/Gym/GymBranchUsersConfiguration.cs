@@ -3,7 +3,7 @@
 //using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-//namespace gms.data.Configurations.Gym;
+//namespace gms.data.Configurations;
 //internal class GymBranchUsersConfiguration : IEntityTypeConfiguration<GymBranchUsersEntity>
 //{
 //    public void Configure(EntityTypeBuilder<GymBranchUsersEntity> builder)
