@@ -3,7 +3,8 @@ using gms.data.Models.Membership;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Membership;
+namespace gms.data.Configurations;
+
 internal class GymMembershipPlanConfiguration : IEntityTypeConfiguration<GymMembershipPlanEntity>
 {
     public void Configure(EntityTypeBuilder<GymMembershipPlanEntity> builder)

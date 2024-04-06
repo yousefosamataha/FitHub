@@ -3,7 +3,7 @@
 //using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-//namespace gms.data.Configurations.Gym;
+//namespace gms.data.Configurations;
 //internal class GymStaffSpecializationConfiguration : IEntityTypeConfiguration<GymStaffSpecializationEntity>
 //{
 //    public void Configure(EntityTypeBuilder<GymStaffSpecializationEntity> builder)
