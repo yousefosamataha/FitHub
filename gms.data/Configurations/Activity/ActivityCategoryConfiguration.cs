@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations.Activity;
+
 internal class ActivityCategoryConfiguration : IEntityTypeConfiguration<ActivityCategoryEntity>
 {
     public void Configure(EntityTypeBuilder<ActivityCategoryEntity> builder)

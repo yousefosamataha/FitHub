@@ -1,5 +1,4 @@
-﻿using gms.data.Models.Base;
-using gms.data.Models.Identity;
+﻿using gms.data.Models.Base.Entities;
 
 namespace gms.data.Models.Gym;
 public class GymEntity : BaseEntity
@@ -8,5 +7,5 @@ public class GymEntity : BaseEntity
     public int GeneralSettingId { get; set; }
     public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
     public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
-    public virtual ICollection<GymUserEntity> GymUsers { get; set; }
+    //public virtual ICollection<GymUserEntity> GymUsers { get; set; }
 }

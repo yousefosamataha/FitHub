@@ -1,8 +1,6 @@
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
-using gms.service.GymRolesRepository;
-using gms.service.GymUserRepository;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +16,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+    builder.Services.AddDbContextPool<ApplicationIdentityDbContext>(options => options.UseSqlServer(connectionString));
+
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
     builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
@@ -25,7 +25,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                     .AddDefaultUI();
 
 
@@ -71,9 +71,10 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    builder.Services.AddScoped<IGymUserService, GymUserService>();
-    builder.Services.AddScoped<IGymRolesService, GymRolesService>();
+    //builder.Services.AddScoped<IGymUserService, GymUserService>();
+    //builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 }
+
 
 WebApplication? app = builder.Build();
 {
@@ -108,32 +109,32 @@ WebApplication? app = builder.Build();
 
     app.MapGet("/", context =>
     {
-        context.Response.Redirect("/Identity/Account/Register");
+        context.Response.Redirect("/Identity/Account/Login");
         return Task.CompletedTask;
     });
 
-    //using var scope = app.Services.CreateScope();
-    //IServiceProvider services = scope.ServiceProvider;
-    //ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-    //ILogger logger = LoggerProvider.CreateLogger("app");
-    //try
-    //{
-    //    UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+    using var scope = app.Services.CreateScope();
+    IServiceProvider services = scope.ServiceProvider;
+    ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+    ILogger logger = LoggerProvider.CreateLogger("app");
+    try
+    {
+        UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
 
-    //    RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
+        RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
 
-    //    await Seeds.SeedBasicUserAsync(userManager);
+        await Seeds.SeedBasicUserAsync(userManager);
 
-    //    await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+        await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
 
-    //    logger.LogInformation("Data Seeded");
+        logger.LogInformation("Data Seeded");
 
-    //    logger.LogInformation("Application Started");
-    //}
-    //catch (Exception ex)
-    //{
-    //    logger.LogWarning(ex, "An error Occured While Seeding Data");
-    //}
+        logger.LogInformation("Application Started");
+    }
+    catch (Exception ex)
+    {
+        logger.LogWarning(ex, "An error Occured While Seeding Data");
+    }
 
     app.Run();
 }
