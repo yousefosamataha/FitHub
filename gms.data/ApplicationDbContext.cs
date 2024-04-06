@@ -3,33 +3,21 @@ using gms.data.Models.Class;
 using gms.data.Models.Enum;
 using gms.data.Models.Event;
 using gms.data.Models.Gym;
-using gms.data.Models.Identity;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
 using gms.data.Models.Staff;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace gms.data;
-public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
 
     }
-
-    #region Identity
-    public DbSet<IdentityRoleClaim<string>> RoleClaims { get; set; }
-    public DbSet<IdentityRole> Roles { get; set; }
-    public DbSet<IdentityUserClaim<string>> UserClaims { get; set; }
-    public DbSet<GymUserEntity> Users { get; set; }
-    public DbSet<IdentityUserLogin<string>> UserLogins { get; set; }
-    public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
-    public DbSet<IdentityUserToken<string>> UserTokens { get; set; }
-    #endregion
 
     #region Subscription
     public DbSet<PlanEntity> SystemPlans { get; set; }
@@ -44,6 +32,8 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
     public DbSet<GymNotificationEntity> GymNotifications { get; set; }
     public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
+    //public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
+    //public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
     #endregion
 
     #region Shared
@@ -94,7 +84,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(assembly: Assembly.GetExecutingAssembly(),
+        predicate: t => t.Namespace != null && t.Namespace.Equals("gms.data.Configurations"));
     }
 }

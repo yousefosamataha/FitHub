@@ -3,7 +3,7 @@ using gms.data.Models.Workout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Workout;
+namespace gms.data.Configurations;
 
 internal class WorkoutPlanActivityConfiguration : IEntityTypeConfiguration<WorkoutPlanActivityEntity>
 {

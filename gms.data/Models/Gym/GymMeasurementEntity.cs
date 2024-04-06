@@ -1,5 +1,5 @@
 ﻿using gms.common.Enums;
-using gms.data.Models.Base;
+using gms.data.Models.Base.Entities;
 
 namespace gms.data.Models.Gym;
 
@@ -14,3 +14,4 @@ public class GymMeasurementEntity : BaseEntity
 	// public int MemberId { get; set; }
 	// public int CreatedById { get; set; }
 }
+ 

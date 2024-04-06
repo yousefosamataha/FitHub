@@ -1,13 +1,14 @@
 ﻿using gms.common.Constants;
 using gms.common.ViewModels;
+using gms.data.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.GymRolesRepository;
 public class GymRolesService : IGymRolesService
 {
-	private readonly RoleManager<IdentityRole> _roleManager;
-	public GymRolesService(RoleManager<IdentityRole> roleManager)
+	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+	public GymRolesService(RoleManager<GymIdentityRoleEntity> roleManager)
 	{
 		_roleManager = roleManager;
 	}
@@ -22,9 +23,9 @@ public class GymRolesService : IGymRolesService
 		return roles;
 	}
 
-	public async Task<GymRolePermissionsViewModel> GetRolePermissionsByRoleIdAsync(string roleId)
+	public async Task<GymRolePermissionsViewModel> GetRolePermissionsByRoleIdAsync(int roleId)
 	{
-		IdentityRole role = await _roleManager.FindByIdAsync(roleId);
+        GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(roleId.ToString());
 		if (role is null)
 			return new GymRolePermissionsViewModel();
 

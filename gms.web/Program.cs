@@ -1,8 +1,6 @@
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
-using gms.service.GymRolesRepository;
-using gms.service.GymUserRepository;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,14 +16,16 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+    builder.Services.AddDbContextPool<ApplicationIdentityDbContext>(options => options.UseSqlServer(connectionString));
+
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
     builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddIdentity<GymUserEntity, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
+    builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                     .AddDefaultUI();
 
 
@@ -71,9 +71,10 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    builder.Services.AddScoped<IGymUserService, GymUserService>();
-    builder.Services.AddScoped<IGymRolesService, GymRolesService>();
+    //builder.Services.AddScoped<IGymUserService, GymUserService>();
+    //builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 }
+
 
 WebApplication? app = builder.Build();
 {
@@ -90,6 +91,7 @@ WebApplication? app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+
     app.UseStaticFiles();
 
     app.UseRouting();
@@ -107,7 +109,7 @@ WebApplication? app = builder.Build();
 
     app.MapGet("/", context =>
     {
-        context.Response.Redirect("/Identity/Account/Register");
+        context.Response.Redirect("/Identity/Account/Login");
         return Task.CompletedTask;
     });
 
@@ -119,7 +121,7 @@ WebApplication? app = builder.Build();
     {
         UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
 
-        RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
 
         await Seeds.SeedBasicUserAsync(userManager);
 
