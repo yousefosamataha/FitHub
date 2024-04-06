@@ -85,6 +85,6 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(assembly: Assembly.GetExecutingAssembly(),
-        predicate: t => t.Namespace != null && t.Namespace.Equals(nameof(gms.data.IdentityConfiguration)));
+        predicate: t => t.Namespace != null && t.Namespace.Equals("gms.data.Configurations"));
     }
 }
