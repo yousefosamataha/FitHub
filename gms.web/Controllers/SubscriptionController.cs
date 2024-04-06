@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class SubscriptionController : Controller
+public class SubscriptionController : BaseController<SubscriptionController>
 {
 	public IActionResult Index()
 	{

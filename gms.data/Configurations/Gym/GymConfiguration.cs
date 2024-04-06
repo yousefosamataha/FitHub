@@ -3,7 +3,7 @@ using gms.data.Models.Gym;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Gym;
+namespace gms.data.Configurations;
 
 internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
 {
@@ -22,5 +22,9 @@ internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
         builder.HasOne(g => g.GeneralSetting)
                .WithOne(gg => gg.Gym)
                .HasForeignKey<GymGeneralSettingEntity>(gg => gg.GymId);
+
+        //builder.HasMany(g => g.GymUsers)
+        //       .WithOne(gu => gu.Gym)
+        //       .HasForeignKey(gu => gu.GymId);
     }
 }

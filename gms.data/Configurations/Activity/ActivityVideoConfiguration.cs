@@ -3,7 +3,8 @@ using gms.data.Models.Activity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Activity;
+namespace gms.data.Configurations;
+
 internal class ActivityVideoConfiguration : IEntityTypeConfiguration<ActivityVideoEntity>
 {
     public void Configure(EntityTypeBuilder<ActivityVideoEntity> builder)

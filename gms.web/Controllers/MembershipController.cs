@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class MembershipController : Controller
+public class MembershipController : BaseController<MembershipController>
 {
 	public IActionResult Index()
 	{

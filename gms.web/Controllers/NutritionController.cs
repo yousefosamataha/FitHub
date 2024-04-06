@@ -2,7 +2,7 @@
 
 namespace gms.web.Controllers;
 
-public class NutritionController : Controller
+public class NutritionController : BaseController<NutritionController>
 {
 	public IActionResult Index()
 	{

@@ -4,7 +4,7 @@ using gms.data.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Enums;
+namespace gms.data.Configurations;
 
 internal class StatusEnumConfiguration : IEntityTypeConfiguration<StatusEnumEntity>
 {

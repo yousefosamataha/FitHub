@@ -4,6 +4,6 @@ namespace gms.service.GymRolesRepository;
 public interface IGymRolesService
 {
 	Task<List<GymRoleViewModel>> GetAllRolesAsync();
-	Task<GymRolePermissionsViewModel> GetRolePermissionsByRoleIdAsync(string roleId);
+	Task<GymRolePermissionsViewModel> GetRolePermissionsByRoleIdAsync(int roleId);
 	//GetAllGymPermissions();
 }

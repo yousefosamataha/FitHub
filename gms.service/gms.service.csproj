@@ -7,12 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="11.*" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="FluentResults" Version="3.15.2" />
         <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.34" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\gms.common\gms.common.csproj" />
       <ProjectReference Include="..\gms.data\gms.data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Gym\GymStaffSpecializationRepository\" />
     </ItemGroup>
 </Project>

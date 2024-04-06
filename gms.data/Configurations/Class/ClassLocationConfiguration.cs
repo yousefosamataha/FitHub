@@ -3,7 +3,7 @@ using gms.data.Models.Class;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Class;
+namespace gms.data.Configurations;
 
 internal class ClassLocationConfiguration : IEntityTypeConfiguration<ClassLocationEntity>
 {

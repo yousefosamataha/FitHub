@@ -1,4 +1,4 @@
-﻿using gms.data.Models.Base;
+﻿using gms.data.Models.Base.Entities;
 
 namespace gms.data.Models.Activity;
 public class MembershipActivityEntity : BaseEntity

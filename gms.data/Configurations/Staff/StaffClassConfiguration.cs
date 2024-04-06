@@ -3,7 +3,7 @@ using gms.data.Models.Staff;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Staff;
+namespace gms.data.Configurations;
 
 internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEntity>
 {
