@@ -1,4 +1,4 @@
-﻿namespace gms.data.Models.Base.Entities;
+﻿namespace gms.data.Models.Base;
 public abstract class BaseEntity
 {
     public int Id { get; set; }

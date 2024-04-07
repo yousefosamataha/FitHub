@@ -1,5 +1,5 @@
 ﻿using gms.common.Enums;
-using gms.data.Models.Base.Entities;
+using gms.data.Models.Base;
 
 namespace gms.data.Models.Membership;
 public class GymMembershipPlanEntity : BaseEntity

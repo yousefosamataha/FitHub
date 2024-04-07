@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace gms.web.Controllers;
+
+[Authorize]
 public class HomeController : BaseController<HomeController>
 {
     private RequestLocalizationOptions _requestLocalizationOptions;
@@ -10,7 +13,6 @@ public class HomeController : BaseController<HomeController>
     {
         _requestLocalizationOptions = options.Value;
     }
-
 	public IActionResult Index()
 	{
 		return View();

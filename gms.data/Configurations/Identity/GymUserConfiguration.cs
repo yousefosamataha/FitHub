@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 
-namespace gms.data.IdentityConfiguration;
+namespace gms.data.Configurations;
 
 internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
 {
