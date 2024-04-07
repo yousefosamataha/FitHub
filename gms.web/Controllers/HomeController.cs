@@ -10,7 +10,6 @@ public class HomeController : BaseController<HomeController>
     {
         _requestLocalizationOptions = options.Value;
     }
-
 	public IActionResult Index()
 	{
 		return View();

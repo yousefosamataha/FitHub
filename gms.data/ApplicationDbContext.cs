@@ -3,21 +3,40 @@ using gms.data.Models.Class;
 using gms.data.Models.Enum;
 using gms.data.Models.Event;
 using gms.data.Models.Gym;
+using gms.data.Models.Identity;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
 using gms.data.Models.Staff;
 using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace gms.data;
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentityRoleEntity, int, GymUserClaimEntity, GymUserRoleEntity, GymUserLoginEntity, GymRoleClaimEntity, GymUserTokenEntity>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
 
     }
+
+    #region Identity
+    public DbSet<GymRoleClaimEntity> RoleClaims { get; set; }
+
+    public DbSet<GymIdentityRoleEntity> Roles { get; set; }
+
+    public DbSet<GymUserClaimEntity> UserClaims { get; set; }
+
+    public DbSet<GymUserEntity> Users { get; set; }
+
+    public DbSet<GymUserLoginEntity> UserLogins { get; set; }
+
+    public DbSet<GymUserRoleEntity> UserRoles { get; set; }
+
+    public DbSet<GymUserTokenEntity> UserTokens { get; set; }
+
+    #endregion
 
     #region Subscription
     public DbSet<PlanEntity> SystemPlans { get; set; }
@@ -84,7 +103,7 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(assembly: Assembly.GetExecutingAssembly(),
-        predicate: t => t.Namespace != null && t.Namespace.Equals("gms.data.Configurations"));
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }
