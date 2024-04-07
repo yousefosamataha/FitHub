@@ -1,11 +1,14 @@
 ﻿using gms.common.ViewModels;
 using gms.data.Models.Identity;
 using gms.service.GymRolesRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace gms.web.Controllers;
+
+[Authorize]
 public class RolesController : BaseController<RolesController>
 {
 	private readonly IGymRolesService _gymRolesService;

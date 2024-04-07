@@ -1,3 +1,4 @@
+using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
@@ -34,7 +35,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
         options.LogoutPath = "/Identity/Account/Logout";
         options.AccessDeniedPath = "/Identity/Account/AccessDenied";
         options.SlidingExpiration = true;
-
     });
 
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
@@ -80,7 +80,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 WebApplication? app = builder.Build();
 {
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseMigrationsEndPoint();
@@ -111,15 +110,9 @@ WebApplication? app = builder.Build();
     app.MapRazorPages();
 
     app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}"
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
     );
-
-    //app.MapGet("/", context =>
-    //{
-    //    context.Response.Redirect("/Identity/Account/Login");
-    //    return Task.CompletedTask;
-    //});
 
     using var scope = app.Services.CreateScope();
     IServiceProvider services = scope.ServiceProvider;
