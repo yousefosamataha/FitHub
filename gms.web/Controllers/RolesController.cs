@@ -1,15 +1,19 @@
 ﻿using gms.common.ViewModels;
+using gms.data.Models.Identity;
 using gms.service.GymRolesRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace gms.web.Controllers;
+
+[Authorize]
 public class RolesController : BaseController<RolesController>
 {
 	private readonly IGymRolesService _gymRolesService;
-	private readonly RoleManager<IdentityRole> _roleManager;
-	public RolesController(IGymRolesService gymRolesService, RoleManager<IdentityRole> roleManager)
+	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+	public RolesController(IGymRolesService gymRolesService, RoleManager<GymIdentityRoleEntity> roleManager)
 	{
 		_gymRolesService = gymRolesService;
 		_roleManager = roleManager;
@@ -19,7 +23,7 @@ public class RolesController : BaseController<RolesController>
 		List<GymRoleViewModel> roles = await _gymRolesService.GetAllRolesAsync();
 		return View(roles);
 	}
-	public async Task<IActionResult> GymRolePermissionsByRoleId(string roleId)
+	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
 	{
 		GymRolePermissionsViewModel result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
 		return View(result);
@@ -36,14 +40,17 @@ public class RolesController : BaseController<RolesController>
 			ModelState.AddModelError("RoleName", "Role Already Exists");
 			return View("GymRoles", await _gymRolesService.GetAllRolesAsync());
 		}
-		await _roleManager.CreateAsync(new IdentityRole(newRole.RoleName.Trim()));
+		await _roleManager.CreateAsync(new GymIdentityRoleEntity()
+		{
+			 Name = newRole.RoleName.Trim()
+        });
 
 		return RedirectToAction(nameof(GymRoles));
 	}
 
 	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsViewModel rolePermissions)
 	{
-		IdentityRole role = await _roleManager.FindByIdAsync(rolePermissions.RoleId);
+        GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(rolePermissions.RoleId.ToString());
 
 		if (role is null)
 			return NotFound();

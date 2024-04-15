@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class StaffController : Controller
+[Authorize]
+public class StaffController : BaseController<StaffController>
 {
 	public IActionResult Index()
 	{

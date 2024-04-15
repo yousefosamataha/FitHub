@@ -1,7 +1,7 @@
 ﻿
 using gms.common.Constants;
 using gms.common.Enums;
-using gms.data.Models;
+using gms.data.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
@@ -20,7 +20,8 @@ public static partial class Seeds
                 EmailConfirmed = true,
                 FirstName = "Basic",
                 LastName = "User",
-                PhoneNumber = "+201100241976"
+                PhoneNumber = "+201100241976",
+                GymUserTypeId = GymUserTypeEnum.Staff
             };
 
             GymUserEntity user = await userManger.FindByEmailAsync(defaultUser.Email);
@@ -36,7 +37,8 @@ public static partial class Seeds
         }
 
     }
-    public static async Task SeedSuperAdminUserAsync(UserManager<GymUserEntity> userManger, RoleManager<IdentityRole> roleManger)
+
+    public static async Task SeedSuperAdminUserAsync(UserManager<GymUserEntity> userManger, RoleManager<GymIdentityRoleEntity> roleManger)
     {
         try
         {
@@ -47,7 +49,8 @@ public static partial class Seeds
                 EmailConfirmed = true,
                 FirstName = "super",
                 LastName = "admin",
-                PhoneNumber = "+201100241976"
+                PhoneNumber = "+201100241976",
+                GymUserTypeId = GymUserTypeEnum.Staff
             };
 
             GymUserEntity user = await userManger.FindByEmailAsync(defaulSuperAdminUser.Email);
@@ -63,26 +66,14 @@ public static partial class Seeds
 
         }
     }
-    private static async Task SeedClaimsForSuperAdminUser(this RoleManager<IdentityRole> roleManger)
+
+    private static async Task SeedClaimsForSuperAdminUser(this RoleManager<GymIdentityRoleEntity> roleManger)
     {
-        IdentityRole superadminRole = await roleManger.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
+        GymIdentityRoleEntity superadminRole = await roleManger.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
         await roleManger.AddAllPermissionClaims(superadminRole);
     }
-    private static async Task AddPermissionClaims(this RoleManager<IdentityRole> roleManger, IdentityRole role, string module)
-    {
-        IList<Claim> allRoleClaims = await roleManger.GetClaimsAsync(role);
 
-        List<string> permissionList = PermissionsConstants.GenerateAllPermissionsList();
-
-        List<string> modulePermissions = PermissionsConstants.GeneratePermissionList(module);
-
-        foreach (var permission in modulePermissions)
-        {
-            if (!allRoleClaims.Any(c => c.Type == PermissionsConstants.Permission && c.Value == permission))
-                await roleManger.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
-        }
-    }
-    private static async Task AddAllPermissionClaims(this RoleManager<IdentityRole> roleManger, IdentityRole role)
+    private static async Task AddAllPermissionClaims(this RoleManager<GymIdentityRoleEntity> roleManger, GymIdentityRoleEntity role)
     {
         IList<Claim> allRoleClaims = await roleManger.GetClaimsAsync(role);
 

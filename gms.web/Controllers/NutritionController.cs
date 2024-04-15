@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class NutritionController : Controller
+[Authorize]
+public class NutritionController : BaseController<NutritionController>
 {
 	public IActionResult Index()
 	{

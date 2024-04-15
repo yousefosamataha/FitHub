@@ -3,7 +3,8 @@ using gms.data.Models.Activity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Activity;
+namespace gms.data.Configurations;
+
 internal class MembershipActivityConfiguration : IEntityTypeConfiguration<MembershipActivityEntity>
 {
     public void Configure(EntityTypeBuilder<MembershipActivityEntity> builder)

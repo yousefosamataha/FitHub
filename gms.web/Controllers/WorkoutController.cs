@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class WorkoutController : Controller
+[Authorize]
+public class WorkoutController : BaseController<WorkoutController>
 {
 	public IActionResult Index()
 	{

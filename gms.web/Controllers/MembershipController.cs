@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class MembershipController : Controller
+[Authorize]
+public class MembershipController : BaseController<MembershipController>
 {
 	public IActionResult Index()
 	{

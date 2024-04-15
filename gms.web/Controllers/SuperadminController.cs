@@ -1,9 +1,11 @@
 ﻿using gms.common.ViewModels;
 using gms.service.GymUserRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
+[Authorize]
 public class SuperadminController : BaseController<SuperadminController>
 {
 	private readonly IGymUserService _gymUserService;
@@ -17,7 +19,7 @@ public class SuperadminController : BaseController<SuperadminController>
 		return View(users);
 
 	}
-	public async Task<IActionResult> GymUserRoles(string userId)
+	public async Task<IActionResult> GymUserRoles(int userId)
 	{
 		GymUserRolesViewModel user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
 		return View(user);

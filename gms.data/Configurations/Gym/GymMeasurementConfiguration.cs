@@ -3,7 +3,7 @@ using gms.data.Models.Gym;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Gym;
+namespace gms.data.Configurations;
 
 internal class GymMeasurementConfiguration : IEntityTypeConfiguration<GymMeasurementEntity>
 {

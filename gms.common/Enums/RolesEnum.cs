@@ -1,8 +1,8 @@
 ﻿namespace gms.common.Enums;
 
-public enum RolesEnum
+public enum RolesEnum : int
 {
-    SuperAdmin,
-    Admin,
-    Basic
+    SuperAdmin = 1,
+    Admin = 2,
+    Basic = 3
 }

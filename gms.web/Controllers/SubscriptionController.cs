@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class SubscriptionController : Controller
+[Authorize]
+public class SubscriptionController : BaseController<SubscriptionController>
 {
 	public IActionResult Index()
 	{

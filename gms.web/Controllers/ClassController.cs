@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
-public class ClassController : Controller
+[Authorize]
+public class ClassController : BaseController<ClassController>
 {
 	public IActionResult Index()
 	{

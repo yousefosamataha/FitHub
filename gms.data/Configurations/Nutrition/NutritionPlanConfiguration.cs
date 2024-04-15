@@ -3,7 +3,7 @@ using gms.data.Models.Nutrition;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.Configurations.Nutrition;
+namespace gms.data.Configurations;
 
 internal class NutritionPlanConfiguration : IEntityTypeConfiguration<NutritionPlanEntity>
 {

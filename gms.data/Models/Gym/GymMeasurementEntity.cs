@@ -14,3 +14,4 @@ public class GymMeasurementEntity : BaseEntity
 	// public int MemberId { get; set; }
 	// public int CreatedById { get; set; }
 }
+ 
