@@ -15,13 +15,17 @@ internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
 
         builder.Property(g => g.Name).IsRequired().HasMaxLength(256);
 
-        builder.HasMany(g => g.GymBranches)
-               .WithOne(gb => gb.Gym)
-               .HasForeignKey(gb => gb.GymId);
-
         builder.HasOne(g => g.GeneralSetting)
                .WithOne(gg => gg.Gym)
                .HasForeignKey<GymGeneralSettingEntity>(gg => gg.GymId);
+
+        builder.HasMany(g => g.SystemSubscriptions)
+               .WithOne(ss => ss.Gym)
+               .HasForeignKey(ss => ss.GymId);
+
+        builder.HasMany(g => g.GymBranches)
+               .WithOne(gb => gb.Gym)
+               .HasForeignKey(gb => gb.GymId);
 
         //builder.HasMany(g => g.GymUsers)
         //       .WithOne(gu => gu.Gym)

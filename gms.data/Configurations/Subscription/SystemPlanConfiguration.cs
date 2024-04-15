@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace gms.data.Configurations;
 
-internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
+internal class SystemPlanConfiguration : IEntityTypeConfiguration<SystemPlanEntity>
 {
-    public void Configure(EntityTypeBuilder<PlanEntity> builder)
+    public void Configure(EntityTypeBuilder<SystemPlanEntity> builder)
     {
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".SystemPlan", gmsDbProperties.DbSchema);
 
         builder.HasKey(p => p.Id);
 
-        builder.Property(b => b.Id).ValueGeneratedNever();
+        builder.Property(p => p.Id).ValueGeneratedNever();
 
-        builder.Property(p => p.PlanName).IsRequired(true);
+        builder.Property(p => p.PlanName).IsRequired().HasMaxLength(256);
 
         builder.Property(p => p.PricePerMonth).HasPrecision(18, 2);
 
@@ -24,10 +24,10 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
 
         builder.HasData(GetSystemPlans());
     }
-    public List<PlanEntity> GetSystemPlans()
+    public List<SystemPlanEntity> GetSystemPlans()
     {
-        List<PlanEntity> plans = new();
-        plans.Add(new PlanEntity()
+        List<SystemPlanEntity> plans = new();
+        plans.Add(new SystemPlanEntity()
         {
             Id = (int)PlansEnum.FreeTrial,
             PlanName = PlansEnum.FreeTrial.ToString(),
@@ -39,7 +39,7 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
             MaxMemberNumberPerBranch = 50,
             MaxStaffNumberPerBranch = 20
         });
-        plans.Add(new PlanEntity()
+        plans.Add(new SystemPlanEntity()
         {
             Id = (int)PlansEnum.Startup,
             PlanName = PlansEnum.Startup.ToString(),
@@ -51,7 +51,7 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
             MaxMemberNumberPerBranch = 100,
             MaxStaffNumberPerBranch = 30
         });
-        plans.Add(new PlanEntity()
+        plans.Add(new SystemPlanEntity()
         {
 
             Id = (int)PlansEnum.Business,
@@ -64,7 +64,7 @@ internal class PlanConfiguration : IEntityTypeConfiguration<PlanEntity>
             MaxMemberNumberPerBranch = 200,
             MaxStaffNumberPerBranch = 40
         });
-        plans.Add(new PlanEntity()
+        plans.Add(new SystemPlanEntity()
         {
             Id = (int)PlansEnum.Enterprise,
             PlanName = PlansEnum.Enterprise.ToString(),

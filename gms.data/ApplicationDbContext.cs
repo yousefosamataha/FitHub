@@ -39,7 +39,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     #endregion
 
     #region Subscription
-    public DbSet<PlanEntity> SystemPlans { get; set; }
+    public DbSet<SystemPlanEntity> SystemPlans { get; set; }
     public DbSet<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
     public DbSet<SubscriptionPaymentEntity> SubscriptionsPayments { get; set; }
     #endregion
