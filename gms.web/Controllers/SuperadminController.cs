@@ -1,9 +1,11 @@
 ﻿using gms.common.ViewModels;
 using gms.service.GymUserRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
 
+[Authorize]
 public class SuperadminController : BaseController<SuperadminController>
 {
 	private readonly IGymUserService _gymUserService;
