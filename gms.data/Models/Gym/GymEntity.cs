@@ -1,4 +1,4 @@
-﻿using gms.data.Models.Base.Entities;
+﻿using gms.data.Models.Base;
 
 namespace gms.data.Models.Gym;
 public class GymEntity : BaseEntity

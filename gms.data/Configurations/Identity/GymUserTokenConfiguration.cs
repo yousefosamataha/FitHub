@@ -3,8 +3,8 @@ using gms.data.Models.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace gms.data.IdentityConfiguration;
 
+namespace gms.data.Configurations;
 internal class GymUserTokenConfiguration : IEntityTypeConfiguration<GymUserTokenEntity>
 {
     public void Configure(EntityTypeBuilder<GymUserTokenEntity> builder)

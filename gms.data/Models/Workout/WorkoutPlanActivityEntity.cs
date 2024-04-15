@@ -1,6 +1,6 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Activity;
-using gms.data.Models.Base.Entities;
+using gms.data.Models.Base;
 
 namespace gms.data.Models.Workout;
 

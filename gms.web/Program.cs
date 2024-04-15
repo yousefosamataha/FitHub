@@ -1,3 +1,4 @@
+using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
@@ -14,9 +15,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
     string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-    builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-    builder.Services.AddDbContextPool<ApplicationIdentityDbContext>(options => options.UseSqlServer(connectionString));
+    builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
@@ -25,7 +25,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultUI();
 
 
@@ -33,6 +33,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     {
         options.LoginPath = "/Identity/Account/Login";
         options.LogoutPath = "/Identity/Account/Logout";
+        options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+        options.SlidingExpiration = true;
     });
 
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
@@ -78,7 +80,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 WebApplication? app = builder.Build();
 {
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseMigrationsEndPoint();
@@ -103,15 +104,15 @@ WebApplication? app = builder.Build();
         .AddSupportedCultures(supportedCultures)
         .AddSupportedUICultures(supportedCultures));
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapRazorPages();
 
-    app.MapGet("/", context =>
-    {
-        context.Response.Redirect("/Identity/Account/Login");
-        return Task.CompletedTask;
-    });
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 
     using var scope = app.Services.CreateScope();
     IServiceProvider services = scope.ServiceProvider;
