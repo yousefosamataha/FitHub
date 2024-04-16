@@ -28,15 +28,15 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .HasForeignKey(gb => gb.GymId);
 
         builder.HasOne(gb => gb.Country)
-               .WithMany(c => c.GymBranches)
+               .WithMany()
                .HasForeignKey(gb => gb.CountryId);
 
         builder.HasOne(gb => gb.GeneralSetting)
                .WithOne(gg => gg.GymBranch)
                .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
 
-        //builder.HasMany(gb => gb.GymBranchUsers)
-        //       .WithOne(gbu => gbu.GymBranch)
-        //       .HasForeignKey(gb => gb.GymBranchId);
+        builder.HasMany(gb => gb.GymBranchUsers)
+               .WithOne(gbu => gbu.GymBranch)
+               .HasForeignKey(gb => gb.GymBranchId);
     }
 }
