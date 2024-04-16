@@ -19,8 +19,8 @@ internal class SystemSubscriptionConfiguration : IEntityTypeConfiguration<System
                .WithMany(g => g.SystemSubscriptions)
                .HasForeignKey(ss => ss.GymId);
 
-        builder.HasMany(ss => ss.SubscriptionPayments)
+        builder.HasOne(ss => ss.SubscriptionPayment)
                .WithOne(sp => sp.SystemSubscription)
-               .HasForeignKey(sp => sp.SubscriptionId);
+               .HasForeignKey<SystemSubscriptionEntity>(sp => sp.SubscriptionPaymentId);
     }
 }

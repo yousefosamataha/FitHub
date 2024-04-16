@@ -4,7 +4,7 @@ using gms.data.Models.Subscription;
 namespace gms.data.Models.Gym;
 public class GymEntity : BaseEntity
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
     public int GeneralSettingId { get; set; }
 
     // Navigation properties

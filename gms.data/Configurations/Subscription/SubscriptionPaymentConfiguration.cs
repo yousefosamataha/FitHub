@@ -16,7 +16,7 @@ internal class SubscriptionPaymentConfiguration : IEntityTypeConfiguration<Subsc
         builder.Property(sp => sp.PaidAmount).HasPrecision(18, 2);
 
         builder.HasOne(sp => sp.SystemSubscription)
-               .WithMany(ss => ss.SubscriptionPayments)
-               .HasForeignKey(sp => sp.SubscriptionId);
+               .WithOne(ss => ss.SubscriptionPayment)
+               .HasForeignKey<SubscriptionPaymentEntity>(sp => sp.SubscriptionId);
     }
 }

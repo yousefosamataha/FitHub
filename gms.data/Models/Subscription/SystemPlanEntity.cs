@@ -4,7 +4,7 @@ namespace gms.data.Models.Subscription;
 
 public class SystemPlanEntity : BaseEntity
 {
-    public string PlanName { get; set; }
+    public required string PlanName { get; set; }
     public int ReminderDays { get; set; }
     public decimal PricePerMonth { get; set; }
     public decimal PricePerYear { get; set; }

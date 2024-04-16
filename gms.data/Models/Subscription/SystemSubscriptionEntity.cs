@@ -13,8 +13,9 @@ public class SystemSubscriptionEntity : BaseEntity
     public DateTime SubscriptionStartTime { get; set; }
     public DateTime SubscriptionEndTime { get; set; }
     public StatusEnum SubscriptionStatusId { get; set; }
+    public int SubscriptionPaymentId { get; set; }
 
     // Navigation properties
     public virtual GymEntity Gym { get; set; }
-    public virtual ICollection<SubscriptionPaymentEntity> SubscriptionPayments { get; set; }
+    public virtual SubscriptionPaymentEntity SubscriptionPayment { get; set; }
 }
