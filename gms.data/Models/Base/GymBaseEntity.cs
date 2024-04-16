@@ -1,6 +1,7 @@
 ﻿using gms.data.Models.Gym;
 
 namespace gms.data.Models.Base;
+
 public abstract class GymBaseEntity : BaseEntity
 {
     public int GymId { get; set; }
