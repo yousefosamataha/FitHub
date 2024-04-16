@@ -17,7 +17,7 @@ internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
 
         builder.HasOne(g => g.GeneralSetting)
                .WithOne(gg => gg.Gym)
-               .HasForeignKey<GymGeneralSettingEntity>(gg => gg.GymId);
+               .HasForeignKey<GymEntity>(g => g.GeneralSettingId);
 
         builder.HasMany(g => g.SystemSubscriptions)
                .WithOne(ss => ss.Gym)

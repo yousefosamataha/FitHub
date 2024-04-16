@@ -21,6 +21,6 @@ internal class SystemSubscriptionConfiguration : IEntityTypeConfiguration<System
 
         builder.HasOne(ss => ss.SubscriptionPayment)
                .WithOne(sp => sp.SystemSubscription)
-               .HasForeignKey<SystemSubscriptionEntity>(sp => sp.SubscriptionPaymentId);
+               .HasForeignKey<SystemSubscriptionEntity>(ss => ss.SubscriptionPaymentId);
     }
 }
