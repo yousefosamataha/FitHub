@@ -17,6 +17,7 @@ public class GymEntity : BaseEntity
     public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
 
     public virtual ICollection<GymGroupEntity> GymGroups { get; set; }
+
     // TODO: Add Relation Entities
     // public virtual ICollection<GymUserEntity> GymUsers { get; set; }
 }
