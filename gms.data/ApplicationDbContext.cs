@@ -51,7 +51,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
     public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
-    //public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
+    public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
     #endregion
 
     #region Shared
