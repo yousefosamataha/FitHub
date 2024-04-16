@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using gms.data;
 
@@ -11,9 +12,11 @@ using gms.data;
 namespace gms.data.Migrations.Entities
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416105626_AddGymStaffSpecializationEntity")]
+    partial class AddGymStaffSpecializationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,7 +272,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 883, DateTimeKind.Utc).AddTicks(1161),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 408, DateTimeKind.Utc).AddTicks(6304),
                             GenderName = "Male",
                             IsDeleted = false
                         },
@@ -277,7 +280,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)7,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 883, DateTimeKind.Utc).AddTicks(1172),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 408, DateTimeKind.Utc).AddTicks(6314),
                             GenderName = "Female",
                             IsDeleted = false
                         });
@@ -310,49 +313,49 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8012),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8904),
                             IsDeleted = false,
                             Name = "Weight"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8030),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8917),
                             IsDeleted = false,
                             Name = "Height"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8035),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8920),
                             IsDeleted = false,
                             Name = "Chest"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8040),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8922),
                             IsDeleted = false,
                             Name = "Waist"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8045),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8924),
                             IsDeleted = false,
                             Name = "Thing"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8052),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8928),
                             IsDeleted = false,
                             Name = "Arms"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 924, DateTimeKind.Utc).AddTicks(8056),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 433, DateTimeKind.Utc).AddTicks(8930),
                             IsDeleted = false,
                             Name = "Fat"
                         });
@@ -385,21 +388,21 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 960, DateTimeKind.Utc).AddTicks(928),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 437, DateTimeKind.Utc).AddTicks(4696),
                             IsDeleted = false,
                             LevelName = "Beginner"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 960, DateTimeKind.Utc).AddTicks(947),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 437, DateTimeKind.Utc).AddTicks(4705),
                             IsDeleted = false,
                             LevelName = "Intermediate"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 960, DateTimeKind.Utc).AddTicks(951),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 437, DateTimeKind.Utc).AddTicks(4708),
                             IsDeleted = false,
                             LevelName = "Advanced"
                         });
@@ -435,14 +438,14 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 962, DateTimeKind.Utc).AddTicks(3826),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 438, DateTimeKind.Utc).AddTicks(8689),
                             IsDeleted = false,
                             PaymentMethod = "Cash"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 962, DateTimeKind.Utc).AddTicks(3851),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 438, DateTimeKind.Utc).AddTicks(8698),
                             IsDeleted = false,
                             PaymentMethod = "Credit"
                         });
@@ -479,7 +482,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8773),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4565),
                             IsDeleted = false,
                             SubscriptionStatus = "Active"
                         },
@@ -487,7 +490,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8787),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4573),
                             IsDeleted = false,
                             SubscriptionStatus = "InActive"
                         },
@@ -495,7 +498,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 3,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8790),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4576),
                             IsDeleted = false,
                             SubscriptionStatus = "Suspend"
                         },
@@ -503,7 +506,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 4,
                             BadgeColorId = (byte)6,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8793),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4578),
                             IsDeleted = false,
                             SubscriptionStatus = "Cancelled"
                         },
@@ -511,7 +514,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 5,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8796),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4580),
                             IsDeleted = false,
                             SubscriptionStatus = "Expired"
                         },
@@ -519,7 +522,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 6,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8801),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4583),
                             IsDeleted = false,
                             SubscriptionStatus = "NotPaid"
                         },
@@ -527,7 +530,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 7,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8803),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4585),
                             IsDeleted = false,
                             SubscriptionStatus = "PartiallyPaid"
                         },
@@ -535,7 +538,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 8,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 967, DateTimeKind.Utc).AddTicks(8806),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 439, DateTimeKind.Utc).AddTicks(4587),
                             IsDeleted = false,
                             SubscriptionStatus = "FullyPaid"
                         });
@@ -571,14 +574,14 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 972, DateTimeKind.Utc).AddTicks(9021),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(5683),
                             IsDeleted = false,
                             SubscriptionType = "Monthly"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 972, DateTimeKind.Utc).AddTicks(9032),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(5694),
                             IsDeleted = false,
                             SubscriptionType = "Annually"
                         });
@@ -1078,9 +1081,6 @@ namespace gms.data.Migrations.Entities
                     b.Property<byte>("GenderId")
                         .HasColumnType("tinyint");
 
-                    b.Property<int?>("GymStaffSpecializationId")
-                        .HasColumnType("int");
-
                     b.Property<byte>("GymUserTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint")
@@ -1127,8 +1127,6 @@ namespace gms.data.Migrations.Entities
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GymStaffSpecializationId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -1648,7 +1646,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 973, DateTimeKind.Utc).AddTicks(3307),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(8664),
                             IsDeleted = false,
                             MaxBranchNumber = 1,
                             MaxMemberNumberPerBranch = 50,
@@ -1661,7 +1659,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 973, DateTimeKind.Utc).AddTicks(3321),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(8676),
                             IsDeleted = false,
                             MaxBranchNumber = 3,
                             MaxMemberNumberPerBranch = 100,
@@ -1674,7 +1672,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 973, DateTimeKind.Utc).AddTicks(3325),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(8679),
                             IsDeleted = false,
                             MaxBranchNumber = 5,
                             MaxMemberNumberPerBranch = 200,
@@ -1687,7 +1685,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 16, 10, 59, 53, 973, DateTimeKind.Utc).AddTicks(3328),
+                            CreatedAt = new DateTime(2024, 4, 16, 10, 56, 25, 441, DateTimeKind.Utc).AddTicks(8682),
                             IsDeleted = false,
                             MaxBranchNumber = 10,
                             MaxMemberNumberPerBranch = 400,
@@ -1963,15 +1961,6 @@ namespace gms.data.Migrations.Entities
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("gms.data.Models.Identity.GymUserEntity", b =>
-                {
-                    b.HasOne("gms.data.Models.Gym.GymStaffSpecializationEntity", "GymStaffSpecialization")
-                        .WithMany("GymUsers")
-                        .HasForeignKey("GymStaffSpecializationId");
-
-                    b.Navigation("GymStaffSpecialization");
-                });
-
             modelBuilder.Entity("gms.data.Models.Identity.GymUserLoginEntity", b =>
                 {
                     b.HasOne("gms.data.Models.Identity.GymUserEntity", null)
@@ -2156,11 +2145,6 @@ namespace gms.data.Migrations.Entities
             modelBuilder.Entity("gms.data.Models.Gym.GymMeasurementEntity", b =>
                 {
                     b.Navigation("MeasurementImages");
-                });
-
-            modelBuilder.Entity("gms.data.Models.Gym.GymStaffSpecializationEntity", b =>
-                {
-                    b.Navigation("GymUsers");
                 });
 
             modelBuilder.Entity("gms.data.Models.Membership.GymMemberMembershipEntity", b =>

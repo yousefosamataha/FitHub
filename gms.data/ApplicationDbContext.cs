@@ -11,7 +11,6 @@ using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace gms.data;
 public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentityRoleEntity, int, GymUserClaimEntity, GymUserRoleEntity, GymUserLoginEntity, GymRoleClaimEntity, GymUserTokenEntity>
@@ -51,7 +50,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<GymNotificationEntity> GymNotifications { get; set; }
     public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
-    //public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
+    public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
     //public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
     #endregion
 
