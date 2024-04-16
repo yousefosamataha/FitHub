@@ -1,12 +1,16 @@
 ﻿using gms.data.Models.Base;
+using gms.data.Models.Gym;
 
 namespace gms.data.Models.Shared;
 
 public class CountryEntity : BaseEntity
 {
-	public string Name { get; set; }
-	public string Currency { get; set; }
-	public string TimeZone { get; set; }
-	public string Language { get; set; }
-	public byte[] Flag { get; set; }
+	public required string Name { get; set; }
+	public required string Currency { get; set; }
+	public required string TimeZone { get; set; }
+	public required string Language { get; set; }
+	public required byte[] Flag { get; set; }
+
+    // Navigation properties
+    public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
 }
