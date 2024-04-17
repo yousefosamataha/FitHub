@@ -20,6 +20,10 @@ internal class GymSpecializationConfiguration : IEntityTypeConfiguration<GymSpec
                .WithMany(g => g.GymSpecializations)
                .HasForeignKey(gs => gs.GymId);
 
+        builder.HasMany(gs => gs.GymStaffSpecializations)
+               .WithOne(gss => gss.GymSpecialization)
+               .HasForeignKey(gss => gss.GymSpecializationId);
+
         //builder.HasOne(gs => gs.GymBranch)
         //       .WithMany(gb => gb.GymBranchSpecializations)
         //       .HasForeignKey(gs => gs.BranchId);
