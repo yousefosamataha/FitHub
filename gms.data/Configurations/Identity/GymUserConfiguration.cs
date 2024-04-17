@@ -38,13 +38,13 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .HasForeignKey(gu => gu.GymStaffSpecializationId)
                .IsRequired(false);
 
-        //builder.HasOne(gu => gu.Gym)
-        //       .WithMany(g => g.GymUsers)
-        //       .HasForeignKey(gu => gu.GymId);
+        builder.HasOne(gu => gu.Gym)
+               .WithMany(g => g.GymUsers)
+               .HasForeignKey(gu => gu.GymId);
 
-        //builder.HasMany(gu => gu.GymBranchUsers)
-        //       .WithOne(gbu => gbu.GymUser)
-        //       .HasForeignKey(gu => gu.GymUserId);
+        builder.HasMany(gu => gu.GymBranchUsers)
+               .WithOne(gbu => gbu.GymUser)
+               .HasForeignKey(gu => gu.GymUserId);
 
     }
 }
