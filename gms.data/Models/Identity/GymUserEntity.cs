@@ -21,9 +21,9 @@ public class GymUserEntity : IdentityUser<int>
 
     public string? City { get; set; }
 
-    public int? GymStaffSpecializationId { get; set; }
+    //public int? GymStaffSpecializationId { get; set; }
 
-    public virtual GymStaffSpecializationEntity? GymStaffSpecialization { get; set; }
+    //public virtual GymSpecializationEntity? GymStaffSpecialization { get; set; }
     
     public virtual ICollection<GymBranchUsersEntity> GymBranchUsers { get; set; }
 

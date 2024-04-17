@@ -20,4 +20,5 @@ public class GymEntity : BaseEntity
     public virtual ICollection<GymGroupEntity> GymGroups { get; set; }
 
     public virtual ICollection<GymUserEntity> GymUsers { get; set; }
+    public virtual ICollection<GymSpecializationEntity> GymSpecializations { get; set; }
 }
