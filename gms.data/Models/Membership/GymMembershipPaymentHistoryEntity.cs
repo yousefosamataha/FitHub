@@ -1,17 +1,18 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
+using gms.data.Models.Identity;
 
 namespace gms.data.Models.Membership;
-public class GymMembershipPaymentHistoryEntity : BaseEntity
+public class GymMembershipPaymentHistoryEntity : GymBaseEntity
 {
     public int GymMemberMembershipId { get; set; }
     public decimal PaidAmount { get; set; }
     public PaymentMethodEnum PaymentMethodId { get; set; }
-    public string TransactionId { get; set; }
+    public string? TransactionId { get; set; }
+    public int CreatedById { get; set; }
+    public DateTime PaidDate { get; set; }
 
+    // Navigation properties
     public virtual GymMemberMembershipEntity GymMemberMembership { get; set; }
-
-    // TODO: Add Relation Entities
-    //public int GymId { get; set; } // FK
-    //public int CreatedById { get; set; }
+    public virtual GymUserEntity GymStaffUser { get; set; }
 }

@@ -13,8 +13,16 @@ internal class ClassScheduleDayConfiguration : IEntityTypeConfiguration<ClassSch
 
         builder.HasKey(csd => csd.Id);
 
+        builder.HasOne(csd => csd.Gym)
+               .WithMany()
+               .HasForeignKey(csd => csd.GymId);
+
+        builder.HasOne(csd => csd.GymBranch)
+               .WithMany()
+               .HasForeignKey(csd => csd.BranchId);
+
         builder.HasOne(csd => csd.ClassSchedule)
                 .WithMany(cs => cs.ClassScheduleDays)
-                .HasForeignKey(csd => csd.ClassId);
+                .HasForeignKey(csd => csd.ClassScheduleId);
     }
 }

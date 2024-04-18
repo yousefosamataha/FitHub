@@ -1,4 +1,5 @@
 ﻿using gms.data.Models.Base;
+using gms.data.Models.Membership;
 using gms.data.Models.Shared;
 
 namespace gms.data.Models.Gym;
@@ -20,5 +21,8 @@ public class GymBranchEntity : BaseEntity
     public virtual CountryEntity Country { get; set; }
     public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
     public virtual ICollection<GymBranchUsersEntity> GymBranchUsers { get; set; }
+    public virtual ICollection<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
+    public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
+    public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
     //public virtual ICollection<GymSpecializationEntity> GymBranchSpecializations { get; set; }
 }

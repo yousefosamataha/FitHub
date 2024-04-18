@@ -12,7 +12,16 @@ internal class ClassLocationConfiguration : IEntityTypeConfiguration<ClassLocati
         builder.ToTable(gmsDbProperties.DbTablePrefix + ".ClassLocation", gmsDbProperties.DbSchema);
 
         builder.HasKey(cl => cl.Id);
+
         builder.Property(cl => cl.Name).IsRequired().HasMaxLength(256);
+
+        builder.HasOne(cl => cl.Gym)
+               .WithMany()
+               .HasForeignKey(cl => cl.GymId);
+
+        builder.HasOne(cl => cl.GymBranch)
+               .WithMany()
+               .HasForeignKey(cl => cl.BranchId);
 
         builder.HasMany(cl => cl.ClassSchedules)
                .WithOne(cs => cs.ClassLocation)
