@@ -27,6 +27,10 @@ public class GymUserEntity : IdentityUser<int>
     public virtual ICollection<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
 
     public virtual ICollection<GymBranchUsersEntity> GymBranchUsers { get; set; }
+
+    public virtual ICollection<GymStaffGroupEntity> GymStaffGroups { get; set; }
+    public virtual ICollection<GymMemberGroupEntity> GymMemberGroups { get; set; }
+
     // TODO: Add Relation Entities
     //public int MembershipId { get; set; }
 }

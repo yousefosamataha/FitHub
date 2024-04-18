@@ -53,6 +53,8 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<GymSpecializationEntity> GymSpecializations { get; set; }
     public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
     public DbSet<GymGroupEntity> GymGroups { get; set; }
+    public DbSet<GymMemberGroupEntity> GymMemberGroups { get; set; }
+    public DbSet<GymStaffGroupEntity> GymStaffGroups { get; set; }
     #endregion
 
     #region Shared
