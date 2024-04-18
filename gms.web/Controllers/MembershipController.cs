@@ -6,7 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class MembershipController : BaseController<MembershipController>
 {
-	public IActionResult Index()
+    public MembershipController()
+    {
+        
+    }
+    public IActionResult Index()
 	{
 		return View();
 	}

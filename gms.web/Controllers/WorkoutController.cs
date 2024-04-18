@@ -6,7 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class WorkoutController : BaseController<WorkoutController>
 {
-	public IActionResult Index()
+    public WorkoutController()
+    {
+        
+    }
+    public IActionResult Index()
 	{
 		return View();
 	}

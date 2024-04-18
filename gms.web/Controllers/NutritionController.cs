@@ -6,7 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class NutritionController : BaseController<NutritionController>
 {
-	public IActionResult Index()
+    public NutritionController()
+    {
+        
+    }
+    public IActionResult Index()
 	{
 		return View();
 	}

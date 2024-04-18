@@ -6,7 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class ClassController : BaseController<ClassController>
 {
-	public IActionResult Index()
+    public ClassController()
+    {
+        
+    }
+    public IActionResult Index()
 	{
 		return View();
 	}

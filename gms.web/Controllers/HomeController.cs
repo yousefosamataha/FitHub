@@ -8,14 +8,14 @@ namespace gms.web.Controllers;
 [Authorize]
 public class HomeController : BaseController<HomeController>
 {
-    private RequestLocalizationOptions _requestLocalizationOptions;
-    public HomeController(IOptions<RequestLocalizationOptions> options)
+    public HomeController()
     {
-        _requestLocalizationOptions = options.Value;
     }
 	public IActionResult Index()
 	{
-		return View();
+		var test = requestLocalizationOptions;
+
+        return View();
 	}
 	public IActionResult AddNewMembership()
 	{
