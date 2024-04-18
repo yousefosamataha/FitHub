@@ -4,6 +4,7 @@ using gms.data.Models.Enum;
 using gms.data.Models.Event;
 using gms.data.Models.Gym;
 using gms.data.Models.Identity;
+using gms.data.Models.Membership;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
 using gms.data.Models.Staff;
@@ -57,6 +58,13 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
 
     #region Shared
     public DbSet<CountryEntity> Countries { get; set; }
+    #endregion
+
+    #region Membership
+    public DbSet<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
+    public DbSet<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
+    public DbSet<GymMembershipPaymentHistoryEntity> GymMembershipPaymentHistories { get; set; }
+    public DbSet<GymMembershipPlanClassEntity> GymMembershipPlanClasses { get; set; }
     #endregion
 
     #region Activity
