@@ -24,4 +24,5 @@ public class GymBranchEntity : BaseEntity
     public virtual ICollection<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
     public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
     public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
+    //public virtual ICollection<GymSpecializationEntity> GymBranchSpecializations { get; set; }
 }
