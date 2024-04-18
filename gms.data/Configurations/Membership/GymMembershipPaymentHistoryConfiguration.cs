@@ -29,6 +29,6 @@ internal class GymMembershipPaymentHistoryConfiguration : IEntityTypeConfigurati
 
         builder.HasOne(gmph => gmph.GymStaffUser)
                .WithOne()
-               .HasForeignKey<GymMembershipPlanEntity>(gmph => gmph.CreatedById);
+               .HasForeignKey<GymMembershipPaymentHistoryEntity>(gmph => gmph.CreatedById);
     }
 }
