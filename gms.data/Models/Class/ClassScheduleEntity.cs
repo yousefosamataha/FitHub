@@ -1,5 +1,6 @@
 ﻿using gms.data.Models.Base;
 using gms.data.Models.Identity;
+using gms.data.Models.Member;
 using gms.data.Models.Membership;
 using gms.data.Models.Staff;
 
@@ -19,5 +20,6 @@ public class ClassScheduleEntity : GymBaseEntity
     public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     public virtual ICollection<StaffClassEntity> StaffClasses { get; set; }
     public virtual ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
-    public virtual GymUserEntity GymUser { get; set; }
+    public virtual GymUserEntity GymStaffUser { get; set; }
+    public virtual ICollection<MemberClassEntity> MemberClasses { get; set; }
 }

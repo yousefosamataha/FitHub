@@ -2,14 +2,14 @@
 using gms.data.Models.Class;
 using gms.data.Models.Identity;
 
-namespace gms.data.Models.Staff;
+namespace gms.data.Models.Member;
 
-public class StaffClassEntity : GymBaseEntity
+public class MemberClassEntity : BaseEntity
 {
-    public int StaffId { get; set; }
+    public int GymMemberUserId { get; set; }
     public int ClassScheduleId { get; set; }
 
     // Navigation properties
-    public virtual GymUserEntity GymStaffUser { get; set; }
+    public virtual GymUserEntity GymMemberUser { get; set; }
     public virtual ClassScheduleEntity ClassSchedule { get; set; }
 }

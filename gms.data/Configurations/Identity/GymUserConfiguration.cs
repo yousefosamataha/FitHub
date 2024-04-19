@@ -12,18 +12,14 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
 {
     public void Configure(EntityTypeBuilder<GymUserEntity> builder)
     {
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUser", gmsDbProperties.DbSchema);
+       
         ValueConverter<DateOnly, DateTime> dateOnlyConverter = new(
                                                                     dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
                                                                     dateTime => DateOnly.FromDateTime(dateTime)
                                                                 );
 
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUser", gmsDbProperties.DbSchema);
-
         builder.HasKey(gu => gu.Id);
-
-        builder.Property(gu => gu.Address).IsRequired(false);
-
-        builder.Property(gu => gu.City).IsRequired(false);
 
         builder.Property(gu => gu.BirthDate)
                .HasConversion(dateOnlyConverter)
@@ -37,13 +33,16 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithMany(g => g.GymUsers)
                .HasForeignKey(gu => gu.GymId);
 
+        builder.HasMany(gu => gu.GymStaffSpecializations)
+               .WithOne(gss => gss.GymStaffUser)
+               .HasForeignKey(gss => gss.GymStaffId);
+
         builder.HasMany(gu => gu.GymBranchUsers)
                .WithOne(gbu => gbu.GymUser)
                .HasForeignKey(gu => gu.GymUserId);
 
-        builder.HasMany(gu => gu.GymStaffSpecializations)
-               .WithOne(gss => gss.GymStaff)
-               .HasForeignKey(gss => gss.GymStaffId);
-
+        builder.HasOne(gu => gu.GymStaffUser)
+               .WithOne()
+               .HasForeignKey<GymUserEntity>(gu => gu.CreatedById);
     }
 }

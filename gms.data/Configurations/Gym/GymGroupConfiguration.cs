@@ -19,6 +19,10 @@ internal class GymGroupConfiguration : IEntityTypeConfiguration<GymGroupEntity>
                .WithMany(g => g.GymGroups)
                .HasForeignKey(ggr => ggr.GymId);
 
+        builder.HasOne(ggr => ggr.GymStaffUser)
+               .WithOne()
+               .HasForeignKey<GymGroupEntity>(ggr => ggr.CreatedById);
+
         builder.HasMany(ggr => ggr.GymMemberGroups)
                .WithOne(gmg => gmg.GymGroup)
                .HasForeignKey(gmg => gmg.GymGroupId);

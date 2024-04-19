@@ -12,13 +12,12 @@ internal class GymMemberGroupConfiguration : IEntityTypeConfiguration<GymMemberG
 
         builder.HasKey(gmg => gmg.Id);
 
-        builder.HasOne(gmg => gmg.GymGroup)
-               .WithMany(gg => gg.GymMemberGroups)
-               .HasForeignKey(gmg => gmg.GymGroupId);
-
         builder.HasOne(gmg => gmg.GymMemberUser)
                .WithMany(gu => gu.GymMemberGroups)
                .HasForeignKey(gmg => gmg.GymMemberUserId);
 
+        builder.HasOne(gmg => gmg.GymGroup)
+               .WithMany(gg => gg.GymMemberGroups)
+               .HasForeignKey(gmg => gmg.GymGroupId);
     }
 }

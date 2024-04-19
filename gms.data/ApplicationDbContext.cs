@@ -4,6 +4,7 @@ using gms.data.Models.Enum;
 using gms.data.Models.Event;
 using gms.data.Models.Gym;
 using gms.data.Models.Identity;
+using gms.data.Models.Member;
 using gms.data.Models.Membership;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
@@ -105,6 +106,10 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
 
     #region Staff
     public DbSet<StaffClassEntity> StaffClasses { get; set; }
+    #endregion
+
+    #region Member
+    public DbSet<MemberClassEntity> MemberClasses { get; set; }
     #endregion
 
     #region Event

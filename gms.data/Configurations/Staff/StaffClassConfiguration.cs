@@ -22,8 +22,8 @@ internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEnti
                .HasForeignKey(sc => sc.BranchId);
 
         builder.HasOne(sc => sc.GymStaffUser)
-               .WithOne()
-               .HasForeignKey<StaffClassEntity>(sc => sc.StaffId);
+               .WithMany()
+               .HasForeignKey(sc => sc.StaffId);
 
         builder.HasOne(sc => sc.ClassSchedule)
                .WithMany(cs => cs.StaffClasses)

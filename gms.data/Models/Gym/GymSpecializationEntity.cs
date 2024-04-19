@@ -5,5 +5,7 @@ namespace gms.data.Models.Gym;
 public class GymSpecializationEntity : GymBaseEntity
 {
     public required string Name { get; set; }
+
+    // Navigation properties
     public virtual ICollection<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
 }
