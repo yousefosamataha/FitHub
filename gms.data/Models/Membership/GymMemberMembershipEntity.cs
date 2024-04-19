@@ -11,12 +11,12 @@ public class GymMemberMembershipEntity : GymBaseEntity
     public StatusEnum PaymentStatusId { get; set; }
     public DateTime JoiningDate { get; set; }
     public DateTime ExpiringDate { get; set; }
-    public int CreatedById { get; set; }
+    // public int CreatedById { get; set; }
 
     // Navigation properties
     public virtual GymMembershipPlanEntity GymMembershipPlan { get; set; }
     public virtual GymUserEntity GymMemberUser { get; set; }
-    public virtual GymUserEntity GymStaffUser { get; set; }
+    // public virtual GymUserEntity GymStaffUser { get; set; }
     public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
 
     // TODO: Add Relation Entities

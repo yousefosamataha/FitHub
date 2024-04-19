@@ -29,9 +29,9 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .IsRequired()
                .HasDefaultValue(GymUserTypeEnum.Member);
 
-        builder.HasOne(gu => gu.Gym)
-               .WithMany(g => g.GymUsers)
-               .HasForeignKey(gu => gu.GymId);
+        //builder.HasOne(gu => gu.Gym)
+        //       .WithMany(g => g.GymUsers)
+        //       .HasForeignKey(gu => gu.GymId);
 
         builder.HasMany(gu => gu.GymStaffSpecializations)
                .WithOne(gss => gss.GymStaffUser)
@@ -41,8 +41,8 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithOne(gbu => gbu.GymUser)
                .HasForeignKey(gu => gu.GymUserId);
 
-        builder.HasOne(gu => gu.GymStaffUser)
-               .WithOne()
-               .HasForeignKey<GymUserEntity>(gu => gu.CreatedById);
+        //builder.HasOne(gu => gu.GymStaffUser)
+        //       .WithOne()
+        //       .HasForeignKey<GymUserEntity>(gu => gu.CreatedById);
     }
 }
