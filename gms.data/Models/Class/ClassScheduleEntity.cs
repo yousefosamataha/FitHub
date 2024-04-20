@@ -5,7 +5,7 @@ using gms.data.Models.Staff;
 
 namespace gms.data.Models.Class;
 
-public class ClassScheduleEntity : BaseEntity
+public class ClassScheduleEntity : GymBaseEntity
 {
     public required string ClassName { get; set; }
     public int ClassLocationId { get; set; }

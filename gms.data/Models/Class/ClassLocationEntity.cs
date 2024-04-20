@@ -2,7 +2,7 @@
 
 namespace gms.data.Models.Class;
 
-public class ClassLocationEntity : GymBaseEntity
+public class ClassLocationEntity : BaseEntity
 {
     public required string Name { get; set; }
 

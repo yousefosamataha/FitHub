@@ -2,10 +2,8 @@
 
 namespace gms.data.Models.Gym;
 
-public class GymGeneralSettingEntity : BaseEntity
+public class GymGeneralSettingEntity : GymBaseEntity
 {
-    public int GymId { get; set; }
-    public int? BranchId { get; set; }
     public byte[]? GymLogo { get; set; }
     public string Weight = "KG";
     public string Height = "Centimeter";
@@ -19,8 +17,4 @@ public class GymGeneralSettingEntity : BaseEntity
     public bool IsShared { get; set; }
     public byte[]? ReportHeader { get; set; }
     public byte[]? ReportFooter { get; set; }
-
-    // Navigation properties
-    public virtual GymEntity Gym { get; set; }
-    public virtual GymBranchEntity GymBranch { get; set; }
 }
