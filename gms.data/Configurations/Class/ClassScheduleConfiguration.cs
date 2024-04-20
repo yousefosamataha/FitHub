@@ -17,13 +17,13 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
 
         builder.Property(cs => cs.ClassFees).HasPrecision(18, 2);
 
-        builder.HasOne(cs => cs.Gym)
-               .WithMany()
-               .HasForeignKey(cs => cs.GymId);
+        //builder.HasOne(cs => cs.Gym)
+        //       .WithMany()
+        //       .HasForeignKey(cs => cs.GymId);
 
-        builder.HasOne(cs => cs.GymBranch)
-               .WithMany()
-               .HasForeignKey(cs => cs.BranchId);
+        //builder.HasOne(cs => cs.GymBranch)
+        //       .WithMany()
+        //       .HasForeignKey(cs => cs.BranchId);
 
         builder.HasOne(cs => cs.ClassLocation)
                .WithMany(cl => cl.ClassSchedules)
@@ -37,9 +37,9 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
                .WithOne(sc => sc.ClassSchedule)
                .HasForeignKey(sc => sc.ClassScheduleId);
 
-        builder.HasOne(cs => cs.GymStaffUser)
-               .WithOne()
-               .HasForeignKey<ClassScheduleEntity>(cs => cs.CreatedById);
+        //builder.HasOne(cs => cs.GymStaffUser)
+        //       .WithOne()
+        //       .HasForeignKey<ClassScheduleEntity>(cs => cs.CreatedById);
 
         builder.HasMany(cs => cs.MemberClasses)
                .WithOne(mc => mc.ClassSchedule)

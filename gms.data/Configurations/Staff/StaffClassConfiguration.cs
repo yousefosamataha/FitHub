@@ -13,13 +13,13 @@ internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEnti
 
         builder.HasKey(sc => sc.Id);
 
-        builder.HasOne(sc => sc.Gym)
-               .WithMany()
-               .HasForeignKey(sc => sc.GymId);
+        //builder.HasOne(sc => sc.Gym)
+        //       .WithMany()
+        //       .HasForeignKey(sc => sc.GymId);
 
-        builder.HasOne(sc => sc.GymBranch)
-               .WithMany()
-               .HasForeignKey(sc => sc.BranchId);
+        //builder.HasOne(sc => sc.GymBranch)
+        //       .WithMany()
+        //       .HasForeignKey(sc => sc.BranchId);
 
         builder.HasOne(sc => sc.GymStaffUser)
                .WithMany()

@@ -17,8 +17,8 @@ internal class GymMembershipPlanClassConfiguration : IEntityTypeConfiguration<Gy
                .WithMany(gmp => gmp.MembershipPlanClasses)
                .HasForeignKey(gmpc => gmpc.MembershipPlanId);
 
-        builder.HasOne(gmpc => gmpc.ClassSchedule)
-               .WithMany(cs => cs.MembershipPlanClasses)
-               .HasForeignKey(gmpc => gmpc.ClassScheduleId);
+        //builder.HasOne(gmpc => gmpc.ClassSchedule)
+        //       .WithMany(cs => cs.MembershipPlanClasses)
+        //       .HasForeignKey(gmpc => gmpc.ClassScheduleId);
     }
 }

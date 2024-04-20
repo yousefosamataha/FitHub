@@ -1,9 +1,8 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
-using gms.data.Models.Identity;
 
 namespace gms.data.Models.Membership;
-public class GymMembershipPlanEntity : GymBaseEntity
+public class GymMembershipPlanEntity : BaseEntity
 {
     public required string MembershipName { get; set; }
     public int MembershipDuration { get; set; }
@@ -18,7 +17,7 @@ public class GymMembershipPlanEntity : GymBaseEntity
     public int CreatedById { get; set; }
 
     // Navigation properties
-    public virtual GymUserEntity GymStaffUser { get; set; }
+    // public virtual GymUserEntity GymStaffUser { get; set; }
     public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
     public ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
 

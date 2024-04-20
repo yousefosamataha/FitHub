@@ -39,16 +39,16 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .WithOne(gbu => gbu.GymBranch)
                .HasForeignKey(gb => gb.GymBranchId);
 
-        builder.HasMany(gb => gb.GymMembershipPlans)
-               .WithOne(gmp => gmp.GymBranch)
-               .HasForeignKey(gmp => gmp.BranchId);
+        //builder.HasMany(gb => gb.GymMembershipPlans)
+        //       .WithOne(gmp => gmp.GymBranch)
+        //       .HasForeignKey(gmp => gmp.BranchId);
 
-        builder.HasMany(gb => gb.GymMemberMemberships)
-               .WithOne(gmm => gmm.GymBranch)
-               .HasForeignKey(gmm => gmm.GymId);
+        //builder.HasMany(gb => gb.GymMemberMemberships)
+        //       .WithOne(gmm => gmm.GymBranch)
+        //       .HasForeignKey(gmm => gmm.GymId);
 
-        builder.HasMany(gb => gb.MembershipPaymentHistories)
-               .WithOne(gmph => gmph.GymBranch)
-               .HasForeignKey(gmph => gmph.GymId);
+        //builder.HasMany(gb => gb.MembershipPaymentHistories)
+        //       .WithOne(gmph => gmph.GymBranch)
+        //       .HasForeignKey(gmph => gmph.GymId);
     }
 }

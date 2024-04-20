@@ -3,7 +3,7 @@ using gms.data.Models.Base;
 using gms.data.Models.Identity;
 
 namespace gms.data.Models.Membership;
-public class GymMemberMembershipEntity : GymBaseEntity
+public class GymMemberMembershipEntity : BaseEntity
 {
     public int GymMembershipPlanId { get; set; }
     public int MemberId { get; set; }
@@ -18,7 +18,4 @@ public class GymMemberMembershipEntity : GymBaseEntity
     public virtual GymUserEntity GymMemberUser { get; set; }
     // public virtual GymUserEntity GymStaffUser { get; set; }
     public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
-
-    // TODO: Add Relation Entities
-    //public int CreatedById { get; set; }
 }

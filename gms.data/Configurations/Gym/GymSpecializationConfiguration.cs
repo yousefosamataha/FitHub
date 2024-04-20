@@ -25,6 +25,5 @@ internal class GymSpecializationConfiguration : IEntityTypeConfiguration<GymSpec
         builder.HasMany(gs => gs.GymStaffSpecializations)
                .WithOne(gss => gss.GymSpecialization)
                .HasForeignKey(gss => gss.GymSpecializationId);
-
     }
 }

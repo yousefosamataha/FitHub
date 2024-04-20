@@ -1,9 +1,8 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
-using gms.data.Models.Identity;
 
 namespace gms.data.Models.Membership;
-public class GymMembershipPaymentHistoryEntity : GymBaseEntity
+public class GymMembershipPaymentHistoryEntity : BaseEntity
 {
     public int GymMemberMembershipId { get; set; }
     public decimal PaidAmount { get; set; }
@@ -14,5 +13,5 @@ public class GymMembershipPaymentHistoryEntity : GymBaseEntity
 
     // Navigation properties
     public virtual GymMemberMembershipEntity GymMemberMembership { get; set; }
-    public virtual GymUserEntity GymStaffUser { get; set; }
+    // public virtual GymUserEntity GymStaffUser { get; set; }
 }

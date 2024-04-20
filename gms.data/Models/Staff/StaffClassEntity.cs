@@ -4,7 +4,7 @@ using gms.data.Models.Identity;
 
 namespace gms.data.Models.Staff;
 
-public class StaffClassEntity : GymBaseEntity
+public class StaffClassEntity : BaseEntity
 {
     public int StaffId { get; set; }
     public int ClassScheduleId { get; set; }
