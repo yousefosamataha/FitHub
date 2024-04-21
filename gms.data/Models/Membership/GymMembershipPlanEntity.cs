@@ -1,4 +1,5 @@
 ﻿using gms.common.Enums;
+using gms.data.Models.Activity;
 using gms.data.Models.Base;
 using gms.data.Models.Gym;
 
@@ -21,6 +22,7 @@ public class GymMembershipPlanEntity : BaseEntity
     public virtual GymBranchEntity GymBranch { get; set; }
     public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
     public ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
+    public ICollection<MembershipActivityEntity> MembershipActivities { get; set; }
 
     // TODO: Add Relation Entities
     // public int? InstallmentPlanId { get; set; }

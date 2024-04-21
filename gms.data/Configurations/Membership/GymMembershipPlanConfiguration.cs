@@ -32,5 +32,10 @@ internal class GymMembershipPlanConfiguration : IEntityTypeConfiguration<GymMemb
                .WithOne(gmpc => gmpc.MembershipPlan)
                .HasForeignKey(gmpc => gmpc.MembershipPlanId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gmp => gmp.MembershipActivities)
+               .WithOne(ma => ma.MembershipPlan)
+               .HasForeignKey(ma => ma.MembershipPlanId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

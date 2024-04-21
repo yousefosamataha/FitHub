@@ -15,6 +15,12 @@ internal class MembershipActivityConfiguration : IEntityTypeConfiguration<Member
 
         builder.HasOne(ma => ma.Activity)
                .WithMany(a => a.MembershipActivities)
-               .HasForeignKey(ma => ma.ActivityId);
+               .HasForeignKey(ma => ma.ActivityId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(ma => ma.MembershipPlan)
+               .WithMany(gmp => gmp.MembershipActivities)
+               .HasForeignKey(ma => ma.ActivityId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

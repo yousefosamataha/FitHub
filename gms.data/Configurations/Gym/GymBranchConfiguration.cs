@@ -55,6 +55,19 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .WithOne(ggr => ggr.GymBranch)
                .HasForeignKey(ggr => ggr.BranchId);
 
+
+        builder.HasMany(gb => gb.Activities)
+               .WithOne(a => a.GymBranch)
+               .HasForeignKey(a => a.BranchId);
+
+        builder.HasMany(gb => gb.ActivityCategories)
+               .WithOne(ac => ac.GymBranch)
+               .HasForeignKey(ac => ac.BranchId);
+
+        builder.HasMany(gb => gb.WorkoutPlans)
+               .WithOne(wp => wp.GymBranch)
+               .HasForeignKey(wp => wp.BranchId);
+
         //builder.HasOne(gb => gb.GeneralSetting)
         //       .WithOne(gg => gg.GymBranch)
         //       .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);

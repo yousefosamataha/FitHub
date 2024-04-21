@@ -62,5 +62,15 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithOne(gsg => gsg.GymStaffUser)
                .HasForeignKey(gsg => gsg.GymStaffUserId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.MemberWorkoutPlans)
+               .WithOne(wp => wp.GymMemberUser)
+               .HasForeignKey(wp => wp.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.StaffWorkoutPlans)
+               .WithOne(wp => wp.GymStaffUser)
+               .HasForeignKey(wp => wp.AssignedByGymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }
