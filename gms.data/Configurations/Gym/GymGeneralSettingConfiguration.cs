@@ -12,12 +12,12 @@ internal class GymGeneralSettingConfiguration : IEntityTypeConfiguration<GymGene
 
         builder.HasKey(gg => gg.Id);
 
-        builder.HasOne(gg => gg.Gym)
-               .WithOne(g => g.GeneralSetting)
-               .HasForeignKey<GymGeneralSettingEntity>(gg => gg.GymId);
+        //builder.HasOne(gg => gg.Gym)
+        //       .WithOne(g => g.GeneralSetting)
+        //       .HasForeignKey<GymGeneralSettingEntity>(gg => gg.GymId);
 
-        builder.HasOne(gg => gg.GymBranch)
-               .WithOne(gb => gb.GeneralSetting)
-               .HasForeignKey<GymGeneralSettingEntity>(gg => gg.BranchId);
+        //builder.HasOne(gg => gg.GymBranch)
+        //       .WithOne(gb => gb.GeneralSetting)
+        //       .HasForeignKey<GymGeneralSettingEntity>(gg => gg.BranchId);
     }
 }

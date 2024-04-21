@@ -15,20 +15,8 @@ internal class GymMembershipPaymentHistoryConfiguration : IEntityTypeConfigurati
 
         builder.Property(gmph => gmph.PaidAmount).HasPrecision(18, 2);
 
-        //builder.HasOne(gmph => gmph.Gym)
-        //       .WithMany(g => g.MembershipPaymentHistories)
-        //       .HasForeignKey(gmph => gmph.GymId);
-
-        //builder.HasOne(gmph => gmph.GymBranch)
-        //       .WithMany(gb => gb.MembershipPaymentHistories)
-        //       .HasForeignKey(gmph => gmph.BranchId);
-
         builder.HasOne(gmph => gmph.GymMemberMembership)
                .WithMany(gmm => gmm.MembershipPaymentHistories)
                .HasForeignKey(gmph => gmph.GymMemberMembershipId);
-
-        //builder.HasOne(gmph => gmph.GymStaffUser)
-        //       .WithOne()
-        //       .HasForeignKey<GymMembershipPaymentHistoryEntity>(gmph => gmph.CreatedById);
     }
 }

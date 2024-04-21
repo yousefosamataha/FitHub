@@ -15,20 +15,18 @@ internal class GymGroupConfiguration : IEntityTypeConfiguration<GymGroupEntity>
 
         builder.Property(g => g.Name).IsRequired().HasMaxLength(256);
 
-        builder.HasOne(ggr => ggr.Gym)
-               .WithMany(g => g.GymGroups)
-               .HasForeignKey(ggr => ggr.GymId);
-
-        //builder.HasOne(ggr => ggr.GymStaffUser)
-        //       .WithOne()
-        //       .HasForeignKey<GymGroupEntity>(ggr => ggr.CreatedById);
+        builder.HasOne(ggr => ggr.GymBranch)
+               .WithMany(gb => gb.GymGroups)
+               .HasForeignKey(ggr => ggr.BranchId);
 
         builder.HasMany(ggr => ggr.GymMemberGroups)
                .WithOne(gmg => gmg.GymGroup)
-               .HasForeignKey(gmg => gmg.GymGroupId);
+               .HasForeignKey(gmg => gmg.GymGroupId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(ggr => ggr.GymStaffGroups)
                .WithOne(gsg => gsg.GymGroup)
-               .HasForeignKey(gsg => gsg.GymGroupId);
+               .HasForeignKey(gsg => gsg.GymGroupId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

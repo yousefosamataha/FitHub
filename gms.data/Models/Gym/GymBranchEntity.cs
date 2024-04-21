@@ -1,4 +1,6 @@
 ﻿using gms.data.Models.Base;
+using gms.data.Models.Class;
+using gms.data.Models.Identity;
 using gms.data.Models.Membership;
 using gms.data.Models.Shared;
 
@@ -19,10 +21,11 @@ public class GymBranchEntity : BaseEntity
     // Navigation properties
     public virtual GymEntity Gym { get; set; }
     public virtual CountryEntity Country { get; set; }
-    public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
-    public virtual ICollection<GymBranchUsersEntity> GymBranchUsers { get; set; }
+    public virtual ICollection<GymUserEntity> GymUsers { get; set; }
+    public virtual ICollection<GymSpecializationEntity> GymSpecializations { get; set; }
     public virtual ICollection<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
-    public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
-    //public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
-    //public virtual ICollection<GymSpecializationEntity> GymBranchSpecializations { get; set; }
+    public virtual ICollection<ClassScheduleEntity> ClassSchedules { get; set; }
+    public virtual ICollection<ClassLocationEntity> ClassLocations { get; set; }
+    public virtual ICollection<GymGroupEntity> GymGroups { get; set; }
+    // public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
 }

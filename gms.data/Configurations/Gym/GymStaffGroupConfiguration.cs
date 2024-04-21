@@ -14,10 +14,12 @@ internal class GymStaffGroupConfiguration : IEntityTypeConfiguration<GymStaffGro
 
         builder.HasOne(gsg => gsg.GymStaffUser)
                .WithMany(gu => gu.GymStaffGroups)
-               .HasForeignKey(gsg => gsg.GymStaffUserId);
+               .HasForeignKey(gsg => gsg.GymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(gsg => gsg.GymGroup)
                .WithMany(gg => gg.GymStaffGroups)
-               .HasForeignKey(gsg => gsg.GymGroupId);
+               .HasForeignKey(gsg => gsg.GymGroupId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

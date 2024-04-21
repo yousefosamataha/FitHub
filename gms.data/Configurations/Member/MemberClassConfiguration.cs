@@ -14,11 +14,13 @@ internal class MemberClassConfiguration : IEntityTypeConfiguration<MemberClassEn
         builder.HasKey(mc => mc.Id);
 
         builder.HasOne(mc => mc.GymMemberUser)
-               .WithMany()
-               .HasForeignKey(mc => mc.GymMemberUserId);
+               .WithMany(gu => gu.MemberClasses)
+               .HasForeignKey(mc => mc.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(mc => mc.ClassSchedule)
                .WithMany(cs => cs.MemberClasses)
-               .HasForeignKey(mc => mc.ClassScheduleId);
+               .HasForeignKey(mc => mc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

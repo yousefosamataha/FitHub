@@ -31,24 +31,32 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .WithMany()
                .HasForeignKey(gb => gb.CountryId);
 
-        builder.HasOne(gb => gb.GeneralSetting)
-               .WithOne(gg => gg.GymBranch)
-               .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
+        builder.HasMany(gb => gb.GymUsers)
+               .WithOne(gu => gu.GymBranch)
+               .HasForeignKey(gu => gu.BranchId);
 
-        builder.HasMany(gb => gb.GymBranchUsers)
-               .WithOne(gbu => gbu.GymBranch)
-               .HasForeignKey(gb => gb.GymBranchId);
+        builder.HasMany(gb => gb.GymSpecializations)
+               .WithOne(gs => gs.GymBranch)
+               .HasForeignKey(gs => gs.BranchId);
 
-        //builder.HasMany(gb => gb.GymMembershipPlans)
-        //       .WithOne(gmp => gmp.GymBranch)
-        //       .HasForeignKey(gmp => gmp.BranchId);
+        builder.HasMany(gb => gb.GymMembershipPlans)
+               .WithOne(gmp => gmp.GymBranch)
+               .HasForeignKey(gmp => gmp.BranchId);
 
-        //builder.HasMany(gb => gb.GymMemberMemberships)
-        //       .WithOne(gmm => gmm.GymBranch)
-        //       .HasForeignKey(gmm => gmm.GymId);
+        builder.HasMany(gb => gb.ClassSchedules)
+               .WithOne(cs => cs.GymBranch)
+               .HasForeignKey(cs => cs.BranchId);
 
-        //builder.HasMany(gb => gb.MembershipPaymentHistories)
-        //       .WithOne(gmph => gmph.GymBranch)
-        //       .HasForeignKey(gmph => gmph.GymId);
+        builder.HasMany(gb => gb.ClassLocations)
+               .WithOne(cl => cl.GymBranch)
+               .HasForeignKey(cl => cl.BranchId);
+
+        builder.HasMany(gb => gb.GymGroups)
+               .WithOne(ggr => ggr.GymBranch)
+               .HasForeignKey(ggr => ggr.BranchId);
+
+        //builder.HasOne(gb => gb.GeneralSetting)
+        //       .WithOne(gg => gg.GymBranch)
+        //       .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
     }
 }

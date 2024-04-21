@@ -2,7 +2,7 @@
 
 namespace gms.data.Models.Gym;
 
-public class GymGeneralSettingEntity : GymBaseEntity
+public class GymGeneralSettingEntity : BaseEntity
 {
     public byte[]? GymLogo { get; set; }
     public string Weight = "KG";

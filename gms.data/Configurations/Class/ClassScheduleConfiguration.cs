@@ -17,32 +17,33 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
 
         builder.Property(cs => cs.ClassFees).HasPrecision(18, 2);
 
-        builder.HasOne(cs => cs.Gym)
-               .WithMany()
-               .HasForeignKey(cs => cs.GymId);
-
         builder.HasOne(cs => cs.GymBranch)
-               .WithMany()
+               .WithMany(gb => gb.ClassSchedules)
                .HasForeignKey(cs => cs.BranchId);
+
+        builder.HasMany(cs => cs.MembershipPlanClasses)
+               .WithOne(gmpc => gmpc.ClassSchedule)
+               .HasForeignKey(gmpc => gmpc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(cs => cs.ClassLocation)
                .WithMany(cl => cl.ClassSchedules)
-               .HasForeignKey(cs => cs.ClassLocationId);
+               .HasForeignKey(cs => cs.ClassLocationId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(cs => cs.ClassScheduleDays)
                .WithOne(csd => csd.ClassSchedule)
-               .HasForeignKey(csd => csd.ClassScheduleId);
+               .HasForeignKey(csd => csd.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(cs => cs.StaffClasses)
                .WithOne(sc => sc.ClassSchedule)
-               .HasForeignKey(sc => sc.ClassScheduleId);
-
-        //builder.HasOne(cs => cs.GymStaffUser)
-        //       .WithOne()
-        //       .HasForeignKey<ClassScheduleEntity>(cs => cs.CreatedById);
+               .HasForeignKey(sc => sc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(cs => cs.MemberClasses)
                .WithOne(mc => mc.ClassSchedule)
-               .HasForeignKey(mc => mc.ClassScheduleId);
+               .HasForeignKey(mc => mc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

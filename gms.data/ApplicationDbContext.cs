@@ -53,7 +53,6 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
     public DbSet<GymSpecializationEntity> GymSpecializations { get; set; }
-    public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
     public DbSet<GymGroupEntity> GymGroups { get; set; }
     public DbSet<GymMemberGroupEntity> GymMemberGroups { get; set; }
     public DbSet<GymStaffGroupEntity> GymStaffGroups { get; set; }

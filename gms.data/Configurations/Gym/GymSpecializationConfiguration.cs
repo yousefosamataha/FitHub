@@ -14,16 +14,13 @@ internal class GymSpecializationConfiguration : IEntityTypeConfiguration<GymSpec
 
         builder.Property(gs => gs.Name).IsRequired().HasMaxLength(256);
 
-        builder.HasOne(gs => gs.Gym)
-               .WithMany(g => g.GymSpecializations)
-               .HasForeignKey(gs => gs.GymId);
-
         builder.HasOne(gs => gs.GymBranch)
-               .WithMany()
+               .WithMany(gb => gb.GymSpecializations)
                .HasForeignKey(gs => gs.BranchId);
 
         builder.HasMany(gs => gs.GymStaffSpecializations)
                .WithOne(gss => gss.GymSpecialization)
-               .HasForeignKey(gss => gss.GymSpecializationId);
+               .HasForeignKey(gss => gss.GymSpecializationId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using gms.common.Enums;
 using gms.data.Models.Base;
+using gms.data.Models.Gym;
 
 namespace gms.data.Models.Membership;
 public class GymMembershipPlanEntity : BaseEntity
 {
+    public int BranchId { get; set; }
     public required string MembershipName { get; set; }
     public int MembershipDuration { get; set; }
     public MembershipLengthTypeEnum MembershipDurationTypeId { get; set; }
@@ -14,10 +16,9 @@ public class GymMembershipPlanEntity : BaseEntity
     public bool ClassIsLimit { get; set; }
     public int? ClassLimitDays { get; set; }
     public MembershipClassLimitationEnum? ClassLimitationId { get; set; }
-    public int CreatedById { get; set; }
 
     // Navigation properties
-    // public virtual GymUserEntity GymStaffUser { get; set; }
+    public virtual GymBranchEntity GymBranch { get; set; }
     public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
     public ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
 

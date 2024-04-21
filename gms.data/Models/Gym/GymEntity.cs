@@ -9,13 +9,7 @@ public class GymEntity : BaseEntity
     public int GeneralSettingId { get; set; }
 
     // Navigation properties
-    public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
+    // public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
     public virtual ICollection<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
     public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
-    public virtual ICollection<GymGroupEntity> GymGroups { get; set; }
-    // public virtual ICollection<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
-    // public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
-    // public virtual ICollection<GymMembershipPaymentHistoryEntity> MembershipPaymentHistories { get; set; }
-    // public virtual ICollection<GymUserEntity> GymUsers { get; set; }
-    public virtual ICollection<GymSpecializationEntity> GymSpecializations { get; set; }
 }

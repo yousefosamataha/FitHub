@@ -15,10 +15,12 @@ internal class GymMembershipPlanClassConfiguration : IEntityTypeConfiguration<Gy
 
         builder.HasOne(gmpc => gmpc.MembershipPlan)
                .WithMany(gmp => gmp.MembershipPlanClasses)
-               .HasForeignKey(gmpc => gmpc.MembershipPlanId);
+               .HasForeignKey(gmpc => gmpc.MembershipPlanId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-        //builder.HasOne(gmpc => gmpc.ClassSchedule)
-        //       .WithMany(cs => cs.MembershipPlanClasses)
-        //       .HasForeignKey(gmpc => gmpc.ClassScheduleId);
+        builder.HasOne(gmpc => gmpc.ClassSchedule)
+               .WithMany(cs => cs.MembershipPlanClasses)
+               .HasForeignKey(gmpc => gmpc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

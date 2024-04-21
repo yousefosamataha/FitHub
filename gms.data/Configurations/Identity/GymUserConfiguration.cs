@@ -29,20 +29,38 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .IsRequired()
                .HasDefaultValue(GymUserTypeEnum.Member);
 
-        //builder.HasOne(gu => gu.Gym)
-        //       .WithMany(g => g.GymUsers)
-        //       .HasForeignKey(gu => gu.GymId);
+        builder.HasOne(gu => gu.GymBranch)
+               .WithMany(g => g.GymUsers)
+               .HasForeignKey(gu => gu.BranchId);
 
         builder.HasMany(gu => gu.GymStaffSpecializations)
                .WithOne(gss => gss.GymStaffUser)
-               .HasForeignKey(gss => gss.GymStaffId);
+               .HasForeignKey(gss => gss.GymStaffId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(gu => gu.GymBranchUsers)
-               .WithOne(gbu => gbu.GymUser)
-               .HasForeignKey(gu => gu.GymUserId);
+        builder.HasMany(gu => gu.GymMemberMemberships)
+               .WithOne(gmm => gmm.GymMemberUser)
+               .HasForeignKey(gss => gss.MemberId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-        //builder.HasOne(gu => gu.GymStaffUser)
-        //       .WithOne()
-        //       .HasForeignKey<GymUserEntity>(gu => gu.CreatedById);
+        builder.HasMany(gu => gu.StaffClasses)
+               .WithOne(sc => sc.GymStaffUser)
+               .HasForeignKey(sc => sc.StaffId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.MemberClasses)
+               .WithOne(mc => mc.GymMemberUser)
+               .HasForeignKey(mc => mc.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymMemberGroups)
+               .WithOne(gmg => gmg.GymMemberUser)
+               .HasForeignKey(gmg => gmg.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymStaffGroups)
+               .WithOne(gsg => gsg.GymStaffUser)
+               .HasForeignKey(gsg => gsg.GymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

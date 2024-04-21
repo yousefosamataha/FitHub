@@ -19,24 +19,18 @@ internal class GymMembershipPlanConfiguration : IEntityTypeConfiguration<GymMemb
 
         builder.Property(gmp => gmp.SignupFee).HasPrecision(18, 2);
 
-        //builder.HasOne(gmp => gmp.Gym)
-        //       .WithMany(g => g.GymMembershipPlans)
-        //       .HasForeignKey(gmp => gmp.GymId);
-
-        //builder.HasOne(gmp => gmp.GymBranch)
-        //       .WithMany(gb => gb.GymMembershipPlans)
-        //       .HasForeignKey(gmp => gmp.BranchId);
-
-        //builder.HasOne(gmp => gmp.GymStaffUser)
-        //       .WithOne()
-        //       .HasForeignKey<GymMembershipPlanEntity>(gmp => gmp.CreatedById);
+        builder.HasOne(gmp => gmp.GymBranch)
+               .WithMany(gb => gb.GymMembershipPlans)
+               .HasForeignKey(gmp => gmp.BranchId);
 
         builder.HasMany(gmp => gmp.GymMemberMemberships)
                .WithOne(gmm => gmm.GymMembershipPlan)
-               .HasForeignKey(gmm => gmm.GymMembershipPlanId);
+               .HasForeignKey(gmm => gmm.GymMembershipPlanId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(gmp => gmp.MembershipPlanClasses)
-               .WithOne(mpc => mpc.MembershipPlan)
-               .HasForeignKey(mpc => mpc.MembershipPlanId);
+               .WithOne(gmpc => gmpc.MembershipPlan)
+               .HasForeignKey(gmpc => gmpc.MembershipPlanId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }
