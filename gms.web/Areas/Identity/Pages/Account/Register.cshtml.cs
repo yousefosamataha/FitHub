@@ -2,7 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using gms.common.Models.Gym;
 using gms.data.Models.Identity;
+using gms.service.Gym.GymRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -23,6 +25,7 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<GymUserEntity> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IGymService _gymService;
 
         public RegisterModel(
             UserManager<GymUserEntity> userManager,
@@ -45,7 +48,7 @@ namespace gms.web.Areas.Identity.Pages.Account
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
-
+        public int? PlanId { get; set; }
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -94,8 +97,9 @@ namespace gms.web.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(int? planId,string returnUrl = null)
         {
+            PlanId = planId;
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -107,6 +111,12 @@ namespace gms.web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                CreateGymDTO newGym = new ()
+                {
+                    Name = "Muhammmad"
+                };
+
+                await _gymService.CreateGym(newGym);
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
