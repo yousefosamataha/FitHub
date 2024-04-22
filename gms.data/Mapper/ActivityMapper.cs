@@ -15,7 +15,7 @@ public static class ActivityMapper
 		};
 	}
 
-	public static ActivityDTO ToDto(this ActivityEntity source)
+	public static ActivityDTO ToDTO(this ActivityEntity source)
 	{
 		return new ActivityDTO()
 		{
@@ -24,5 +24,13 @@ public static class ActivityMapper
 			BranchId = source.BranchId,
 			ActivityCategoryId = source.ActivityCategoryId
 		};
+	}
+
+	public static ActivityEntity ToUpdatedEntity(this UpdateActivityDTO source, ActivityEntity entity)
+	{
+		entity.Title = !string.IsNullOrWhiteSpace(source.Title) && !string.Equals(source.Title, entity.Title, StringComparison.OrdinalIgnoreCase) ? source.Title : entity.Title;
+		entity.BranchId = source.BranchId > default(int) && source.BranchId != entity.BranchId ? source.BranchId : entity.BranchId;
+		entity.ActivityCategoryId = source.ActivityCategoryId > default(int) && source.ActivityCategoryId != entity.ActivityCategoryId ? source.ActivityCategoryId : entity.ActivityCategoryId;
+		return entity;
 	}
 }

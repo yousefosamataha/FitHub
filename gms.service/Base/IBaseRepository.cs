@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 namespace gms.services.Base;
 public interface IBaseRepository<T> where T : class
 {
-	T GetById(Guid id);
+	T GetById(int id);
 
-	Task<T> GetByIdAsync(Guid id);
+	Task<T> GetByIdAsync(int id);
 
 	List<T> GetAll();
 
@@ -30,7 +30,11 @@ public interface IBaseRepository<T> where T : class
 
 	T Add(T entity);
 
+	Task<T> AddAsync(T entity);
+
 	List<T> AddRange(List<T> entities);
+
+	Task<List<T>> AddRangeAsync(List<T> entities);
 
 	T Update(T entity);
 

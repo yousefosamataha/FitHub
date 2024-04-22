@@ -14,9 +14,9 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
 		_context = context;
 	}
 
-	public T GetById(Guid id) => _context.Set<T>().Find(id);
+	public T GetById(int id) => _context.Set<T>().Find(id);
 
-	public async Task<T> GetByIdAsync(Guid id) => await _context.Set<T>().FindAsync(id);
+	public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
 	public List<T> GetAll() => _context.Set<T>().ToList();
 
