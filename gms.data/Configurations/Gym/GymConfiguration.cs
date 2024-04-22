@@ -26,5 +26,7 @@ internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
         builder.HasMany(g => g.GymBranches)
                .WithOne(gb => gb.Gym)
                .HasForeignKey(gb => gb.GymId);
+
+        builder.HasQueryFilter(g => g.IsDeleted == false);
     }
 }

@@ -31,5 +31,7 @@ internal class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlanEn
 			   .WithOne(wpa => wpa.WorkoutPlan)
 			   .HasForeignKey(wpa => wpa.WorkoutPlanId)
 			   .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(wp => wp.IsDeleted == false);
 	}
 }

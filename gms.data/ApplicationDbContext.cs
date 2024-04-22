@@ -56,6 +56,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<GymGroupEntity> GymGroups { get; set; }
     public DbSet<GymMemberGroupEntity> GymMemberGroups { get; set; }
     public DbSet<GymStaffGroupEntity> GymStaffGroups { get; set; }
+    public DbSet<GymLocationEntity> ClassLocations { get; set; }
     #endregion
 
     #region Shared
@@ -99,7 +100,6 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
 
     #region Class
     public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
-    public DbSet<ClassLocationEntity> ClassLocations { get; set; }
     public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     #endregion
 
@@ -112,7 +112,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     #endregion
 
     #region Event
-    public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
+    public DbSet<GymEventReservationEntity> GymEventReservations { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

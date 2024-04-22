@@ -23,5 +23,7 @@ internal class ActivityCategoryConfiguration : IEntityTypeConfiguration<Activity
                .WithOne(a => a.ActivityCategory)
                .HasForeignKey(a => a.ActivityCategoryId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(ac => ac.IsDeleted == false);
     }
 }

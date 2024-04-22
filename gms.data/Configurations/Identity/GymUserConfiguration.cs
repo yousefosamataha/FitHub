@@ -72,5 +72,31 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithOne(wp => wp.GymStaffUser)
                .HasForeignKey(wp => wp.AssignedByGymStaffUserId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymMeasurements)
+               .WithOne(gm => gm.GymMemberUser)
+               .HasForeignKey(gm => gm.GymMemberUserId);
+
+        builder.HasMany(gu => gu.MemberNutritionPlans)
+               .WithOne(np => np.GymMemberUser)
+               .HasForeignKey(np => np.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.StaffNutritionPlans)
+               .WithOne(np => np.GymStaffUser)
+               .HasForeignKey(np => np.AssignedByGymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymNotificationSenderUsers)
+               .WithOne(gn => gn.GymSenderUser)
+               .HasForeignKey(gn => gn.GymSenderUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymNotificationReceiverUsers)
+               .WithOne(gn =>  gn.GymReceiverUser)
+               .HasForeignKey(gn => gn.GymReceiverUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gu => gu.IsDeleted == false);
     }
 }
