@@ -22,5 +22,7 @@ internal class WorkoutPlanActivityConfiguration : IEntityTypeConfiguration<Worko
 			   .WithMany(a => a.WorkoutPlanActivities)
 			   .HasForeignKey(wpa => wpa.ActivityId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(wpa => wpa.IsDeleted == false);
     }
 }

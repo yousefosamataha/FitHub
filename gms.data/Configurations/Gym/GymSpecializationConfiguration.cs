@@ -22,5 +22,7 @@ internal class GymSpecializationConfiguration : IEntityTypeConfiguration<GymSpec
                .WithOne(gss => gss.GymSpecialization)
                .HasForeignKey(gss => gss.GymSpecializationId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gs => gs.IsDeleted == false);
     }
 }

@@ -30,5 +30,7 @@ internal class MealIngredientConfiguration : IEntityTypeConfiguration<MealIngred
         builder.HasOne(mi => mi.NutritionPlanMeal)
                .WithMany(npm => npm.MealIngredients)
                .HasForeignKey(mi => mi.NutritionPlanMealId);
+
+        builder.HasQueryFilter(mi => mi.IsDeleted == false);
     }
 }

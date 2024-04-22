@@ -22,5 +22,7 @@ internal class GymMeasurementConfiguration : IEntityTypeConfiguration<GymMeasure
 		builder.HasMany(gm => gm.MeasurementImages)
 			   .WithOne(mi => mi.GymMeasurement)
 			   .HasForeignKey(mi => mi.GymMeasurementId);
-	}
+
+        builder.HasQueryFilter(gm => gm.IsDeleted == false);
+    }
 }

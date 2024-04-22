@@ -28,5 +28,7 @@ internal class GymLocationConfiguration : IEntityTypeConfiguration<GymLocationEn
                .WithOne(ger => ger.GymLocation)
                .HasForeignKey(ger => ger.GymLocationId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gr => gr.IsDeleted == false);
     }
 }

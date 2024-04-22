@@ -20,6 +20,7 @@ public class GymUserEntity : IdentityUser<int>
     public string? State { get; set; }
     public StatusEnum StatusId { get; set; }
     public GymUserTypeEnum? GymUserTypeId { get; set; }
+    public bool? IsDeleted { get; set; }
 
     // Navigation properties
     public virtual GymBranchEntity GymBranch { get; set; }

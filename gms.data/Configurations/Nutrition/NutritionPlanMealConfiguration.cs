@@ -26,5 +26,7 @@ internal class NutritionPlanMealConfiguration : IEntityTypeConfiguration<Nutriti
         builder.HasMany(npm => npm.MealIngredients)
                .WithOne(mi => mi.NutritionPlanMeal)
                .HasForeignKey(mi => mi.NutritionPlanMealId);
+
+        builder.HasQueryFilter(npm => npm.IsDeleted == false);
     }
 }

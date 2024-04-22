@@ -31,5 +31,7 @@ internal class NutritionPlanConfiguration : IEntityTypeConfiguration<NutritionPl
                .WithOne(npm => npm.NutritionPlan)
                .HasForeignKey(npm => npm.NutritionPlanId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(np => np.IsDeleted == false);
     }
 }

@@ -30,5 +30,7 @@ internal class GymNotificationConfiguration : IEntityTypeConfiguration<GymNotifi
                .WithMany(gu => gu.GymNotificationReceiverUsers)
                .HasForeignKey(gn => gn.GymReceiverUserId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gn => gn.IsDeleted == false);
     }
 }

@@ -23,5 +23,7 @@ internal class MealTimeConfiguration : IEntityTypeConfiguration<MealTimeEntity>
                .WithOne(npm => npm.MealTime)
                .HasForeignKey(npm => npm.MealTimeId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(mt => mt.IsDeleted == false);
     }
 }

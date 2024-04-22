@@ -37,5 +37,7 @@ internal class ActivityConfiguration : IEntityTypeConfiguration<ActivityEntity>
                .WithOne(wpa => wpa.Activity)
                .HasForeignKey(wpa => wpa.ActivityId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(a => a.IsDeleted == false);
     }
 }

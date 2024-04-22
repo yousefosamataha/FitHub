@@ -96,5 +96,7 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .WithOne(gn =>  gn.GymReceiverUser)
                .HasForeignKey(gn => gn.GymReceiverUserId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gu => gu.IsDeleted == false);
     }
 }

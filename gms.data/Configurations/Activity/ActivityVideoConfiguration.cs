@@ -18,5 +18,7 @@ internal class ActivityVideoConfiguration : IEntityTypeConfiguration<ActivityVid
         builder.HasOne(av => av.Activity)
                .WithMany(a => a.ActivityVideos)
                .HasForeignKey(av => av.ActivityId);
+
+        builder.HasQueryFilter(av => av.IsDeleted == false);
     }
 }

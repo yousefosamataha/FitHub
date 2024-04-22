@@ -23,5 +23,7 @@ internal class GymEventReservationConfiguration : IEntityTypeConfiguration<GymEv
                .WithMany(gl => gl.GymEventReservations)
                .HasForeignKey(ger => ger.GymLocationId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(ger => ger.IsDeleted == false);
     }
 }

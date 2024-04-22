@@ -45,5 +45,7 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
                .WithOne(mc => mc.ClassSchedule)
                .HasForeignKey(mc => mc.ClassScheduleId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(cs => cs.IsDeleted == false);
     }
 }
