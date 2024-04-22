@@ -10,7 +10,7 @@ public class ClassScheduleEntity : BaseEntity
 {
     public int BranchId { get; set; }
     public required string ClassName { get; set; }
-    public int ClassLocationId { get; set; }
+    public int GymLocationId { get; set; }
     public decimal ClassFees { get; set; }
     public TimeOnly StartTime { get; set; } 
     public TimeOnly EndTime { get; set; }
@@ -18,7 +18,7 @@ public class ClassScheduleEntity : BaseEntity
     // Navigation properties
     public virtual GymBranchEntity GymBranch { get; set; }
     public virtual ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
-    public virtual ClassLocationEntity ClassLocation { get; set; }
+    public virtual GymLocationEntity GymLocation { get; set; }
     public virtual ICollection<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     public virtual ICollection<StaffClassEntity> StaffClasses { get; set; }
     public virtual ICollection<MemberClassEntity> MemberClasses { get; set; }

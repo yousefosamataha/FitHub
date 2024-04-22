@@ -15,8 +15,12 @@ internal class GymMeasurementConfiguration : IEntityTypeConfiguration<GymMeasure
 
 		builder.Property(gm => gm.Result).HasPrecision(18, 2);
 
+		builder.HasOne(gm => gm.GymMemberUser)
+			   .WithMany(gu => gu.GymMeasurements)
+			   .HasForeignKey(gm => gm.GymMemberUserId);
+
 		builder.HasMany(gm => gm.MeasurementImages)
 			   .WithOne(mi => mi.GymMeasurement)
-			   .HasForeignKey(mi => mi.MeasurementId);
+			   .HasForeignKey(mi => mi.GymMeasurementId);
 	}
 }

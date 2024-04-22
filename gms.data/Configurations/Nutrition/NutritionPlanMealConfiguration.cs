@@ -15,14 +15,16 @@ internal class NutritionPlanMealConfiguration : IEntityTypeConfiguration<Nutriti
 
         builder.HasOne(npm => npm.NutritionPlan)
                .WithMany(np => np.NutritionPlanMeals)
-               .HasForeignKey(npm => npm.NutritionPlanId);
+               .HasForeignKey(npm => npm.NutritionPlanId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(npm => npm.MealTime)
                .WithMany(mt => mt.NutritionPlanMeals)
-               .HasForeignKey(npm => npm.MealTimeId);
+               .HasForeignKey(npm => npm.MealTimeId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(npm => npm.MealIngredients)
                .WithOne(mi => mi.NutritionPlanMeal)
-               .HasForeignKey(mi => mi.MealId);
+               .HasForeignKey(mi => mi.NutritionPlanMealId);
     }
 }

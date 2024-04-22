@@ -15,8 +15,13 @@ internal class MealTimeConfiguration : IEntityTypeConfiguration<MealTimeEntity>
 
         builder.Property(mt => mt.Name).IsRequired().HasMaxLength(256);
 
+        builder.HasOne(mt => mt.GymBranch)
+              .WithMany(gb => gb.MealTimes)
+              .HasForeignKey(mt => mt.BranchId);
+
         builder.HasMany(mt => mt.NutritionPlanMeals)
                .WithOne(npm => npm.MealTime)
-               .HasForeignKey(npm => npm.MealTimeId);
+               .HasForeignKey(npm => npm.MealTimeId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

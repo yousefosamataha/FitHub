@@ -47,14 +47,13 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .WithOne(cs => cs.GymBranch)
                .HasForeignKey(cs => cs.BranchId);
 
-        builder.HasMany(gb => gb.ClassLocations)
-               .WithOne(cl => cl.GymBranch)
-               .HasForeignKey(cl => cl.BranchId);
+        builder.HasMany(gb => gb.GymLocations)
+               .WithOne(gl => gl.GymBranch)
+               .HasForeignKey(gl => gl.BranchId);
 
         builder.HasMany(gb => gb.GymGroups)
                .WithOne(ggr => ggr.GymBranch)
                .HasForeignKey(ggr => ggr.BranchId);
-
 
         builder.HasMany(gb => gb.Activities)
                .WithOne(a => a.GymBranch)
@@ -67,6 +66,22 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
         builder.HasMany(gb => gb.WorkoutPlans)
                .WithOne(wp => wp.GymBranch)
                .HasForeignKey(wp => wp.BranchId);
+
+        builder.HasMany(gb => gb.NutritionPlans)
+               .WithOne(np => np.GymBranch)
+               .HasForeignKey(np => np.BranchId);
+
+        builder.HasMany(gb => gb.MealTimes)
+               .WithOne(mt => mt.GymBranch)
+               .HasForeignKey(mt => mt.BranchId);
+
+        builder.HasMany(gb => gb.GymNotifications)
+               .WithOne(gn => gn.GymBranch)
+               .HasForeignKey(gn => gn.BranchId);
+
+        builder.HasMany(gb => gb.GymEventReservations)
+               .WithOne(gre => gre.GymBranch)
+               .HasForeignKey(gre => gre.BranchId);
 
         //builder.HasOne(gb => gb.GeneralSetting)
         //       .WithOne(gg => gg.GymBranch)

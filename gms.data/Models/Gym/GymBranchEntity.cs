@@ -1,8 +1,10 @@
 ﻿using gms.data.Models.Activity;
 using gms.data.Models.Base;
 using gms.data.Models.Class;
+using gms.data.Models.Event;
 using gms.data.Models.Identity;
 using gms.data.Models.Membership;
+using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
 using gms.data.Models.Workout;
 
@@ -27,10 +29,14 @@ public class GymBranchEntity : BaseEntity
     public virtual ICollection<GymSpecializationEntity> GymSpecializations { get; set; }
     public virtual ICollection<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
     public virtual ICollection<ClassScheduleEntity> ClassSchedules { get; set; }
-    public virtual ICollection<ClassLocationEntity> ClassLocations { get; set; }
+    public virtual ICollection<GymLocationEntity> GymLocations { get; set; }
     public virtual ICollection<GymGroupEntity> GymGroups { get; set; }
     public virtual ICollection<ActivityEntity> Activities { get; set; }
     public virtual ICollection<ActivityCategoryEntity> ActivityCategories { get; set; }
     public virtual ICollection<WorkoutPlanEntity> WorkoutPlans { get; set; }
+    public virtual ICollection<NutritionPlanEntity> NutritionPlans { get; set; }
+    public virtual ICollection<MealTimeEntity> MealTimes { get; set; }
+    public virtual ICollection<GymNotificationEntity> GymNotifications { get; set; }
+    public virtual ICollection<GymEventReservationEntity> GymEventReservations { get; set; }
     // public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
 }

@@ -26,9 +26,9 @@ internal class ClassScheduleConfiguration : IEntityTypeConfiguration<ClassSchedu
                .HasForeignKey(gmpc => gmpc.ClassScheduleId)
                .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(cs => cs.ClassLocation)
-               .WithMany(cl => cl.ClassSchedules)
-               .HasForeignKey(cs => cs.ClassLocationId)
+        builder.HasOne(cs => cs.GymLocation)
+               .WithMany(gl => gl.ClassSchedules)
+               .HasForeignKey(cs => cs.GymLocationId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(cs => cs.ClassScheduleDays)

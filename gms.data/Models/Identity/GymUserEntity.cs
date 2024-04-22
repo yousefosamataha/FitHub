@@ -2,6 +2,7 @@
 using gms.data.Models.Gym;
 using gms.data.Models.Member;
 using gms.data.Models.Membership;
+using gms.data.Models.Nutrition;
 using gms.data.Models.Staff;
 using gms.data.Models.Workout;
 using Microsoft.AspNetCore.Identity;
@@ -30,4 +31,9 @@ public class GymUserEntity : IdentityUser<int>
     public virtual ICollection<GymStaffGroupEntity> GymStaffGroups { get; set; }
     public virtual ICollection<WorkoutPlanEntity> MemberWorkoutPlans { get; set; }
     public virtual ICollection<WorkoutPlanEntity> StaffWorkoutPlans { get; set; }
+    public virtual ICollection<GymMeasurementEntity> GymMeasurements { get; set; }
+    public virtual ICollection<NutritionPlanEntity> MemberNutritionPlans { get; set; }
+    public virtual ICollection<NutritionPlanEntity> StaffNutritionPlans { get; set; }
+    public virtual ICollection<GymNotificationEntity> GymNotificationSenderUsers { get; set; }
+    public virtual ICollection<GymNotificationEntity> GymNotificationReceiverUsers { get; set; }
 }

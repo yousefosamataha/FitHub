@@ -1,13 +1,14 @@
 ﻿using gms.data.Models.Base;
+using gms.data.Models.Gym;
 
 namespace gms.data.Models.Nutrition;
 
 public class MealTimeEntity : BaseEntity
 {
-	public string Name { get; set; }
+    public int BranchId { get; set; }
+    public string Name { get; set; }
 
-	public ICollection<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
-
-	// TODO: Add Relation Entities
-	// public int CreatedById { get; set; }
+    // Navigation properties
+    public virtual GymBranchEntity GymBranch { get; set; }
+    public ICollection<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
 }
