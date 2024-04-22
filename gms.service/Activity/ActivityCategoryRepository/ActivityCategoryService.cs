@@ -1,14 +1,23 @@
-﻿using gms.data;
+﻿using gms.common.Models.Activity;
+using gms.data;
+using gms.data.Mapper;
 using gms.data.Models.Activity;
 using gms.services.Base;
 
 namespace gms.service.Activity.ActivityCategoryRepository;
 public class ActivityCategoryService : BaseRepository<ActivityCategoryEntity>, IActivityCategoryService
 {
-	private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-	public ActivityCategoryService(ApplicationDbContext context) : base(context)
-	{
-		_context = context;
-	}
+    public ActivityCategoryService(ApplicationDbContext context) : base(context)
+    {
+        _context = context;
+    }
+
+    public async Task<ActivityCategoryDTO> GetByIdAsync(int id)
+    {
+        ActivityCategoryEntity entity = await base.GetByIdAsync(id);
+
+        return entity.ToDTO();
+    }
 }
