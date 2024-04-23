@@ -25,4 +25,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\gms.common\gms.common.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Mapper\Branch\" />
+	</ItemGroup>
 </Project>

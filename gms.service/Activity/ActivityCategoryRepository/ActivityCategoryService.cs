@@ -1,6 +1,6 @@
-﻿using gms.common.Models.Activity;
+﻿using gms.common.Models.ActivityCategory;
 using gms.data;
-using gms.data.Mapper;
+using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.services.Base;
 

@@ -1,5 +1,5 @@
-﻿using gms.common.Models.Activity;
-using gms.data.Mapper;
+﻿using gms.common.Models.ActivityCategory;
+using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.service.Activity.ActivityCategoryRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -39,8 +39,8 @@ public class ActivityCategoryController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> Edit(int id)
     {
-        ActivityCategoryEntity entity = await _activityCategoryService.GetByIdAsync(id);
-        return View(entity.ToDTO());
+        ActivityCategoryDTO entity = await _activityCategoryService.GetByIdAsync(id);
+        return View(entity);
     }
 
     [HttpGet]

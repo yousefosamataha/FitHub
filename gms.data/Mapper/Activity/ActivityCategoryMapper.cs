@@ -1,7 +1,7 @@
-﻿using gms.common.Models.Activity;
+﻿using gms.common.Models.ActivityCategory;
 using gms.data.Models.Activity;
 
-namespace gms.data.Mapper;
+namespace gms.data.Mapper.Activity;
 
 public static class ActivityCategoryMapper
 {
