@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using gms.common.Models.Gym;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymRepository;
 using Microsoft.AspNetCore.Authentication;
@@ -27,12 +26,7 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IGymService _gymService;
 
-        public RegisterModel(
-            UserManager<GymUserEntity> userManager,
-            IUserStore<GymUserEntity> userStore,
-            SignInManager<GymUserEntity> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+        public RegisterModel(UserManager<GymUserEntity> userManager, IUserStore<GymUserEntity> userStore, SignInManager<GymUserEntity> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -111,13 +105,6 @@ namespace gms.web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                CreateGymDTO newGym = new ()
-                {
-                    Name = "Muhammmad"
-                };
-
-                await _gymService.CreateGym(newGym);
-
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

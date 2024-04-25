@@ -1,4 +1,4 @@
-﻿using gms.common.Models.Activity;
+﻿using gms.common.Models.ActivityCat.Activity;
 using gms.data.Models.Activity;
 
 namespace gms.data.Mapper.Activity;

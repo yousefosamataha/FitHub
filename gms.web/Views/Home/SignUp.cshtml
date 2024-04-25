@@ -1,6 +1,9 @@
-﻿@{
+﻿@using gms.common.Models.Shared.Country;
+@model List<CountryDTO>
+@{
     Layout = null;
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+    var test = Model;
 }
 
 <!DOCTYPE html>
@@ -34,6 +37,10 @@
         <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
         <!--end::Global Stylesheets Bundle-->
     }
+
+    <!--begin::Custom Css Stylesheets-->
+    <link href="~/assets/css/customCss/custom.css" rel="stylesheet" type="text/css" />
+    <!--end::Custom Css Stylesheets-->
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -73,8 +80,8 @@
                                     <!--end::Icon-->
                                     <!--begin::Label-->
                                     <div class="stepper-label">
-                                        <h3 class="stepper-title fs-2">Price Plan Type</h3>
-                                        <div class="stepper-desc fw-normal">Select your Price Plan type</div>
+                                        <h3 class="stepper-title fs-2">Price Plan</h3>
+                                        <div class="stepper-desc fw-normal">Select your Price Plan</div>
                                     </div>
                                     <!--end::Label-->
                                 </div>
@@ -89,15 +96,15 @@
                                 <!--begin::Wrapper-->
                                 <div class="stepper-wrapper">
                                     <!--begin::Icon-->
-                                    <div class="stepper-icon rounded-3">
+                                    <div class="stepper-icon">
                                         <i class="ki-outline ki-check fs-2 stepper-check"></i>
-                                        <span class="stepper-number">2</span>
+                                        <span class="stepper-number">3</span>
                                     </div>
                                     <!--end::Icon-->
                                     <!--begin::Label-->
                                     <div class="stepper-label">
-                                        <h3 class="stepper-title fs-2">Account Info</h3>
-                                        <div class="stepper-desc fw-normal">Setup your account settings</div>
+                                        <h3 class="stepper-title fs-2">Business Info</h3>
+                                        <div class="stepper-desc fw-normal">Setup your business Info</div>
                                     </div>
                                     <!--end::Label-->
                                 </div>
@@ -112,44 +119,21 @@
                                 <!--begin::Wrapper-->
                                 <div class="stepper-wrapper">
                                     <!--begin::Icon-->
-                                    <div class="stepper-icon">
+                                    <div class="stepper-icon rounded-3">
                                         <i class="ki-outline ki-check fs-2 stepper-check"></i>
-                                        <span class="stepper-number">3</span>
+                                        <span class="stepper-number">2</span>
                                     </div>
                                     <!--end::Icon-->
                                     <!--begin::Label-->
                                     <div class="stepper-label">
-                                        <h3 class="stepper-title fs-2">Business Details</h3>
-                                        <div class="stepper-desc fw-normal">Setup your business details</div>
+                                        <h3 class="stepper-title fs-2">Account Info</h3>
+                                        <div class="stepper-desc fw-normal">Setup your account Info</div>
                                     </div>
                                     <!--end::Label-->
                                 </div>
                                 <!--end::Wrapper-->
-                                <!--begin::Line-->
-                                <div class="stepper-line h-40px"></div>
-                                <!--end::Line-->
                             </div>
                             <!--end::Step 3-->
-                            <!--begin::Step 4-->
-                            <div class="stepper-item" data-kt-stepper-element="nav">
-                                <!--begin::Wrapper-->
-                                <div class="stepper-wrapper">
-                                    <!--begin::Icon-->
-                                    <div class="stepper-icon">
-                                        <i class="ki-outline ki-check fs-2 stepper-check"></i>
-                                        <span class="stepper-number">5</span>
-                                    </div>
-                                    <!--end::Icon-->
-                                    <!--begin::Label-->
-                                    <div class="stepper-label">
-                                        <h3 class="stepper-title">Completed</h3>
-                                        <div class="stepper-desc fw-normal">Your account is created</div>
-                                    </div>
-                                    <!--end::Label-->
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Step 4-->
                         </div>
                         <!--end::Nav-->
                     </div>
@@ -170,11 +154,11 @@
                                 <!--begin::Wrapper-->
                                 <div class="w-100">
                                     <!--begin::Heading-->
-                                    <div class="pb-10 pb-lg-15">
+                                    <div class="pb-10 pb-lg-10">
                                         <!--begin::Title-->
                                         <h2 class="fw-bold d-flex align-items-center text-dark">
-                                            Choose Your Plan
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Billing is issued based on your selected account typ">
+                                            Choose Your Price Plan
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Billing is issued based on your selected price plan.">
                                                 <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                                             </span>
                                         </h2>
@@ -187,6 +171,9 @@
                                         <!--end::Notice-->
                                     </div>
                                     <!--end::Heading-->
+                                    <!--begin::Input-->
+                                    <input type="hidden" id="SubscriptionTypeId" name="SubscriptionTypeId" value="1" />
+                                    <!--end::Input-->
                                     <!--begin::Nav group-->
                                     <div class="nav-group nav-group-outline mx-auto mb-10" style="width: fit-content;" data-kt-buttons="true" data-kt-initialized="1">
                                         <button class="btn btn-color-gray-600 btn-active btn-active-success px-6 py-3 me-2 active" data-kt-plan="month">
@@ -198,162 +185,198 @@
                                     </div>
                                     <!--end::Nav group-->
                                     <!--begin::Input group-->
-                                    <div class="fv-row">
-                                        <!--begin::Row-->
-                                        <div class="row">
-                                            <!--begin::Col-->
-                                            <div class="col-lg-4">
-                                                <!--begin::Option-->
-                                                <input type="radio" class="btn-check" name="planId" value="2" checked="checked" id="plan_type_startup" />
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-column flex-center bg-light bg-opacity-75 p-7 d-flex align-items-center mb-10" for="plan_type_startup">
-                                                    <!--begin::Heading-->
-                                                    <div class="mb-7 text-center">
-                                                        <!--begin::Title-->
-                                                        <h1 class="text-dark mb-5 fw-bolder">Startup</h1>
-                                                        <!--end::Title-->
-                                                        <!--begin::Description-->
-                                                        <div class="text-gray-600 fw-semibold mb-5">
-                                                            Best Settings for Startup
+                                    <!--begin::Row-->
+                                    <div class="row mt-10">
+                                        <!--begin::Col-->
+                                        <div class="col-lg-6 mb-10 mb-lg-0">
+                                            <!--begin::Tabs-->
+                                            <div class="nav flex-column">
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 active mb-6" data-bs-toggle="tab" data-bs-target="#plan_type_startup">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" type="radio" name="PlanId" checked="checked" value="2" />
                                                         </div>
-                                                        <!--end::Description-->
-                                                        <!--begin::Price-->
-                                                        <div class="text-center">
-                                                            <span class="mb-2 text-primary">EGP</span>
-                                                            <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="499" data-kt-plan-price-annual="4999">499</span>
-                                                            <span class="fs-7 fw-semibold text-gray-600" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Startup</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Startups</div>
                                                         </div>
-                                                        <!--end::Price-->
+                                                        <!--end::Info-->
                                                     </div>
-                                                    <!--end::Heading-->
-                                                    <!--begin::Features-->
-                                                    <div class="w-100">
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 3 Active Branches</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 30 Active Staff Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 100 Active Member Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="499" data-kt-plan-price-annual="4999">499</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
                                                     </div>
-                                                    <!--end::Features-->
+                                                    <!--end::Price-->
                                                 </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-lg-4">
-                                                <!--begin::Option-->
-                                                <input type="radio" class="btn-check" name="planId" value="3" id="plan_type_business" />
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-column flex-center bg-light bg-opacity-75 p-7 d-flex align-items-center mb-10" for="plan_type_business">
-                                                    <!--begin::Heading-->
-                                                    <div class="mb-7 text-center">
-                                                        <!--begin::Title-->
-                                                        <h1 class="text-dark mb-5 fw-bolder">Business</h1>
-                                                        <!--end::Title-->
-                                                        <!--begin::Description-->
-                                                        <div class="text-gray-600 fw-semibold mb-5">
-                                                            Best Settings for Business
+                                                <!--end::Tab link-->
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6" data-bs-toggle="tab" data-bs-target="#plan_type_business">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" type="radio" name="PlanId" value="3" />
                                                         </div>
-                                                        <!--end::Description-->
-                                                        <!--begin::Price-->
-                                                        <div class="text-center">
-                                                            <span class="mb-2 text-primary">EGP</span>
-                                                            <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="999" data-kt-plan-price-annual="9999">999</span>
-                                                            <span class="fs-7 fw-semibold text-gray-600" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Business</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Business</div>
                                                         </div>
-                                                        <!--end::Price-->
+                                                        <!--end::Info-->
                                                     </div>
-                                                    <!--end::Heading-->
-                                                    <!--begin::Features-->
-                                                    <div class="w-100">
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 5 Active Branches</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 40 Active Staff Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 200 Active Member Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="999" data-kt-plan-price-annual="9999">999</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
                                                     </div>
-                                                    <!--end::Features-->
+                                                    <!--end::Price-->
                                                 </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-lg-4">
-                                                <!--begin::Option-->
-                                                <input type="radio" class="btn-check" name="planId" value="4" id="plan_type_enterprise" />
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-column flex-center bg-light bg-opacity-75 p-7 d-flex align-items-center" for="plan_type_enterprise">
-                                                    <!--begin::Heading-->
-                                                    <div class="mb-7 text-center">
-                                                        <!--begin::Title-->
-                                                        <h1 class="text-dark mb-5 fw-bolder">Enterprise</h1>
-                                                        <!--end::Title-->
-                                                        <!--begin::Description-->
-                                                        <div class="text-gray-600 fw-semibold mb-5">
-                                                            Best Settings for Enterprise
+                                                <!--end::Tab link-->
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6" data-bs-toggle="tab" data-bs-target="#plan_type_enterprise">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" type="radio" name="PlanId" value="4" />
                                                         </div>
-                                                        <!--end::Description-->
-                                                        <!--begin::Price-->
-                                                        <div class="text-center">
-                                                            <span class="mb-2 text-primary">EGP</span>
-                                                            <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="1999" data-kt-plan-price-annual="19999">1999</span>
-                                                            <span class="fs-7 fw-semibold text-gray-600" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Enterprise</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Enterprise</div>
                                                         </div>
-                                                        <!--end::Price-->
+                                                        <!--end::Info-->
                                                     </div>
-                                                    <!--end::Heading-->
-                                                    <!--begin::Features-->
-                                                    <div class="w-100">
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 10 Active Branches</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 50 Active Staff Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
-                                                        <!--begin::Item-->
-                                                        <div class="d-flex align-items-center mb-5">
-                                                            <span class="bullet bg-primary me-3"></span>
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 text-start pe-3">Up to 400 Active Member Users</span>
-                                                        </div>
-                                                        <!--end::Item-->
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="1999" data-kt-plan-price-annual="19999">1999</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
                                                     </div>
-                                                    <!--end::Features-->
+                                                    <!--end::Price-->
                                                 </label>
-                                                <!--end::Option-->
+                                                <!--end::Tab link-->
                                             </div>
-                                            <!--end::Col-->
+                                            <!--end::Tabs-->
                                         </div>
-                                        <!--end::Row-->
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-lg-6">
+                                            <!--begin::Tab content-->
+                                            @*<div class="tab-content rounded h-100 bg-light p-10">*@
+                                            <div class="tab-content rounded bg-light p-10">
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade show active" id="plan_type_startup">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Startup Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 3 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 30 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 100 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade" id="plan_type_business">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Business Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 5 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 40 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 200 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade" id="plan_type_enterprise">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Enterprise Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 10 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 50 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 400 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                            </div>
+                                            <!--end::Tab content-->
+                                        </div>
+                                        <!--end::Col-->
                                     </div>
+                                    <!--end::Row-->
                                     <!--end::Input group-->
                                 </div>
                                 <!--end::Wrapper-->
@@ -364,7 +387,95 @@
                                 <!--begin::Wrapper-->
                                 <div class="w-100">
                                     <!--begin::Heading-->
-                                    <div class="pb-10 pb-lg-15">
+                                    <div class="pb-10 pb-lg-12">
+                                        <!--begin::Title-->
+                                        <h2 class="fw-bold text-dark">Business Info</h2>
+                                        <!--end::Title-->
+                                        <!--begin::Notice-->
+                                        <div class="text-muted fw-semibold fs-6">
+                                            If you need more info, please check out
+                                            <a href="#" class="link-primary fw-bold">Help Page</a>.
+                                        </div>
+                                        <!--end::Notice-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">Gym Name</label>
+                                        <input type="text" name="GymName" class="form-control" placeholder="@localizer["enter"] Gym Name @localizer["here"]" />
+                                    </div>
+                                    <!--end::Input group-->
+                                    <div class="row row-cols-1 row-cols-sm-3 rol-cols-md-1 row-cols-lg-3">
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">Select a Country</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountry" class="form-select" name="CountryId" data-placeholder="@localizer["select_an_option"]">
+                                                <option></option>
+                                                @foreach (var c in Model.OrderBy(c => c.Name))
+                                                {
+                                                    <option value="@c.Id" data-country-flag="@(c.FlagType + c.Flag)">@c.Name</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                        <div class="col mb-5">
+                                            <label class="form-label ms-2">Currency</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountryCurrency" class="form-select" data-control="select2" data-placeholder="Currency" disabled>
+                                                <option></option>
+                                                @foreach (var c in Model)
+                                                {
+                                                    <option value="@c.Id">@c.Currency (@c.CurrencyCode)</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                        <div class="col mb-5">
+                                            <label class="form-label ms-2">TimeZone</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountryTimeZone" class="form-select" data-control="select2" data-placeholder="TimeZone" disabled>
+                                                <option></option>
+                                                @foreach (var c in Model)
+                                                {
+                                                    <option value="@c.Id">@c.TimeZone (UTC @c.TimezoneOffset)</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                    </div>
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5">
+                                        <label class="form-label ms-2">Address</label>
+                                        <input type="text" name="BranchAddress" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+                                    </div>
+                                    <!--end::Input group-->
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0">
+                                            <!--begin::Input group-->
+                                            <label class="form-label ms-2">Contact Email</label>
+                                            <input type="email" name="BranchEmail" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" />
+                                            <!--end::Input group-->
+                                        </div>
+                                        <div class="col">
+                                            <!--begin::Input group-->
+                                            <label class="form-label ms-2">Contact Number</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="BranchContactNumber">+</span>
+                                                <input type="text" class="form-control" name="BranchContactNumber" maxlength="10" aria-describedby="BranchContactNumber" />
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Step 2-->
+                            <!--begin::Step 3-->
+                            <div class="" data-kt-stepper-element="content">
+                                <!--begin::Wrapper-->
+                                <div class="w-100">
+                                    <!--begin::Heading-->
+                                    <div class="pb-10 pb-lg-10">
                                         <!--begin::Title-->
                                         <h2 class="fw-bold text-dark">Account Info</h2>
                                         <!--end::Title-->
@@ -376,310 +487,62 @@
                                         <!--end::Notice-->
                                     </div>
                                     <!--end::Heading-->
-                                    <!--begin::Input group-->
-                                    <div class="mb-10 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label mb-3">
-                                            Specify Team Size
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Provide your team size to help us setup your billing">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Row-->
-                                        <div class="row mb-2" data-kt-buttons="true">
-                                            <!--begin::Col-->
-                                            <div class="col">
-                                                <!--begin::Option-->
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                    <input type="radio" class="btn-check" name="account_team_size" value="1-1" />
-                                                    <span class="fw-bold fs-3">1-1</span>
-                                                </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col">
-                                                <!--begin::Option-->
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
-                                                    <input type="radio" class="btn-check" name="account_team_size" checked="checked" value="2-10" />
-                                                    <span class="fw-bold fs-3">2-10</span>
-                                                </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col">
-                                                <!--begin::Option-->
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                    <input type="radio" class="btn-check" name="account_team_size" value="10-50" />
-                                                    <span class="fw-bold fs-3">10-50</span>
-                                                </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col">
-                                                <!--begin::Option-->
-                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                    <input type="radio" class="btn-check" name="account_team_size" value="50+" />
-                                                    <span class="fw-bold fs-3">50+</span>
-                                                </label>
-                                                <!--end::Option-->
-                                            </div>
-                                            <!--end::Col-->
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["first_name"]</label>
+                                            <input type="text" name="FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
                                         </div>
-                                        <!--end::Row-->
-                                        <!--begin::Hint-->
-                                        <div class="form-text">Customers will see this shortened version of your statement descriptor</div>
-                                        <!--end::Hint-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="mb-10 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="form-label mb-3">Team Account Name</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="mb-0 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label mb-5">
-                                            Select Account Plan
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Monthly billing will be based on your account plan">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Options-->
-                                        <div class="mb-0">
-                                            <!--begin:Option-->
-                                            <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                                <!--begin:Label-->
-                                                <span class="d-flex align-items-center me-2">
-                                                    <!--begin::Icon-->
-                                                    <span class="symbol symbol-50px me-6">
-                                                        <span class="symbol-label">
-                                                            <i class="ki-outline ki-bank fs-1 text-gray-600"></i>
-                                                        </span>
-                                                    </span>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Description-->
-                                                    <span class="d-flex flex-column">
-                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-5">Company Account</span>
-                                                        <span class="fs-6 fw-semibold text-muted">Use images to enhance your post flow</span>
-                                                    </span>
-                                                    <!--end:Description-->
-                                                </span>
-                                                <!--end:Label-->
-                                                <!--begin:Input-->
-                                                <span class="form-check form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="radio" name="account_plan" value="1" />
-                                                </span>
-                                                <!--end:Input-->
-                                            </label>
-                                            <!--end::Option-->
-                                            <!--begin:Option-->
-                                            <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                                <!--begin:Label-->
-                                                <span class="d-flex align-items-center me-2">
-                                                    <!--begin::Icon-->
-                                                    <span class="symbol symbol-50px me-6">
-                                                        <span class="symbol-label">
-                                                            <i class="ki-outline ki-chart fs-1 text-gray-600"></i>
-                                                        </span>
-                                                    </span>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Description-->
-                                                    <span class="d-flex flex-column">
-                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-5">Developer Account</span>
-                                                        <span class="fs-6 fw-semibold text-muted">Use images to your post time</span>
-                                                    </span>
-                                                    <!--end:Description-->
-                                                </span>
-                                                <!--end:Label-->
-                                                <!--begin:Input-->
-                                                <span class="form-check form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="radio" checked="checked" name="account_plan" value="2" />
-                                                </span>
-                                                <!--end:Input-->
-                                            </label>
-                                            <!--end::Option-->
-                                            <!--begin:Option-->
-                                            <label class="d-flex flex-stack mb-0 cursor-pointer">
-                                                <!--begin:Label-->
-                                                <span class="d-flex align-items-center me-2">
-                                                    <!--begin::Icon-->
-                                                    <span class="symbol symbol-50px me-6">
-                                                        <span class="symbol-label">
-                                                            <i class="ki-outline ki-chart-pie-4 fs-1 text-gray-600"></i>
-                                                        </span>
-                                                    </span>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Description-->
-                                                    <span class="d-flex flex-column">
-                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-5">Testing Account</span>
-                                                        <span class="fs-6 fw-semibold text-muted">Use images to enhance time travel rivers</span>
-                                                    </span>
-                                                    <!--end:Description-->
-                                                </span>
-                                                <!--end:Label-->
-                                                <!--begin:Input-->
-                                                <span class="form-check form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="radio" name="account_plan" value="3" />
-                                                </span>
-                                                <!--end:Input-->
-                                            </label>
-                                            <!--end::Option-->
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["last_name"]</label>
+                                            <input type="text" name="LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
                                         </div>
-                                        <!--end::Options-->
+                                        <!--end::Input group-->
                                     </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Step 2-->
-                            <!--begin::Step 3-->
-                            <div class="" data-kt-stepper-element="content">
-                                <!--begin::Wrapper-->
-                                <div class="w-100">
-                                    <!--begin::Heading-->
-                                    <div class="pb-10 pb-lg-12">
-                                        <!--begin::Title-->
-                                        <h2 class="fw-bold text-dark">Business Details</h2>
-                                        <!--end::Title-->
-                                        <!--begin::Notice-->
-                                        <div class="text-muted fw-semibold fs-6">
-                                            If you need more info, please check out
-                                            <a href="#" class="link-primary fw-bold">Help Page</a>.
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["birthdate"]</label>
+                                            <input class="form-control" name="Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                         </div>
-                                        <!--end::Notice-->
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["gender"]</label>
+                                            <!--begin::Select Status-->
+                                            <select class="form-select" name="GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                                <option></option>
+                                                <option value="1">@localizer["male"]</option>
+                                                <option value="2">@localizer["female"]</option>
+                                            </select>
+                                            <!--end::Select Status-->
+                                        </div>
+                                        <!--end::Input group-->
                                     </div>
-                                    <!--end::Heading-->
                                     <!--begin::Input group-->
-                                    <div class="fv-row mb-10">
-                                        <!--begin::Label-->
-                                        <label class="form-label required">Business Name</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input name="business_name" class="form-control form-control-lg form-control-solid" value="Keenthemes Inc." />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-10">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center form-label">
-                                            <span class="required">Shortened Descriptor</span>
-                                            <span class="lh-1 ms-1" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="&lt;div class=&#039;p-4 rounded bg-light&#039;&gt; &lt;div class=&#039;d-flex flex-stack text-muted mb-4&#039;&gt; &lt;i class=&quot;ki-outline ki-bank fs-3 me-3&quot;&gt;&lt;/i&gt; &lt;div class=&#039;fw-bold&#039;&gt;INCBANK **** 1245 STATEMENT&lt;/div&gt; &lt;/div&gt; &lt;div class=&#039;d-flex flex-stack fw-semibold text-gray-600&#039;&gt; &lt;div&gt;Amount&lt;/div&gt; &lt;div&gt;Transaction&lt;/div&gt; &lt;/div&gt; &lt;div class=&#039;separator separator-dashed my-2&#039;&gt;&lt;/div&gt; &lt;div class=&#039;d-flex flex-stack text-dark fw-bold mb-2&#039;&gt; &lt;div&gt;USD345.00&lt;/div&gt; &lt;div&gt;KEENTHEMES*&lt;/div&gt; &lt;/div&gt; &lt;div class=&#039;d-flex flex-stack text-muted mb-2&#039;&gt; &lt;div&gt;USD75.00&lt;/div&gt; &lt;div&gt;Hosting fee&lt;/div&gt; &lt;/div&gt; &lt;div class=&#039;d-flex flex-stack text-muted&#039;&gt; &lt;div&gt;USD3,950.00&lt;/div&gt; &lt;div&gt;Payrol&lt;/div&gt; &lt;/div&gt; &lt;/div&gt;">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input name="business_descriptor" class="form-control form-control-lg form-control-solid" value="KEENTHEMES" />
-                                        <!--end::Input-->
-                                        <!--begin::Hint-->
-                                        <div class="form-text">Customers will see this shortened version of your statement descriptor</div>
-                                        <!--end::Hint-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">@localizer["email"]</label>
+                                        <input type="email" name="Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="fv-row mb-10">
-                                        <!--begin::Label-->
-                                        <label class="form-label required">Corporation Type</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select name="business_type" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                                            <option></option>
-                                            <option value="1">S Corporation</option>
-                                            <option value="1">C Corporation</option>
-                                            <option value="2">Sole Proprietorship</option>
-                                            <option value="3">Non-profit</option>
-                                            <option value="4">Limited Liability</option>
-                                            <option value="5">General Partnership</option>
-                                        </select>
-                                        <!--end::Input-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">@localizer["password"]</label>
+                                        <input type="password" name="Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="fv-row mb-10">
-                                        <!--end::Label-->
-                                        <label class="form-label">Business Description</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <textarea name="business_description" class="form-control form-control-lg form-control-solid" rows="3"></textarea>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-0">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label required">Contact Email</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input name="business_email" class="form-control form-control-lg form-control-solid" value="corp@support.com" />
-                                        <!--end::Input-->
+                                    <div class="col fv-row">
+                                        <label class="required form-label ms-2">Confirm Password</label>
+                                        <input type="password" name="ConfirmPassword" class="form-control" placeholder="@localizer["enter"] @localizer["password"] Again @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                 </div>
                                 <!--end::Wrapper-->
                             </div>
                             <!--end::Step 3-->
-                            <!--begin::Step 4-->
-                            <div class="" data-kt-stepper-element="content">
-                                <!--begin::Wrapper-->
-                                <div class="w-100">
-                                    <!--begin::Heading-->
-                                    <div class="pb-8 pb-lg-10">
-                                        <!--begin::Title-->
-                                        <h2 class="fw-bold text-dark">Your Are Done!</h2>
-                                        <!--end::Title-->
-                                        <!--begin::Notice-->
-                                        <div class="text-muted fw-semibold fs-6">
-                                            If you need more info, please
-                                            <a href="../../demo39/dist/.html" class="link-primary fw-bold">Sign In</a>.
-                                        </div>
-                                        <!--end::Notice-->
-                                    </div>
-                                    <!--end::Heading-->
-                                    <!--begin::Body-->
-                                    <div class="mb-0">
-                                        <!--begin::Text-->
-                                        <div class="fs-6 text-gray-600 mb-5">Writing headlines for blog posts is as much an art as it is a science and probably warrants its own post, but for all advise is with what works for your great & amazing audience.</div>
-                                        <!--end::Text-->
-                                        <!--begin::Alert-->
-                                        <!--begin::Notice-->
-                                        <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                                            <!--begin::Icon-->
-                                            <i class="ki-outline ki-information fs-2tx text-warning me-4"></i>
-                                            <!--end::Icon-->
-                                            <!--begin::Wrapper-->
-                                            <div class="d-flex flex-stack flex-grow-1">
-                                                <!--begin::Content-->
-                                                <div class="fw-semibold">
-                                                    <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-                                                    <div class="fs-6 text-gray-700">
-                                                        To start using great tools, please,
-                                                        <a href="../../demo39/dist/utilities/wizards/vertical.html" class="fw-bold">Create Team Platform</a>
-                                                    </div>
-                                                </div>
-                                                <!--end::Content-->
-                                            </div>
-                                            <!--end::Wrapper-->
-                                        </div>
-                                        <!--end::Notice-->
-                                        <!--end::Alert-->
-                                    </div>
-                                    <!--end::Body-->
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Step 4-->
                             <!--begin::Actions-->
                             <div class="d-flex flex-stack pt-15">
                                 <div class="mr-2">

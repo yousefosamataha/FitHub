@@ -1,6 +1,6 @@
-﻿using gms.common.Models.Activity;
+﻿using gms.common.Models.ActivityCat.Activity;
 
-namespace gms.common.Models.ActivityVideo;
+namespace gms.common.Models.ActivityCat.ActivityVideo;
 
 public record struct ActivityVideoDTO
 {

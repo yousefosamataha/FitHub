@@ -1,4 +1,4 @@
-﻿using gms.common.Models.ActivityVideo;
+﻿using gms.common.Models.ActivityCat.ActivityVideo;
 using gms.data.Models.Activity;
 
 namespace gms.data.Mapper.Activity;

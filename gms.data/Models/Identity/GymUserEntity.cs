@@ -11,6 +11,7 @@ namespace gms.data.Models.Identity;
 public class GymUserEntity : IdentityUser<int>
 {
     public int BranchId { get; set; }
+    public byte[]? Image { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public GenderEnum GenderId { get; set; }
@@ -20,7 +21,7 @@ public class GymUserEntity : IdentityUser<int>
     public string? State { get; set; }
     public StatusEnum StatusId { get; set; }
     public GymUserTypeEnum? GymUserTypeId { get; set; }
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     // Navigation properties
     public virtual GymBranchEntity GymBranch { get; set; }

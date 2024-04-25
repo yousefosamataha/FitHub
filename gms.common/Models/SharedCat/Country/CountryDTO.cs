@@ -1,9 +1,8 @@
-﻿using gms.data.Models.Base;
+﻿namespace gms.common.Models.Shared.Country;
 
-namespace gms.data.Models.Shared;
-
-public class CountryEntity : BaseEntity
+public record struct CountryDTO
 {
+    public int Id { get; set; }
     public required string Name { get; set; }
     public required string Currency { get; set; }
     public required string CurrencyCode { get; set; }
@@ -12,6 +11,6 @@ public class CountryEntity : BaseEntity
     public required string TimezoneOffset { get; set; }
     public required string Language { get; set; }
     public required string CallingCode { get; set; }
-    public required byte[] Flag { get; set; }
+    public required string Flag { get; set; }
     public required string FlagType { get; set; }
 }

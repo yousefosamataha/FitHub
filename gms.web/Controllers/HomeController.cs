@@ -1,16 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using gms.common.Models.Shared.Country;
+using gms.service.Shared.CountryRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace gms.web.Controllers;
 
 [Authorize]
 public class HomeController : BaseController<HomeController>
 {
-    public HomeController()
+    private readonly ICountryService _countryService;
+
+    public HomeController(ICountryService countryService)
     {
+        _countryService = countryService;
     }
+
 	public IActionResult Index()
 	{
 		var test = requestLocalizationOptions;
@@ -91,13 +96,22 @@ public class HomeController : BaseController<HomeController>
 		return View();
 	}
 
-	public IActionResult SignUp()
+	public async Task<IActionResult> SignUp()
 	{
-		return View();
+		List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+
+        return View(List);
 	}
 
+    [HttpGet]
+    public async Task<List<CountryDTO>> GetCountriesList()
+    {
+        List<CountryDTO> List = await _countryService.GetCountriesListAsync();
 
-	[HttpPost]
+        return List;
+    }
+
+    [HttpPost]
     public IActionResult SetLanguage(string culture, string redirecturl)
     {
         Response.Cookies.Append

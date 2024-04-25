@@ -1,4 +1,4 @@
-﻿using gms.common.Models.ActivityCategory;
+﻿using gms.common.Models.ActivityCat.ActivityCategory;
 using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.service.Activity.ActivityCategoryRepository;

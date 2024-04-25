@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using gms.common.Models.Gym;
+using gms.common.Models.GymCat.Gym;
 
 namespace gms.common.Validation.Gym;
 

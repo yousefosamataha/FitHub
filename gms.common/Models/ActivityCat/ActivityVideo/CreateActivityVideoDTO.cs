@@ -1,4 +1,4 @@
-﻿namespace gms.common.Models.ActivityVideo;
+﻿namespace gms.common.Models.ActivityCat.ActivityVideo;
 
 public record struct CreateActivityVideoDTO
 {

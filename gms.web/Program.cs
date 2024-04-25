@@ -1,6 +1,7 @@
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
+using gms.service.Shared.CountryRepository;
 using gms.services.Base;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +76,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
+	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService)); 
 }
 
 

@@ -1,4 +1,4 @@
-﻿namespace gms.common.Models.ActivityCategory;
+﻿namespace gms.common.Models.ActivityCat.ActivityCategory;
 
 public record struct CreateActivityCategoryDTO
 {

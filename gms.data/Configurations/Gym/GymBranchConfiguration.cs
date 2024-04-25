@@ -15,8 +15,6 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
 
         builder.Property(gb => gb.BranchName).IsRequired().HasMaxLength(256);
 
-        builder.Property(gb => gb.StartYear).IsRequired();
-
         builder.Property(gb => gb.Address).IsRequired();
 
         builder.Property(gb => gb.ContactNumber).IsRequired();

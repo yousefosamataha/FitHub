@@ -14,7 +14,7 @@ public class GymBranchEntity : BaseEntity
 {
     public int GymId { get; set; }
     public required string BranchName { get; set; }
-    public int StartYear { get; set; }
+    public int? StartYear { get; set; }
     public required string Address { get; set; }
     public required string ContactNumber { get; set; }
     public int CountryId { get; set; }

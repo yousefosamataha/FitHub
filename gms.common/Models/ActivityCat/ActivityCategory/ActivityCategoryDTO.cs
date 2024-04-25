@@ -1,6 +1,6 @@
-﻿using gms.common.Models.Activity;
+﻿using gms.common.Models.ActivityCat.Activity;
 
-namespace gms.common.Models.ActivityCategory;
+namespace gms.common.Models.ActivityCat.ActivityCategory;
 
 public record struct ActivityCategoryDTO
 {

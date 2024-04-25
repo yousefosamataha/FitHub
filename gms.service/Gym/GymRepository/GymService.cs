@@ -1,4 +1,4 @@
-﻿using gms.common.Models.Gym;
+﻿using gms.common.Models.GymCat.Gym;
 using gms.data;
 using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
