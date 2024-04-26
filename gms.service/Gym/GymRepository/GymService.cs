@@ -16,8 +16,7 @@ public class GymService : BaseRepository<GymEntity>, IGymService
     public async Task<GymDTO> CreateGym(CreateGymDTO newGym)
     {
         GymEntity newGymEntity = newGym.ToEntity();
-        await _context.AddAsync(newGymEntity);
-        await _context.SaveChangesAsync();
+        await AddAsync(newGymEntity);
         return newGymEntity.ToDTO();
     }
 }
