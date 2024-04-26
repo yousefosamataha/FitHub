@@ -1,6 +1,8 @@
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
+using gms.service.Gym.GymBranchRepository;
+using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
 using gms.services.Base;
 using gms.web.Filters;
@@ -75,6 +77,10 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+	builder.Services.AddScoped(typeof(IGymService), typeof(GymService)); 
+
+	builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService)); 
 
 	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService)); 
 }

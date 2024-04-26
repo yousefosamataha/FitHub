@@ -1,5 +1,4 @@
-﻿@using gms.common.Models.Shared.Country;
-@model List<CountryDTO>
+﻿@model RegisterNewAccountVM
 @{
     Layout = null;
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
@@ -148,7 +147,7 @@
                     <!--begin::Wrapper-->
                     <div class="w-lg-850px w-xl-900px p-10 p-lg-15 mx-auto">
                         <!--begin::Form-->
-                        <form class="my-auto pb-5" novalidate="novalidate" id="kt_create_account_form">
+                        <form class="my-auto pb-5" id="kt_create_account_form" asp-action="RegisterNewAccount" asp-controller="Home" method="post">
                             <!--begin::Step 1-->
                             <div class="current" data-kt-stepper-element="content">
                                 <!--begin::Wrapper-->
@@ -172,7 +171,7 @@
                                     </div>
                                     <!--end::Heading-->
                                     <!--begin::Input-->
-                                    <input type="hidden" id="SubscriptionTypeId" name="SubscriptionTypeId" value="1" />
+                                    <input type="hidden" id="SubscriptionTypeId" asp-for="SubscriptionTypeId" value="1" />
                                     <!--end::Input-->
                                     <!--begin::Nav group-->
                                     <div class="nav-group nav-group-outline mx-auto mb-10" style="width: fit-content;" data-kt-buttons="true" data-kt-initialized="1">
@@ -197,7 +196,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <!--begin::Radio-->
                                                         <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
-                                                            <input class="form-check-input" type="radio" name="PlanId" checked="checked" value="2" />
+                                                            <input class="form-check-input" type="radio" asp-for="PlanId" checked="checked" value="2" />
                                                         </div>
                                                         <!--end::Radio-->
                                                         <!--begin::Info-->
@@ -223,7 +222,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <!--begin::Radio-->
                                                         <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
-                                                            <input class="form-check-input" type="radio" name="PlanId" value="3" />
+                                                            <input class="form-check-input" type="radio" asp-for="PlanId" value="3" />
                                                         </div>
                                                         <!--end::Radio-->
                                                         <!--begin::Info-->
@@ -249,7 +248,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <!--begin::Radio-->
                                                         <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
-                                                            <input class="form-check-input" type="radio" name="PlanId" value="4" />
+                                                            <input class="form-check-input" type="radio" asp-for="PlanId" value="4" />
                                                         </div>
                                                         <!--end::Radio-->
                                                         <!--begin::Info-->
@@ -402,16 +401,16 @@
                                     <!--begin::Input group-->
                                     <div class="col mb-5 fv-row">
                                         <label class="required form-label ms-2">Gym Name</label>
-                                        <input type="text" name="GymName" class="form-control" placeholder="@localizer["enter"] Gym Name @localizer["here"]" />
+                                        <input type="text" asp-for="@Model.GymDTO.Name" class="form-control" placeholder="@localizer["enter"] Gym Name @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                     <div class="row row-cols-1 row-cols-sm-3 rol-cols-md-1 row-cols-lg-3">
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">Select a Country</label>
                                             <!--begin::Select2-->
-                                            <select id="SelectCountry" class="form-select" name="CountryId" data-placeholder="@localizer["select_an_option"]">
+                                            <select id="SelectCountry" class="form-select" asp-for="@Model.GymBranchDTO.CountryId" data-placeholder="@localizer["select_an_option"]">
                                                 <option></option>
-                                                @foreach (var c in Model.OrderBy(c => c.Name))
+                                                @foreach (var c in Model.CountriesList.OrderBy(c => c.Name))
                                                 {
                                                     <option value="@c.Id" data-country-flag="@(c.FlagType + c.Flag)">@c.Name</option>
                                                 }
@@ -423,7 +422,7 @@
                                             <!--begin::Select2-->
                                             <select id="SelectCountryCurrency" class="form-select" data-control="select2" data-placeholder="Currency" disabled>
                                                 <option></option>
-                                                @foreach (var c in Model)
+                                                @foreach (var c in Model.CountriesList)
                                                 {
                                                     <option value="@c.Id">@c.Currency (@c.CurrencyCode)</option>
                                                 }
@@ -435,7 +434,7 @@
                                             <!--begin::Select2-->
                                             <select id="SelectCountryTimeZone" class="form-select" data-control="select2" data-placeholder="TimeZone" disabled>
                                                 <option></option>
-                                                @foreach (var c in Model)
+                                                @foreach (var c in Model.CountriesList)
                                                 {
                                                     <option value="@c.Id">@c.TimeZone (UTC @c.TimezoneOffset)</option>
                                                 }
@@ -444,24 +443,24 @@
                                         </div>
                                     </div>
                                     <!--begin::Input group-->
-                                    <div class="col mb-5">
-                                        <label class="form-label ms-2">Address</label>
-                                        <input type="text" name="BranchAddress" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">Address</label>
+                                        <input type="text" asp-for="@Model.GymBranchDTO.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                     <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
-                                        <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0">
+                                        <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                             <!--begin::Input group-->
-                                            <label class="form-label ms-2">Contact Email</label>
-                                            <input type="email" name="BranchEmail" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" />
+                                            <label class="required form-label ms-2">Contact Email</label>
+                                            <input type="email" asp-for="@Model.GymBranchDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" />
                                             <!--end::Input group-->
                                         </div>
-                                        <div class="col">
+                                        <div class="col fv-row">
                                             <!--begin::Input group-->
-                                            <label class="form-label ms-2">Contact Number</label>
+                                            <label class="required form-label ms-2">Contact Number</label>
                                             <div class="input-group">
                                                 <span class="input-group-text" id="BranchContactNumber">+</span>
-                                                <input type="text" class="form-control" name="BranchContactNumber" maxlength="10" aria-describedby="BranchContactNumber" />
+                                                <input type="text" class="form-control" asp-for="@Model.GymBranchDTO.ContactNumber" maxlength="10" aria-describedby="BranchContactNumber" />
                                             </div>
                                             <!--end::Input group-->
                                         </div>
@@ -491,13 +490,13 @@
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["first_name"]</label>
-                                            <input type="text" name="FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+                                            <input type="text" asp-for="FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["last_name"]</label>
-                                            <input type="text" name="LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+                                            <input type="text" asp-for="LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -505,14 +504,14 @@
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                            <input class="form-control" name="Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                            <input class="form-control" asp-for="Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["gender"]</label>
                                             <!--begin::Select Status-->
-                                            <select class="form-select" name="GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                            <select class="form-select" asp-for="GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                                 <option></option>
                                                 <option value="1">@localizer["male"]</option>
                                                 <option value="2">@localizer["female"]</option>
@@ -524,19 +523,19 @@
                                     <!--begin::Input group-->
                                     <div class="col mb-5 fv-row">
                                         <label class="required form-label ms-2">@localizer["email"]</label>
-                                        <input type="email" name="Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+                                        <input type="email" asp-for="Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
                                     <div class="col mb-5 fv-row">
                                         <label class="required form-label ms-2">@localizer["password"]</label>
-                                        <input type="password" name="Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
+                                        <input type="password" asp-for="Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
                                     <div class="col fv-row">
                                         <label class="required form-label ms-2">Confirm Password</label>
-                                        <input type="password" name="ConfirmPassword" class="form-control" placeholder="@localizer["enter"] @localizer["password"] Again @localizer["here"]" />
+                                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="@localizer["enter"] @localizer["password"] Again @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->
                                 </div>

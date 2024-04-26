@@ -1,8 +1,8 @@
 ﻿namespace gms.common.Models.GymCat.Gym;
 
-public record struct GymDTO
+public record GymDTO
 {
-    public int GymId { get; init; }
+    public int Id { get; init; }
     public string Name { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime? ModifiedAt { get; init; }

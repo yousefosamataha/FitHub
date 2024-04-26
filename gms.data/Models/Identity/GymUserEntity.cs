@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 namespace gms.data.Models.Identity;
 public class GymUserEntity : IdentityUser<int>
 {
-    public int BranchId { get; set; }
+    public int? BranchId { get; set; }
     public byte[]? Image { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

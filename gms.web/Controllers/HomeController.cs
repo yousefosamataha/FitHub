@@ -1,4 +1,7 @@
 ﻿using gms.common.Models.Shared.Country;
+using gms.common.ViewModels;
+using gms.service.Gym.GymBranchRepository;
+using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
@@ -9,10 +12,14 @@ namespace gms.web.Controllers;
 [Authorize]
 public class HomeController : BaseController<HomeController>
 {
-    private readonly ICountryService _countryService;
-
-    public HomeController(ICountryService countryService)
+	private readonly IGymService _gymService;
+	private readonly IGymBranchService _gymBranchService;
+	private readonly ICountryService _countryService;
+    // IGymService gymService,
+    public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService)
     {
+        _gymService = gymService;
+        _gymBranchService = gymBranchService;
         _countryService = countryService;
     }
 
@@ -91,6 +98,7 @@ public class HomeController : BaseController<HomeController>
     {
         return View();
     }
+
 	public IActionResult SignIn()
 	{
 		return View();
@@ -98,10 +106,19 @@ public class HomeController : BaseController<HomeController>
 
 	public async Task<IActionResult> SignUp()
 	{
-		List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+        RegisterNewAccountVM model = new RegisterNewAccountVM();
 
-        return View(List);
+        model.CountriesList = await _countryService.GetCountriesListAsync();
+
+        return View(model);
 	}
+
+    [HttpPost]
+    public async Task<IActionResult> RegisterNewAccount(RegisterNewAccountVM model)
+    {
+			
+        return Ok();
+    }
 
     [HttpGet]
     public async Task<List<CountryDTO>> GetCountriesList()

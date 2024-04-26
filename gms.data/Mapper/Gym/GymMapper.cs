@@ -17,7 +17,9 @@ public static class GymMapper
     {
         return new GymDTO()
         {
+            Id = source.Id,
             Name = source.Name,
+            IsDeleted = source.IsDeleted,
         };
     }
 }
