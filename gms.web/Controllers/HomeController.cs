@@ -45,60 +45,60 @@ public class HomeController : BaseController<HomeController>
         return View();
     }
 
-	public IActionResult AddNewMember()
-	{
-		return View();
-	}
+    public IActionResult AddNewMember()
+    {
+        return View();
+    }
 
-	public IActionResult Memberslist()
-	{
-		return View();
-	}
+    public IActionResult Memberslist()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewStaff()
-	{
-		return View();
-	}
+    public IActionResult AddNewStaff()
+    {
+        return View();
+    }
 
-	public IActionResult StaffsList()
-	{
-		return View();
-	}
+    public IActionResult StaffsList()
+    {
+        return View();
+    }
 
-	public IActionResult Roles()
-	{
-		return View();
-	}
+    public IActionResult Roles()
+    {
+        return View();
+    }
 
-	public IActionResult Permissions()
-	{
-		return View();
-	}
+    public IActionResult Permissions()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewGroup()
-	{
-		return View();
-	}
+    public IActionResult AddNewGroup()
+    {
+        return View();
+    }
 
-	public IActionResult GroupsList()
-	{
-		return View();
-	}
+    public IActionResult GroupsList()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewClass()
-	{
-		return View();
-	}
+    public IActionResult AddNewClass()
+    {
+        return View();
+    }
 
-	public IActionResult ClassesList()
-	{
-		return View();
-	}
+    public IActionResult ClassesList()
+    {
+        return View();
+    }
 
-	public IActionResult ClassesSchedule()
-	{
-		return View();
-	}
+    public IActionResult ClassesSchedule()
+    {
+        return View();
+    }
 
     public IActionResult Privacy()
     {
@@ -112,19 +112,10 @@ public class HomeController : BaseController<HomeController>
 
 	public async Task<IActionResult> SignUp()
 	{
-        RegisterNewAccountVM model = new RegisterNewAccountVM();
+		List<CountryDTO> List = await _countryService.GetCountriesListAsync();
 
-        model.CountriesList = await _countryService.GetCountriesListAsync();
-
-        return View(model);
+        return View(List);
 	}
-
-    [HttpPost]
-    public async Task<IActionResult> RegisterNewAccount(RegisterNewAccountVM model)
-    {
-			
-        return Ok();
-    }
 
     [HttpGet]
 	[AllowAnonymous]
