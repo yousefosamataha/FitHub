@@ -2,7 +2,7 @@
 
 namespace gms.common.Models.SubscriptionCat.SystemSubscription;
 
-public class CreateSystemSubscriptionDTO
+public record CreateSystemSubscriptionDTO
 {
     public PlansEnum PlanId { get; set; }
     public int GymId { get; set; }

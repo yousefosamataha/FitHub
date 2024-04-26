@@ -3,7 +3,7 @@
 public record CreateBranchDTO
 {
     public int GymId { get; set; }
-    public string? BranchName { get; set; }
+    public string BranchName { get; set; }
     public int? StartYear { get; set; }
     public required string Address { get; set; }
     public required string ContactNumber { get; set; }

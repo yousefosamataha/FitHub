@@ -1,9 +1,12 @@
 ﻿using gms.common.Models.GymCat.Branch;
 using gms.common.Models.GymCat.Gym;
 using gms.common.Models.Shared.Country;
+using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data.Models.Identity;
+using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
+using gms.service.Subscription.SystemSubscriptionRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -22,6 +25,8 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IGymService _gymService;
+        private readonly ISystemSubscriptionService _systemSubscriptionService;
+        private readonly IGymBranchService _gymBranchService;
         private readonly ICountryService _countryService;
 
         public RegisterModel(
@@ -31,6 +36,8 @@ namespace gms.web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IGymService gymService,
+            ISystemSubscriptionService systemSubscriptionService,
+            IGymBranchService gymBranchService,
             ICountryService countryService)
         {
             _userManager = userManager;
@@ -40,7 +47,9 @@ namespace gms.web.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _gymService = gymService;
+            _systemSubscriptionService = systemSubscriptionService;
             _countryService = countryService;
+            _gymBranchService = gymBranchService;
         }
 
         [BindProperty]
@@ -69,34 +78,42 @@ namespace gms.web.Areas.Identity.Pages.Account
 
 
             public CreateGymDTO GymDTO { get; set; }
+            public CreateSystemSubscriptionDTO SystemSubscriptionDTO { get; set; }
             public CreateBranchDTO GymBranchDTO { get; set; }
             public GymUserEntity GymUser { get; set; }
-            public int? SubscriptionTypeId { get; set; }
-            public int? PlanId { get; set; }
         }
 
 
-        public async Task OnGetAsync(int? planId,string returnUrl = null)
+        public async Task OnGetAsync(int? planId, int? sTypeId, string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+            //Input.SystemSubscriptionDTO.PlanId = planId != null ? (PlansEnum)planId : planId;
+            //Input.SystemSubscriptionDTO.SubscriptionTypeId = (SubscriptionTypeEnum)sTypeId;
             CountriesList = await _countryService.GetCountriesListAsync();
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            var Gym = await _gymService.CreateGymAsync(Input.GymDTO);
+            var CreatedGym = await _gymService.CreateGymAsync(Input.GymDTO);
+            Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
+            var CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
+            Input.GymBranchDTO.GymId = CreatedGym.Id;
+            Input.GymBranchDTO.BranchName = "Main Branch";
+            Input.GymBranchDTO.IsMainBranch = true;
+            var CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             //if (ModelState.IsValid)
             //{
 
-                var user = CreateUser();
-                user.EmailConfirmed = true;
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                //var user = CreateUser();
+                //user.EmailConfirmed = true;
+                //await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                //var result = await _userManager.CreateAsync(user, Input.Password);
 
                 //if (result.Succeeded)
                 //{

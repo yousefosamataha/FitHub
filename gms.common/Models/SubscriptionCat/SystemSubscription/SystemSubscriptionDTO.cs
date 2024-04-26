@@ -2,7 +2,7 @@
 
 namespace gms.common.Models.SubscriptionCat.SystemSubscription;
 
-public class SystemSubscriptionDTO
+public record SystemSubscriptionDTO
 {
     public int Id { get; set; }
     public PlansEnum PlanId { get; set; }
@@ -12,5 +12,4 @@ public class SystemSubscriptionDTO
     public DateTime SubscriptionStartTime { get; set; }
     public DateTime SubscriptionEndTime { get; set; }
     public StatusEnum SubscriptionStatusId { get; set; }
-    public int SubscriptionPaymentId { get; set; }
 }
