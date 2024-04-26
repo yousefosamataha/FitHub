@@ -67,12 +67,10 @@ namespace gms.web.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+
             public CreateGymDTO GymDTO { get; set; }
             public CreateBranchDTO GymBranchDTO { get; set; }
-            public string? FirstName { get; set; }
-            public string? LastName { get; set; }
-            public int? GenderId { get; set; }
-            public string? Birthdate { get; set; }
+            public GymUserEntity GymUser { get; set; }
             public int? SubscriptionTypeId { get; set; }
             public int? PlanId { get; set; }
         }
@@ -90,55 +88,64 @@ namespace gms.web.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             var Gym = await _gymService.CreateGymAsync(Input.GymDTO);
 
-            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             //if (ModelState.IsValid)
             //{
-            //    var user = CreateUser();
-            //    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-            //    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-            //    var result = await _userManager.CreateAsync(user, Input.Password);
 
-            //    if (result.Succeeded)
-            //    {
-            //        _logger.LogInformation("User created a new account with password.");
+                var user = CreateUser();
+                user.EmailConfirmed = true;
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                var result = await _userManager.CreateAsync(user, Input.Password);
 
-            //        var userId = await _userManager.GetUserIdAsync(user);
-            //        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            //        var callbackUrl = Url.Page(
-            //            "/Account/ConfirmEmail",
-            //            pageHandler: null,
-            //            values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-            //            protocol: Request.Scheme);
+                //if (result.Succeeded)
+                //{
+                //    _logger.LogInformation("User created a new account with password.");
 
-            //        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-            //            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                //    var userId = await _userManager.GetUserIdAsync(user);
+                //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                //    var callbackUrl = Url.Page(
+                //        "/Account/ConfirmEmail",
+                //        pageHandler: null,
+                //        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                //        protocol: Request.Scheme);
 
-            //        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-            //        {
-            //            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-            //        }
-            //        else
-            //        {
-            //            await _signInManager.SignInAsync(user, isPersistent: false);
-            //            return LocalRedirect(returnUrl);
-            //        }
-            //    }
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(string.Empty, error.Description);
-            //    }
-            //}
+                //    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                //    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                //    {
+                //        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                //    }
+                //    else
+                //    {
+                //        await _signInManager.SignInAsync(user, isPersistent: false);
+                //        return LocalRedirect(returnUrl);
+                //    }
+                //}
+                //foreach (var error in result.Errors)
+                //{
+                //    ModelState.AddModelError(string.Empty, error.Description);
+                //}
+            // }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            // return Page();
+            return LocalRedirect(returnUrl);
         }
 
         private GymUserEntity CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<GymUserEntity>();
+                var user = Activator.CreateInstance<GymUserEntity>();
+                user.FirstName = Input.GymUser.FirstName;
+                user.LastName = Input.GymUser.LastName;
+                user.GenderId = Input.GymUser.GenderId;
+                user.BirthDate = Input.GymUser.BirthDate;
+                user.Email = Input.GymUser.Email;
+                return user;
             }
             catch
             {

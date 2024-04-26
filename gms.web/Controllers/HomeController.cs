@@ -1,9 +1,11 @@
 ﻿using gms.common.Models.Shared.Country;
 using gms.common.ViewModels;
+using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,20 +17,24 @@ public class HomeController : BaseController<HomeController>
 	private readonly IGymService _gymService;
 	private readonly IGymBranchService _gymBranchService;
 	private readonly ICountryService _countryService;
-    // IGymService gymService,
-    public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService)
+    private readonly UserManager<GymUserEntity> _userManager;
+
+    public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService, UserManager<GymUserEntity> userManager)
     {
         _gymService = gymService;
         _gymBranchService = gymBranchService;
         _countryService = countryService;
+        _userManager = userManager;
     }
 
-	public IActionResult Index()
+    public IActionResult Index()
 	{
-		var test = requestLocalizationOptions;
+        System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+        var test = _userManager.GetUserAsync(currentUser);
 
         return View();
 	}
+
 	public IActionResult AddNewMembership()
 	{
 		return View();
@@ -121,6 +127,7 @@ public class HomeController : BaseController<HomeController>
     }
 
     [HttpGet]
+	[AllowAnonymous]
     public async Task<List<CountryDTO>> GetCountriesList()
     {
         List<CountryDTO> List = await _countryService.GetCountriesListAsync();

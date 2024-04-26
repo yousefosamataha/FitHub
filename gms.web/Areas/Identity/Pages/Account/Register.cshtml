@@ -496,13 +496,13 @@
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["first_name"]</label>
-                                            <input type="text" asp-for="Input.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+                                            <input type="text" asp-for="Input.GymUser.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["last_name"]</label>
-                                            <input type="text" asp-for="Input.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+                                            <input type="text" asp-for="Input.GymUser.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -510,14 +510,14 @@
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                            <input class="form-control" asp-for="Input.Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                            <input class="form-control" asp-for="Input.GymUser.BirthDate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="col mb-5 fv-row">
                                             <label class="required form-label ms-2">@localizer["gender"]</label>
                                             <!--begin::Select Status-->
-                                            <select class="form-select" asp-for="Input.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                            <select class="form-select" asp-for="Input.GymUser.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                                 <option></option>
                                                 <option value="1">@localizer["male"]</option>
                                                 <option value="2">@localizer["female"]</option>
