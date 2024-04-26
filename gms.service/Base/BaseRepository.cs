@@ -1,263 +1,331 @@
 ﻿using gms.common.Constants;
 using gms.data;
+using gms.data.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace gms.services.Base;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : class
+public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
-	private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-	public BaseRepository(ApplicationDbContext context)
-	{
-		_context = context;
-	}
+    public BaseRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
 
-	public T GetById(int id) => _context.Set<T>().Find(id);
+    public T GetById(int id) => _context.Set<T>().Find(id);
 
-	public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
+    public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-	public List<T> GetAll() => _context.Set<T>().ToList();
+    public List<T> GetAll() => GetAllAsIQueryableAsNoTracking().ToList();
 
-	public async Task<List<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
+    public async Task<List<T>> GetAllAsync() => await GetAllAsIQueryableAsNoTracking().ToListAsync();
 
-	public T Find(Expression<Func<T, bool>> criteria, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+    public IQueryable<T> GetAllAsIQueryable() => _context.Set<T>().AsQueryable();
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+    public IQueryable<T> GetAllAsIQueryableAsNoTracking() => _context.Set<T>().AsQueryable().AsNoTracking();
 
-		return query.SingleOrDefault(criteria);
-	}
+    public T Find(Expression<Func<T, bool>> criteria, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryable();
 
-	public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return query.SingleOrDefault(criteria);
+    }
 
-		return await query.SingleOrDefaultAsync(criteria);
-	}
+    public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryable();
 
-	public List<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return await query.SingleOrDefaultAsync(criteria);
+    }
 
-		return query.Where(criteria).ToList();
-	}
+    public List<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-	public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return query.Where(criteria).ToList();
+    }
 
-		return await query.Where(criteria).ToListAsync();
-	}
+    public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-	public List<T> FindAll(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return await query.Where(criteria).ToListAsync();
+    }
 
-		return query.Where(criteria).Skip(skip).Take(take).ToList();
-	}
+    public List<T> FindAll(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-	public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return query.Where(criteria).Skip(skip).Take(take).ToList();
+    }
 
-		return await query.Where(criteria).Skip(skip).Take(take).ToListAsync();
-	}
+    public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-	public List<T> FindAll(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return await query.Where(criteria).Skip(skip).Take(take).ToListAsync();
+    }
 
-		query = query.Where(criteria);
+    public List<T> FindAll(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-		query = skip.HasValue ? query.Skip(skip.Value) : query;
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		query = take.HasValue ? query.Take(take.Value) : query;
+        query = query.Where(criteria);
 
-		if (orderBy is not null)
-		{
-			query = string.Equals(orderbyDirection, OrderBy.Asending, StringComparison.OrdinalIgnoreCase) ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
-		}
+        query = skip.HasValue ? query.Skip(skip.Value) : query;
 
-		return query.ToList();
-	}
+        query = take.HasValue ? query.Take(take.Value) : query;
 
-	public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending)
-	{
-		IQueryable<T> query = _context.Set<T>();
+        if (orderBy is not null)
+        {
+            query = string.Equals(orderbyDirection, OrderBy.Asending, StringComparison.OrdinalIgnoreCase) ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
+        }
 
-		if (includes is not null)
-		{
-			foreach (string include in includes)
-			{
-				query = query.Include(include);
-			}
-		}
+        return query.ToList();
+    }
 
-		query = query.Where(criteria);
+    public async Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending)
+    {
+        IQueryable<T> query = GetAllAsIQueryableAsNoTracking();
 
-		query = skip.HasValue ? query.Skip(skip.Value) : query;
+        if (includes is not null)
+        {
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
-		query = take.HasValue ? query.Take(take.Value) : query;
+        query = query.Where(criteria);
 
-		if (orderBy is not null)
-		{
-			query = string.Equals(orderbyDirection, OrderBy.Asending, StringComparison.OrdinalIgnoreCase) ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
-		}
+        query = skip.HasValue ? query.Skip(skip.Value) : query;
 
-		return await query.ToListAsync();
-	}
+        query = take.HasValue ? query.Take(take.Value) : query;
 
-	public T Add(T entity)
-	{
-		_context.Set<T>().Add(entity);
-		_context.SaveChanges();
-		return entity;
-	}
+        if (orderBy is not null)
+        {
+            query = string.Equals(orderbyDirection, OrderBy.Asending, StringComparison.OrdinalIgnoreCase) ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
+        }
 
-	public async Task<T> AddAsync(T entity)
-	{
-		_context.Set<T>().Add(entity);
-		await _context.SaveChangesAsync();
-		return entity;
-	}
+        return await query.ToListAsync();
+    }
 
-	public List<T> AddRange(List<T> entities)
-	{
-		_context.Set<T>().AddRange(entities);
-		_context.SaveChanges();
-		return entities;
-	}
+    public T Add(T entity, int? userId = 0)
+    {
+        entity.CreatedAt = DateTime.UtcNow;
+        entity.CreatedById = userId;
+        _context.Set<T>().Add(entity);
+        SavaChanges();
+        return entity;
+    }
 
-	public async Task<List<T>> AddRangeAsync(List<T> entities)
-	{
-		_context.Set<T>().AddRange(entities);
-		await _context.SaveChangesAsync();
-		return entities;
-	}
+    public async Task<T> AddAsync(T entity, int? userId = 0)
+    {
+        entity.CreatedAt = DateTime.UtcNow;
+        entity.CreatedById = userId;
+        _context.Set<T>().Add(entity);
+        await SaveChangesAsync();
+        return entity;
+    }
 
-	public T Update(T entity)
-	{
-		_context.Set<T>().Update(entity);
-		_context.SaveChanges();
-		return entity;
-	}
+    public List<T> AddRange(List<T> entities, int? userId = 0)
+    {
+        entities.Select(e =>
+        {
+            e.CreatedAt = DateTime.UtcNow;
+            e.CreatedById = userId;
+            return e;
+        }).ToList();
 
-	public async Task<T> UpdateAsync(T entity)
-	{
-		_context.Set<T>().Update(entity);
-		await _context.SaveChangesAsync();
-		return entity;
-	}
+        _context.Set<T>().AddRange(entities);
 
-	public void Delete(T entity)
-	{
-		_context.Set<T>().Remove(entity);
-		_context.SaveChanges();
-	}
+        SavaChanges();
 
-	public async Task DeleteAsync(T entity)
-	{
-		_context.Set<T>().Remove(entity);
-		await _context.SaveChangesAsync();
-	}
+        return entities;
+    }
 
-	public void DeleteRange(List<T> entities)
-	{
-		_context.Set<T>().RemoveRange(entities);
-		_context.SaveChanges();
-	}
+    public async Task<List<T>> AddRangeAsync(List<T> entities, int? userId = 0)
+    {
+        entities.Select(e =>
+        {
+            e.CreatedAt = DateTime.UtcNow;
+            e.CreatedById = userId;
+            return e;
+        }).ToList();
 
-	public async Task DeleteRangeAsync(List<T> entities)
-	{
-		_context.Set<T>().RemoveRange(entities);
-		await _context.SaveChangesAsync();
-	}
+        _context.Set<T>().AddRange(entities);
 
-	public void Attach(T entity)
-	{
-		_context.Set<T>().Attach(entity);
-	}
+        await SaveChangesAsync();
 
-	public async Task AttachAsync(T entity)
-	{
-		_context.Set<T>().Attach(entity);
-		await Task.CompletedTask;
-	}
+        return entities;
+    }
 
-	public int Count()
-	{
-		return _context.Set<T>().Count();
-	}
+    public T Update(T entity, int? userId = 0)
+    {
+        entity.ModifiedAt = DateTime.UtcNow;
+        entity.ModifiedById = userId;
+        _context.Set<T>().Update(entity);
+        SavaChanges();
+        return entity;
+    }
 
-	public async Task<int> CountAsync()
-	{
-		return await _context.Set<T>().CountAsync();
-	}
+    public async Task<T> UpdateAsync(T entity, int? userId = 0)
+    {
+        entity.ModifiedAt = DateTime.UtcNow;
+        entity.ModifiedById = userId;
+        _context.Set<T>().Update(entity);
+        await SaveChangesAsync();
+        return entity;
+    }
 
-	public int Count(Expression<Func<T, bool>> criteria)
-	{
-		return _context.Set<T>().Count(criteria);
-	}
+    public void Delete(T entity, int? userId = 0)
+    {
+        entity.IsDeleted = true;
+        entity.DeletedById = userId;
+        _context.Set<T>().Update(entity);
+        SavaChanges();
+    }
 
-	public async Task<int> CountAsync(Expression<Func<T, bool>> criteria)
-	{
-		return await _context.Set<T>().CountAsync(criteria);
-	}
+    public async Task DeleteAsync(T entity, int? userId = 0)
+    {
+        entity.IsDeleted = true;
+        entity.DeletedById = userId;
+        entity.DeletedAt = DateTime.UtcNow;
+        _context.Set<T>().Update(entity);
+        await SaveChangesAsync();
+    }
+
+    public void DeleteRange(List<T> entities, int? userId = 0)
+    {
+        _context.Set<T>()
+                .Where(e => entities.Contains(e))
+                .ExecuteUpdate(e => e.SetProperty(p => p.IsDeleted, true)
+                                     .SetProperty(p => p.DeletedById, userId)
+                                     .SetProperty(p => p.DeletedAt, DateTime.UtcNow));
+        SavaChanges();
+    }
+
+    public async Task DeleteRangeAsync(List<T> entities, int? userId = 0)
+    {
+        await _context.Set<T>()
+                      .Where(e => entities.Contains(e))
+                      .ExecuteUpdateAsync(e => e.SetProperty(p => p.IsDeleted, true)
+                                                .SetProperty(p => p.DeletedById, userId)
+                                                .SetProperty(p => p.DeletedAt, DateTime.UtcNow));
+        await SaveChangesAsync();
+    }
+
+    public void Attach(T entity)
+    {
+        _context.Set<T>().Attach(entity);
+    }
+
+    public async Task AttachAsync(T entity)
+    {
+        _context.Set<T>().Attach(entity);
+        await Task.CompletedTask;
+    }
+
+    public int Count()
+    {
+        return GetAllAsIQueryableAsNoTracking().Count();
+    }
+
+    public async Task<int> CountAsync()
+    {
+        return await GetAllAsIQueryableAsNoTracking().CountAsync();
+    }
+
+    public int Count(Expression<Func<T, bool>> criteria)
+    {
+        return _context.Set<T>().AsNoTracking().Count(criteria);
+    }
+
+    public async Task<int> CountAsync(Expression<Func<T, bool>> criteria)
+    {
+        return await _context.Set<T>().AsNoTracking().CountAsync(criteria);
+    }
+
+    public bool SavaChanges()
+    {
+        try
+        {
+            return _context.SaveChanges() > 0 ? true : false;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public async Task<bool> SaveChangesAsync()
+    {
+        try
+        {
+            return await _context.SaveChangesAsync() > 0 ? true : false;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 }
