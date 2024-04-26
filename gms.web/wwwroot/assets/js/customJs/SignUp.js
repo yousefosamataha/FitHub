@@ -80,23 +80,7 @@ var signUp = function () {
 				if (status == 'Valid') {
 					// Prevent default button action
 					e.preventDefault();
-
-					// Disable button to avoid multiple click 
-					formSubmitButton.disabled = true;
-
-					// Show loading indication
-					formSubmitButton.setAttribute('data-kt-indicator', 'on');
-
-					// Simulate form submission
-					setTimeout(function () {
-						// Hide loading indication
-						formSubmitButton.removeAttribute('data-kt-indicator');
-
-						// Enable button
-						formSubmitButton.disabled = false;
-
-						stepperObj.goNext();
-					}, 2000);
+					form.submit();
 				} else {
 					KTUtil.scrollTop();
 				}
@@ -135,6 +119,30 @@ var signUp = function () {
 						}
 					},
 					'CountryId': {
+						validators: {
+							notEmpty: {
+								message: 'This Field Is Required!'
+							}
+						}
+					},
+					'BranchAddress': {
+						validators: {
+							notEmpty: {
+								message: 'This Field Is Required!'
+							}
+						}
+					},
+					'BranchEmail': {
+						validators: {
+							notEmpty: {
+								message: 'This Field Is Required!'
+							},
+							emailAddress: {
+								message: 'The value is not a valid email address!'
+							}
+						}
+					},
+					'BranchContactNumber': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
@@ -246,6 +254,7 @@ var signUp = function () {
 			changePlanPrices('annual');
 		});
 	}
+
 	var changePlanPrices = function (type) {
 		var items = document.querySelectorAll('[data-kt-plan-price-month]');
 		var subscriptionTypeInputField = document.querySelector('#SubscriptionTypeId');
@@ -325,7 +334,8 @@ var signUp = function () {
 				return;
 			}
 
-			form = stepper.querySelector('#kt_create_account_form');
+			form = stepper.querySelector('#registerForm');
+			// form = stepper.querySelector('#kt_create_account_form');
 			formSubmitButton = stepper.querySelector('[data-kt-stepper-action="submit"]');
 			formContinueButton = stepper.querySelector('[data-kt-stepper-action="next"]');
 			planPeriodMonthButton = stepper.querySelector('[data-kt-plan="month"]');
@@ -334,7 +344,7 @@ var signUp = function () {
 			// Handlers
 			initStepper();
 			initValidation();
-			handleForm();
+			// handleForm();
 			handlePlanPeriodSelection();
 			handleSelectCountry();
 			changeCountry();

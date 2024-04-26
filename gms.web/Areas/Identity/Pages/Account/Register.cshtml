@@ -1,10 +1,611 @@
 ﻿@page
 @model RegisterModel
+@using System.Globalization
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "SignUp";
+}
+@{
+    Layout = null;
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+    var test = Model;
 }
 
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html @(IsRTL ? "direction=rtl dir=rtl style=direction: rtl" : "lang=en")>
+<!--begin::Head-->
+<head>
+    <title>@ViewData["Title"] | gms</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
+
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!--end::Fonts-->
+    @if (IsRTL)
+    {
+        <!--begin::Page Vendor Stylesheets(used by this page)-->
+        <link href="~/assets/plugins/custom/prismjs/prismjs.bundle.rtl.css" rel="stylesheet" type="text/css" />
+        <!--end::Page Vendor Stylesheets-->
+        <!--begin::Global Stylesheets Bundle(used by all pages)-->
+        <link href="~/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
+        <link href="~/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
+        <!--end::Global Stylesheets Bundle-->
+    }
+    else
+    {
+        <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+        <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        <!--end::Global Stylesheets Bundle-->
+    }
+
+    <!--begin::Custom Css Stylesheets-->
+    <link href="~/assets/css/customCss/custom.css" rel="stylesheet" type="text/css" />
+    <!--end::Custom Css Stylesheets-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="app-blank">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root" id="kt_app_root">
+        <!--begin::Authentication - Multi-steps-->
+        <div class="d-flex flex-column flex-lg-row flex-column-fluid stepper stepper-pills stepper-column stepper-multistep" id="kt_create_account_stepper">
+            <!--begin::Aside-->
+            <div class="d-flex flex-column flex-lg-row-auto w-lg-350px w-xl-500px">
+                <div class="d-flex flex-column position-lg-fixed top-0 bottom-0 w-lg-350px w-xl-500px hover-scroll-y bgi-size-cover bgi-position-center" style="background-image: url(../../../assets/media/misc/auth-bg.png);">
+                    @*<!--begin::Header-->
+                    <div class="d-flex flex-center py-10 py-lg-20 mt-lg-20">
+                    <!--begin::Logo-->
+                    <a href="../../demo39/dist/index.html">
+                    <img alt="Logo" src="~/assets/media/logos/custom-1.png" class="h-70px" />
+                    </a>
+                    <!--end::Logo-->
+                    </div>
+                    <!--end::Header-->*@
+                    <!--begin::Body-->
+                    <div class="d-flex flex-row-fluid justify-content-center align-items-center p-10">
+                        <!--begin::Nav-->
+                        <div class="stepper-nav">
+                            <!--begin::Step 1-->
+                            <div class="stepper-item current" data-kt-stepper-element="nav">
+                                <!--begin::Wrapper-->
+                                <div class="stepper-wrapper">
+                                    <!--begin::Icon-->
+                                    <div class="stepper-icon rounded-3">
+                                        <i class="ki-outline ki-check fs-2 stepper-check"></i>
+                                        <span class="stepper-number">1</span>
+                                    </div>
+                                    <!--end::Icon-->
+                                    <!--begin::Label-->
+                                    <div class="stepper-label">
+                                        <h3 class="stepper-title fs-2">Price Plan</h3>
+                                        <div class="stepper-desc fw-normal">Select your Price Plan</div>
+                                    </div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Wrapper-->
+                                <!--begin::Line-->
+                                <div class="stepper-line h-40px"></div>
+                                <!--end::Line-->
+                            </div>
+                            <!--end::Step 1-->
+                            <!--begin::Step 2-->
+                            <div class="stepper-item" data-kt-stepper-element="nav">
+                                <!--begin::Wrapper-->
+                                <div class="stepper-wrapper">
+                                    <!--begin::Icon-->
+                                    <div class="stepper-icon">
+                                        <i class="ki-outline ki-check fs-2 stepper-check"></i>
+                                        <span class="stepper-number">3</span>
+                                    </div>
+                                    <!--end::Icon-->
+                                    <!--begin::Label-->
+                                    <div class="stepper-label">
+                                        <h3 class="stepper-title fs-2">Business Info</h3>
+                                        <div class="stepper-desc fw-normal">Setup your business Info</div>
+                                    </div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Wrapper-->
+                                <!--begin::Line-->
+                                <div class="stepper-line h-40px"></div>
+                                <!--end::Line-->
+                            </div>
+                            <!--end::Step 2-->
+                            <!--begin::Step 3-->
+                            <div class="stepper-item" data-kt-stepper-element="nav">
+                                <!--begin::Wrapper-->
+                                <div class="stepper-wrapper">
+                                    <!--begin::Icon-->
+                                    <div class="stepper-icon rounded-3">
+                                        <i class="ki-outline ki-check fs-2 stepper-check"></i>
+                                        <span class="stepper-number">2</span>
+                                    </div>
+                                    <!--end::Icon-->
+                                    <!--begin::Label-->
+                                    <div class="stepper-label">
+                                        <h3 class="stepper-title fs-2">Account Info</h3>
+                                        <div class="stepper-desc fw-normal">Setup your account Info</div>
+                                    </div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Step 3-->
+                        </div>
+                        <!--end::Nav-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+            </div>
+            <!--begin::Aside-->
+            <!--begin::Body-->
+            <div class="d-flex flex-column flex-lg-row-fluid py-10">
+                <!--begin::Content-->
+                <div class="d-flex flex-center flex-column flex-column-fluid">
+                    <!--begin::Wrapper-->
+                    <div class="w-lg-850px w-xl-900px p-10 p-lg-15 mx-auto">
+                        <!--begin::Form-->
+                        <form class="my-auto pb-5" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <!--begin::Step 1-->
+                            <div class="current" data-kt-stepper-element="content">
+                                <!--begin::Wrapper-->
+                                <div class="w-100">
+                                    <!--begin::Heading-->
+                                    <div class="pb-10 pb-lg-10">
+                                        <!--begin::Title-->
+                                        <h2 class="fw-bold d-flex align-items-center text-dark">
+                                            Choose Your Price Plan
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Billing is issued based on your selected price plan.">
+                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                            </span>
+                                        </h2>
+                                        <!--end::Title-->
+                                        <!--begin::Notice-->
+                                        <div class="text-muted fw-semibold fs-6">
+                                            If you need more info, please check out
+                                            <a href="#" class="link-primary fw-bold">Help Page</a>.
+                                        </div>
+                                        <!--end::Notice-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Input-->
+                                    <input type="hidden" id="SubscriptionTypeId" asp-for="Input.SubscriptionTypeId" value="1" />
+                                    <!--end::Input-->
+                                    <!--begin::Nav group-->
+                                    <div class="nav-group nav-group-outline mx-auto mb-10" style="width: fit-content;" data-kt-buttons="true" data-kt-initialized="1">
+                                        <button class="btn btn-color-gray-600 btn-active btn-active-success px-6 py-3 me-2 active" data-kt-plan="month">
+                                            Monthly
+                                        </button>
+                                        <button class="btn btn-color-gray-600 btn-active btn-active-success px-6 py-3" data-kt-plan="annual">
+                                            Annual
+                                        </button>
+                                    </div>
+                                    <!--end::Nav group-->
+                                    <!--begin::Input group-->
+                                    <!--begin::Row-->
+                                    <div class="row mt-10">
+                                        <!--begin::Col-->
+                                        <div class="col-lg-6 mb-10 mb-lg-0">
+                                            <!--begin::Tabs-->
+                                            <div class="nav flex-column">
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 active mb-6" data-bs-toggle="tab" data-bs-target="#plan_type_startup">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" id="RadioOne" type="radio" asp-for="Input.PlanId" checked="checked" value="2" />
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Startup</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Startups</div>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="499" data-kt-plan-price-annual="4999">499</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                    </div>
+                                                    <!--end::Price-->
+                                                </label>
+                                                <!--end::Tab link-->
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6" data-bs-toggle="tab" data-bs-target="#plan_type_business">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" id="RadioThree" type="radio" asp-for="Input.PlanId" value="3" />
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Business</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Business</div>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="999" data-kt-plan-price-annual="9999">999</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                    </div>
+                                                    <!--end::Price-->
+                                                </label>
+                                                <!--end::Tab link-->
+                                                <!--begin::Tab link-->
+                                                <label class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6" data-bs-toggle="tab" data-bs-target="#plan_type_enterprise">
+                                                    <!--end::Description-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
+                                                            <input class="form-check-input" id="RadioTwo" type="radio" asp-for="Input.PlanId" value="4" />
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                        <!--begin::Info-->
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">Enterprise</div>
+                                                            <div class="fw-semibold opacity-75 fs-7">Best value for Enterprise</div>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Description-->
+                                                    <!--begin::Price-->
+                                                    <div class="ms-5">
+                                                        <span class="mb-2">EGP</span>
+                                                        <span class="fs-2x fw-bold" data-kt-plan-price-month="1999" data-kt-plan-price-annual="19999">1999</span>
+                                                        <span class="fs-7 opacity-50" data-kt-plan-price-month="/ Mon" data-kt-plan-price-annual="/ Ann">/ Mon</span>
+                                                    </div>
+                                                    <!--end::Price-->
+                                                </label>
+                                                <!--end::Tab link-->
+                                            </div>
+                                            <!--end::Tabs-->
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-lg-6">
+                                            <!--begin::Tab content-->
+                                            @*<div class="tab-content rounded h-100 bg-light p-10">*@
+                                            <div class="tab-content rounded bg-light p-10">
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade show active" id="plan_type_startup">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Startup Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 3 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 30 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 100 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade" id="plan_type_business">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Business Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 5 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 40 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 200 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                                <!--begin::Tab Pane-->
+                                                <div class="tab-pane fade" id="plan_type_enterprise">
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-5">
+                                                        <h2 class="fw-bold text-dark">What’s in Enterprise Plan?</h2>
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Body-->
+                                                    <div class="pt-1">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 10 Active Branches</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 50 Active Staff Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 400 Active Member Users</span>
+                                                            <i class="ki-outline ki-check-circle fs-1 text-success"></i>
+                                                        </div>
+                                                        <!--end::Item-->
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Tab Pane-->
+                                            </div>
+                                            <!--end::Tab content-->
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Row-->
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Step 1-->
+                            <!--begin::Step 2-->
+                            <div class="" data-kt-stepper-element="content">
+                                <!--begin::Wrapper-->
+                                <div class="w-100">
+                                    <!--begin::Heading-->
+                                    <div class="pb-10 pb-lg-12">
+                                        <!--begin::Title-->
+                                        <h2 class="fw-bold text-dark">Business Info</h2>
+                                        <!--end::Title-->
+                                        <!--begin::Notice-->
+                                        <div class="text-muted fw-semibold fs-6">
+                                            If you need more info, please check out
+                                            <a href="#" class="link-primary fw-bold">Help Page</a>.
+                                        </div>
+                                        <!--end::Notice-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">Gym Name</label>
+                                        <input type="text" asp-for="Input.GymDTO.Name" class="form-control" placeholder="@localizer["enter"] Gym Name @localizer["here"]" />
+                                    </div>
+                                    <!--end::Input group-->
+                                    <div class="row row-cols-1 row-cols-sm-3 rol-cols-md-1 row-cols-lg-3">
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">Select a Country</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountry" class="form-select" asp-for="Input.GymBranchDTO.CountryId" data-placeholder="@localizer["select_an_option"]">
+                                                <option></option>
+                                                @foreach (var c in Model.CountriesList.OrderBy(c => c.Name))
+                                                {
+                                                    <option value="@c.Id" data-country-flag="@(c.FlagType + c.Flag)">@c.Name</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                        <div class="col mb-5">
+                                            <label class="form-label ms-2">Currency</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountryCurrency" class="form-select" data-control="select2" data-placeholder="Currency" disabled>
+                                                <option></option>
+                                                @foreach (var c in Model.CountriesList)
+                                                {
+                                                    <option value="@c.Id">@c.Currency (@c.CurrencyCode)</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                        <div class="col mb-5">
+                                            <label class="form-label ms-2">TimeZone</label>
+                                            <!--begin::Select2-->
+                                            <select id="SelectCountryTimeZone" class="form-select" data-control="select2" data-placeholder="TimeZone" disabled>
+                                                <option></option>
+                                                @foreach (var c in Model.CountriesList)
+                                                {
+                                                    <option value="@c.Id">@c.TimeZone (UTC @c.TimezoneOffset)</option>
+                                                }
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                    </div>
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">Address</label>
+                                        <input type="text" asp-for="Input.GymBranchDTO.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+                                    </div>
+                                    <!--end::Input group-->
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
+                                            <!--begin::Input group-->
+                                            <label class="required form-label ms-2">Contact Email</label>
+                                            <input type="email" asp-for="Input.GymBranchDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" />
+                                            <!--end::Input group-->
+                                        </div>
+                                        <div class="col fv-row">
+                                            <!--begin::Input group-->
+                                            <label class="required form-label ms-2">Contact Number</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="BranchContactNumber">+</span>
+                                                <input type="text" class="form-control" asp-for="Input.GymBranchDTO.ContactNumber" maxlength="10" aria-describedby="BranchContactNumber" />
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Step 2-->
+                            <!--begin::Step 3-->
+                            <div class="" data-kt-stepper-element="content">
+                                <!--begin::Wrapper-->
+                                <div class="w-100">
+                                    <!--begin::Heading-->
+                                    <div class="pb-10 pb-lg-10">
+                                        <!--begin::Title-->
+                                        <h2 class="fw-bold text-dark">Account Info</h2>
+                                        <!--end::Title-->
+                                        <!--begin::Notice-->
+                                        <div class="text-muted fw-semibold fs-6">
+                                            If you need more info, please check out
+                                            <a href="#" class="link-primary fw-bold">Help Page</a>.
+                                        </div>
+                                        <!--end::Notice-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["first_name"]</label>
+                                            <input type="text" asp-for="Input.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["last_name"]</label>
+                                            <input type="text" asp-for="Input.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["birthdate"]</label>
+                                            <input class="form-control" asp-for="Input.Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col mb-5 fv-row">
+                                            <label class="required form-label ms-2">@localizer["gender"]</label>
+                                            <!--begin::Select Status-->
+                                            <select class="form-select" asp-for="Input.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                                <option></option>
+                                                <option value="1">@localizer["male"]</option>
+                                                <option value="2">@localizer["female"]</option>
+                                            </select>
+                                            <!--end::Select Status-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">@localizer["email"]</label>
+                                        <input type="email" asp-for="Input.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="col mb-5 fv-row">
+                                        <label class="required form-label ms-2">@localizer["password"]</label>
+                                        <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="col fv-row">
+                                        <label class="required form-label ms-2">Confirm Password</label>
+                                        <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="@localizer["enter"] @localizer["password"] Again @localizer["here"]" />
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Step 3-->
+                            <!--begin::Actions-->
+                            <div class="d-flex flex-stack pt-15">
+                                <div class="mr-2">
+                                    <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
+                                        <i class="ki-outline ki-arrow-left fs-4 me-1"></i>Previous
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
+                                        <span class="indicator-label">
+                                            Submit
+                                            <i class="ki-outline ki-arrow-right fs-4 ms-2"></i>
+                                        </span>
+                                        <span class="indicator-progress">
+                                            Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                                        Continue
+                                        <i class="ki-outline ki-arrow-right fs-4 ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Authentication - Multi-steps-->
+    </div>
+    <!--end::Root-->
+    <!--begin::Javascript-->
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script type="module" src="~/assets/js/customJs/SignUp.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <!--end::Custom Javascript-->
+    <!--end::Javascript-->
+</body>
+<!--end::Body-->
+</html>
+
+
+
+
+@* <h1>@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -64,4 +665,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
+} *@

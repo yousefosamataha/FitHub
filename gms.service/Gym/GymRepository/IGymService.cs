@@ -5,5 +5,5 @@ using gms.services.Base;
 namespace gms.service.Gym.GymRepository;
 public interface IGymService : IBaseRepository<GymEntity>
 {
-    Task<GymDTO> CreateGym(CreateGymDTO newGym);
+    Task<GymDTO> CreateGymAsync(CreateGymDTO newGym);
 }

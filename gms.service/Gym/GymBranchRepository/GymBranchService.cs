@@ -1,4 +1,6 @@
-﻿using gms.data;
+﻿using gms.common.Models.GymCat.Branch;
+using gms.data;
+using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 
@@ -9,5 +11,13 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
     public GymBranchService(ApplicationDbContext context) : base(context)
     {
         _context = context;
+    }
+
+    public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch)
+    {
+        GymBranchEntity newBranchEntity = newBranch.ToEntity();
+        await _context.AddAsync(newBranchEntity);
+        // await _context.SaveChangesAsync();
+        return newBranchEntity.ToDTO();
     }
 }
