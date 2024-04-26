@@ -297,12 +297,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 
     public int Count(Expression<Func<T, bool>> criteria)
     {
-        return _context.Set<T>().AsNoTracking().Count(criteria);
+        return GetAllAsIQueryableAsNoTracking().Count(criteria);
     }
 
     public async Task<int> CountAsync(Expression<Func<T, bool>> criteria)
     {
-        return await _context.Set<T>().AsNoTracking().CountAsync(criteria);
+        return await GetAllAsIQueryableAsNoTracking().CountAsync(criteria);
     }
 
     public bool SavaChanges()

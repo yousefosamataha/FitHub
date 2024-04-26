@@ -1,8 +1,10 @@
 ﻿using gms.common.Constants;
+using gms.data.Models.Base;
 using System.Linq.Expressions;
 
 namespace gms.services.Base;
-public interface IBaseRepository<T> where T : class
+
+public interface IBaseRepository<T> where T : BaseEntity
 {
     T GetById(int id);
 
@@ -54,9 +56,15 @@ public interface IBaseRepository<T> where T : class
 
     void Attach(T entity);
 
+    Task AttachAsync(T entity);
+
     int Count();
 
+    Task<int> CountAsync();
+
     int Count(Expression<Func<T, bool>> criteria);
+
+    Task<int> CountAsync(Expression<Func<T, bool>> criteria);
 
     bool SavaChanges();
 
