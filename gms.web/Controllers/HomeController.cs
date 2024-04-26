@@ -16,92 +16,92 @@ public class HomeController : BaseController<HomeController>
         _countryService = countryService;
     }
 
-	public IActionResult Index()
-	{
-		var test = requestLocalizationOptions;
+    public IActionResult Index()
+    {
+        var test = requestLocalizationOptions;
 
         return View();
-	}
-	public IActionResult AddNewMembership()
-	{
-		return View();
-	}
+    }
+    public IActionResult AddNewMembership()
+    {
+        return View();
+    }
 
     public IActionResult MembershipsList()
     {
         return View();
     }
 
-	public IActionResult AddNewMember()
-	{
-		return View();
-	}
+    public IActionResult AddNewMember()
+    {
+        return View();
+    }
 
-	public IActionResult Memberslist()
-	{
-		return View();
-	}
+    public IActionResult Memberslist()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewStaff()
-	{
-		return View();
-	}
+    public IActionResult AddNewStaff()
+    {
+        return View();
+    }
 
-	public IActionResult StaffsList()
-	{
-		return View();
-	}
+    public IActionResult StaffsList()
+    {
+        return View();
+    }
 
-	public IActionResult Roles()
-	{
-		return View();
-	}
+    public IActionResult Roles()
+    {
+        return View();
+    }
 
-	public IActionResult Permissions()
-	{
-		return View();
-	}
+    public IActionResult Permissions()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewGroup()
-	{
-		return View();
-	}
+    public IActionResult AddNewGroup()
+    {
+        return View();
+    }
 
-	public IActionResult GroupsList()
-	{
-		return View();
-	}
+    public IActionResult GroupsList()
+    {
+        return View();
+    }
 
-	public IActionResult AddNewClass()
-	{
-		return View();
-	}
+    public IActionResult AddNewClass()
+    {
+        return View();
+    }
 
-	public IActionResult ClassesList()
-	{
-		return View();
-	}
+    public IActionResult ClassesList()
+    {
+        return View();
+    }
 
-	public IActionResult ClassesSchedule()
-	{
-		return View();
-	}
+    public IActionResult ClassesSchedule()
+    {
+        return View();
+    }
 
     public IActionResult Privacy()
     {
         return View();
     }
-	public IActionResult SignIn()
-	{
-		return View();
-	}
+    public IActionResult SignIn()
+    {
+        return View();
+    }
 
-	public async Task<IActionResult> SignUp()
-	{
-		List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+    public async Task<IActionResult> SignUp()
+    {
+        List<CountryDTO> List = await _countryService.GetCountriesListAsync();
 
         return View(List);
-	}
+    }
 
     [HttpGet]
     public async Task<List<CountryDTO>> GetCountriesList()
