@@ -4,47 +4,61 @@ using System.Linq.Expressions;
 namespace gms.services.Base;
 public interface IBaseRepository<T> where T : class
 {
-	T GetById(int id);
+    T GetById(int id);
 
-	Task<T> GetByIdAsync(int id);
+    Task<T> GetByIdAsync(int id);
 
-	List<T> GetAll();
+    List<T> GetAll();
 
-	Task<List<T>> GetAllAsync();
+    Task<List<T>> GetAllAsync();
 
-	T Find(Expression<Func<T, bool>> criteria, string[] includes = null);
+    IQueryable<T> GetAllAsIQueryable();
 
-	Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
+    IQueryable<T> GetAllAsIQueryableAsNoTracking();
 
-	List<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null);
+    T Find(Expression<Func<T, bool>> criteria, string[] includes = null);
 
-	Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
+    Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
 
-	List<T> FindAll(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null);
+    List<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null);
 
-	Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null);
+    Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
 
-	List<T> FindAll(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending);
+    List<T> FindAll(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null);
 
-	Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending);
+    Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take, string[] includes = null);
 
-	T Add(T entity);
+    List<T> FindAll(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending);
 
-	Task<T> AddAsync(T entity);
+    Task<List<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take, string[] includes = null, Expression<Func<T, object>> orderBy = null, string orderbyDirection = OrderBy.Asending);
 
-	List<T> AddRange(List<T> entities);
+    T Add(T entity, int? userId = 0);
 
-	Task<List<T>> AddRangeAsync(List<T> entities);
+    Task<T> AddAsync(T entity, int? userId = 0);
 
-	T Update(T entity);
+    List<T> AddRange(List<T> entities, int? userId = 0);
 
-	void Delete(T entity);
+    Task<List<T>> AddRangeAsync(List<T> entities, int? userId = 0);
 
-	void DeleteRange(List<T> entities);
+    T Update(T entity, int? userId = 0);
 
-	void Attach(T entity);
+    Task<T> UpdateAsync(T entity, int? userId = 0);
 
-	int Count();
+    void Delete(T entity, int? userId = 0);
 
-	int Count(Expression<Func<T, bool>> criteria);
+    Task DeleteAsync(T entity, int? userId = 0);
+
+    void DeleteRange(List<T> entities, int? userId = 0);
+
+    Task DeleteRangeAsync(List<T> entities, int? userId = 0);
+
+    void Attach(T entity);
+
+    int Count();
+
+    int Count(Expression<Func<T, bool>> criteria);
+
+    bool SavaChanges();
+
+    Task<bool> SaveChangesAsync();
 }
