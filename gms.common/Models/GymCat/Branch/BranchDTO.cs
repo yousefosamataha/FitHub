@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.GymCat.Branch;
 
-public record struct BranchDTO
+public record BranchDTO
 {
     public int Id { get; set; }
     public int GymId { get; set; }

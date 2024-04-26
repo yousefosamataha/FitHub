@@ -16,8 +16,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
     public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch)
     {
         GymBranchEntity newBranchEntity = newBranch.ToEntity();
-        await _context.AddAsync(newBranchEntity);
-        // await _context.SaveChangesAsync();
+        await AddAsync(newBranchEntity);
         return newBranchEntity.ToDTO();
     }
 }
