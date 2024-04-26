@@ -4,6 +4,7 @@ using gms.data.Seeds;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
+using gms.service.Subscription.SystemSubscriptionRepository;
 using gms.services.Base;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -81,6 +82,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddScoped(typeof(IGymService), typeof(GymService)); 
 
 	builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService)); 
+
+	builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService)); 
 
 	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService)); 
 }

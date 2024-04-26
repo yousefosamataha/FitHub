@@ -9,6 +9,8 @@ public static class SystemSubscriptionMapper
     {
         return new SystemSubscriptionEntity()
         {
+            PlanId = source.PlanId,
+            GymId = source.GymId,
         };
     }
 
@@ -16,6 +18,13 @@ public static class SystemSubscriptionMapper
     {
         return new SystemSubscriptionDTO()
         {
+            PlanId = source.PlanId,
+            GymId = source.GymId,
+            SubscriptionTypeId = source.SubscriptionTypeId,
+            SubscriptionAmount = source.SubscriptionAmount,
+            SubscriptionStartTime = source.SubscriptionStartTime,
+            SubscriptionEndTime = source.SubscriptionEndTime,
+            SubscriptionStatusId = source.SubscriptionStatusId,
         };
     }
 }
