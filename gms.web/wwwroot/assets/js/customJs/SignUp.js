@@ -68,7 +68,6 @@ var signUp = function () {
 			KTUtil.scrollTop();
 		});
 	}
-
 	var handleForm = function () {
 		formSubmitButton.addEventListener('click', function (e) {
 			// Validate form before change stepper step
@@ -87,7 +86,6 @@ var signUp = function () {
 			});
 		});
 	}
-
 	var initValidation = function () {
 		// Step 1
 		validations.push(FormValidation.formValidation(
@@ -111,28 +109,28 @@ var signUp = function () {
 			form,
 			{
 				fields: {
-					'GymName': {
+					'Input.GymDTO.Name': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'CountryId': {
+					'Input.GymBranchDTO.CountryId': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'BranchAddress': {
+					'Input.GymBranchDTO.Address': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'BranchEmail': {
+					'Input.GymBranchDTO.Email': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
@@ -142,7 +140,7 @@ var signUp = function () {
 							}
 						}
 					},
-					'BranchContactNumber': {
+					'Input.GymBranchDTO.ContactNumber': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
@@ -167,35 +165,35 @@ var signUp = function () {
 			form,
 			{
 				fields: {
-					'FirstName': {
+					'Input.GymUser.FirstName': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'LastName': {
+					'Input.GymUser.LastName': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'Birthdate': {
+					'Input.GymUser.BirthDate': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'GenderId': {
+					'Input.GymUser.GenderId': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'Email': {
+					'Input.Email': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
@@ -205,17 +203,23 @@ var signUp = function () {
 							}
 						}
 					},
-					'Password': {
+					'Input.Password': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
 							}
 						}
 					},
-					'ConfirmPassword': {
+					'Input.ConfirmPassword': {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
+							},
+							identical: {
+								compare: function () {
+									return form.querySelector('[name="Input.Password"]').value;
+								},
+								message: 'The password and its confirm are not the same'
 							}
 						}
 					}
@@ -254,7 +258,6 @@ var signUp = function () {
 			changePlanPrices('annual');
 		});
 	}
-
 	var changePlanPrices = function (type) {
 		var items = document.querySelectorAll('[data-kt-plan-price-month]');
 		var subscriptionTypeInputField = document.querySelector('#SubscriptionTypeId');
@@ -315,7 +318,7 @@ var signUp = function () {
 	}
 
 	// Get Countries List
-	var GetCountriesList = () => {
+	var getCountriesList = () => {
 		$.ajax({
 			url: '/Home/GetCountriesList',
 			type: 'GET',
@@ -323,6 +326,25 @@ var signUp = function () {
 				CountriesList = data;
 			}
 		});
+	}
+
+	// Handle Selected Subscription Query String
+	var handleSelectedSubscriptionQueryString = () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const planId = urlParams.get('planId');
+		const subscriptionTypeId = urlParams.get('subscriptionTypeId');
+		var inputRadioList = document.querySelectorAll('[type="radio"]');
+
+		if (planId != null) {
+			inputRadioList.forEach(r => {
+				if (r.value == planId) {
+					r.closest("label").click();
+					formContinueButton.click();
+				}
+			});
+		}
+
+		subscriptionTypeId == 1 ? planPeriodMonthButton.click() : subscriptionTypeId == 2 ? planPeriodAnnualButton.click() : planPeriodMonthButton.click();
 	}
 
 	return {
@@ -344,11 +366,12 @@ var signUp = function () {
 			// Handlers
 			initStepper();
 			initValidation();
-			// handleForm();
+			handleForm();
 			handlePlanPeriodSelection();
 			handleSelectCountry();
 			changeCountry();
-			GetCountriesList();
+			getCountriesList();
+			handleSelectedSubscriptionQueryString();
 		}
 	};
 }();
