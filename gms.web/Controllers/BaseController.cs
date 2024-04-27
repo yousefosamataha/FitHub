@@ -21,6 +21,7 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     protected RequestLocalizationOptions? requestLocalizationOptions =>
         _requestLocalizationOptions ?? HttpContext.RequestServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+
     protected IHttpContextAccessor httpContextAccessor =>
         _httpContextAccessor ?? HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>();
     #endregion
