@@ -1,6 +1,7 @@
 ﻿using gms.common.Constants;
 using gms.data;
 using gms.data.Models.Base;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -9,10 +10,11 @@ namespace gms.services.Base;
 public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     private readonly ApplicationDbContext _context;
-
-    public BaseRepository(ApplicationDbContext context)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public BaseRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public T GetById(int id) => _context.Set<T>().Find(id);
