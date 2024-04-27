@@ -1,4 +1,5 @@
-﻿using gms.common.Models.GymCat.Branch;
+﻿using gms.common.Enums;
+using gms.common.Models.GymCat.Branch;
 using gms.common.Models.GymCat.Gym;
 using gms.common.Models.Shared.Country;
 using gms.common.Models.SubscriptionCat.SystemSubscription;
@@ -87,8 +88,8 @@ namespace gms.web.Areas.Identity.Pages.Account
         public async Task OnGetAsync(int? planId, int? sTypeId, string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            //Input.SystemSubscriptionDTO.PlanId = planId != null ? (PlansEnum)planId : planId;
-            //Input.SystemSubscriptionDTO.SubscriptionTypeId = (SubscriptionTypeEnum)sTypeId;
+            Input.SystemSubscriptionDTO.PlanId = planId != null ? (PlansEnum)planId : new PlansEnum();
+            Input.SystemSubscriptionDTO.SubscriptionTypeId = sTypeId != null ? (SubscriptionTypeEnum)sTypeId : new SubscriptionTypeEnum();
             CountriesList = await _countryService.GetCountriesListAsync();
             // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

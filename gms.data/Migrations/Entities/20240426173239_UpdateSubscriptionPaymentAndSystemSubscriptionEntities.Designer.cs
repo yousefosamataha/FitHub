@@ -12,7 +12,7 @@ using gms.data;
 namespace gms.data.Migrations.Entities
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240426151553_UpdateSubscriptionPaymentAndSystemSubscriptionEntities")]
+    [Migration("20240426173239_UpdateSubscriptionPaymentAndSystemSubscriptionEntities")]
     partial class UpdateSubscriptionPaymentAndSystemSubscriptionEntities
     {
         /// <inheritdoc />
@@ -42,11 +42,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -80,11 +89,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -117,11 +135,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("VideoPath")
                         .IsRequired()
@@ -151,6 +178,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -159,6 +192,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -184,11 +220,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<byte>("WeekDayId")
                         .HasColumnType("tinyint");
@@ -226,6 +271,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("time");
 
@@ -237,6 +288,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("time");
@@ -264,6 +318,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("GenderName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -275,6 +335,9 @@ namespace gms.data.Migrations.Entities
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("gms.GenderEnum", (string)null);
@@ -284,7 +347,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 267, DateTimeKind.Utc).AddTicks(1096),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 39, DateTimeKind.Utc).AddTicks(8304),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GenderName = "Male",
                             IsDeleted = false
                         },
@@ -292,7 +356,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)7,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 267, DateTimeKind.Utc).AddTicks(1112),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 39, DateTimeKind.Utc).AddTicks(8353),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GenderName = "Female",
                             IsDeleted = false
                         });
@@ -309,11 +374,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -328,49 +402,56 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2470),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7204),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Weight"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2478),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7212),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Height"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2481),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7215),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Chest"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2483),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7217),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Waist"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2485),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7220),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Thing"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2489),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7224),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Arms"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 287, DateTimeKind.Utc).AddTicks(2491),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 67, DateTimeKind.Utc).AddTicks(7226),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Fat"
                         });
@@ -387,6 +468,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -398,6 +485,9 @@ namespace gms.data.Migrations.Entities
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("gms.MemberLevelEnum", (string)null);
@@ -406,21 +496,24 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 303, DateTimeKind.Utc).AddTicks(1819),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 88, DateTimeKind.Utc).AddTicks(2381),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Beginner"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 303, DateTimeKind.Utc).AddTicks(1827),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 88, DateTimeKind.Utc).AddTicks(2448),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Intermediate"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 303, DateTimeKind.Utc).AddTicks(1829),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 88, DateTimeKind.Utc).AddTicks(2451),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Advanced"
                         });
@@ -440,11 +533,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -459,14 +561,16 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 305, DateTimeKind.Utc).AddTicks(8220),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 90, DateTimeKind.Utc).AddTicks(7651),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             PaymentMethod = "Cash"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 305, DateTimeKind.Utc).AddTicks(8226),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 90, DateTimeKind.Utc).AddTicks(7659),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             PaymentMethod = "Credit"
                         });
@@ -486,11 +590,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("SubscriptionStatus")
                         .IsRequired()
@@ -506,7 +619,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3475),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4447),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Active"
                         },
@@ -514,7 +628,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3482),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4455),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "InActive"
                         },
@@ -522,7 +637,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 3,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3485),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4458),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Suspend"
                         },
@@ -530,7 +646,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 4,
                             BadgeColorId = (byte)6,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3487),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4477),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Cancelled"
                         },
@@ -538,7 +655,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 5,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3497),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4480),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Expired"
                         },
@@ -546,7 +664,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 6,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3502),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4485),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "NotPaid"
                         },
@@ -554,7 +673,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 7,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3504),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4488),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "PartiallyPaid"
                         },
@@ -562,7 +682,8 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 8,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 306, DateTimeKind.Utc).AddTicks(3506),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 91, DateTimeKind.Utc).AddTicks(4490),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "FullyPaid"
                         });
@@ -582,11 +703,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("SubscriptionType")
                         .IsRequired()
@@ -601,14 +731,16 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(2044),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(5250),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionType = "Monthly"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(2058),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(5264),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionType = "Annually"
                         });
@@ -631,6 +763,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -650,6 +788,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
@@ -693,6 +834,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -711,6 +858,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StartYear")
                         .HasColumnType("int");
@@ -738,6 +888,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GeneralSettingId")
                         .HasColumnType("int");
 
@@ -746,6 +902,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -771,6 +930,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("GymLogo")
                         .HasColumnType("varbinary(max)");
 
@@ -782,6 +947,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("ReportFooter")
                         .HasColumnType("varbinary(max)");
@@ -811,6 +979,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
@@ -819,6 +993,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -849,11 +1026,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -881,6 +1067,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymMemberUserId")
                         .HasColumnType("int");
 
@@ -889,6 +1081,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Result")
                         .HasPrecision(18, 2)
@@ -921,6 +1116,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymGroupId")
                         .HasColumnType("int");
 
@@ -932,6 +1133,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -959,6 +1163,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymReceiverUserId")
                         .HasColumnType("int");
 
@@ -973,6 +1183,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("NotificationMessageBody")
                         .IsRequired()
@@ -1014,11 +1227,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1046,6 +1268,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymGroupId")
                         .HasColumnType("int");
 
@@ -1057,6 +1285,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1081,6 +1312,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymSpecializationId")
                         .HasColumnType("int");
 
@@ -1092,6 +1329,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1116,6 +1356,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymMeasurementId")
                         .HasColumnType("int");
 
@@ -1128,6 +1374,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1416,6 +1665,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymMemberUserId")
                         .HasColumnType("int");
 
@@ -1424,6 +1679,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1448,6 +1706,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ExpiringDate")
                         .HasColumnType("datetime2");
 
@@ -1468,6 +1732,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<byte>("PaymentStatusId")
                         .HasColumnType("tinyint");
@@ -1495,6 +1762,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymMemberMembershipId")
                         .HasColumnType("int");
 
@@ -1503,6 +1776,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PaidAmount")
                         .HasPrecision(18, 2)
@@ -1541,6 +1817,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1549,6 +1831,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1585,6 +1870,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1611,6 +1902,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("SignupFee")
                         .HasPrecision(18, 2)
@@ -1649,6 +1943,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("FatSaturatedG")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -1666,6 +1966,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("NutritionPlanMealId")
                         .HasColumnType("int");
@@ -1719,11 +2022,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1757,6 +2069,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -1771,6 +2089,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<byte>("NutritionPlanStatusId")
                         .HasColumnType("tinyint");
@@ -1803,6 +2124,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1811,6 +2138,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("NutritionPlanId")
                         .HasColumnType("int");
@@ -1854,6 +2184,12 @@ namespace gms.data.Migrations.Entities
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("Flag")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -1872,6 +2208,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1899,6 +2238,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Egyptian Pound",
                             CurrencyCode = "EGP",
                             CurrencySymbol = "E£",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 48, 46, 48, 54, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 53, 56, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 51, 52, 49, 46, 50, 50, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 54, 52, 54, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 55, 49, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 49, 55, 48, 46, 54, 53, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 53, 56, 34, 47, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 48, 67, 55, 50, 55, 59, 34, 32, 100, 61, 34, 77, 50, 57, 51, 46, 55, 57, 44, 50, 51, 50, 46, 53, 54, 56, 99, 48, 45, 53, 46, 56, 54, 57, 45, 53, 46, 55, 53, 45, 49, 48, 46, 48, 49, 51, 45, 49, 49, 46, 51, 49, 56, 45, 56, 46, 49, 53, 55, 108, 45, 49, 48, 46, 52, 54, 50, 44, 51, 46, 52, 56, 55, 108, 45, 50, 46, 53, 52, 45, 49, 53, 46, 51, 52, 50, 32, 32, 99, 45, 49, 46, 53, 49, 57, 45, 57, 46, 49, 53, 50, 45, 57, 46, 51, 54, 49, 45, 49, 53, 46, 55, 57, 53, 45, 49, 56, 46, 54, 52, 51, 45, 49, 53, 46, 55, 57, 53, 104, 45, 57, 46, 55, 56, 54, 108, 45, 49, 48, 46, 50, 51, 53, 44, 49, 50, 46, 53, 57, 55, 104, 49, 51, 46, 53, 53, 50, 108, 45, 51, 46, 55, 57, 51, 44, 49, 56, 46, 55, 51, 51, 108, 45, 49, 49, 46, 48, 51, 56, 45, 51, 46, 54, 56, 32, 32, 99, 45, 53, 46, 53, 54, 56, 45, 49, 46, 56, 53, 54, 45, 49, 49, 46, 51, 49, 56, 44, 50, 46, 50, 56, 56, 45, 49, 49, 46, 51, 49, 56, 44, 56, 46, 49, 53, 55, 118, 54, 51, 46, 54, 53, 108, 49, 53, 46, 50, 51, 52, 45, 49, 53, 46, 50, 51, 52, 108, 45, 55, 46, 49, 55, 57, 44, 50, 49, 46, 53, 51, 51, 104, 45, 56, 46, 48, 53, 54, 118, 49, 50, 46, 53, 57, 55, 104, 55, 53, 46, 53, 56, 118, 45, 49, 50, 46, 53, 57, 55, 104, 45, 56, 46, 48, 53, 54, 108, 45, 55, 46, 49, 55, 57, 45, 50, 49, 46, 53, 51, 51, 32, 32, 108, 49, 53, 46, 50, 51, 52, 44, 49, 53, 46, 50, 51, 52, 118, 45, 54, 51, 46, 54, 53, 76, 50, 57, 51, 46, 55, 57, 44, 50, 51, 50, 46, 53, 54, 56, 76, 50, 57, 51, 46, 55, 57, 44, 50, 51, 50, 46, 53, 54, 56, 122, 32, 77, 50, 52, 57, 46, 55, 48, 50, 44, 51, 48, 50, 46, 53, 49, 54, 104, 45, 49, 48, 46, 49, 53, 53, 108, 54, 46, 57, 56, 51, 45, 49, 56, 46, 54, 52, 56, 108, 51, 46, 49, 55, 50, 44, 52, 46, 48, 53, 49, 86, 51, 48, 50, 46, 53, 49, 54, 122, 32, 32, 32, 77, 50, 54, 50, 46, 50, 57, 56, 44, 51, 48, 50, 46, 53, 49, 54, 118, 45, 49, 52, 46, 53, 57, 55, 108, 51, 46, 49, 55, 50, 45, 52, 46, 48, 53, 49, 108, 54, 46, 57, 56, 51, 44, 49, 56, 46, 54, 52, 56, 76, 50, 54, 50, 46, 50, 57, 56, 44, 51, 48, 50, 46, 53, 49, 54, 76, 50, 54, 50, 46, 50, 57, 56, 44, 51, 48, 50, 46, 53, 49, 54, 122, 32, 77, 50, 53, 54, 44, 50, 55, 57, 46, 54, 56, 53, 99, 48, 44, 48, 45, 49, 57, 46, 52, 56, 53, 45, 49, 51, 46, 49, 56, 55, 45, 49, 56, 46, 54, 57, 56, 45, 51, 55, 46, 55, 57, 32, 32, 99, 48, 44, 48, 44, 49, 50, 46, 48, 48, 54, 45, 49, 46, 57, 54, 56, 44, 49, 56, 46, 54, 57, 56, 45, 49, 50, 46, 53, 57, 55, 99, 54, 46, 54, 57, 50, 44, 49, 48, 46, 54, 50, 56, 44, 49, 56, 46, 54, 57, 56, 44, 49, 50, 46, 53, 57, 55, 44, 49, 56, 46, 54, 57, 56, 44, 49, 50, 46, 53, 57, 55, 67, 50, 55, 53, 46, 52, 56, 53, 44, 50, 54, 54, 46, 52, 57, 56, 44, 50, 53, 54, 44, 50, 55, 57, 46, 54, 56, 53, 44, 50, 53, 54, 44, 50, 55, 57, 46, 54, 56, 53, 122, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1915,6 +2255,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Saudi Riyal",
                             CurrencyCode = "SAR",
                             CurrencySymbol = "﷼",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 13, 10, 9, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 55, 51, 65, 70, 48, 48, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 55, 54, 46, 56, 53, 52, 44, 49, 57, 49, 46, 55, 51, 51, 99, 49, 46, 48, 51, 57, 44, 54, 46, 54, 53, 55, 44, 53, 46, 48, 54, 51, 44, 56, 46, 55, 52, 55, 44, 56, 46, 53, 54, 50, 44, 56, 46, 52, 55, 53, 99, 52, 46, 49, 50, 54, 45, 48, 46, 51, 50, 44, 55, 46, 55, 52, 53, 45, 52, 46, 48, 57, 51, 44, 55, 46, 55, 52, 53, 45, 56, 46, 48, 55, 55, 118, 45, 50, 50, 46, 56, 52, 56, 13, 10, 9, 9, 99, 48, 45, 49, 46, 49, 52, 52, 44, 48, 46, 57, 51, 49, 45, 50, 46, 48, 55, 55, 44, 50, 46, 48, 55, 55, 45, 50, 46, 48, 55, 55, 115, 50, 46, 48, 55, 55, 44, 48, 46, 57, 51, 51, 44, 50, 46, 48, 55, 55, 44, 50, 46, 48, 55, 55, 118, 50, 50, 46, 57, 52, 54, 99, 48, 44, 50, 46, 55, 53, 57, 44, 49, 46, 51, 54, 51, 44, 53, 46, 51, 51, 49, 44, 51, 46, 54, 52, 57, 44, 54, 46, 56, 55, 54, 13, 10, 9, 9, 99, 49, 46, 51, 57, 54, 44, 48, 46, 57, 52, 53, 44, 51, 46, 48, 50, 44, 49, 46, 52, 51, 50, 44, 52, 46, 54, 53, 55, 44, 49, 46, 52, 51, 50, 99, 49, 46, 48, 52, 51, 44, 48, 44, 50, 46, 48, 56, 57, 45, 48, 46, 49, 57, 57, 44, 51, 46, 48, 56, 55, 45, 48, 46, 53, 57, 54, 108, 50, 46, 48, 55, 54, 45, 48, 46, 56, 51, 99, 48, 46, 49, 57, 49, 44, 49, 57, 46, 49, 55, 57, 45, 48, 46, 57, 55, 53, 44, 51, 54, 46, 48, 51, 53, 45, 48, 46, 57, 57, 55, 44, 51, 54, 46, 51, 52, 52, 13, 10, 9, 9, 99, 45, 48, 46, 49, 54, 50, 44, 50, 46, 50, 56, 56, 44, 49, 46, 53, 54, 44, 52, 46, 50, 55, 54, 44, 51, 46, 56, 52, 56, 44, 52, 46, 52, 51, 56, 99, 48, 46, 49, 48, 49, 44, 48, 46, 48, 48, 56, 44, 48, 46, 50, 48, 49, 44, 48, 46, 48, 49, 50, 44, 48, 46, 51, 44, 48, 46, 48, 49, 50, 99, 50, 46, 49, 54, 44, 48, 44, 51, 46, 57, 56, 52, 45, 49, 46, 54, 55, 49, 44, 52, 46, 49, 52, 45, 51, 46, 56, 53, 56, 13, 10, 9, 9, 99, 48, 46, 48, 57, 55, 45, 49, 46, 51, 53, 49, 44, 49, 46, 51, 55, 55, 45, 49, 57, 46, 56, 49, 44, 48, 46, 57, 57, 51, 45, 52, 48, 46, 50, 53, 108, 49, 46, 50, 53, 53, 45, 48, 46, 53, 48, 50, 99, 49, 46, 49, 48, 49, 45, 48, 46, 52, 51, 56, 44, 50, 46, 51, 51, 55, 45, 48, 46, 51, 56, 53, 44, 51, 46, 51, 57, 54, 44, 48, 46, 49, 52, 50, 99, 52, 46, 53, 55, 54, 44, 50, 46, 50, 56, 44, 49, 48, 46, 48, 56, 49, 44, 49, 46, 51, 57, 50, 44, 49, 51, 46, 54, 57, 56, 45, 50, 46, 50, 50, 51, 13, 10, 9, 9, 108, 48, 46, 55, 52, 56, 45, 48, 46, 55, 52, 54, 99, 51, 46, 51, 53, 55, 45, 51, 46, 51, 54, 51, 44, 52, 46, 53, 49, 49, 45, 56, 46, 50, 52, 56, 44, 51, 46, 48, 48, 56, 45, 49, 50, 46, 55, 53, 53, 108, 45, 51, 46, 53, 51, 56, 45, 49, 48, 46, 54, 49, 51, 99, 49, 46, 57, 49, 51, 44, 48, 46, 53, 55, 54, 44, 52, 46, 48, 49, 52, 45, 48, 46, 50, 55, 50, 44, 52, 46, 57, 51, 55, 45, 50, 46, 49, 49, 52, 13, 10, 9, 9, 99, 49, 46, 48, 50, 54, 45, 50, 46, 48, 53, 51, 44, 48, 46, 49, 57, 53, 45, 52, 46, 53, 52, 56, 45, 49, 46, 56, 53, 56, 45, 53, 46, 53, 55, 52, 108, 45, 56, 46, 51, 48, 57, 45, 52, 46, 49, 53, 52, 99, 45, 49, 46, 53, 48, 51, 45, 48, 46, 55, 53, 53, 45, 51, 46, 51, 48, 54, 45, 48, 46, 53, 50, 51, 45, 52, 46, 53, 56, 44, 48, 46, 53, 55, 54, 99, 45, 49, 46, 50, 55, 44, 49, 46, 49, 48, 51, 45, 49, 46, 55, 53, 49, 44, 50, 46, 56, 54, 45, 49, 46, 50, 49, 57, 44, 52, 46, 52, 53, 52, 13, 10, 9, 9, 108, 54, 46, 54, 56, 52, 44, 50, 48, 46, 48, 53, 51, 99, 48, 46, 53, 48, 49, 44, 49, 46, 53, 48, 49, 44, 48, 46, 49, 49, 54, 44, 51, 46, 49, 51, 50, 45, 49, 46, 48, 48, 50, 44, 52, 46, 50, 53, 50, 108, 45, 48, 46, 55, 52, 54, 44, 48, 46, 55, 52, 54, 99, 45, 49, 46, 48, 56, 51, 44, 49, 46, 48, 56, 51, 45, 50, 46, 55, 51, 50, 44, 49, 46, 51, 52, 55, 45, 52, 46, 49, 49, 50, 44, 48, 46, 54, 54, 53, 13, 10, 9, 9, 99, 45, 50, 46, 54, 57, 51, 45, 49, 46, 51, 52, 53, 45, 53, 46, 55, 53, 55, 45, 49, 46, 53, 57, 55, 45, 56, 46, 54, 51, 51, 45, 48, 46, 56, 54, 52, 99, 45, 48, 46, 53, 56, 52, 45, 49, 51, 46, 51, 51, 52, 45, 50, 46, 48, 50, 45, 50, 54, 46, 54, 49, 50, 45, 53, 46, 48, 55, 57, 45, 51, 53, 46, 55, 57, 99, 45, 48, 46, 55, 50, 52, 45, 50, 46, 49, 55, 52, 45, 51, 46, 48, 55, 51, 45, 51, 46, 51, 53, 53, 45, 53, 46, 50, 53, 54, 45, 50, 46, 54, 50, 53, 13, 10, 9, 9, 99, 45, 50, 46, 49, 55, 55, 44, 48, 46, 55, 50, 50, 45, 51, 46, 51, 53, 51, 44, 51, 46, 48, 55, 53, 45, 50, 46, 54, 50, 55, 44, 53, 46, 50, 53, 52, 99, 50, 46, 57, 57, 51, 44, 56, 46, 57, 55, 55, 44, 52, 46, 50, 57, 56, 44, 50, 50, 46, 54, 53, 55, 44, 52, 46, 55, 53, 57, 44, 51, 54, 46, 50, 53, 57, 108, 45, 52, 46, 57, 55, 50, 44, 49, 46, 57, 56, 57, 118, 45, 50, 50, 46, 57, 52, 54, 13, 10, 9, 9, 99, 48, 45, 53, 46, 55, 50, 56, 45, 52, 46, 54, 53, 57, 45, 49, 48, 46, 51, 56, 54, 45, 49, 48, 46, 51, 56, 54, 45, 49, 48, 46, 51, 56, 54, 115, 45, 49, 48, 46, 51, 56, 54, 44, 52, 46, 54, 53, 55, 45, 49, 48, 46, 51, 56, 54, 44, 49, 48, 46, 51, 56, 54, 118, 50, 48, 46, 49, 49, 108, 45, 52, 46, 50, 51, 55, 45, 50, 48, 46, 57, 51, 52, 99, 45, 48, 46, 52, 53, 50, 45, 50, 46, 50, 53, 50, 45, 50, 46, 54, 52, 49, 45, 51, 46, 55, 50, 45, 52, 46, 56, 57, 53, 45, 51, 46, 50, 53, 13, 10, 9, 9, 99, 45, 50, 46, 50, 53, 44, 48, 46, 52, 53, 56, 45, 51, 46, 55, 48, 52, 44, 50, 46, 54, 52, 57, 45, 51, 46, 50, 52, 56, 44, 52, 46, 56, 57, 55, 76, 55, 54, 46, 56, 53, 52, 44, 49, 57, 49, 46, 55, 51, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 52, 46, 56, 53, 50, 44, 49, 53, 54, 46, 56, 50, 99, 50, 46, 50, 57, 52, 44, 48, 44, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 118, 45, 52, 46, 49, 53, 52, 99, 48, 45, 50, 46, 50, 57, 54, 45, 49, 46, 56, 54, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 115, 45, 52, 46, 49, 53, 52, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 118, 52, 46, 49, 53, 52, 67, 56, 48, 46, 54, 57, 56, 44, 49, 53, 52, 46, 57, 54, 49, 44, 56, 50, 46, 53, 53, 56, 44, 49, 53, 54, 46, 56, 50, 44, 56, 52, 46, 56, 53, 50, 44, 49, 53, 54, 46, 56, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 50, 54, 46, 51, 57, 53, 44, 49, 53, 50, 46, 54, 54, 53, 104, 52, 46, 49, 53, 52, 99, 50, 46, 50, 57, 52, 44, 48, 44, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 115, 45, 49, 46, 56, 54, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 104, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 99, 45, 50, 46, 50, 57, 52, 44, 48, 45, 52, 46, 49, 53, 52, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 67, 49, 50, 50, 46, 50, 52, 44, 49, 53, 48, 46, 56, 48, 55, 44, 49, 50, 52, 46, 49, 44, 49, 53, 50, 46, 54, 54, 53, 44, 49, 50, 54, 46, 51, 57, 53, 44, 49, 53, 50, 46, 54, 54, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 57, 57, 46, 51, 51, 49, 44, 50, 48, 55, 46, 50, 54, 51, 76, 55, 56, 46, 53, 54, 44, 50, 49, 57, 46, 55, 50, 54, 99, 45, 49, 46, 57, 54, 56, 44, 49, 46, 49, 56, 49, 45, 50, 46, 54, 48, 53, 44, 51, 46, 55, 51, 50, 45, 49, 46, 52, 50, 52, 44, 53, 46, 55, 13, 10, 9, 9, 99, 48, 46, 55, 55, 57, 44, 49, 46, 50, 57, 56, 44, 50, 46, 49, 53, 52, 44, 50, 46, 48, 49, 54, 44, 51, 46, 53, 54, 54, 44, 50, 46, 48, 49, 54, 99, 48, 46, 55, 50, 56, 44, 48, 44, 49, 46, 52, 54, 53, 45, 48, 46, 49, 57, 49, 44, 50, 46, 49, 51, 52, 45, 48, 46, 53, 57, 50, 108, 50, 48, 46, 55, 55, 49, 45, 49, 50, 46, 52, 54, 51, 99, 49, 46, 57, 54, 56, 45, 49, 46, 49, 56, 49, 44, 50, 46, 54, 48, 53, 45, 51, 46, 55, 51, 50, 44, 49, 46, 52, 50, 52, 45, 53, 46, 55, 13, 10, 9, 9, 83, 49, 48, 49, 46, 51, 48, 49, 44, 50, 48, 54, 46, 48, 56, 50, 44, 57, 57, 46, 51, 51, 49, 44, 50, 48, 55, 46, 50, 54, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 53, 53, 46, 51, 51, 56, 44, 50, 49, 52, 46, 54, 49, 49, 108, 48, 46, 48, 57, 55, 45, 48, 46, 48, 54, 54, 99, 48, 46, 51, 52, 57, 44, 49, 46, 52, 48, 52, 44, 48, 46, 57, 52, 55, 44, 50, 46, 55, 54, 51, 44, 49, 46, 57, 49, 55, 44, 51, 46, 57, 48, 51, 13, 10, 9, 9, 99, 49, 46, 54, 56, 56, 44, 49, 46, 57, 56, 56, 44, 52, 46, 50, 49, 57, 44, 50, 46, 57, 56, 54, 44, 55, 46, 48, 55, 57, 44, 50, 46, 55, 53, 49, 99, 52, 46, 48, 53, 55, 45, 48, 46, 50, 57, 54, 44, 54, 46, 56, 49, 54, 45, 50, 46, 49, 53, 44, 56, 46, 54, 52, 49, 45, 52, 46, 53, 52, 52, 99, 48, 46, 50, 55, 56, 44, 48, 46, 49, 57, 49, 44, 48, 46, 53, 55, 44, 48, 46, 51, 54, 53, 44, 48, 46, 56, 55, 54, 44, 48, 46, 53, 49, 57, 13, 10, 9, 9, 99, 50, 46, 50, 52, 53, 44, 49, 46, 49, 51, 50, 44, 52, 46, 56, 52, 50, 44, 49, 46, 48, 52, 55, 44, 55, 46, 51, 49, 53, 45, 48, 46, 50, 51, 53, 99, 54, 46, 50, 55, 56, 45, 51, 46, 50, 51, 51, 44, 55, 46, 54, 51, 49, 45, 49, 48, 46, 55, 49, 52, 44, 55, 46, 52, 52, 45, 49, 52, 46, 54, 50, 53, 99, 45, 48, 46, 49, 49, 50, 45, 50, 46, 50, 56, 45, 50, 46, 48, 53, 49, 45, 51, 46, 56, 57, 49, 45, 52, 46, 51, 50, 53, 45, 51, 46, 57, 51, 53, 13, 10, 9, 9, 99, 45, 50, 46, 50, 56, 50, 44, 48, 46, 48, 57, 55, 45, 52, 46, 48, 53, 55, 44, 50, 46, 48, 51, 50, 45, 51, 46, 57, 55, 54, 44, 52, 46, 51, 49, 50, 99, 48, 46, 48, 48, 50, 44, 48, 46, 48, 53, 51, 44, 48, 46, 48, 57, 53, 44, 52, 46, 57, 56, 50, 45, 50, 46, 57, 49, 57, 44, 54, 46, 56, 49, 50, 99, 45, 48, 46, 52, 57, 49, 45, 48, 46, 54, 56, 54, 45, 49, 46, 48, 55, 53, 45, 50, 46, 50, 50, 55, 45, 49, 46, 50, 57, 52, 45, 51, 46, 53, 48, 49, 13, 10, 9, 9, 99, 45, 48, 46, 51, 53, 49, 45, 50, 46, 49, 51, 56, 45, 50, 46, 51, 49, 52, 45, 51, 46, 54, 50, 55, 45, 52, 46, 52, 50, 56, 45, 51, 46, 52, 53, 54, 99, 45, 50, 46, 49, 53, 52, 44, 48, 46, 49, 55, 45, 51, 46, 56, 49, 56, 44, 49, 46, 57, 56, 45, 51, 46, 56, 50, 54, 44, 52, 46, 49, 52, 50, 99, 45, 48, 46, 48, 48, 50, 44, 48, 46, 54, 48, 52, 45, 48, 46, 49, 51, 54, 44, 53, 46, 57, 51, 53, 45, 52, 46, 50, 53, 50, 44, 54, 46, 51, 56, 49, 13, 10, 9, 9, 99, 45, 48, 46, 52, 55, 57, 45, 48, 46, 54, 53, 51, 45, 48, 46, 52, 56, 55, 45, 51, 46, 52, 48, 52, 45, 48, 46, 48, 49, 54, 45, 53, 46, 52, 51, 54, 99, 48, 46, 51, 57, 56, 45, 49, 46, 54, 54, 55, 45, 48, 46, 50, 55, 50, 45, 51, 46, 52, 48, 56, 45, 49, 46, 54, 56, 50, 45, 52, 46, 51, 56, 49, 99, 45, 49, 46, 52, 49, 52, 45, 48, 46, 57, 55, 56, 45, 51, 46, 50, 55, 56, 45, 48, 46, 57, 55, 56, 45, 52, 46, 54, 57, 54, 45, 48, 46, 48, 49, 54, 108, 45, 50, 46, 51, 49, 57, 44, 49, 46, 53, 55, 55, 13, 10, 9, 9, 99, 45, 49, 46, 49, 48, 49, 45, 50, 52, 46, 48, 57, 49, 45, 51, 46, 54, 51, 55, 45, 53, 50, 46, 49, 54, 53, 45, 51, 46, 54, 54, 57, 45, 53, 50, 46, 53, 50, 51, 99, 45, 48, 46, 50, 48, 55, 45, 50, 46, 50, 56, 45, 50, 46, 50, 49, 53, 45, 51, 46, 57, 56, 45, 52, 46, 53, 49, 51, 45, 51, 46, 55, 54, 49, 99, 45, 50, 46, 50, 56, 54, 44, 48, 46, 50, 48, 55, 45, 51, 46, 57, 55, 44, 50, 46, 50, 50, 55, 45, 51, 46, 55, 54, 51, 44, 52, 46, 53, 49, 53, 13, 10, 9, 9, 99, 48, 46, 48, 51, 54, 44, 48, 46, 51, 56, 52, 44, 50, 46, 57, 55, 44, 51, 50, 46, 56, 54, 52, 44, 51, 46, 56, 55, 53, 44, 53, 55, 46, 54, 54, 57, 99, 45, 48, 46, 50, 49, 50, 44, 48, 46, 50, 48, 50, 45, 48, 46, 52, 51, 49, 44, 48, 46, 52, 50, 51, 45, 48, 46, 54, 51, 57, 44, 48, 46, 54, 49, 54, 99, 45, 49, 46, 54, 52, 51, 45, 52, 46, 49, 52, 50, 45, 52, 46, 56, 57, 57, 45, 54, 46, 55, 53, 49, 45, 57, 46, 48, 57, 51, 45, 55, 46, 49, 52, 56, 13, 10, 9, 9, 99, 45, 53, 46, 57, 49, 57, 45, 48, 46, 53, 50, 51, 45, 49, 50, 46, 51, 51, 51, 44, 51, 46, 53, 48, 53, 45, 49, 52, 46, 54, 51, 49, 44, 57, 46, 50, 53, 56, 99, 45, 49, 46, 57, 56, 50, 44, 52, 46, 57, 52, 57, 45, 48, 46, 55, 51, 52, 44, 57, 46, 56, 49, 52, 44, 51, 46, 49, 55, 55, 44, 49, 50, 46, 51, 57, 99, 50, 46, 56, 49, 49, 44, 49, 46, 56, 53, 52, 44, 55, 46, 48, 53, 53, 44, 50, 46, 52, 51, 56, 44, 49, 50, 46, 51, 57, 44, 48, 46, 53, 54, 56, 13, 10, 9, 9, 99, 45, 49, 46, 51, 48, 50, 44, 52, 46, 53, 55, 54, 45, 51, 46, 54, 55, 52, 44, 57, 46, 50, 49, 55, 45, 54, 46, 55, 53, 55, 44, 49, 50, 46, 56, 48, 56, 99, 45, 50, 46, 55, 54, 49, 44, 51, 46, 50, 49, 55, 45, 55, 46, 51, 55, 49, 44, 54, 46, 57, 50, 57, 45, 49, 51, 46, 50, 55, 50, 44, 54, 46, 55, 54, 51, 99, 45, 51, 46, 52, 51, 52, 45, 48, 46, 49, 51, 52, 45, 54, 46, 48, 55, 51, 45, 49, 46, 50, 53, 56, 45, 56, 46, 48, 54, 55, 45, 51, 46, 52, 52, 13, 10, 9, 9, 99, 45, 52, 46, 56, 48, 57, 45, 53, 46, 50, 53, 52, 45, 52, 46, 51, 57, 54, 45, 49, 52, 46, 55, 54, 51, 45, 52, 46, 51, 57, 50, 45, 49, 52, 46, 56, 54, 52, 99, 48, 46, 49, 50, 45, 50, 46, 50, 56, 56, 45, 49, 46, 54, 51, 51, 45, 52, 46, 50, 51, 57, 45, 51, 46, 57, 49, 57, 45, 52, 46, 51, 54, 53, 99, 45, 50, 46, 51, 48, 50, 45, 48, 46, 50, 52, 51, 45, 52, 46, 50, 53, 50, 44, 49, 46, 54, 50, 55, 45, 52, 46, 51, 55, 55, 44, 51, 46, 57, 49, 57, 13, 10, 9, 9, 99, 45, 48, 46, 48, 50, 56, 44, 48, 46, 53, 50, 55, 45, 48, 46, 54, 51, 49, 44, 49, 51, 46, 48, 50, 51, 44, 54, 46, 53, 50, 51, 44, 50, 48, 46, 56, 56, 49, 99, 51, 46, 53, 50, 49, 44, 51, 46, 56, 55, 52, 44, 56, 46, 50, 48, 49, 44, 53, 46, 57, 52, 55, 44, 49, 51, 46, 57, 48, 55, 44, 54, 46, 49, 55, 49, 99, 48, 46, 50, 55, 56, 44, 48, 46, 48, 49, 50, 44, 48, 46, 53, 53, 54, 44, 48, 46, 48, 49, 54, 44, 48, 46, 56, 51, 54, 44, 48, 46, 48, 49, 54, 13, 10, 9, 9, 99, 54, 46, 57, 52, 57, 44, 48, 44, 49, 51, 46, 54, 57, 50, 45, 51, 46, 52, 48, 56, 44, 49, 57, 46, 48, 54, 51, 45, 57, 46, 54, 54, 56, 99, 53, 46, 48, 53, 50, 45, 53, 46, 56, 56, 51, 44, 56, 46, 52, 56, 51, 45, 49, 51, 46, 56, 55, 52, 44, 57, 46, 53, 49, 51, 45, 50, 49, 46, 50, 57, 51, 99, 45, 48, 46, 48, 49, 52, 44, 49, 52, 46, 50, 49, 49, 45, 56, 46, 53, 55, 55, 44, 51, 48, 46, 50, 52, 45, 49, 57, 46, 57, 51, 51, 44, 51, 55, 46, 51, 48, 49, 13, 10, 9, 9, 99, 45, 52, 46, 56, 50, 50, 44, 50, 46, 57, 57, 52, 45, 49, 50, 46, 51, 51, 57, 44, 53, 46, 54, 57, 54, 45, 50, 48, 46, 56, 48, 56, 44, 49, 46, 53, 50, 49, 99, 45, 49, 48, 46, 52, 51, 56, 45, 53, 46, 49, 53, 50, 45, 57, 46, 49, 57, 53, 45, 49, 55, 46, 48, 56, 52, 45, 57, 46, 49, 52, 45, 49, 55, 46, 53, 55, 99, 48, 46, 50, 56, 54, 45, 50, 46, 50, 55, 54, 45, 49, 46, 51, 51, 49, 45, 52, 46, 51, 53, 51, 45, 51, 46, 54, 48, 55, 45, 52, 46, 54, 51, 55, 13, 10, 9, 9, 99, 45, 50, 46, 50, 54, 54, 45, 48, 46, 50, 55, 54, 45, 52, 46, 51, 53, 53, 44, 49, 46, 51, 50, 55, 45, 52, 46, 54, 51, 55, 44, 51, 46, 54, 48, 55, 99, 45, 48, 46, 48, 57, 51, 44, 48, 46, 55, 52, 50, 45, 50, 46, 48, 56, 57, 44, 49, 56, 46, 50, 53, 54, 44, 49, 51, 46, 55, 48, 56, 44, 50, 54, 46, 48, 52, 57, 99, 52, 46, 48, 53, 55, 44, 50, 46, 48, 48, 52, 44, 56, 46, 51, 44, 50, 46, 57, 57, 56, 44, 49, 50, 46, 53, 55, 54, 44, 50, 46, 57, 57, 56, 13, 10, 9, 9, 99, 53, 46, 52, 57, 51, 44, 48, 44, 49, 49, 46, 48, 51, 55, 45, 49, 46, 54, 52, 51, 44, 49, 54, 46, 50, 57, 50, 45, 52, 46, 57, 49, 51, 99, 49, 51, 46, 56, 50, 52, 45, 56, 46, 53, 57, 50, 44, 50, 51, 46, 56, 53, 57, 45, 50, 55, 46, 50, 54, 50, 44, 50, 51, 46, 56, 53, 57, 45, 52, 52, 46, 51, 57, 67, 49, 53, 53, 46, 52, 55, 52, 44, 50, 50, 48, 46, 54, 49, 51, 44, 49, 53, 53, 46, 52, 50, 52, 44, 50, 49, 55, 46, 54, 56, 55, 44, 49, 53, 53, 46, 51, 51, 56, 44, 50, 49, 52, 46, 54, 49, 49, 122, 13, 10, 9, 9, 32, 77, 49, 51, 48, 46, 50, 56, 57, 44, 50, 49, 56, 46, 56, 57, 52, 99, 45, 48, 46, 55, 52, 50, 45, 48, 46, 52, 57, 49, 45, 48, 46, 49, 54, 50, 45, 50, 46, 48, 54, 49, 45, 48, 46, 48, 51, 55, 45, 50, 46, 51, 55, 51, 99, 48, 46, 56, 55, 52, 45, 50, 46, 49, 57, 49, 44, 51, 46, 54, 49, 49, 45, 52, 46, 48, 56, 53, 44, 53, 46, 55, 57, 55, 45, 52, 46, 48, 56, 53, 99, 48, 46, 49, 49, 50, 44, 48, 44, 48, 46, 50, 50, 53, 44, 48, 46, 48, 48, 52, 44, 48, 46, 51, 51, 53, 44, 48, 46, 48, 49, 54, 13, 10, 9, 9, 99, 48, 46, 53, 51, 49, 44, 48, 46, 48, 52, 57, 44, 49, 46, 57, 52, 49, 44, 48, 46, 49, 56, 51, 44, 50, 46, 53, 52, 56, 44, 51, 46, 51, 49, 57, 99, 48, 46, 48, 54, 53, 44, 48, 46, 51, 51, 51, 44, 48, 46, 49, 50, 44, 48, 46, 54, 55, 51, 44, 48, 46, 49, 54, 50, 44, 49, 46, 48, 50, 50, 67, 49, 51, 52, 46, 52, 54, 52, 44, 50, 49, 57, 46, 53, 49, 49, 44, 49, 51, 49, 46, 51, 54, 44, 50, 49, 57, 46, 53, 57, 54, 44, 49, 51, 48, 46, 50, 56, 57, 44, 50, 49, 56, 46, 56, 57, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 57, 52, 57, 44, 50, 53, 55, 46, 49, 48, 50, 99, 45, 49, 46, 57, 54, 56, 45, 49, 46, 49, 53, 54, 45, 52, 46, 53, 49, 49, 45, 48, 46, 52, 57, 53, 45, 53, 46, 54, 56, 44, 49, 46, 52, 55, 51, 99, 45, 48, 46, 49, 57, 49, 44, 48, 46, 51, 50, 45, 48, 46, 52, 52, 52, 44, 48, 46, 54, 54, 57, 45, 48, 46, 55, 48, 50, 44, 48, 46, 57, 56, 54, 13, 10, 9, 9, 99, 45, 48, 46, 48, 52, 53, 45, 48, 46, 49, 48, 53, 45, 48, 46, 48, 56, 57, 45, 48, 46, 50, 49, 57, 45, 48, 46, 49, 51, 52, 45, 48, 46, 51, 52, 49, 99, 45, 49, 46, 55, 51, 50, 45, 52, 46, 54, 50, 49, 45, 48, 46, 52, 57, 57, 45, 49, 49, 46, 55, 52, 49, 44, 48, 46, 49, 50, 52, 45, 49, 52, 46, 48, 57, 52, 99, 48, 46, 53, 56, 54, 45, 50, 46, 50, 49, 53, 45, 48, 46, 55, 51, 50, 45, 52, 46, 52, 56, 55, 45, 50, 46, 57, 52, 55, 45, 53, 46, 48, 55, 57, 13, 10, 9, 9, 99, 45, 50, 46, 50, 49, 49, 45, 48, 46, 53, 54, 56, 45, 52, 46, 52, 56, 53, 44, 48, 46, 55, 50, 50, 45, 53, 46, 48, 55, 57, 44, 50, 46, 57, 51, 55, 99, 45, 48, 46, 51, 48, 50, 44, 49, 46, 49, 50, 52, 45, 50, 46, 56, 53, 54, 44, 49, 49, 46, 50, 48, 57, 44, 48, 46, 49, 50, 50, 44, 49, 57, 46, 49, 53, 51, 99, 49, 46, 57, 48, 55, 44, 53, 46, 48, 55, 57, 44, 52, 46, 56, 51, 52, 44, 54, 46, 51, 54, 49, 44, 54, 46, 57, 53, 54, 44, 54, 46, 53, 51, 54, 13, 10, 9, 9, 99, 48, 46, 49, 56, 57, 44, 48, 46, 48, 49, 54, 44, 48, 46, 51, 55, 53, 44, 48, 46, 48, 50, 52, 44, 48, 46, 53, 54, 44, 48, 46, 48, 50, 52, 99, 52, 46, 52, 55, 51, 44, 48, 44, 55, 46, 52, 52, 56, 45, 52, 46, 53, 48, 55, 44, 56, 46, 50, 55, 54, 45, 53, 46, 57, 51, 53, 67, 56, 57, 46, 53, 57, 51, 44, 50, 54, 48, 46, 55, 56, 49, 44, 56, 56, 46, 57, 50, 49, 44, 50, 53, 56, 46, 50, 54, 50, 44, 56, 54, 46, 57, 52, 57, 44, 50, 53, 55, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 51, 46, 54, 49, 50, 44, 49, 56, 49, 46, 55, 52, 53, 99, 48, 46, 56, 57, 57, 44, 48, 44, 49, 46, 56, 48, 51, 45, 48, 46, 50, 56, 56, 44, 50, 46, 53, 54, 52, 45, 48, 46, 56, 56, 56, 108, 50, 48, 46, 57, 52, 52, 45, 49, 54, 46, 52, 52, 51, 13, 10, 9, 9, 99, 48, 46, 50, 56, 57, 45, 48, 46, 50, 50, 55, 44, 48, 46, 52, 55, 52, 45, 48, 46, 53, 50, 52, 44, 48, 46, 54, 56, 53, 45, 48, 46, 56, 48, 52, 99, 51, 46, 48, 49, 54, 45, 49, 46, 56, 49, 57, 44, 53, 46, 48, 53, 55, 45, 53, 46, 48, 57, 53, 44, 53, 46, 48, 53, 55, 45, 56, 46, 56, 54, 56, 99, 48, 45, 53, 46, 55, 50, 56, 45, 52, 46, 54, 53, 57, 45, 49, 48, 46, 51, 56, 54, 45, 49, 48, 46, 51, 56, 54, 45, 49, 48, 46, 51, 56, 54, 13, 10, 9, 9, 115, 45, 49, 48, 46, 51, 56, 54, 44, 52, 46, 54, 53, 55, 45, 49, 48, 46, 51, 56, 54, 44, 49, 48, 46, 51, 56, 54, 99, 48, 44, 51, 46, 50, 48, 53, 44, 49, 46, 52, 56, 57, 44, 54, 46, 48, 51, 56, 44, 51, 46, 55, 55, 55, 44, 55, 46, 57, 52, 53, 108, 45, 49, 52, 46, 56, 50, 52, 44, 49, 49, 46, 54, 51, 56, 99, 45, 49, 46, 56, 48, 51, 44, 49, 46, 52, 49, 54, 45, 50, 46, 49, 49, 56, 44, 52, 46, 48, 50, 56, 45, 48, 46, 55, 48, 50, 44, 53, 46, 56, 51, 13, 10, 9, 9, 67, 49, 54, 49, 46, 49, 54, 50, 44, 49, 56, 49, 46, 50, 48, 49, 44, 49, 54, 50, 46, 51, 56, 49, 44, 49, 56, 49, 46, 55, 52, 53, 44, 49, 54, 51, 46, 54, 49, 50, 44, 49, 56, 49, 46, 55, 52, 53, 122, 32, 77, 49, 56, 50, 46, 52, 55, 55, 44, 49, 53, 50, 46, 54, 54, 53, 99, 49, 46, 49, 52, 54, 44, 48, 44, 50, 46, 48, 55, 55, 44, 48, 46, 57, 51, 51, 44, 50, 46, 48, 55, 55, 44, 50, 46, 48, 55, 55, 115, 45, 48, 46, 57, 51, 49, 44, 50, 46, 48, 55, 55, 45, 50, 46, 48, 55, 55, 44, 50, 46, 48, 55, 55, 13, 10, 9, 9, 115, 45, 50, 46, 48, 55, 55, 45, 48, 46, 57, 51, 51, 45, 50, 46, 48, 55, 55, 45, 50, 46, 48, 55, 55, 83, 49, 56, 49, 46, 51, 51, 49, 44, 49, 53, 50, 46, 54, 54, 53, 44, 49, 56, 50, 46, 52, 55, 55, 44, 49, 53, 50, 46, 54, 54, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 55, 55, 46, 53, 54, 44, 49, 55, 55, 46, 56, 48, 54, 99, 45, 50, 46, 49, 56, 57, 45, 48, 46, 55, 51, 45, 52, 46, 53, 51, 50, 44, 48, 46, 52, 53, 45, 53, 46, 50, 53, 54, 44, 50, 46, 54, 50, 53, 99, 45, 48, 46, 52, 52, 52, 44, 49, 46, 51, 51, 49, 45, 50, 46, 52, 53, 50, 44, 56, 46, 49, 56, 51, 44, 49, 46, 54, 49, 57, 44, 49, 50, 46, 50, 53, 50, 13, 10, 9, 9, 99, 49, 46, 53, 56, 44, 49, 46, 53, 56, 50, 44, 51, 46, 54, 53, 55, 44, 50, 46, 51, 55, 51, 44, 54, 46, 50, 48, 55, 44, 50, 46, 51, 54, 57, 99, 49, 46, 55, 48, 52, 44, 48, 44, 51, 46, 54, 49, 57, 45, 48, 46, 51, 52, 57, 44, 53, 46, 55, 51, 56, 45, 49, 46, 48, 53, 57, 99, 50, 46, 49, 55, 55, 45, 48, 46, 55, 50, 50, 44, 51, 46, 51, 53, 51, 45, 51, 46, 48, 55, 53, 44, 50, 46, 54, 50, 55, 45, 53, 46, 50, 53, 52, 13, 10, 9, 9, 99, 45, 48, 46, 55, 50, 54, 45, 50, 46, 49, 55, 52, 45, 51, 46, 48, 55, 53, 45, 51, 46, 51, 53, 57, 45, 53, 46, 50, 53, 54, 45, 50, 46, 54, 50, 53, 99, 45, 50, 46, 51, 50, 49, 44, 48, 46, 55, 55, 49, 45, 51, 46, 51, 48, 50, 44, 48, 46, 54, 52, 53, 45, 51, 46, 51, 57, 50, 44, 48, 46, 55, 50, 54, 99, 45, 48, 46, 50, 52, 53, 45, 48, 46, 54, 49, 55, 45, 48, 46, 48, 56, 51, 45, 50, 46, 52, 55, 49, 44, 48, 46, 51, 52, 51, 45, 51, 46, 55, 57, 55, 13, 10, 9, 9, 67, 49, 56, 48, 46, 57, 48, 55, 44, 49, 56, 48, 46, 56, 55, 51, 44, 49, 55, 57, 46, 55, 51, 44, 49, 55, 56, 46, 53, 50, 56, 44, 49, 55, 55, 46, 53, 54, 44, 49, 55, 55, 46, 56, 48, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 50, 53, 46, 49, 48, 53, 44, 49, 54, 48, 46, 54, 51, 51, 99, 48, 46, 51, 56, 57, 44, 48, 46, 49, 49, 52, 44, 48, 46, 55, 56, 49, 44, 48, 46, 49, 54, 54, 44, 49, 46, 49, 54, 54, 44, 48, 46, 49, 54, 54, 99, 49, 46, 55, 57, 57, 44, 48, 44, 51, 46, 52, 53, 54, 45, 49, 46, 49, 55, 54, 44, 51, 46, 57, 56, 54, 45, 50, 46, 57, 57, 108, 50, 46, 52, 50, 52, 45, 56, 46, 51, 48, 57, 13, 10, 9, 9, 99, 48, 46, 54, 52, 51, 45, 50, 46, 50, 48, 51, 45, 48, 46, 54, 50, 51, 45, 52, 46, 53, 49, 49, 45, 50, 46, 56, 50, 52, 45, 53, 46, 49, 53, 50, 99, 45, 50, 46, 50, 48, 57, 45, 48, 46, 54, 51, 55, 45, 52, 46, 53, 48, 57, 44, 48, 46, 54, 50, 49, 45, 53, 46, 49, 53, 50, 44, 50, 46, 56, 50, 52, 108, 45, 50, 46, 52, 50, 52, 44, 56, 46, 51, 48, 56, 13, 10, 9, 9, 67, 50, 50, 49, 46, 54, 51, 56, 44, 49, 53, 55, 46, 54, 56, 52, 44, 50, 50, 50, 46, 57, 48, 52, 44, 49, 53, 57, 46, 57, 57, 50, 44, 50, 50, 53, 46, 49, 48, 53, 44, 49, 54, 48, 46, 54, 51, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 48, 48, 46, 56, 57, 49, 44, 49, 54, 48, 46, 49, 52, 54, 99, 48, 46, 54, 53, 57, 44, 48, 46, 51, 56, 53, 44, 49, 46, 51, 56, 49, 44, 48, 46, 53, 54, 56, 44, 50, 46, 48, 57, 51, 44, 48, 46, 53, 54, 56, 99, 49, 46, 52, 50, 56, 44, 48, 44, 50, 46, 56, 49, 55, 45, 48, 46, 55, 51, 52, 44, 51, 46, 53, 57, 45, 50, 46, 48, 53, 55, 13, 10, 9, 9, 99, 49, 46, 49, 53, 56, 45, 49, 46, 57, 56, 44, 48, 46, 52, 57, 49, 45, 52, 46, 53, 50, 55, 45, 49, 46, 52, 56, 57, 45, 53, 46, 54, 56, 52, 99, 45, 48, 46, 56, 51, 54, 45, 48, 46, 52, 56, 55, 45, 48, 46, 55, 50, 50, 45, 49, 46, 56, 54, 50, 45, 48, 46, 54, 57, 50, 45, 50, 46, 49, 51, 52, 99, 48, 46, 49, 50, 52, 45, 49, 46, 48, 57, 49, 44, 48, 46, 55, 55, 53, 45, 50, 46, 52, 50, 50, 44, 49, 46, 57, 48, 55, 45, 50, 46, 55, 55, 53, 13, 10, 9, 9, 99, 50, 46, 49, 57, 49, 45, 48, 46, 54, 56, 50, 44, 51, 46, 52, 49, 52, 45, 51, 46, 48, 49, 44, 50, 46, 55, 51, 50, 45, 53, 46, 50, 48, 49, 99, 45, 48, 46, 54, 56, 54, 45, 50, 46, 49, 57, 53, 45, 51, 46, 48, 49, 45, 51, 46, 52, 48, 56, 45, 53, 46, 50, 48, 51, 45, 50, 46, 55, 51, 52, 99, 45, 52, 46, 49, 52, 50, 44, 49, 46, 50, 57, 45, 55, 46, 49, 54, 44, 53, 46, 49, 50, 52, 45, 55, 46, 54, 57, 50, 44, 57, 46, 55, 54, 53, 13, 10, 9, 9, 67, 49, 57, 53, 46, 54, 52, 53, 44, 49, 53, 52, 46, 50, 49, 53, 44, 49, 57, 55, 46, 52, 54, 55, 44, 49, 53, 56, 46, 49, 52, 50, 44, 50, 48, 48, 46, 56, 57, 49, 44, 49, 54, 48, 46, 49, 52, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 55, 46, 57, 51, 55, 44, 50, 50, 55, 46, 52, 52, 50, 99, 45, 50, 46, 50, 57, 52, 44, 48, 45, 52, 46, 49, 53, 52, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 99, 48, 44, 50, 46, 48, 50, 56, 44, 49, 46, 52, 53, 50, 44, 51, 46, 55, 49, 54, 44, 51, 46, 51, 55, 53, 44, 52, 46, 48, 56, 49, 13, 10, 9, 9, 99, 48, 46, 50, 49, 57, 44, 48, 46, 51, 50, 44, 48, 46, 55, 55, 57, 44, 49, 46, 52, 50, 44, 48, 46, 55, 55, 57, 44, 52, 46, 50, 50, 55, 99, 48, 44, 50, 46, 50, 57, 54, 44, 49, 46, 56, 54, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 115, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 67, 49, 55, 54, 46, 50, 52, 53, 44, 50, 50, 55, 46, 53, 56, 52, 44, 49, 54, 56, 46, 50, 55, 54, 44, 50, 50, 55, 46, 52, 52, 50, 44, 49, 54, 55, 46, 57, 51, 55, 44, 50, 50, 55, 46, 52, 52, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 51, 56, 46, 52, 49, 53, 44, 50, 49, 48, 46, 50, 52, 49, 99, 48, 46, 53, 50, 49, 44, 48, 46, 48, 56, 53, 44, 49, 46, 48, 52, 49, 44, 48, 46, 49, 50, 54, 44, 49, 46, 53, 54, 50, 44, 48, 46, 49, 50, 54, 99, 51, 46, 50, 54, 52, 44, 48, 44, 54, 46, 53, 54, 50, 45, 49, 46, 54, 52, 55, 44, 57, 46, 56, 50, 56, 45, 52, 46, 57, 49, 51, 13, 10, 9, 9, 99, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 44, 49, 46, 54, 50, 51, 45, 52, 46, 50, 53, 50, 44, 48, 45, 53, 46, 56, 55, 52, 99, 45, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 45, 52, 46, 50, 53, 50, 45, 49, 46, 54, 50, 51, 45, 53, 46, 56, 55, 52, 44, 48, 99, 45, 50, 46, 52, 56, 53, 44, 50, 46, 52, 56, 55, 45, 51, 46, 56, 50, 50, 44, 50, 46, 53, 52, 45, 52, 46, 49, 54, 52, 44, 50, 46, 52, 54, 51, 13, 10, 9, 9, 99, 45, 48, 46, 55, 57, 51, 45, 48, 46, 49, 49, 52, 45, 49, 46, 53, 49, 49, 45, 49, 46, 49, 52, 56, 45, 49, 46, 54, 55, 49, 45, 49, 46, 52, 51, 50, 99, 45, 49, 46, 48, 52, 51, 45, 50, 46, 48, 50, 45, 51, 46, 53, 49, 51, 45, 50, 46, 56, 50, 56, 45, 53, 46, 53, 52, 56, 45, 49, 46, 56, 48, 57, 99, 45, 50, 46, 48, 53, 51, 44, 49, 46, 48, 50, 54, 45, 50, 46, 56, 56, 52, 44, 51, 46, 53, 50, 49, 45, 49, 46, 56, 53, 56, 44, 53, 46, 53, 55, 52, 13, 10, 9, 9, 67, 50, 51, 48, 46, 57, 52, 54, 44, 50, 48, 52, 46, 56, 57, 44, 50, 51, 51, 46, 51, 52, 54, 44, 50, 48, 57, 46, 52, 49, 55, 44, 50, 51, 56, 46, 52, 49, 53, 44, 50, 49, 48, 46, 50, 52, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 48, 57, 46, 48, 50, 57, 44, 49, 56, 49, 46, 48, 52, 55, 99, 45, 48, 46, 48, 50, 54, 45, 48, 46, 48, 54, 53, 45, 48, 46, 48, 53, 49, 45, 48, 46, 49, 50, 54, 45, 48, 46, 48, 55, 49, 45, 48, 46, 49, 56, 51, 99, 45, 48, 46, 55, 51, 54, 45, 50, 46, 49, 53, 56, 45, 51, 46, 48, 56, 57, 45, 51, 46, 51, 51, 49, 45, 53, 46, 50, 52, 52, 45, 50, 46, 53, 57, 54, 13, 10, 9, 9, 99, 45, 50, 46, 49, 55, 57, 44, 48, 46, 55, 50, 50, 45, 51, 46, 51, 53, 53, 44, 51, 46, 48, 55, 53, 45, 50, 46, 54, 50, 57, 44, 53, 46, 50, 53, 52, 99, 48, 46, 51, 50, 53, 44, 48, 46, 57, 55, 52, 44, 50, 46, 49, 55, 52, 44, 53, 46, 56, 53, 56, 44, 54, 46, 55, 53, 57, 44, 54, 46, 52, 55, 53, 99, 48, 46, 51, 48, 54, 44, 48, 46, 48, 52, 49, 44, 48, 46, 54, 49, 49, 44, 48, 46, 48, 54, 49, 44, 48, 46, 57, 49, 51, 44, 48, 46, 48, 54, 49, 13, 10, 9, 9, 99, 50, 46, 56, 55, 56, 44, 48, 44, 53, 46, 53, 55, 56, 45, 49, 46, 56, 54, 50, 44, 56, 46, 48, 51, 53, 45, 53, 46, 53, 52, 54, 99, 49, 46, 50, 55, 50, 45, 49, 46, 57, 48, 55, 44, 48, 46, 55, 53, 55, 45, 52, 46, 52, 56, 55, 45, 49, 46, 49, 53, 50, 45, 53, 46, 55, 54, 49, 99, 45, 49, 46, 57, 49, 49, 45, 49, 46, 50, 55, 45, 52, 46, 52, 57, 49, 45, 48, 46, 55, 53, 57, 45, 53, 46, 55, 54, 49, 44, 49, 46, 49, 53, 50, 13, 10, 9, 9, 67, 51, 48, 57, 46, 53, 53, 49, 44, 49, 56, 48, 46, 51, 57, 52, 44, 51, 48, 57, 46, 50, 54, 55, 44, 49, 56, 48, 46, 55, 54, 55, 44, 51, 48, 57, 46, 48, 50, 57, 44, 49, 56, 49, 46, 48, 52, 55, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 48, 48, 46, 56, 55, 51, 44, 50, 53, 54, 46, 53, 50, 49, 99, 48, 45, 49, 55, 46, 55, 49, 54, 45, 48, 46, 55, 55, 57, 45, 51, 52, 46, 51, 51, 53, 45, 49, 46, 56, 54, 45, 52, 56, 46, 56, 57, 54, 99, 53, 46, 56, 57, 57, 44, 49, 48, 46, 50, 51, 44, 49, 49, 46, 50, 48, 53, 44, 50, 48, 46, 53, 54, 56, 44, 49, 52, 46, 53, 56, 54, 44, 50, 57, 46, 53, 56, 54, 13, 10, 9, 9, 99, 48, 46, 54, 50, 55, 44, 49, 46, 54, 54, 55, 44, 50, 46, 50, 48, 57, 44, 50, 46, 54, 57, 52, 44, 51, 46, 56, 57, 49, 44, 50, 46, 54, 57, 52, 99, 48, 46, 52, 56, 53, 44, 48, 44, 48, 46, 57, 55, 56, 45, 48, 46, 48, 56, 53, 44, 49, 46, 52, 53, 56, 45, 48, 46, 50, 54, 52, 99, 50, 46, 49, 52, 56, 45, 48, 46, 56, 48, 55, 44, 51, 46, 50, 51, 55, 45, 51, 46, 50, 48, 49, 44, 50, 46, 52, 51, 50, 45, 53, 46, 51, 53, 49, 13, 10, 9, 9, 99, 45, 53, 46, 50, 53, 56, 45, 49, 52, 46, 48, 49, 56, 45, 49, 52, 46, 55, 48, 57, 45, 51, 48, 46, 55, 49, 51, 45, 50, 52, 46, 48, 50, 52, 45, 52, 53, 46, 53, 51, 50, 99, 45, 50, 46, 50, 55, 49, 45, 50, 50, 46, 51, 55, 56, 45, 52, 46, 56, 49, 51, 45, 51, 54, 46, 53, 56, 50, 45, 52, 46, 56, 53, 57, 45, 51, 54, 46, 56, 51, 53, 99, 45, 48, 46, 52, 49, 45, 50, 46, 50, 54, 45, 50, 46, 53, 54, 56, 45, 51, 46, 55, 56, 53, 45, 52, 46, 56, 51, 45, 51, 46, 51, 52, 51, 13, 10, 9, 9, 99, 45, 50, 46, 50, 53, 56, 44, 48, 46, 52, 49, 45, 51, 46, 55, 53, 53, 44, 50, 46, 53, 55, 50, 45, 51, 46, 51, 52, 53, 44, 52, 46, 56, 50, 56, 99, 48, 46, 48, 51, 51, 44, 48, 46, 49, 56, 49, 44, 49, 46, 51, 52, 50, 44, 55, 46, 52, 57, 55, 44, 50, 46, 57, 48, 55, 44, 49, 57, 46, 56, 49, 50, 99, 45, 51, 46, 49, 57, 49, 45, 52, 46, 55, 51, 54, 45, 54, 46, 49, 53, 55, 45, 57, 46, 48, 48, 57, 45, 56, 46, 54, 52, 53, 45, 49, 50, 46, 53, 50, 54, 108, 48, 46, 50, 48, 51, 44, 48, 46, 48, 54, 53, 13, 10, 9, 9, 99, 50, 46, 49, 56, 57, 44, 48, 46, 55, 51, 44, 52, 46, 53, 51, 45, 48, 46, 52, 53, 44, 53, 46, 50, 53, 54, 45, 50, 46, 54, 50, 53, 99, 48, 46, 55, 50, 54, 45, 50, 46, 49, 55, 57, 45, 48, 46, 52, 53, 45, 52, 46, 53, 51, 50, 45, 50, 46, 54, 50, 55, 45, 53, 46, 50, 53, 52, 108, 45, 49, 50, 46, 52, 54, 51, 45, 52, 46, 49, 53, 52, 99, 45, 49, 46, 55, 50, 56, 45, 48, 46, 53, 56, 52, 45, 51, 46, 54, 50, 53, 44, 48, 46, 48, 51, 50, 45, 52, 46, 54, 56, 52, 44, 49, 46, 53, 48, 57, 13, 10, 9, 9, 99, 45, 48, 46, 50, 56, 51, 44, 48, 46, 51, 57, 52, 45, 48, 46, 52, 55, 55, 44, 48, 46, 56, 50, 54, 45, 48, 46, 54, 48, 55, 44, 49, 46, 50, 55, 51, 99, 45, 50, 46, 52, 56, 55, 45, 49, 46, 56, 51, 57, 45, 53, 46, 54, 55, 54, 45, 51, 46, 51, 51, 51, 45, 56, 46, 54, 55, 49, 45, 50, 46, 48, 56, 99, 45, 49, 46, 56, 49, 49, 44, 48, 46, 55, 53, 49, 45, 51, 46, 57, 55, 44, 50, 46, 54, 52, 49, 45, 51, 46, 57, 55, 44, 55, 46, 51, 57, 50, 13, 10, 9, 9, 99, 48, 44, 51, 46, 54, 52, 55, 44, 49, 46, 51, 57, 50, 44, 55, 46, 53, 57, 44, 50, 46, 56, 54, 54, 44, 49, 49, 46, 55, 54, 57, 99, 50, 46, 52, 52, 54, 44, 54, 46, 57, 50, 57, 44, 51, 46, 57, 55, 56, 44, 49, 50, 46, 48, 50, 53, 44, 49, 46, 51, 56, 55, 44, 49, 52, 46, 52, 53, 53, 99, 45, 49, 46, 52, 51, 50, 44, 49, 46, 51, 52, 51, 45, 50, 46, 56, 54, 50, 44, 49, 46, 56, 53, 45, 52, 46, 50, 53, 56, 44, 49, 46, 52, 57, 55, 13, 10, 9, 9, 99, 45, 50, 46, 53, 54, 50, 45, 48, 46, 54, 52, 57, 45, 53, 46, 48, 57, 55, 45, 52, 46, 48, 54, 49, 45, 54, 46, 55, 56, 55, 45, 57, 46, 49, 50, 56, 99, 45, 48, 46, 48, 55, 51, 45, 48, 46, 50, 50, 45, 48, 46, 50, 50, 55, 45, 48, 46, 51, 55, 57, 45, 48, 46, 51, 51, 49, 45, 48, 46, 53, 55, 56, 99, 48, 46, 56, 55, 52, 45, 54, 46, 52, 51, 53, 44, 48, 46, 52, 57, 51, 45, 49, 52, 46, 49, 56, 56, 45, 49, 46, 50, 54, 55, 45, 50, 50, 46, 57, 56, 53, 13, 10, 9, 9, 99, 45, 48, 46, 52, 52, 56, 45, 50, 46, 50, 53, 50, 45, 50, 46, 54, 51, 49, 45, 51, 46, 55, 49, 54, 45, 52, 46, 56, 56, 57, 45, 51, 46, 50, 53, 56, 99, 45, 50, 46, 50, 53, 44, 48, 46, 52, 53, 45, 51, 46, 55, 48, 56, 44, 50, 46, 54, 51, 55, 45, 51, 46, 50, 53, 56, 44, 52, 46, 56, 56, 57, 99, 50, 46, 55, 49, 50, 44, 49, 51, 46, 53, 54, 54, 44, 49, 46, 56, 57, 57, 44, 50, 52, 46, 54, 51, 51, 45, 50, 46, 49, 55, 55, 44, 50, 57, 46, 54, 48, 51, 13, 10, 9, 9, 99, 45, 49, 46, 53, 55, 54, 44, 49, 46, 57, 50, 51, 45, 51, 46, 53, 53, 44, 50, 46, 56, 49, 53, 45, 54, 46, 50, 49, 51, 44, 50, 46, 56, 49, 53, 99, 45, 48, 46, 56, 52, 50, 44, 48, 45, 49, 46, 52, 49, 54, 45, 48, 46, 50, 54, 56, 45, 49, 46, 57, 56, 56, 45, 48, 46, 57, 50, 53, 99, 45, 51, 46, 50, 55, 56, 45, 51, 46, 55, 55, 55, 45, 51, 46, 50, 54, 52, 45, 49, 53, 46, 57, 54, 52, 45, 50, 46, 50, 48, 55, 45, 50, 51, 46, 52, 49, 54, 13, 10, 9, 9, 99, 48, 46, 49, 54, 56, 45, 49, 46, 49, 56, 57, 45, 48, 46, 49, 56, 57, 45, 50, 46, 51, 57, 56, 45, 48, 46, 57, 55, 56, 45, 51, 46, 51, 48, 54, 99, 45, 48, 46, 55, 56, 57, 45, 48, 46, 57, 48, 57, 45, 49, 46, 57, 51, 51, 45, 49, 46, 52, 51, 50, 45, 51, 46, 49, 51, 54, 45, 49, 46, 52, 51, 50, 99, 45, 55, 46, 49, 52, 56, 44, 48, 45, 57, 46, 56, 53, 56, 44, 56, 46, 49, 51, 45, 49, 50, 46, 50, 53, 44, 49, 53, 46, 51, 48, 51, 13, 10, 9, 9, 99, 45, 49, 46, 48, 52, 57, 44, 51, 46, 49, 53, 50, 45, 51, 46, 48, 48, 52, 44, 57, 46, 48, 49, 52, 45, 52, 46, 51, 54, 55, 44, 57, 46, 54, 50, 51, 99, 45, 50, 46, 53, 49, 53, 44, 48, 45, 52, 46, 49, 52, 45, 55, 46, 51, 56, 52, 45, 52, 46, 49, 53, 52, 45, 49, 50, 46, 52, 54, 55, 99, 45, 48, 46, 48, 48, 54, 45, 50, 46, 50, 57, 50, 45, 49, 46, 56, 54, 52, 45, 52, 46, 49, 52, 54, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 52, 54, 13, 10, 9, 9, 99, 48, 44, 48, 45, 48, 46, 48, 48, 52, 44, 48, 45, 48, 46, 48, 48, 54, 44, 48, 99, 45, 50, 46, 50, 57, 50, 44, 48, 45, 52, 46, 49, 52, 56, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 52, 56, 44, 52, 46, 49, 53, 99, 48, 44, 57, 46, 53, 56, 50, 44, 51, 46, 50, 54, 52, 44, 50, 48, 46, 55, 55, 49, 44, 49, 50, 46, 52, 54, 51, 44, 50, 48, 46, 55, 55, 49, 99, 54, 46, 56, 53, 44, 48, 44, 57, 46, 54, 50, 53, 45, 55, 46, 52, 54, 53, 44, 49, 49, 46, 57, 52, 56, 45, 49, 52, 46, 52, 48, 50, 13, 10, 9, 9, 99, 48, 46, 52, 48, 52, 44, 53, 46, 53, 49, 55, 44, 49, 46, 54, 52, 57, 44, 49, 49, 46, 50, 51, 52, 44, 52, 46, 55, 49, 50, 44, 49, 52, 46, 55, 54, 51, 99, 50, 46, 49, 53, 50, 44, 50, 46, 52, 56, 51, 44, 53, 46, 48, 49, 44, 51, 46, 55, 57, 51, 44, 56, 46, 50, 54, 54, 44, 51, 46, 55, 57, 51, 99, 53, 46, 49, 50, 56, 44, 48, 44, 57, 46, 52, 57, 55, 45, 50, 46, 48, 50, 52, 44, 49, 50, 46, 54, 51, 55, 45, 53, 46, 56, 53, 52, 13, 10, 9, 9, 99, 48, 46, 53, 54, 56, 45, 48, 46, 54, 57, 51, 44, 49, 46, 48, 53, 57, 45, 49, 46, 52, 56, 57, 44, 49, 46, 53, 52, 51, 45, 50, 46, 50, 57, 51, 99, 50, 46, 52, 49, 51, 44, 51, 46, 52, 51, 44, 53, 46, 51, 55, 49, 44, 53, 46, 54, 57, 44, 56, 46, 55, 48, 53, 44, 54, 46, 53, 51, 50, 99, 48, 46, 57, 55, 56, 44, 48, 46, 50, 52, 55, 44, 49, 46, 57, 54, 50, 44, 48, 46, 51, 55, 51, 44, 50, 46, 57, 51, 53, 44, 48, 46, 51, 55, 51, 13, 10, 9, 9, 99, 51, 46, 50, 48, 55, 44, 48, 44, 54, 46, 51, 52, 49, 45, 49, 46, 51, 50, 51, 44, 57, 46, 48, 52, 55, 45, 51, 46, 56, 54, 54, 99, 48, 46, 53, 54, 51, 45, 48, 46, 53, 50, 57, 44, 48, 46, 57, 53, 57, 45, 49, 46, 49, 48, 55, 44, 49, 46, 51, 56, 55, 45, 49, 46, 54, 55, 54, 99, 49, 46, 48, 49, 54, 44, 48, 46, 50, 57, 44, 50, 46, 48, 52, 54, 44, 48, 46, 52, 54, 51, 44, 51, 46, 48, 54, 57, 44, 48, 46, 52, 54, 51, 13, 10, 9, 9, 99, 51, 46, 51, 54, 53, 44, 48, 44, 54, 46, 54, 48, 53, 45, 49, 46, 51, 53, 53, 44, 56, 46, 54, 49, 53, 45, 50, 46, 54, 52, 53, 99, 49, 46, 57, 50, 51, 45, 49, 46, 50, 51, 51, 44, 50, 46, 52, 55, 57, 45, 51, 46, 55, 56, 49, 44, 49, 46, 50, 53, 56, 45, 53, 46, 55, 49, 50, 99, 45, 49, 46, 50, 50, 51, 45, 49, 46, 57, 50, 55, 45, 51, 46, 55, 56, 51, 45, 50, 46, 53, 48, 51, 45, 53, 46, 55, 50, 45, 49, 46, 50, 57, 52, 13, 10, 9, 9, 99, 45, 48, 46, 48, 51, 53, 44, 48, 46, 48, 49, 55, 45, 50, 46, 56, 49, 44, 49, 46, 54, 49, 49, 45, 52, 46, 55, 48, 51, 44, 49, 46, 50, 51, 56, 99, 48, 46, 48, 48, 53, 45, 52, 46, 53, 53, 52, 45, 49, 46, 54, 52, 51, 45, 57, 46, 51, 57, 49, 45, 51, 46, 49, 52, 55, 45, 49, 51, 46, 54, 53, 50, 99, 45, 48, 46, 56, 53, 54, 45, 50, 46, 52, 50, 54, 45, 49, 46, 55, 51, 52, 45, 52, 46, 57, 49, 51, 45, 50, 46, 49, 52, 56, 45, 54, 46, 57, 52, 53, 13, 10, 9, 9, 99, 48, 46, 51, 52, 51, 44, 48, 46, 50, 56, 56, 44, 48, 46, 54, 55, 55, 44, 48, 46, 53, 56, 56, 44, 48, 46, 57, 55, 54, 44, 48, 46, 56, 56, 99, 49, 46, 54, 49, 57, 44, 49, 46, 54, 50, 51, 44, 52, 46, 50, 53, 44, 49, 46, 54, 50, 51, 44, 53, 46, 56, 55, 50, 44, 48, 99, 48, 46, 50, 54, 56, 45, 48, 46, 50, 54, 56, 44, 48, 46, 52, 50, 52, 45, 48, 46, 53, 57, 53, 44, 48, 46, 54, 48, 51, 45, 48, 46, 57, 48, 57, 13, 10, 9, 9, 99, 52, 46, 51, 48, 54, 44, 53, 46, 57, 51, 50, 44, 49, 51, 46, 49, 54, 51, 44, 49, 56, 46, 51, 57, 56, 44, 50, 50, 46, 50, 55, 51, 44, 51, 50, 46, 55, 54, 56, 99, 49, 46, 55, 51, 57, 44, 49, 55, 46, 54, 54, 50, 44, 51, 46, 50, 54, 54, 44, 52, 48, 46, 49, 57, 53, 44, 51, 46, 50, 54, 54, 44, 54, 52, 46, 57, 48, 54, 99, 48, 44, 50, 46, 50, 57, 54, 44, 49, 46, 56, 54, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 13, 10, 9, 9, 83, 51, 48, 48, 46, 56, 55, 51, 44, 50, 53, 56, 46, 56, 49, 56, 44, 51, 48, 48, 46, 56, 55, 51, 44, 50, 53, 54, 46, 53, 50, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 48, 53, 46, 48, 50, 55, 44, 49, 54, 53, 46, 49, 50, 56, 99, 48, 44, 50, 46, 50, 57, 54, 44, 49, 46, 56, 54, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 115, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 99, 48, 45, 52, 46, 56, 56, 57, 45, 51, 46, 56, 50, 54, 45, 49, 50, 46, 55, 56, 55, 45, 52, 46, 53, 57, 50, 45, 49, 52, 46, 51, 50, 49, 99, 45, 49, 46, 48, 50, 54, 45, 50, 46, 48, 52, 57, 45, 51, 46, 53, 49, 57, 45, 50, 46, 56, 55, 54, 45, 53, 46, 53, 55, 52, 45, 49, 46, 56, 53, 56, 99, 45, 50, 46, 48, 53, 51, 44, 49, 46, 48, 50, 54, 45, 50, 46, 56, 56, 52, 44, 51, 46, 53, 50, 49, 45, 49, 46, 56, 53, 56, 44, 53, 46, 53, 55, 52, 13, 10, 9, 9, 67, 51, 48, 50, 46, 56, 49, 44, 49, 53, 55, 46, 53, 50, 49, 44, 51, 48, 53, 46, 48, 50, 55, 44, 49, 54, 50, 46, 57, 54, 50, 44, 51, 48, 53, 46, 48, 50, 55, 44, 49, 54, 53, 46, 49, 50, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 56, 54, 46, 49, 50, 52, 44, 50, 53, 54, 46, 57, 55, 54, 99, 45, 50, 46, 48, 51, 55, 45, 49, 46, 48, 51, 57, 45, 52, 46, 53, 52, 45, 48, 46, 50, 49, 53, 45, 53, 46, 53, 55, 54, 44, 49, 46, 56, 51, 99, 45, 48, 46, 52, 52, 54, 44, 48, 46, 56, 55, 50, 45, 49, 46, 49, 51, 56, 44, 49, 46, 56, 52, 50, 45, 49, 46, 55, 50, 50, 44, 50, 46, 52, 54, 55, 13, 10, 9, 9, 99, 45, 48, 46, 49, 56, 53, 45, 49, 46, 54, 53, 49, 44, 48, 46, 50, 53, 54, 45, 52, 46, 57, 52, 57, 44, 49, 46, 48, 57, 51, 45, 55, 46, 54, 56, 52, 99, 48, 46, 53, 53, 56, 45, 49, 46, 56, 50, 54, 45, 48, 46, 49, 57, 57, 45, 51, 46, 55, 57, 55, 45, 49, 46, 56, 51, 52, 45, 52, 46, 55, 55, 57, 99, 45, 49, 46, 54, 50, 57, 45, 48, 46, 57, 56, 54, 45, 51, 46, 55, 50, 56, 45, 48, 46, 55, 51, 45, 53, 46, 48, 55, 53, 44, 48, 46, 54, 50, 49, 108, 45, 56, 46, 51, 48, 57, 44, 56, 46, 51, 48, 57, 13, 10, 9, 9, 99, 45, 49, 46, 54, 50, 51, 44, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 44, 52, 46, 50, 53, 50, 44, 48, 44, 53, 46, 56, 55, 52, 115, 52, 46, 50, 53, 50, 44, 49, 46, 54, 50, 51, 44, 53, 46, 56, 55, 52, 44, 48, 108, 48, 46, 50, 49, 49, 45, 48, 46, 50, 49, 49, 99, 48, 46, 51, 53, 57, 44, 49, 46, 54, 54, 55, 44, 49, 46, 48, 52, 55, 44, 51, 46, 49, 56, 57, 44, 50, 46, 50, 50, 51, 44, 52, 46, 51, 54, 53, 13, 10, 9, 9, 99, 49, 46, 53, 53, 56, 44, 49, 46, 53, 53, 56, 44, 51, 46, 52, 52, 44, 50, 46, 51, 56, 49, 44, 53, 46, 51, 57, 56, 44, 50, 46, 51, 56, 49, 99, 48, 46, 51, 55, 57, 44, 48, 44, 48, 46, 55, 54, 49, 45, 48, 46, 48, 51, 50, 44, 49, 46, 49, 52, 50, 45, 48, 46, 48, 57, 51, 99, 52, 46, 55, 48, 54, 45, 48, 46, 55, 54, 51, 44, 55, 46, 54, 51, 53, 45, 53, 46, 57, 53, 49, 44, 56, 46, 52, 50, 50, 45, 55, 46, 53, 50, 49, 13, 10, 9, 9, 67, 50, 56, 56, 46, 57, 57, 52, 44, 50, 54, 48, 46, 52, 56, 53, 44, 50, 56, 56, 46, 49, 54, 55, 44, 50, 53, 56, 46, 48, 48, 54, 44, 50, 56, 54, 46, 49, 50, 52, 44, 50, 53, 54, 46, 57, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 56, 52, 46, 53, 49, 54, 44, 50, 50, 51, 46, 53, 52, 55, 104, 45, 50, 57, 46, 50, 55, 57, 99, 48, 46, 50, 54, 45, 49, 46, 48, 51, 53, 44, 48, 46, 53, 50, 55, 45, 50, 46, 48, 50, 44, 48, 46, 55, 57, 57, 45, 50, 46, 57, 53, 55, 13, 10, 9, 9, 99, 49, 49, 46, 54, 55, 54, 45, 50, 46, 52, 50, 54, 44, 49, 56, 46, 54, 49, 53, 45, 54, 46, 49, 57, 53, 44, 50, 48, 46, 54, 53, 54, 45, 49, 49, 46, 50, 50, 53, 99, 48, 46, 55, 48, 54, 45, 49, 46, 55, 52, 52, 44, 49, 46, 52, 52, 50, 45, 53, 46, 50, 55, 45, 49, 46, 53, 54, 50, 45, 57, 46, 51, 50, 51, 99, 45, 50, 46, 55, 48, 56, 45, 51, 46, 54, 53, 49, 45, 54, 46, 53, 51, 50, 45, 53, 46, 50, 57, 45, 49, 48, 46, 53, 48, 49, 45, 52, 46, 52, 55, 57, 13, 10, 9, 9, 99, 45, 53, 46, 57, 48, 51, 44, 49, 46, 49, 57, 55, 45, 49, 49, 46, 49, 54, 51, 44, 55, 46, 53, 53, 56, 45, 49, 52, 46, 57, 51, 55, 44, 49, 55, 46, 55, 52, 49, 99, 45, 49, 49, 46, 55, 50, 55, 44, 50, 46, 48, 48, 56, 45, 49, 57, 46, 50, 51, 53, 44, 54, 46, 50, 49, 55, 45, 50, 51, 46, 57, 56, 54, 44, 49, 48, 46, 51, 55, 50, 99, 45, 49, 46, 54, 56, 54, 45, 49, 55, 46, 48, 50, 51, 45, 56, 46, 50, 57, 53, 45, 50, 55, 46, 49, 51, 54, 45, 56, 46, 54, 49, 53, 45, 50, 55, 46, 54, 49, 56, 13, 10, 9, 9, 99, 45, 49, 46, 50, 55, 52, 45, 49, 46, 57, 49, 49, 45, 51, 46, 56, 53, 52, 45, 50, 46, 52, 50, 54, 45, 53, 46, 55, 54, 49, 45, 49, 46, 49, 53, 50, 99, 45, 49, 46, 57, 48, 57, 44, 49, 46, 50, 55, 52, 45, 50, 46, 52, 50, 52, 44, 51, 46, 56, 53, 45, 49, 46, 49, 53, 50, 44, 53, 46, 55, 54, 49, 99, 48, 46, 48, 55, 53, 44, 48, 46, 49, 49, 52, 44, 55, 46, 54, 49, 49, 44, 49, 49, 46, 54, 51, 57, 44, 55, 46, 54, 49, 49, 44, 51, 48, 46, 57, 51, 13, 10, 9, 9, 99, 48, 44, 49, 56, 46, 57, 54, 50, 45, 49, 53, 46, 49, 50, 44, 51, 51, 46, 50, 51, 52, 45, 50, 52, 46, 57, 50, 53, 44, 51, 51, 46, 50, 51, 52, 99, 45, 52, 46, 54, 54, 53, 44, 48, 45, 54, 46, 55, 48, 54, 45, 53, 46, 53, 52, 53, 45, 55, 46, 54, 48, 52, 45, 49, 48, 46, 50, 51, 50, 99, 57, 46, 54, 48, 49, 45, 54, 46, 55, 50, 57, 44, 49, 56, 46, 48, 55, 50, 45, 49, 52, 46, 53, 49, 53, 44, 49, 57, 46, 57, 52, 51, 45, 50, 49, 46, 57, 57, 53, 13, 10, 9, 9, 99, 50, 46, 53, 51, 49, 45, 49, 48, 46, 49, 50, 50, 45, 48, 46, 54, 53, 53, 45, 49, 55, 46, 53, 56, 51, 45, 50, 46, 55, 54, 51, 45, 50, 50, 46, 53, 50, 99, 45, 48, 46, 48, 57, 57, 45, 48, 46, 50, 50, 55, 45, 48, 46, 50, 48, 51, 45, 48, 46, 52, 55, 49, 45, 48, 46, 51, 48, 56, 45, 48, 46, 55, 50, 50, 99, 48, 46, 48, 56, 57, 44, 48, 46, 48, 56, 49, 44, 48, 46, 49, 55, 52, 44, 48, 46, 49, 54, 54, 44, 48, 46, 50, 54, 44, 48, 46, 50, 52, 55, 13, 10, 9, 9, 99, 49, 46, 54, 49, 57, 44, 49, 46, 54, 50, 51, 44, 52, 46, 50, 53, 44, 49, 46, 54, 50, 51, 44, 53, 46, 56, 55, 50, 44, 48, 99, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 44, 49, 46, 54, 50, 51, 45, 52, 46, 50, 53, 50, 44, 48, 45, 53, 46, 56, 55, 52, 99, 45, 50, 46, 52, 50, 56, 45, 50, 46, 52, 51, 45, 55, 46, 49, 52, 52, 45, 54, 46, 50, 52, 56, 45, 49, 49, 46, 52, 51, 45, 52, 46, 52, 53, 52, 13, 10, 9, 9, 99, 45, 49, 46, 56, 49, 49, 44, 48, 46, 55, 53, 49, 45, 51, 46, 57, 55, 44, 50, 46, 54, 52, 49, 45, 51, 46, 57, 55, 44, 55, 46, 51, 57, 50, 99, 48, 44, 50, 46, 49, 52, 54, 44, 48, 46, 56, 57, 55, 44, 52, 46, 50, 52, 51, 44, 49, 46, 57, 51, 53, 44, 54, 46, 54, 55, 56, 99, 49, 46, 56, 55, 44, 52, 46, 51, 55, 55, 44, 52, 46, 49, 57, 55, 44, 57, 46, 56, 50, 54, 44, 50, 46, 51, 52, 51, 44, 49, 55, 46, 50, 52, 50, 13, 10, 9, 9, 99, 45, 49, 46, 48, 57, 55, 44, 52, 46, 51, 56, 56, 45, 54, 46, 52, 56, 55, 44, 57, 46, 55, 49, 50, 45, 49, 51, 46, 53, 57, 56, 44, 49, 52, 46, 57, 57, 55, 99, 45, 48, 46, 55, 54, 50, 45, 48, 46, 57, 49, 49, 45, 49, 46, 56, 54, 52, 45, 49, 46, 53, 50, 52, 45, 51, 46, 49, 52, 51, 45, 49, 46, 53, 50, 52, 104, 45, 48, 46, 48, 48, 54, 99, 45, 50, 46, 50, 57, 50, 44, 48, 46, 48, 48, 52, 45, 52, 46, 49, 52, 56, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 52, 56, 44, 52, 46, 49, 53, 13, 10, 9, 9, 99, 48, 44, 48, 46, 55, 52, 55, 44, 48, 46, 48, 51, 50, 44, 49, 46, 53, 52, 55, 44, 48, 46, 48, 56, 49, 44, 50, 46, 51, 54, 54, 99, 45, 56, 46, 56, 57, 44, 53, 46, 55, 53, 56, 45, 49, 56, 46, 57, 53, 49, 44, 49, 49, 46, 48, 56, 55, 45, 50, 54, 46, 55, 50, 55, 44, 49, 52, 46, 54, 50, 52, 99, 45, 50, 46, 48, 56, 55, 44, 48, 46, 57, 52, 57, 45, 51, 46, 48, 49, 44, 51, 46, 52, 49, 50, 45, 50, 46, 48, 54, 49, 44, 53, 46, 53, 48, 49, 13, 10, 9, 9, 99, 48, 46, 54, 57, 54, 44, 49, 46, 53, 50, 57, 44, 50, 46, 50, 48, 53, 44, 50, 46, 52, 51, 52, 44, 51, 46, 55, 56, 51, 44, 50, 46, 52, 51, 52, 99, 48, 46, 53, 55, 54, 44, 48, 44, 49, 46, 49, 54, 45, 48, 46, 49, 49, 56, 44, 49, 46, 55, 49, 54, 45, 48, 46, 51, 55, 51, 99, 50, 46, 51, 51, 54, 45, 49, 46, 48, 54, 50, 44, 49, 51, 46, 52, 50, 51, 45, 54, 46, 50, 50, 55, 44, 50, 52, 46, 56, 49, 49, 45, 49, 51, 46, 50, 56, 54, 13, 10, 9, 9, 99, 50, 46, 48, 57, 55, 44, 55, 46, 49, 50, 50, 44, 54, 46, 53, 52, 50, 44, 49, 51, 46, 54, 53, 57, 44, 49, 53, 46, 48, 49, 51, 44, 49, 51, 46, 54, 53, 57, 99, 57, 46, 57, 54, 54, 44, 48, 44, 50, 49, 46, 50, 55, 50, 45, 56, 46, 49, 52, 57, 44, 50, 55, 46, 55, 57, 54, 45, 50, 48, 46, 51, 49, 54, 99, 48, 46, 55, 56, 55, 44, 49, 46, 51, 57, 49, 44, 49, 46, 54, 57, 51, 44, 50, 46, 55, 50, 51, 44, 50, 46, 55, 55, 50, 44, 51, 46, 57, 54, 55, 13, 10, 9, 9, 99, 49, 48, 46, 52, 53, 55, 44, 49, 50, 46, 48, 53, 55, 44, 51, 48, 46, 56, 56, 49, 44, 49, 50, 46, 49, 57, 53, 44, 51, 49, 46, 55, 52, 53, 44, 49, 50, 46, 49, 57, 53, 99, 50, 46, 50, 51, 55, 44, 48, 44, 52, 46, 48, 55, 49, 45, 49, 46, 55, 54, 57, 44, 52, 46, 49, 53, 50, 45, 52, 46, 48, 48, 52, 99, 48, 46, 48, 55, 57, 45, 50, 46, 50, 51, 53, 45, 49, 46, 54, 50, 53, 45, 52, 46, 49, 51, 52, 45, 51, 46, 56, 53, 52, 45, 52, 46, 50, 57, 50, 13, 10, 9, 9, 99, 45, 48, 46, 48, 51, 50, 45, 48, 46, 48, 48, 52, 45, 51, 46, 51, 52, 51, 45, 48, 46, 51, 54, 57, 45, 53, 46, 49, 56, 53, 45, 50, 46, 53, 49, 57, 99, 45, 49, 46, 49, 49, 50, 45, 49, 46, 50, 57, 56, 45, 49, 46, 53, 53, 54, 45, 51, 46, 48, 56, 51, 45, 49, 46, 51, 53, 57, 45, 53, 46, 52, 53, 55, 99, 48, 46, 52, 50, 54, 45, 53, 46, 49, 50, 44, 49, 54, 46, 57, 51, 57, 45, 56, 46, 57, 52, 53, 44, 51, 49, 46, 52, 57, 52, 45, 57, 46, 49, 55, 51, 13, 10, 9, 9, 99, 49, 46, 55, 51, 52, 45, 48, 46, 48, 50, 56, 44, 51, 46, 50, 55, 45, 49, 46, 49, 50, 56, 44, 51, 46, 56, 53, 50, 45, 50, 46, 55, 54, 51, 108, 52, 46, 49, 53, 52, 45, 49, 49, 46, 54, 56, 52, 99, 48, 46, 52, 53, 50, 45, 49, 46, 50, 55, 44, 48, 46, 50, 53, 56, 45, 50, 46, 54, 56, 54, 45, 48, 46, 53, 50, 49, 45, 51, 46, 55, 56, 53, 13, 10, 9, 9, 67, 50, 56, 55, 46, 49, 51, 50, 44, 50, 50, 52, 46, 50, 48, 52, 44, 50, 56, 53, 46, 56, 54, 52, 44, 50, 50, 51, 46, 53, 52, 55, 44, 50, 56, 52, 46, 53, 49, 54, 44, 50, 50, 51, 46, 53, 52, 55, 122, 32, 77, 50, 54, 54, 46, 50, 56, 44, 50, 48, 51, 46, 55, 48, 57, 99, 48, 46, 48, 55, 57, 45, 48, 46, 48, 49, 54, 44, 48, 46, 49, 56, 53, 45, 48, 46, 48, 52, 49, 44, 48, 46, 51, 49, 54, 45, 48, 46, 48, 52, 49, 13, 10, 9, 9, 99, 48, 46, 51, 57, 56, 44, 48, 44, 49, 46, 48, 50, 52, 44, 48, 46, 49, 57, 53, 44, 49, 46, 56, 54, 44, 49, 46, 51, 50, 51, 99, 48, 46, 49, 53, 56, 44, 48, 46, 50, 49, 49, 44, 48, 46, 54, 54, 51, 44, 48, 46, 57, 51, 51, 44, 48, 46, 53, 51, 54, 44, 49, 46, 50, 53, 99, 45, 48, 46, 52, 55, 55, 44, 49, 46, 49, 55, 54, 45, 51, 46, 51, 52, 53, 44, 51, 46, 49, 50, 45, 57, 46, 51, 50, 49, 44, 52, 46, 56, 56, 13, 10, 9, 9, 67, 50, 54, 50, 46, 51, 44, 50, 48, 53, 46, 57, 57, 51, 44, 50, 54, 52, 46, 56, 55, 44, 50, 48, 51, 46, 57, 57, 51, 44, 50, 54, 54, 46, 50, 56, 44, 50, 48, 51, 46, 55, 48, 57, 122, 32, 77, 50, 52, 49, 46, 49, 57, 50, 44, 50, 53, 56, 46, 51, 49, 57, 99, 45, 52, 46, 50, 50, 49, 45, 49, 46, 51, 55, 49, 45, 56, 46, 53, 50, 49, 45, 51, 46, 53, 52, 54, 45, 49, 49, 46, 52, 57, 57, 45, 54, 46, 57, 57, 13, 10, 9, 9, 99, 45, 51, 46, 50, 55, 50, 45, 51, 46, 55, 56, 53, 45, 52, 46, 52, 56, 49, 45, 56, 46, 53, 55, 50, 45, 51, 46, 54, 56, 56, 45, 49, 52, 46, 54, 50, 57, 99, 48, 46, 49, 50, 45, 48, 46, 51, 49, 56, 44, 48, 46, 51, 57, 49, 45, 48, 46, 57, 52, 54, 44, 48, 46, 56, 54, 54, 45, 49, 46, 55, 54, 49, 99, 53, 46, 56, 53, 45, 48, 46, 53, 51, 54, 44, 50, 49, 46, 52, 55, 56, 44, 49, 46, 55, 55, 44, 50, 50, 46, 53, 54, 49, 44, 54, 46, 50, 52, 54, 13, 10, 9, 9, 99, 45, 52, 46, 56, 50, 49, 44, 50, 46, 52, 54, 49, 45, 56, 46, 51, 55, 49, 44, 53, 46, 57, 50, 49, 45, 56, 46, 55, 56, 50, 44, 49, 48, 46, 56, 51, 57, 67, 50, 52, 48, 46, 52, 52, 54, 44, 50, 53, 52, 46, 52, 56, 57, 44, 50, 52, 48, 46, 54, 57, 55, 44, 50, 53, 54, 46, 53, 55, 56, 44, 50, 52, 49, 46, 49, 57, 50, 44, 50, 53, 56, 46, 51, 49, 57, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 50, 57, 46, 55, 52, 44, 49, 54, 51, 46, 56, 49, 52, 108, 45, 52, 46, 49, 53, 52, 45, 49, 50, 46, 52, 54, 51, 99, 45, 48, 46, 54, 54, 57, 45, 50, 46, 48, 48, 52, 45, 50, 46, 55, 52, 57, 45, 51, 46, 50, 48, 49, 45, 52, 46, 56, 48, 57, 45, 50, 46, 55, 52, 55, 13, 10, 9, 9, 99, 45, 50, 46, 48, 55, 49, 44, 48, 46, 52, 52, 50, 45, 51, 46, 52, 55, 55, 44, 50, 46, 51, 54, 57, 45, 51, 46, 50, 54, 54, 44, 52, 46, 52, 55, 53, 99, 50, 46, 56, 54, 54, 44, 50, 56, 46, 54, 54, 54, 44, 56, 46, 50, 56, 56, 44, 56, 52, 46, 53, 55, 44, 56, 46, 50, 56, 56, 44, 57, 48, 46, 57, 56, 99, 48, 44, 53, 46, 55, 53, 55, 45, 49, 48, 46, 50, 52, 44, 49, 55, 46, 48, 57, 50, 45, 50, 54, 46, 55, 56, 52, 44, 50, 53, 46, 51, 54, 52, 13, 10, 9, 9, 99, 45, 50, 46, 48, 53, 51, 44, 49, 46, 48, 50, 54, 45, 50, 46, 56, 56, 52, 44, 51, 46, 53, 50, 49, 45, 49, 46, 56, 53, 56, 44, 53, 46, 53, 55, 52, 99, 48, 46, 55, 50, 56, 44, 49, 46, 52, 53, 54, 44, 50, 46, 49, 57, 53, 44, 50, 46, 50, 57, 54, 44, 51, 46, 55, 50, 44, 50, 46, 50, 57, 54, 99, 48, 46, 54, 50, 51, 44, 48, 44, 49, 46, 50, 53, 56, 45, 48, 46, 49, 52, 50, 44, 49, 46, 56, 53, 52, 45, 48, 46, 52, 51, 56, 13, 10, 9, 9, 99, 49, 53, 46, 49, 49, 50, 45, 55, 46, 53, 53, 56, 44, 51, 49, 46, 51, 55, 54, 45, 50, 49, 46, 48, 52, 51, 44, 51, 49, 46, 51, 55, 54, 45, 51, 50, 46, 55, 57, 54, 99, 48, 45, 54, 46, 49, 51, 56, 45, 52, 46, 50, 52, 54, 45, 53, 48, 46, 51, 48, 49, 45, 54, 46, 54, 55, 56, 45, 55, 53, 46, 49, 48, 57, 67, 51, 50, 57, 46, 52, 48, 49, 44, 49, 54, 56, 46, 49, 49, 44, 51, 51, 48, 46, 52, 50, 57, 44, 49, 54, 53, 46, 56, 56, 51, 44, 51, 50, 57, 46, 55, 52, 44, 49, 54, 51, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 54, 52, 46, 52, 48, 52, 44, 50, 48, 49, 46, 50, 57, 57, 99, 48, 46, 55, 57, 57, 44, 48, 46, 55, 57, 57, 44, 49, 46, 56, 54, 50, 44, 49, 46, 50, 49, 55, 44, 50, 46, 57, 51, 57, 44, 49, 46, 50, 49, 55, 99, 48, 46, 55, 48, 50, 44, 48, 44, 49, 46, 52, 49, 45, 48, 46, 49, 55, 57, 44, 50, 46, 48, 53, 51, 45, 48, 46, 53, 52, 52, 13, 10, 9, 9, 99, 49, 46, 54, 50, 53, 45, 48, 46, 57, 50, 53, 44, 50, 46, 52, 51, 50, 45, 50, 46, 56, 50, 52, 44, 49, 46, 57, 55, 50, 45, 52, 46, 54, 51, 55, 99, 45, 48, 46, 55, 52, 52, 45, 50, 46, 57, 50, 49, 45, 48, 46, 57, 57, 50, 45, 54, 46, 53, 55, 50, 45, 48, 46, 53, 57, 56, 45, 56, 46, 48, 54, 53, 99, 50, 46, 48, 56, 49, 44, 48, 46, 48, 54, 53, 44, 52, 46, 48, 49, 50, 45, 49, 46, 52, 49, 54, 44, 52, 46, 51, 49, 57, 45, 51, 46, 53, 54, 50, 13, 10, 9, 9, 99, 48, 46, 51, 50, 53, 45, 50, 46, 50, 55, 50, 45, 49, 46, 50, 53, 52, 45, 52, 46, 51, 55, 55, 45, 51, 46, 53, 50, 51, 45, 52, 46, 55, 48, 50, 99, 45, 50, 46, 55, 52, 54, 45, 48, 46, 51, 55, 51, 45, 53, 46, 49, 53, 56, 44, 48, 46, 52, 51, 52, 45, 54, 46, 56, 52, 52, 44, 50, 46, 51, 48, 56, 99, 45, 49, 46, 48, 57, 49, 44, 49, 46, 50, 49, 55, 45, 49, 46, 55, 52, 44, 50, 46, 55, 55, 57, 45, 50, 46, 48, 57, 51, 44, 52, 46, 52, 53, 57, 108, 45, 52, 46, 56, 49, 49, 45, 52, 46, 56, 49, 49, 13, 10, 9, 9, 99, 45, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 45, 52, 46, 50, 53, 50, 45, 49, 46, 54, 50, 51, 45, 53, 46, 56, 55, 52, 44, 48, 99, 45, 49, 46, 54, 50, 51, 44, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 44, 52, 46, 50, 53, 50, 44, 48, 44, 53, 46, 56, 55, 52, 76, 51, 54, 52, 46, 52, 48, 52, 44, 50, 48, 49, 46, 50, 57, 57, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 55, 51, 46, 55, 52, 57, 44, 50, 48, 53, 46, 54, 51, 50, 108, 45, 49, 53, 46, 53, 55, 56, 44, 49, 49, 46, 49, 54, 53, 99, 45, 49, 46, 56, 54, 52, 44, 49, 46, 51, 51, 53, 45, 50, 46, 50, 57, 52, 44, 51, 46, 57, 51, 49, 45, 48, 46, 57, 53, 55, 44, 53, 46, 55, 57, 55, 13, 10, 9, 9, 99, 48, 46, 56, 49, 49, 44, 49, 46, 49, 51, 50, 44, 50, 46, 48, 56, 55, 44, 49, 46, 55, 51, 50, 44, 51, 46, 51, 56, 49, 44, 49, 46, 55, 51, 50, 99, 48, 46, 56, 51, 56, 44, 48, 44, 49, 46, 54, 56, 52, 45, 48, 46, 50, 53, 50, 44, 50, 46, 52, 49, 54, 45, 48, 46, 55, 55, 57, 108, 49, 53, 46, 53, 55, 56, 45, 49, 49, 46, 49, 54, 53, 99, 49, 46, 56, 54, 52, 45, 49, 46, 51, 51, 53, 44, 50, 46, 50, 57, 52, 45, 51, 46, 57, 51, 49, 44, 48, 46, 57, 53, 55, 45, 53, 46, 55, 57, 55, 13, 10, 9, 9, 67, 51, 55, 56, 46, 50, 48, 55, 44, 50, 48, 52, 46, 55, 49, 57, 44, 51, 55, 53, 46, 54, 48, 55, 44, 50, 48, 52, 46, 50, 56, 53, 44, 51, 55, 51, 46, 55, 52, 57, 44, 50, 48, 53, 46, 54, 51, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 55, 50, 46, 51, 54, 57, 44, 50, 50, 49, 46, 50, 53, 53, 99, 45, 49, 46, 51, 48, 54, 44, 49, 46, 54, 56, 52, 45, 49, 46, 49, 50, 44, 52, 46, 48, 53, 51, 44, 48, 46, 51, 54, 51, 44, 53, 46, 53, 48, 57, 99, 48, 46, 49, 55, 56, 44, 48, 46, 51, 44, 48, 46, 57, 56, 56, 44, 49, 46, 56, 57, 49, 44, 48, 46, 56, 52, 50, 44, 53, 46, 57, 56, 13, 10, 9, 9, 99, 45, 48, 46, 48, 56, 49, 44, 50, 46, 50, 57, 54, 44, 49, 46, 55, 49, 50, 44, 52, 46, 50, 49, 57, 44, 52, 46, 48, 48, 52, 44, 52, 46, 51, 99, 48, 46, 48, 53, 49, 44, 48, 46, 48, 48, 52, 44, 48, 46, 49, 48, 49, 44, 48, 46, 48, 48, 52, 44, 48, 46, 49, 53, 44, 48, 46, 48, 48, 52, 99, 50, 46, 50, 50, 55, 44, 48, 44, 52, 46, 48, 54, 57, 45, 49, 46, 55, 54, 53, 44, 52, 46, 49, 53, 45, 52, 46, 48, 48, 52, 13, 10, 9, 9, 99, 48, 46, 51, 48, 50, 45, 56, 46, 52, 55, 57, 45, 50, 46, 52, 55, 51, 45, 49, 49, 46, 53, 55, 56, 45, 51, 46, 54, 56, 45, 49, 50, 46, 53, 49, 53, 67, 51, 55, 54, 46, 51, 57, 50, 44, 50, 49, 57, 46, 49, 49, 51, 44, 51, 55, 51, 46, 55, 55, 55, 44, 50, 49, 57, 46, 52, 52, 54, 44, 51, 55, 50, 46, 51, 54, 57, 44, 50, 50, 49, 46, 50, 53, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 52, 48, 56, 46, 54, 50, 52, 44, 50, 53, 49, 46, 56, 52, 56, 99, 50, 46, 50, 57, 52, 44, 48, 44, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 99, 48, 45, 54, 46, 49, 51, 45, 48, 46, 51, 49, 53, 45, 49, 50, 46, 57, 55, 50, 45, 48, 46, 56, 51, 45, 50, 48, 46, 48, 57, 49, 13, 10, 9, 9, 99, 52, 46, 49, 49, 57, 44, 54, 46, 55, 53, 44, 55, 46, 53, 52, 49, 44, 49, 50, 46, 57, 55, 51, 44, 57, 46, 55, 51, 53, 44, 49, 56, 46, 48, 57, 49, 99, 48, 46, 54, 55, 51, 44, 49, 46, 53, 55, 56, 44, 50, 46, 50, 48, 55, 44, 50, 46, 53, 49, 57, 44, 51, 46, 56, 50, 44, 50, 46, 53, 49, 57, 99, 48, 46, 53, 52, 54, 44, 48, 44, 49, 46, 49, 48, 49, 45, 48, 46, 49, 48, 53, 44, 49, 46, 54, 51, 53, 45, 48, 46, 51, 51, 55, 13, 10, 9, 9, 99, 50, 46, 49, 48, 56, 45, 48, 46, 57, 48, 53, 44, 51, 46, 48, 56, 53, 45, 51, 46, 51, 52, 55, 44, 50, 46, 49, 56, 49, 45, 53, 46, 52, 53, 50, 99, 45, 51, 46, 56, 48, 51, 45, 56, 46, 56, 55, 54, 45, 49, 48, 46, 57, 49, 49, 45, 50, 48, 46, 54, 51, 51, 45, 49, 57, 46, 48, 48, 54, 45, 51, 50, 46, 55, 55, 49, 99, 45, 49, 46, 54, 51, 45, 49, 53, 46, 50, 52, 56, 45, 51, 46, 55, 53, 56, 45, 51, 48, 46, 49, 56, 56, 45, 53, 46, 52, 49, 50, 45, 52, 48, 46, 57, 48, 54, 13, 10, 9, 9, 99, 48, 46, 56, 56, 44, 48, 46, 48, 56, 57, 44, 49, 46, 55, 57, 51, 45, 48, 46, 49, 50, 54, 44, 50, 46, 53, 57, 52, 45, 48, 46, 54, 52, 53, 99, 49, 46, 51, 49, 50, 45, 48, 46, 56, 52, 49, 44, 49, 46, 57, 50, 56, 45, 50, 46, 51, 44, 49, 46, 56, 51, 57, 45, 51, 46, 55, 53, 51, 99, 48, 46, 49, 48, 55, 44, 48, 46, 52, 48, 56, 44, 48, 46, 50, 50, 49, 44, 48, 46, 56, 49, 56, 44, 48, 46, 52, 53, 57, 44, 49, 46, 49, 57, 51, 13, 10, 9, 9, 99, 48, 46, 48, 50, 56, 44, 48, 46, 48, 52, 49, 44, 50, 46, 54, 57, 56, 44, 52, 46, 52, 53, 44, 49, 46, 53, 49, 51, 44, 49, 48, 46, 49, 55, 49, 99, 45, 48, 46, 52, 54, 53, 44, 50, 46, 50, 52, 51, 44, 48, 46, 57, 56, 44, 52, 46, 52, 52, 50, 44, 51, 46, 50, 50, 55, 44, 52, 46, 57, 48, 57, 99, 48, 46, 50, 56, 52, 44, 48, 46, 48, 53, 55, 44, 48, 46, 53, 54, 56, 44, 48, 46, 48, 56, 53, 44, 48, 46, 56, 52, 54, 44, 48, 46, 48, 56, 53, 13, 10, 9, 9, 99, 49, 46, 57, 50, 57, 44, 48, 44, 51, 46, 54, 53, 55, 45, 49, 46, 51, 53, 49, 44, 52, 46, 48, 54, 53, 45, 51, 46, 51, 49, 52, 99, 49, 46, 56, 55, 54, 45, 57, 46, 48, 55, 53, 45, 50, 46, 52, 53, 54, 45, 49, 54, 46, 48, 50, 49, 45, 50, 46, 54, 52, 49, 45, 49, 54, 46, 51, 49, 51, 99, 45, 49, 46, 50, 51, 51, 45, 49, 46, 57, 51, 49, 45, 51, 46, 56, 48, 49, 45, 50, 46, 52, 57, 57, 45, 53, 46, 55, 51, 54, 45, 49, 46, 50, 55, 52, 13, 10, 9, 9, 99, 45, 49, 46, 51, 49, 55, 44, 48, 46, 56, 52, 45, 49, 46, 57, 52, 44, 50, 46, 51, 48, 49, 45, 49, 46, 56, 53, 53, 44, 51, 46, 55, 53, 54, 99, 45, 48, 46, 49, 48, 56, 45, 48, 46, 52, 49, 49, 45, 48, 46, 50, 50, 54, 45, 48, 46, 56, 50, 52, 45, 48, 46, 52, 54, 56, 45, 49, 46, 50, 48, 49, 108, 45, 55, 46, 48, 49, 45, 49, 48, 46, 57, 48, 53, 99, 45, 49, 46, 48, 55, 49, 45, 49, 46, 54, 54, 51, 45, 51, 46, 49, 54, 54, 45, 50, 46, 51, 51, 55, 45, 53, 46, 48, 48, 54, 45, 49, 46, 54, 50, 51, 13, 10, 9, 9, 99, 45, 49, 46, 56, 52, 52, 44, 48, 46, 55, 50, 50, 45, 50, 46, 57, 50, 51, 44, 50, 46, 54, 52, 49, 45, 50, 46, 53, 56, 44, 52, 46, 53, 56, 56, 99, 48, 46, 48, 53, 56, 44, 48, 46, 51, 50, 55, 44, 51, 46, 50, 51, 51, 44, 49, 56, 46, 53, 53, 55, 44, 54, 46, 48, 52, 54, 44, 52, 48, 46, 53, 50, 57, 99, 45, 51, 46, 49, 56, 53, 45, 52, 46, 52, 57, 56, 45, 54, 46, 51, 55, 45, 56, 46, 56, 57, 53, 45, 57, 46, 52, 53, 56, 45, 49, 51, 46, 48, 57, 49, 13, 10, 9, 9, 99, 45, 48, 46, 53, 48, 50, 45, 54, 46, 50, 56, 53, 45, 49, 46, 48, 48, 53, 45, 49, 50, 46, 48, 57, 54, 45, 49, 46, 52, 52, 49, 45, 49, 54, 46, 57, 48, 49, 99, 48, 46, 50, 50, 57, 45, 48, 46, 48, 54, 57, 44, 48, 46, 52, 53, 52, 45, 48, 46, 49, 53, 56, 44, 48, 46, 54, 55, 53, 45, 48, 46, 50, 54, 56, 99, 50, 46, 48, 53, 51, 45, 49, 46, 48, 50, 54, 44, 50, 46, 56, 56, 52, 45, 51, 46, 53, 50, 49, 44, 49, 46, 56, 53, 56, 45, 53, 46, 53, 55, 52, 108, 45, 52, 46, 49, 53, 52, 45, 56, 46, 51, 48, 57, 13, 10, 9, 9, 99, 45, 48, 46, 56, 57, 55, 45, 49, 46, 55, 57, 51, 45, 50, 46, 57, 52, 51, 45, 50, 46, 54, 56, 54, 45, 52, 46, 56, 55, 45, 50, 46, 49, 51, 52, 99, 45, 49, 46, 57, 50, 53, 44, 48, 46, 53, 54, 45, 51, 46, 49, 55, 57, 44, 50, 46, 52, 49, 45, 50, 46, 57, 56, 44, 52, 46, 52, 48, 54, 99, 48, 46, 52, 57, 54, 44, 52, 46, 57, 53, 56, 44, 49, 46, 48, 49, 49, 44, 49, 48, 46, 52, 52, 54, 44, 49, 46, 53, 49, 56, 44, 49, 54, 46, 50, 49, 49, 13, 10, 9, 9, 99, 45, 50, 46, 54, 50, 56, 45, 51, 46, 52, 54, 52, 45, 53, 46, 48, 53, 57, 45, 54, 46, 54, 51, 52, 45, 55, 46, 49, 51, 57, 45, 57, 46, 51, 49, 56, 99, 48, 46, 52, 48, 54, 45, 48, 46, 51, 52, 57, 44, 48, 46, 55, 53, 51, 45, 48, 46, 55, 56, 51, 44, 49, 46, 48, 48, 56, 45, 49, 46, 50, 57, 52, 99, 49, 46, 48, 50, 54, 45, 50, 46, 48, 53, 51, 44, 48, 46, 49, 57, 53, 45, 52, 46, 53, 52, 56, 45, 49, 46, 56, 53, 56, 45, 53, 46, 53, 55, 52, 108, 45, 56, 46, 51, 48, 57, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 99, 45, 49, 46, 55, 52, 50, 45, 48, 46, 56, 54, 56, 45, 51, 46, 56, 53, 56, 45, 48, 46, 52, 49, 52, 45, 53, 46, 48, 56, 57, 44, 49, 46, 49, 48, 51, 99, 45, 49, 46, 50, 50, 53, 44, 49, 46, 53, 49, 55, 45, 49, 46, 50, 51, 49, 44, 51, 46, 54, 56, 52, 45, 48, 46, 48, 49, 50, 44, 53, 46, 50, 48, 57, 99, 48, 46, 50, 50, 52, 44, 48, 46, 50, 55, 57, 44, 49, 48, 46, 52, 53, 51, 44, 49, 51, 46, 49, 48, 49, 44, 50, 50, 46, 54, 56, 56, 44, 50, 57, 46, 54, 53, 49, 13, 10, 9, 9, 99, 50, 46, 49, 50, 50, 44, 50, 55, 46, 52, 52, 56, 44, 51, 46, 53, 51, 53, 44, 53, 54, 44, 49, 46, 53, 51, 57, 44, 54, 49, 46, 57, 56, 54, 99, 45, 48, 46, 51, 54, 53, 44, 49, 46, 48, 57, 53, 45, 49, 46, 48, 48, 50, 44, 50, 46, 51, 56, 53, 45, 49, 46, 54, 44, 50, 46, 52, 51, 99, 45, 50, 46, 53, 49, 49, 44, 48, 46, 51, 52, 57, 45, 56, 46, 53, 48, 51, 45, 53, 46, 50, 54, 54, 45, 49, 49, 46, 53, 49, 51, 45, 49, 49, 46, 50, 56, 50, 13, 10, 9, 9, 99, 45, 49, 46, 55, 51, 52, 45, 51, 46, 52, 54, 53, 45, 52, 46, 50, 50, 57, 45, 51, 46, 56, 50, 54, 45, 53, 46, 53, 54, 52, 45, 51, 46, 55, 54, 53, 99, 45, 52, 46, 52, 54, 53, 44, 48, 46, 50, 55, 54, 45, 54, 46, 50, 48, 55, 44, 53, 46, 49, 56, 57, 45, 57, 46, 51, 55, 51, 44, 49, 52, 46, 49, 48, 54, 99, 45, 50, 46, 50, 55, 44, 54, 46, 51, 57, 45, 53, 46, 48, 56, 57, 44, 49, 52, 46, 51, 51, 51, 45, 56, 46, 50, 53, 54, 44, 49, 55, 46, 53, 56, 51, 13, 10, 9, 9, 99, 45, 49, 46, 55, 49, 53, 45, 50, 46, 48, 57, 54, 45, 51, 46, 57, 51, 51, 45, 57, 46, 49, 50, 57, 45, 53, 46, 49, 54, 54, 45, 49, 54, 46, 51, 53, 54, 99, 48, 46, 53, 55, 57, 44, 49, 46, 53, 57, 56, 44, 50, 46, 48, 55, 52, 44, 50, 46, 55, 53, 51, 44, 51, 46, 56, 55, 50, 44, 50, 46, 55, 53, 51, 99, 50, 46, 50, 57, 52, 44, 48, 44, 52, 46, 49, 53, 52, 45, 49, 46, 56, 53, 56, 44, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 99, 48, 45, 54, 46, 49, 57, 53, 45, 52, 46, 51, 51, 51, 45, 53, 51, 46, 51, 55, 54, 45, 54, 46, 55, 53, 51, 45, 55, 57, 46, 50, 51, 53, 99, 50, 46, 48, 50, 45, 48, 46, 56, 49, 49, 44, 51, 46, 48, 56, 51, 45, 51, 46, 48, 55, 49, 44, 50, 46, 51, 56, 53, 45, 53, 46, 49, 54, 52, 108, 45, 52, 46, 49, 53, 52, 45, 49, 50, 46, 52, 54, 51, 99, 45, 48, 46, 54, 54, 55, 45, 50, 46, 48, 48, 52, 45, 50, 46, 55, 49, 56, 45, 51, 46, 49, 56, 53, 45, 52, 46, 56, 48, 49, 45, 50, 46, 55, 53, 49, 13, 10, 9, 9, 99, 45, 50, 46, 48, 54, 55, 44, 48, 46, 52, 51, 56, 45, 51, 46, 52, 55, 55, 44, 50, 46, 51, 53, 55, 45, 51, 46, 50, 55, 54, 44, 52, 46, 52, 53, 57, 99, 50, 46, 56, 50, 51, 44, 50, 57, 46, 54, 51, 54, 44, 56, 46, 49, 49, 55, 44, 56, 54, 46, 56, 55, 56, 44, 56, 46, 50, 56, 50, 44, 57, 52, 46, 55, 55, 56, 99, 45, 48, 46, 48, 49, 45, 48, 46, 48, 55, 49, 45, 48, 46, 48, 50, 53, 45, 48, 46, 49, 52, 49, 45, 48, 46, 48, 51, 53, 45, 48, 46, 50, 49, 50, 13, 10, 9, 9, 99, 45, 48, 46, 51, 50, 51, 45, 50, 46, 50, 55, 50, 45, 50, 46, 52, 52, 50, 45, 51, 46, 56, 51, 45, 52, 46, 55, 45, 51, 46, 53, 50, 53, 99, 45, 50, 46, 50, 55, 50, 44, 48, 46, 51, 50, 57, 45, 51, 46, 56, 52, 56, 44, 50, 46, 52, 51, 45, 51, 46, 53, 50, 51, 44, 52, 46, 55, 48, 50, 99, 49, 46, 50, 49, 51, 44, 56, 46, 52, 57, 49, 44, 52, 46, 51, 49, 50, 44, 50, 51, 46, 48, 57, 50, 44, 49, 49, 46, 52, 53, 51, 44, 50, 53, 46, 52, 54, 57, 13, 10, 9, 9, 99, 48, 46, 53, 54, 52, 44, 48, 46, 49, 57, 49, 44, 49, 46, 51, 50, 51, 44, 48, 46, 51, 54, 49, 44, 50, 46, 50, 49, 51, 44, 48, 46, 51, 54, 49, 99, 49, 46, 54, 51, 55, 44, 48, 44, 51, 46, 55, 49, 56, 45, 48, 46, 53, 56, 44, 53, 46, 56, 52, 54, 45, 50, 46, 55, 49, 99, 52, 46, 53, 50, 53, 45, 52, 46, 53, 50, 51, 44, 55, 46, 53, 56, 54, 45, 49, 51, 46, 49, 52, 56, 44, 49, 48, 46, 50, 56, 56, 45, 50, 48, 46, 55, 53, 53, 13, 10, 9, 9, 99, 48, 46, 54, 49, 49, 45, 49, 46, 55, 50, 44, 49, 46, 51, 51, 51, 45, 51, 46, 55, 53, 55, 44, 50, 46, 48, 49, 52, 45, 53, 46, 53, 48, 49, 99, 51, 46, 56, 49, 49, 44, 53, 46, 53, 54, 54, 44, 49, 48, 46, 52, 54, 49, 44, 49, 50, 46, 52, 57, 53, 44, 49, 55, 46, 49, 57, 55, 44, 49, 49, 46, 57, 53, 50, 99, 50, 46, 51, 54, 57, 45, 48, 46, 49, 55, 44, 54, 46, 54, 55, 56, 45, 49, 46, 52, 52, 52, 44, 56, 46, 56, 57, 51, 45, 56, 46, 48, 56, 57, 13, 10, 9, 9, 99, 50, 46, 50, 48, 57, 45, 54, 46, 54, 50, 55, 44, 49, 46, 51, 51, 54, 45, 50, 57, 46, 55, 51, 57, 45, 48, 46, 49, 53, 51, 45, 53, 49, 46, 56, 54, 53, 99, 51, 46, 53, 44, 52, 46, 57, 48, 54, 44, 55, 46, 48, 48, 51, 44, 57, 46, 57, 50, 56, 44, 49, 48, 46, 51, 52, 54, 44, 49, 52, 46, 56, 57, 99, 49, 46, 50, 57, 54, 44, 49, 50, 46, 52, 52, 44, 50, 46, 50, 50, 51, 44, 50, 52, 46, 57, 48, 52, 44, 50, 46, 50, 50, 51, 44, 51, 53, 46, 49, 52, 49, 13, 10, 9, 9, 67, 52, 48, 52, 46, 52, 54, 57, 44, 50, 52, 57, 46, 57, 57, 44, 52, 48, 54, 46, 51, 50, 57, 44, 50, 53, 49, 46, 56, 52, 56, 44, 52, 48, 56, 46, 54, 50, 52, 44, 50, 53, 49, 46, 56, 52, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 52, 52, 48, 46, 49, 53, 44, 50, 50, 57, 46, 57, 57, 56, 99, 45, 50, 46, 57, 52, 51, 45, 50, 49, 46, 57, 50, 51, 45, 55, 46, 48, 52, 51, 45, 52, 55, 46, 51, 49, 57, 45, 57, 46, 54, 51, 57, 45, 54, 50, 46, 57, 48, 54, 99, 49, 46, 49, 55, 50, 44, 48, 46, 50, 56, 56, 44, 50, 46, 52, 53, 44, 48, 46, 48, 53, 51, 44, 51, 46, 52, 56, 49, 45, 48, 46, 55, 51, 56, 13, 10, 9, 9, 99, 49, 46, 56, 50, 54, 45, 49, 46, 51, 57, 50, 44, 50, 46, 49, 55, 52, 45, 52, 44, 48, 46, 55, 56, 51, 45, 53, 46, 56, 50, 50, 108, 45, 55, 46, 53, 51, 45, 57, 46, 56, 54, 54, 99, 45, 49, 46, 49, 54, 50, 45, 49, 46, 53, 49, 55, 45, 51, 46, 50, 49, 49, 45, 50, 46, 48, 53, 51, 45, 52, 46, 57, 54, 54, 45, 49, 46, 50, 56, 54, 115, 45, 50, 46, 55, 53, 55, 44, 50, 46, 54, 51, 51, 45, 50, 46, 52, 51, 44, 52, 46, 53, 49, 57, 13, 10, 9, 9, 99, 48, 46, 48, 55, 53, 44, 48, 46, 52, 50, 54, 44, 55, 46, 52, 56, 51, 44, 52, 51, 46, 48, 55, 50, 44, 49, 50, 46, 48, 54, 53, 44, 55, 55, 46, 50, 48, 50, 99, 49, 46, 55, 53, 49, 44, 49, 51, 46, 48, 52, 51, 45, 48, 46, 56, 48, 53, 44, 50, 52, 46, 54, 57, 56, 45, 54, 46, 56, 52, 44, 51, 49, 46, 49, 55, 51, 99, 45, 51, 46, 56, 55, 56, 44, 52, 46, 49, 53, 56, 45, 57, 46, 48, 49, 56, 44, 54, 46, 48, 52, 49, 45, 49, 53, 46, 50, 51, 56, 44, 53, 46, 54, 56, 13, 10, 9, 9, 99, 45, 50, 46, 50, 56, 52, 45, 48, 46, 49, 50, 50, 45, 52, 46, 50, 54, 52, 44, 49, 46, 53, 57, 56, 45, 52, 46, 52, 48, 56, 44, 51, 46, 56, 56, 55, 99, 45, 48, 46, 49, 52, 52, 44, 50, 46, 50, 56, 56, 44, 49, 46, 53, 57, 52, 44, 52, 46, 50, 54, 44, 51, 46, 56, 56, 52, 44, 52, 46, 52, 48, 54, 99, 48, 46, 55, 48, 50, 44, 48, 46, 48, 52, 53, 44, 49, 46, 51, 57, 52, 44, 48, 46, 48, 54, 53, 44, 50, 46, 48, 55, 57, 44, 48, 46, 48, 54, 53, 13, 10, 9, 9, 99, 55, 46, 56, 51, 52, 44, 48, 44, 49, 52, 46, 54, 51, 51, 45, 50, 46, 56, 55, 50, 44, 49, 57, 46, 55, 53, 57, 45, 56, 46, 51, 55, 51, 67, 52, 51, 56, 46, 57, 55, 57, 44, 50, 53, 57, 46, 53, 52, 44, 52, 52, 50, 46, 50, 53, 57, 44, 50, 52, 53, 46, 55, 49, 44, 52, 52, 48, 46, 49, 53, 44, 50, 50, 57, 46, 57, 57, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 57, 52, 46, 52, 52, 57, 44, 50, 53, 55, 46, 51, 56, 50, 99, 45, 49, 46, 53, 50, 55, 44, 49, 46, 54, 53, 57, 45, 49, 46, 52, 49, 44, 52, 46, 50, 55, 50, 44, 48, 46, 50, 48, 53, 44, 53, 46, 56, 51, 56, 99, 48, 46, 50, 50, 53, 44, 48, 46, 50, 49, 57, 44, 48, 46, 52, 57, 53, 44, 48, 46, 54, 52, 57, 44, 48, 46, 52, 57, 55, 44, 48, 46, 56, 54, 13, 10, 9, 9, 99, 48, 46, 48, 48, 50, 44, 48, 46, 49, 49, 56, 45, 48, 46, 49, 54, 54, 44, 48, 46, 52, 54, 55, 45, 48, 46, 54, 50, 57, 44, 48, 46, 57, 50, 57, 99, 45, 49, 46, 54, 50, 51, 44, 49, 46, 54, 50, 51, 45, 49, 46, 54, 50, 51, 44, 52, 46, 50, 53, 50, 44, 48, 44, 53, 46, 56, 55, 52, 99, 48, 46, 56, 49, 49, 44, 48, 46, 56, 49, 49, 44, 49, 46, 56, 55, 52, 44, 49, 46, 50, 49, 55, 44, 50, 46, 57, 51, 55, 44, 49, 46, 50, 49, 55, 13, 10, 9, 9, 115, 50, 46, 49, 50, 54, 45, 48, 46, 52, 48, 54, 44, 50, 46, 57, 51, 55, 45, 49, 46, 50, 49, 55, 99, 50, 46, 54, 51, 53, 45, 50, 46, 54, 51, 51, 44, 51, 46, 49, 49, 56, 45, 53, 46, 51, 48, 54, 44, 51, 46, 48, 53, 57, 45, 55, 46, 48, 56, 55, 99, 45, 48, 46, 49, 50, 56, 45, 51, 46, 56, 51, 52, 45, 50, 46, 55, 51, 56, 45, 54, 46, 51, 48, 56, 45, 51, 46, 50, 54, 45, 54, 46, 55, 54, 55, 13, 10, 9, 9, 67, 51, 57, 56, 46, 53, 44, 50, 53, 53, 46, 53, 53, 50, 44, 51, 57, 53, 46, 57, 55, 52, 44, 50, 53, 53, 46, 55, 51, 44, 51, 57, 52, 46, 52, 52, 57, 44, 50, 53, 55, 46, 51, 56, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 55, 57, 46, 56, 48, 52, 44, 51, 52, 56, 46, 52, 56, 54, 104, 45, 52, 46, 49, 53, 52, 104, 45, 50, 52, 46, 57, 50, 54, 118, 45, 52, 46, 49, 53, 52, 99, 48, 45, 50, 46, 50, 57, 54, 45, 49, 46, 56, 54, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 45, 52, 46, 49, 53, 52, 115, 45, 52, 46, 49, 53, 52, 44, 49, 46, 56, 53, 56, 45, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 13, 10, 9, 9, 118, 52, 46, 49, 53, 52, 72, 49, 50, 50, 46, 50, 52, 99, 56, 46, 51, 48, 56, 44, 56, 46, 51, 48, 57, 44, 50, 52, 46, 57, 50, 53, 44, 49, 50, 46, 52, 54, 51, 44, 51, 55, 46, 51, 56, 56, 44, 49, 50, 46, 52, 54, 51, 99, 56, 46, 57, 51, 56, 44, 48, 44, 49, 50, 48, 46, 52, 51, 50, 44, 48, 44, 49, 56, 50, 46, 55, 56, 55, 44, 48, 118, 56, 46, 51, 48, 57, 99, 48, 44, 50, 46, 50, 57, 54, 44, 49, 46, 56, 54, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 44, 52, 46, 49, 53, 52, 104, 51, 51, 46, 50, 51, 52, 13, 10, 9, 9, 99, 54, 46, 56, 55, 50, 44, 48, 44, 49, 50, 46, 52, 54, 51, 45, 53, 46, 53, 57, 44, 49, 50, 46, 52, 54, 51, 45, 49, 50, 46, 52, 54, 51, 67, 51, 57, 50, 46, 50, 54, 54, 44, 51, 53, 52, 46, 48, 55, 55, 44, 51, 56, 54, 46, 54, 55, 54, 44, 51, 52, 56, 46, 52, 56, 54, 44, 51, 55, 57, 46, 56, 48, 52, 44, 51, 52, 56, 46, 52, 56, 54, 122, 32, 77, 51, 55, 57, 46, 56, 48, 52, 44, 51, 54, 53, 46, 49, 48, 51, 104, 45, 50, 57, 46, 48, 56, 118, 45, 52, 46, 49, 53, 52, 13, 10, 9, 9, 99, 50, 48, 46, 48, 50, 44, 48, 44, 51, 51, 46, 50, 51, 52, 44, 48, 44, 51, 51, 46, 50, 51, 52, 44, 48, 108, 45, 48, 46, 55, 52, 53, 45, 50, 46, 50, 51, 54, 99, 48, 46, 52, 51, 50, 44, 48, 46, 54, 53, 53, 44, 48, 46, 55, 52, 53, 44, 49, 46, 51, 57, 52, 44, 48, 46, 55, 52, 53, 44, 50, 46, 50, 51, 54, 67, 51, 56, 51, 46, 57, 53, 56, 44, 51, 54, 51, 46, 50, 52, 49, 44, 51, 56, 50, 46, 48, 57, 52, 44, 51, 54, 53, 46, 49, 48, 51, 44, 51, 55, 57, 46, 56, 48, 52, 44, 51, 54, 53, 46, 49, 48, 51, 122, 34, 13, 10, 9, 9, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1931,6 +2272,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "UAE Dirham",
                             CurrencyCode = "AED",
                             CurrencySymbol = "د.إ",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 53, 56, 46, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 55, 51, 65, 70, 48, 48, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 51, 53, 51, 46, 49, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 55, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 53, 56, 46, 57, 34, 32, 121, 61, 34, 51, 52, 49, 46, 50, 52, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 54, 52, 54, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 51, 53, 51, 46, 49, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 55, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 53, 56, 46, 57, 34, 32, 121, 61, 34, 49, 55, 48, 46, 55, 54, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 51, 53, 51, 46, 49, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 52, 56, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 53, 56, 46, 57, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1947,6 +2289,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "US Dollar",
                             CurrencyCode = "USD",
                             CurrencySymbol = "$",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 48, 46, 50, 51, 53, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 49, 46, 53, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 49, 46, 53, 51, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 48, 46, 50, 51, 53, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 49, 53, 55, 46, 54, 51, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 55, 56, 46, 57, 51, 53, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 50, 51, 54, 46, 51, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 51, 57, 51, 46, 55, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 52, 55, 50, 46, 52, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 121, 61, 34, 51, 49, 53, 46, 48, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 51, 57, 46, 51, 52, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 48, 46, 50, 51, 53, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 55, 53, 46, 52, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 50, 55, 53, 46, 52, 52, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 53, 46, 50, 49, 57, 44, 50, 48, 46, 56, 49, 52, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 51, 51, 46, 55, 55, 57, 44, 49, 57, 46, 57, 57, 44, 51, 52, 46, 57, 52, 53, 44, 49, 57, 46, 57, 57, 44, 51, 53, 46, 50, 49, 57, 44, 50, 48, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 53, 46, 50, 49, 57, 44, 55, 51, 46, 57, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 51, 51, 46, 55, 55, 57, 44, 55, 51, 46, 48, 55, 55, 44, 51, 52, 46, 57, 52, 53, 44, 55, 51, 46, 48, 55, 55, 44, 51, 53, 46, 50, 49, 57, 44, 55, 51, 46, 57, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 53, 46, 50, 49, 57, 44, 49, 51, 50, 46, 55, 56, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 50, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 50, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 51, 51, 46, 55, 55, 57, 44, 49, 51, 49, 46, 57, 53, 54, 44, 51, 52, 46, 57, 52, 53, 44, 49, 51, 49, 46, 57, 53, 54, 44, 51, 53, 46, 50, 49, 57, 44, 49, 51, 50, 46, 55, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 53, 46, 50, 49, 57, 44, 49, 56, 54, 46, 56, 55, 54, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 51, 51, 46, 55, 55, 57, 44, 49, 56, 54, 46, 48, 53, 50, 44, 51, 52, 46, 57, 52, 53, 44, 49, 56, 54, 46, 48, 53, 50, 44, 51, 53, 46, 50, 49, 57, 44, 49, 56, 54, 46, 56, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 51, 53, 46, 50, 49, 57, 44, 50, 51, 54, 46, 49, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 51, 51, 46, 55, 55, 57, 44, 50, 51, 53, 46, 50, 55, 56, 44, 51, 52, 46, 57, 52, 53, 44, 50, 51, 53, 46, 50, 55, 56, 44, 51, 53, 46, 50, 49, 57, 44, 50, 51, 54, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 54, 49, 46, 48, 53, 56, 44, 52, 53, 46, 57, 53, 51, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 76, 52, 57, 46, 57, 56, 44, 53, 52, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 53, 57, 46, 54, 49, 56, 44, 52, 53, 46, 49, 50, 57, 44, 54, 48, 46, 55, 56, 52, 44, 52, 53, 46, 49, 50, 57, 44, 54, 49, 46, 48, 53, 56, 44, 52, 53, 46, 57, 53, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 54, 49, 46, 48, 53, 56, 44, 49, 48, 52, 46, 56, 51, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 53, 57, 46, 54, 49, 56, 44, 49, 48, 52, 46, 48, 48, 56, 44, 54, 48, 46, 55, 56, 52, 44, 49, 48, 52, 46, 48, 48, 56, 44, 54, 49, 46, 48, 53, 56, 44, 49, 48, 52, 46, 56, 51, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 54, 49, 46, 48, 53, 56, 44, 49, 54, 48, 46, 55, 55, 49, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 53, 57, 46, 54, 49, 56, 44, 49, 53, 57, 46, 57, 52, 56, 44, 54, 48, 46, 55, 56, 52, 44, 49, 53, 57, 46, 57, 52, 56, 44, 54, 49, 46, 48, 53, 56, 44, 49, 54, 48, 46, 55, 55, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 54, 49, 46, 48, 53, 56, 44, 50, 49, 49, 46, 48, 48, 55, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 53, 57, 46, 54, 49, 56, 44, 50, 49, 48, 46, 49, 56, 50, 44, 54, 48, 46, 55, 56, 52, 44, 50, 49, 48, 46, 49, 56, 50, 44, 54, 49, 46, 48, 53, 56, 44, 50, 49, 49, 46, 48, 48, 55, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 56, 57, 56, 44, 50, 48, 46, 56, 49, 52, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 56, 53, 46, 52, 53, 56, 44, 49, 57, 46, 57, 57, 44, 56, 54, 46, 54, 50, 51, 44, 49, 57, 46, 57, 57, 44, 56, 54, 46, 56, 57, 56, 44, 50, 48, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 56, 57, 56, 44, 55, 51, 46, 57, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 56, 53, 46, 52, 53, 56, 44, 55, 51, 46, 48, 55, 55, 44, 56, 54, 46, 54, 50, 51, 44, 55, 51, 46, 48, 55, 55, 44, 56, 54, 46, 56, 57, 56, 44, 55, 51, 46, 57, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 56, 57, 56, 44, 49, 51, 50, 46, 55, 56, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 50, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 50, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 56, 53, 46, 52, 53, 56, 44, 49, 51, 49, 46, 57, 53, 54, 44, 56, 54, 46, 54, 50, 51, 44, 49, 51, 49, 46, 57, 53, 54, 44, 56, 54, 46, 56, 57, 56, 44, 49, 51, 50, 46, 55, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 56, 57, 56, 44, 49, 56, 54, 46, 56, 55, 54, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 54, 45, 51, 46, 57, 48, 50, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 56, 53, 46, 52, 53, 56, 44, 49, 56, 54, 46, 48, 53, 50, 44, 56, 54, 46, 54, 50, 51, 44, 49, 56, 54, 46, 48, 53, 50, 44, 56, 54, 46, 56, 57, 56, 44, 49, 56, 54, 46, 56, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 56, 54, 46, 56, 57, 56, 44, 50, 51, 54, 46, 49, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 56, 53, 46, 52, 53, 56, 44, 50, 51, 53, 46, 50, 55, 56, 44, 56, 54, 46, 54, 50, 51, 44, 50, 51, 53, 46, 50, 55, 56, 44, 56, 54, 46, 56, 57, 56, 44, 50, 51, 54, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 49, 50, 46, 55, 51, 55, 44, 52, 53, 46, 57, 53, 51, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 76, 49, 48, 49, 46, 54, 53, 57, 44, 53, 52, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 49, 49, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 49, 49, 46, 50, 57, 55, 44, 52, 53, 46, 49, 50, 57, 44, 49, 49, 50, 46, 52, 54, 50, 44, 52, 53, 46, 49, 50, 57, 44, 49, 49, 50, 46, 55, 51, 55, 44, 52, 53, 46, 57, 53, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 49, 50, 46, 55, 51, 55, 44, 49, 48, 52, 46, 56, 51, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 49, 49, 46, 50, 57, 55, 44, 49, 48, 52, 46, 48, 48, 56, 44, 49, 49, 50, 46, 52, 54, 50, 44, 49, 48, 52, 46, 48, 48, 56, 44, 49, 49, 50, 46, 55, 51, 55, 44, 49, 48, 52, 46, 56, 51, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 49, 50, 46, 55, 51, 55, 44, 49, 54, 48, 46, 55, 55, 49, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 49, 49, 46, 50, 57, 55, 44, 49, 53, 57, 46, 57, 52, 56, 44, 49, 49, 50, 46, 52, 54, 50, 44, 49, 53, 57, 46, 57, 52, 56, 44, 49, 49, 50, 46, 55, 51, 55, 44, 49, 54, 48, 46, 55, 55, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 49, 50, 46, 55, 51, 55, 44, 50, 49, 49, 46, 48, 48, 55, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 49, 49, 46, 50, 57, 55, 44, 50, 49, 48, 46, 49, 56, 50, 44, 49, 49, 50, 46, 52, 54, 50, 44, 50, 49, 48, 46, 49, 56, 50, 44, 49, 49, 50, 46, 55, 51, 55, 44, 50, 49, 49, 46, 48, 48, 55, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 51, 56, 46, 53, 55, 54, 44, 50, 48, 46, 56, 49, 52, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 51, 55, 46, 49, 51, 54, 44, 49, 57, 46, 57, 57, 44, 49, 51, 56, 46, 51, 48, 49, 44, 49, 57, 46, 57, 57, 44, 49, 51, 56, 46, 53, 55, 54, 44, 50, 48, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 51, 56, 46, 53, 55, 54, 44, 55, 51, 46, 57, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 51, 55, 46, 49, 51, 54, 44, 55, 51, 46, 48, 55, 55, 44, 49, 51, 56, 46, 51, 48, 49, 44, 55, 51, 46, 48, 55, 55, 44, 49, 51, 56, 46, 53, 55, 54, 44, 55, 51, 46, 57, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 51, 56, 46, 53, 55, 54, 44, 49, 51, 50, 46, 55, 56, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 50, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 50, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 51, 55, 46, 49, 51, 54, 44, 49, 51, 49, 46, 57, 53, 54, 44, 49, 51, 56, 46, 51, 48, 49, 44, 49, 51, 49, 46, 57, 53, 54, 44, 49, 51, 56, 46, 53, 55, 54, 44, 49, 51, 50, 46, 55, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 51, 56, 46, 53, 55, 54, 44, 49, 56, 54, 46, 56, 55, 54, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 51, 55, 46, 49, 51, 54, 44, 49, 56, 54, 46, 48, 53, 50, 44, 49, 51, 56, 46, 51, 48, 49, 44, 49, 56, 54, 46, 48, 53, 50, 44, 49, 51, 56, 46, 53, 55, 54, 44, 49, 56, 54, 46, 56, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 51, 56, 46, 53, 55, 54, 44, 50, 51, 54, 46, 49, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 51, 55, 46, 49, 51, 54, 44, 50, 51, 53, 46, 50, 55, 56, 44, 49, 51, 56, 46, 51, 48, 49, 44, 50, 51, 53, 46, 50, 55, 56, 44, 49, 51, 56, 46, 53, 55, 54, 44, 50, 51, 54, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 52, 46, 52, 49, 53, 44, 52, 53, 46, 57, 53, 51, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 76, 49, 53, 51, 46, 51, 51, 55, 44, 53, 52, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 50, 57, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 54, 50, 46, 57, 55, 53, 44, 52, 53, 46, 49, 50, 57, 44, 49, 54, 52, 46, 49, 52, 44, 52, 53, 46, 49, 50, 57, 44, 49, 54, 52, 46, 52, 49, 53, 44, 52, 53, 46, 57, 53, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 52, 46, 52, 49, 53, 44, 49, 48, 52, 46, 56, 51, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 50, 57, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 54, 50, 46, 57, 55, 53, 44, 49, 48, 52, 46, 48, 48, 56, 44, 49, 54, 52, 46, 49, 52, 44, 49, 48, 52, 46, 48, 48, 56, 44, 49, 54, 52, 46, 52, 49, 53, 44, 49, 48, 52, 46, 56, 51, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 52, 46, 52, 49, 53, 44, 49, 54, 48, 46, 55, 55, 49, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 50, 57, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 54, 50, 46, 57, 55, 53, 44, 49, 53, 57, 46, 57, 52, 56, 44, 49, 54, 52, 46, 49, 52, 44, 49, 53, 57, 46, 57, 52, 56, 44, 49, 54, 52, 46, 52, 49, 53, 44, 49, 54, 48, 46, 55, 55, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 52, 46, 52, 49, 53, 44, 50, 49, 49, 46, 48, 48, 55, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 50, 57, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 54, 50, 46, 57, 55, 53, 44, 50, 49, 48, 46, 49, 56, 50, 44, 49, 54, 52, 46, 49, 52, 44, 50, 49, 48, 46, 49, 56, 50, 44, 49, 54, 52, 46, 52, 49, 53, 44, 50, 49, 49, 46, 48, 48, 55, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 57, 48, 46, 50, 53, 52, 44, 50, 48, 46, 56, 49, 52, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 56, 56, 46, 56, 49, 52, 44, 49, 57, 46, 57, 57, 44, 49, 56, 57, 46, 57, 55, 57, 44, 49, 57, 46, 57, 57, 44, 49, 57, 48, 46, 50, 53, 52, 44, 50, 48, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 57, 48, 46, 50, 53, 52, 44, 55, 51, 46, 57, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 56, 56, 46, 56, 49, 52, 44, 55, 51, 46, 48, 55, 55, 44, 49, 56, 57, 46, 57, 55, 57, 44, 55, 51, 46, 48, 55, 55, 44, 49, 57, 48, 46, 50, 53, 52, 44, 55, 51, 46, 57, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 57, 48, 46, 50, 53, 52, 44, 49, 51, 50, 46, 55, 56, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 50, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 50, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 56, 56, 46, 56, 49, 52, 44, 49, 51, 49, 46, 57, 53, 54, 44, 49, 56, 57, 46, 57, 55, 57, 44, 49, 51, 49, 46, 57, 53, 54, 44, 49, 57, 48, 46, 50, 53, 52, 44, 49, 51, 50, 46, 55, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 57, 48, 46, 50, 53, 52, 44, 49, 56, 54, 46, 56, 55, 54, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 56, 56, 46, 56, 49, 52, 44, 49, 56, 54, 46, 48, 53, 50, 44, 49, 56, 57, 46, 57, 55, 57, 44, 49, 56, 54, 46, 48, 53, 50, 44, 49, 57, 48, 46, 50, 53, 52, 44, 49, 56, 54, 46, 56, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 57, 48, 46, 50, 53, 52, 44, 50, 51, 54, 46, 49, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 49, 56, 56, 46, 56, 49, 52, 44, 50, 51, 53, 46, 50, 55, 56, 44, 49, 56, 57, 46, 57, 55, 57, 44, 50, 51, 53, 46, 50, 55, 56, 44, 49, 57, 48, 46, 50, 53, 52, 44, 50, 51, 54, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 49, 54, 46, 48, 57, 52, 44, 52, 53, 46, 57, 53, 51, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 76, 50, 48, 53, 46, 48, 49, 54, 44, 53, 52, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 49, 52, 46, 54, 53, 51, 44, 52, 53, 46, 49, 50, 57, 44, 50, 49, 53, 46, 56, 49, 57, 44, 52, 53, 46, 49, 50, 57, 44, 50, 49, 54, 46, 48, 57, 52, 44, 52, 53, 46, 57, 53, 51, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 49, 54, 46, 48, 57, 52, 44, 49, 48, 52, 46, 56, 51, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 49, 52, 46, 54, 53, 51, 44, 49, 48, 52, 46, 48, 48, 56, 44, 50, 49, 53, 46, 56, 49, 57, 44, 49, 48, 52, 46, 48, 48, 56, 44, 50, 49, 54, 46, 48, 57, 52, 44, 49, 48, 52, 46, 56, 51, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 49, 54, 46, 48, 57, 52, 44, 49, 54, 48, 46, 55, 55, 49, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 49, 52, 46, 54, 53, 51, 44, 49, 53, 57, 46, 57, 52, 56, 44, 50, 49, 53, 46, 56, 49, 57, 44, 49, 53, 57, 46, 57, 52, 56, 44, 50, 49, 54, 46, 48, 57, 52, 44, 49, 54, 48, 46, 55, 55, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 49, 54, 46, 48, 57, 52, 44, 50, 49, 49, 46, 48, 48, 55, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 49, 52, 46, 54, 53, 51, 44, 50, 49, 48, 46, 49, 56, 50, 44, 50, 49, 53, 46, 56, 49, 57, 44, 50, 49, 48, 46, 49, 56, 50, 44, 50, 49, 54, 46, 48, 57, 52, 44, 50, 49, 49, 46, 48, 48, 55, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 52, 49, 46, 57, 51, 51, 44, 50, 48, 46, 56, 49, 52, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 52, 48, 46, 52, 57, 50, 44, 49, 57, 46, 57, 57, 44, 50, 52, 49, 46, 54, 53, 56, 44, 49, 57, 46, 57, 57, 44, 50, 52, 49, 46, 57, 51, 51, 44, 50, 48, 46, 56, 49, 52, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 52, 49, 46, 57, 51, 51, 44, 55, 51, 46, 57, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 52, 48, 46, 52, 57, 50, 44, 55, 51, 46, 48, 55, 55, 44, 50, 52, 49, 46, 54, 53, 56, 44, 55, 51, 46, 48, 55, 55, 44, 50, 52, 49, 46, 57, 51, 51, 44, 55, 51, 46, 57, 48, 50, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 52, 49, 46, 57, 51, 51, 44, 49, 51, 50, 46, 55, 56, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 50, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 50, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 52, 48, 46, 52, 57, 50, 44, 49, 51, 49, 46, 57, 53, 54, 44, 50, 52, 49, 46, 54, 53, 56, 44, 49, 51, 49, 46, 57, 53, 54, 44, 50, 52, 49, 46, 57, 51, 51, 44, 49, 51, 50, 46, 55, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 52, 49, 46, 57, 51, 51, 44, 49, 56, 54, 46, 56, 55, 54, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 52, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 52, 48, 46, 52, 57, 50, 44, 49, 56, 54, 46, 48, 53, 50, 44, 50, 52, 49, 46, 54, 53, 56, 44, 49, 56, 54, 46, 48, 53, 50, 44, 50, 52, 49, 46, 57, 51, 51, 44, 49, 56, 54, 46, 56, 55, 54, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 50, 52, 49, 46, 57, 51, 51, 44, 50, 51, 54, 46, 49, 48, 50, 108, 50, 46, 49, 50, 50, 44, 54, 46, 51, 54, 52, 108, 54, 46, 55, 48, 56, 44, 48, 46, 48, 53, 50, 99, 48, 46, 56, 54, 56, 44, 48, 46, 48, 48, 55, 44, 49, 46, 50, 50, 57, 44, 49, 46, 49, 49, 53, 44, 48, 46, 53, 51, 44, 49, 46, 54, 51, 49, 108, 45, 53, 46, 51, 57, 54, 44, 51, 46, 57, 56, 53, 32, 32, 32, 108, 50, 46, 48, 50, 51, 44, 54, 46, 51, 57, 54, 99, 48, 46, 50, 54, 50, 44, 48, 46, 56, 50, 56, 45, 48, 46, 54, 56, 44, 49, 46, 53, 49, 51, 45, 49, 46, 51, 56, 56, 44, 49, 46, 48, 48, 56, 108, 45, 53, 46, 52, 53, 56, 45, 51, 46, 57, 48, 49, 108, 45, 53, 46, 52, 53, 56, 44, 51, 46, 57, 48, 49, 99, 45, 48, 46, 55, 48, 54, 44, 48, 46, 53, 48, 54, 45, 49, 46, 54, 52, 57, 45, 48, 46, 49, 56, 45, 49, 46, 51, 56, 56, 45, 49, 46, 48, 48, 56, 108, 50, 46, 48, 50, 51, 45, 54, 46, 51, 57, 54, 32, 32, 32, 108, 45, 53, 46, 51, 57, 54, 45, 51, 46, 57, 56, 53, 99, 45, 48, 46, 54, 57, 56, 45, 48, 46, 53, 49, 54, 45, 48, 46, 51, 51, 57, 45, 49, 46, 54, 50, 53, 44, 48, 46, 53, 51, 45, 49, 46, 54, 51, 49, 108, 54, 46, 55, 48, 56, 45, 48, 46, 48, 53, 50, 108, 50, 46, 49, 50, 50, 45, 54, 46, 51, 54, 52, 67, 50, 52, 48, 46, 52, 57, 50, 44, 50, 51, 53, 46, 50, 55, 56, 44, 50, 52, 49, 46, 54, 53, 56, 44, 50, 51, 53, 46, 50, 55, 56, 44, 50, 52, 49, 46, 57, 51, 51, 44, 50, 51, 54, 46, 49, 48, 50, 122, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1963,6 +2306,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Pound Sterling",
                             CurrencyCode = "GBP",
                             CurrencySymbol = "£",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 49, 56, 56, 46, 54, 51, 50, 44, 48, 32, 48, 44, 48, 32, 48, 44, 51, 57, 46, 57, 53, 52, 32, 49, 56, 56, 46, 54, 51, 50, 44, 49, 54, 51, 46, 53, 52, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 48, 44, 49, 51, 54, 46, 53, 57, 56, 32, 48, 44, 49, 56, 56, 46, 54, 51, 50, 32, 55, 57, 46, 52, 49, 57, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 48, 44, 51, 50, 51, 46, 51, 54, 57, 32, 48, 44, 51, 55, 53, 46, 52, 48, 50, 32, 55, 57, 46, 52, 49, 57, 44, 51, 50, 51, 46, 51, 54, 57, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 51, 57, 46, 57, 53, 52, 32, 53, 49, 50, 44, 48, 32, 51, 50, 51, 46, 51, 54, 56, 44, 48, 32, 51, 50, 51, 46, 51, 54, 56, 44, 49, 54, 51, 46, 53, 52, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 51, 55, 53, 46, 52, 48, 50, 32, 53, 49, 50, 44, 51, 50, 51, 46, 51, 54, 57, 32, 52, 51, 50, 46, 53, 56, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 51, 50, 51, 46, 51, 54, 56, 44, 51, 52, 56, 46, 52, 54, 32, 51, 50, 51, 46, 51, 54, 56, 44, 53, 49, 50, 32, 53, 49, 50, 44, 53, 49, 50, 32, 53, 49, 50, 44, 52, 55, 50, 46, 48, 52, 54, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 49, 56, 56, 46, 54, 51, 50, 32, 53, 49, 50, 44, 49, 51, 54, 46, 53, 57, 56, 32, 52, 51, 50, 46, 53, 56, 49, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 48, 44, 52, 55, 50, 46, 48, 52, 54, 32, 48, 44, 53, 49, 50, 32, 49, 56, 56, 46, 54, 51, 50, 44, 53, 49, 50, 32, 49, 56, 56, 46, 54, 51, 50, 44, 51, 52, 56, 46, 52, 54, 32, 32, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 52, 55, 50, 46, 48, 52, 54, 32, 53, 49, 50, 44, 52, 51, 50, 46, 49, 49, 56, 32, 51, 52, 52, 46, 52, 54, 53, 44, 51, 50, 51, 46, 51, 54, 57, 32, 51, 57, 51, 46, 57, 54, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 53, 49, 50, 44, 51, 57, 57, 46, 57, 56, 57, 32, 53, 49, 50, 44, 51, 55, 53, 46, 52, 48, 50, 32, 32, 32, 32, 52, 51, 50, 46, 53, 56, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 53, 49, 50, 44, 51, 50, 51, 46, 51, 54, 57, 32, 53, 49, 50, 44, 50, 57, 54, 46, 52, 50, 49, 32, 50, 57, 54, 46, 52, 50, 49, 44, 50, 57, 54, 46, 52, 50, 49, 32, 50, 57, 54, 46, 52, 50, 49, 44, 53, 49, 50, 32, 51, 50, 51, 46, 51, 54, 56, 44, 53, 49, 50, 32, 51, 50, 51, 46, 51, 54, 56, 44, 51, 52, 56, 46, 52, 54, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 48, 44, 50, 57, 54, 46, 52, 50, 49, 32, 48, 44, 51, 50, 51, 46, 51, 54, 57, 32, 55, 57, 46, 52, 49, 57, 44, 51, 50, 51, 46, 51, 54, 57, 32, 48, 44, 51, 55, 53, 46, 52, 48, 50, 32, 48, 44, 52, 49, 51, 46, 50, 48, 51, 32, 49, 51, 56, 46, 51, 57, 53, 44, 51, 50, 51, 46, 51, 54, 57, 32, 49, 56, 55, 46, 56, 57, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 32, 32, 32, 48, 44, 52, 52, 53, 46, 51, 51, 50, 32, 48, 44, 52, 55, 50, 46, 48, 52, 54, 32, 49, 56, 56, 46, 54, 51, 50, 44, 51, 52, 56, 46, 52, 54, 32, 49, 56, 56, 46, 54, 51, 50, 44, 53, 49, 50, 32, 50, 49, 53, 46, 53, 55, 57, 44, 53, 49, 50, 32, 50, 49, 53, 46, 53, 55, 57, 44, 50, 57, 54, 46, 52, 50, 49, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 50, 49, 53, 46, 53, 55, 57, 44, 48, 32, 49, 56, 56, 46, 54, 51, 50, 44, 48, 32, 49, 56, 56, 46, 54, 51, 50, 44, 49, 54, 51, 46, 53, 52, 32, 48, 44, 51, 57, 46, 57, 53, 52, 32, 48, 44, 56, 51, 46, 54, 55, 57, 32, 49, 54, 49, 46, 54, 56, 52, 44, 49, 56, 56, 46, 54, 51, 50, 32, 49, 49, 50, 46, 49, 56, 56, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 32, 32, 48, 44, 49, 49, 53, 46, 56, 48, 55, 32, 48, 44, 49, 51, 54, 46, 53, 57, 56, 32, 55, 57, 46, 52, 49, 57, 44, 49, 56, 56, 46, 54, 51, 50, 32, 48, 44, 49, 56, 56, 46, 54, 51, 50, 32, 48, 44, 50, 49, 53, 46, 53, 55, 57, 32, 50, 49, 53, 46, 53, 55, 57, 44, 50, 49, 53, 46, 53, 55, 57, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 50, 49, 53, 46, 53, 55, 57, 32, 53, 49, 50, 44, 49, 56, 56, 46, 54, 51, 50, 32, 52, 51, 50, 46, 53, 56, 49, 44, 49, 56, 56, 46, 54, 51, 50, 32, 53, 49, 50, 44, 49, 51, 54, 46, 53, 57, 56, 32, 53, 49, 50, 44, 57, 56, 46, 51, 49, 52, 32, 51, 55, 50, 46, 56, 54, 52, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 32, 32, 51, 50, 51, 46, 51, 54, 56, 44, 49, 56, 56, 46, 54, 51, 50, 32, 53, 49, 50, 44, 54, 54, 46, 49, 56, 53, 32, 53, 49, 50, 44, 51, 57, 46, 57, 53, 52, 32, 51, 50, 51, 46, 51, 54, 56, 44, 49, 54, 51, 46, 53, 52, 32, 51, 50, 51, 46, 51, 54, 56, 44, 48, 32, 50, 57, 54, 46, 52, 50, 49, 44, 48, 32, 50, 57, 54, 46, 52, 50, 49, 44, 50, 49, 53, 46, 53, 55, 57, 32, 32, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 53, 49, 50, 44, 50, 57, 54, 46, 52, 50, 49, 32, 53, 49, 50, 44, 50, 49, 53, 46, 53, 55, 57, 32, 50, 57, 54, 46, 52, 50, 49, 44, 50, 49, 53, 46, 53, 55, 57, 32, 50, 57, 54, 46, 52, 50, 49, 44, 48, 32, 50, 49, 53, 46, 53, 55, 57, 44, 48, 32, 50, 49, 53, 46, 53, 55, 57, 44, 50, 49, 53, 46, 53, 55, 57, 32, 48, 44, 50, 49, 53, 46, 53, 55, 57, 32, 32, 32, 32, 48, 44, 50, 57, 54, 46, 52, 50, 49, 32, 50, 49, 53, 46, 53, 55, 57, 44, 50, 57, 54, 46, 52, 50, 49, 32, 50, 49, 53, 46, 53, 55, 57, 44, 53, 49, 50, 32, 50, 57, 54, 46, 52, 50, 49, 44, 53, 49, 50, 32, 50, 57, 54, 46, 52, 50, 49, 44, 50, 57, 54, 46, 52, 50, 49, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 49, 51, 56, 46, 51, 57, 53, 44, 51, 50, 51, 46, 51, 54, 57, 32, 48, 44, 52, 49, 51, 46, 50, 48, 51, 32, 48, 44, 52, 52, 53, 46, 51, 51, 50, 32, 49, 56, 55, 46, 56, 57, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 51, 52, 52, 46, 52, 54, 53, 44, 51, 50, 51, 46, 51, 54, 57, 32, 53, 49, 50, 44, 52, 51, 50, 46, 49, 49, 56, 32, 53, 49, 50, 44, 51, 57, 57, 46, 57, 56, 57, 32, 51, 57, 51, 46, 57, 54, 49, 44, 51, 50, 51, 46, 51, 54, 57, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 49, 54, 49, 46, 54, 56, 52, 44, 49, 56, 56, 46, 54, 51, 50, 32, 48, 44, 56, 51, 46, 54, 55, 57, 32, 48, 44, 49, 49, 53, 46, 56, 48, 55, 32, 49, 49, 50, 46, 49, 56, 56, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 51, 55, 50, 46, 56, 54, 52, 44, 49, 56, 56, 46, 54, 51, 50, 32, 53, 49, 50, 44, 57, 56, 46, 51, 49, 52, 32, 53, 49, 50, 44, 54, 54, 46, 49, 56, 53, 32, 51, 50, 51, 46, 51, 54, 56, 44, 49, 56, 56, 46, 54, 51, 50, 32, 32, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1979,6 +2323,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Euro",
                             CurrencyCode = "EUR",
                             CurrencySymbol = "€",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 13, 10, 9, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 49, 52, 55, 57, 66, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 55, 48, 46, 54, 55, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 55, 48, 46, 54, 55, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 55, 48, 46, 54, 55, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 51, 52, 49, 46, 51, 51, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 55, 48, 46, 54, 55, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -1995,6 +2340,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Euro",
                             CurrencyCode = "EUR",
                             CurrencySymbol = "€",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 13, 10, 9, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 52, 54, 52, 54, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 54, 55, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 51, 52, 49, 46, 51, 51, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 69, 49, 53, 65, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 54, 55, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 121, 61, 34, 49, 55, 48, 46, 54, 55, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 52, 66, 53, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 49, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 55, 48, 46, 54, 55, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -2011,6 +2357,7 @@ namespace gms.data.Migrations.Entities
                             Currency = "Euro",
                             CurrencyCode = "EUR",
                             CurrencySymbol = "€",
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Flag = new byte[] { 60, 63, 120, 109, 108, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 48, 34, 32, 101, 110, 99, 111, 100, 105, 110, 103, 61, 34, 105, 115, 111, 45, 56, 56, 53, 57, 45, 49, 34, 63, 62, 13, 10, 60, 33, 45, 45, 32, 71, 101, 110, 101, 114, 97, 116, 111, 114, 58, 32, 65, 100, 111, 98, 101, 32, 73, 108, 108, 117, 115, 116, 114, 97, 116, 111, 114, 32, 49, 57, 46, 48, 46, 48, 44, 32, 83, 86, 71, 32, 69, 120, 112, 111, 114, 116, 32, 80, 108, 117, 103, 45, 73, 110, 32, 46, 32, 83, 86, 71, 32, 86, 101, 114, 115, 105, 111, 110, 58, 32, 54, 46, 48, 48, 32, 66, 117, 105, 108, 100, 32, 48, 41, 32, 32, 45, 45, 62, 13, 10, 60, 115, 118, 103, 32, 118, 101, 114, 115, 105, 111, 110, 61, 34, 49, 46, 49, 34, 32, 105, 100, 61, 34, 76, 97, 121, 101, 114, 95, 49, 34, 32, 120, 109, 108, 110, 115, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 50, 48, 48, 48, 47, 115, 118, 103, 34, 32, 120, 109, 108, 110, 115, 58, 120, 108, 105, 110, 107, 61, 34, 104, 116, 116, 112, 58, 47, 47, 119, 119, 119, 46, 119, 51, 46, 111, 114, 103, 47, 49, 57, 57, 57, 47, 120, 108, 105, 110, 107, 34, 32, 120, 61, 34, 48, 112, 120, 34, 32, 121, 61, 34, 48, 112, 120, 34, 13, 10, 9, 32, 118, 105, 101, 119, 66, 111, 120, 61, 34, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 34, 32, 115, 116, 121, 108, 101, 61, 34, 101, 110, 97, 98, 108, 101, 45, 98, 97, 99, 107, 103, 114, 111, 117, 110, 100, 58, 110, 101, 119, 32, 48, 32, 48, 32, 53, 49, 50, 32, 53, 49, 50, 59, 34, 32, 120, 109, 108, 58, 115, 112, 97, 99, 101, 61, 34, 112, 114, 101, 115, 101, 114, 118, 101, 34, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 46, 57, 56, 53, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 48, 56, 46, 48, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 53, 49, 50, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 46, 57, 56, 53, 34, 32, 121, 61, 34, 49, 48, 55, 46, 55, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 68, 50, 53, 48, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 48, 56, 46, 48, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 50, 57, 54, 46, 52, 50, 34, 47, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 50, 50, 51, 46, 51, 52, 55, 44, 50, 53, 54, 46, 52, 48, 57, 108, 56, 46, 49, 57, 49, 45, 51, 51, 46, 52, 48, 52, 99, 48, 46, 55, 53, 52, 45, 51, 46, 48, 55, 54, 45, 49, 46, 56, 50, 57, 45, 53, 46, 57, 57, 52, 45, 53, 46, 51, 48, 54, 45, 53, 46, 57, 57, 52, 104, 45, 53, 46, 55, 55, 13, 10, 9, 99, 45, 51, 46, 52, 55, 55, 44, 48, 45, 54, 46, 48, 54, 49, 44, 50, 46, 57, 49, 56, 45, 53, 46, 51, 48, 54, 44, 53, 46, 57, 57, 52, 76, 50, 50, 51, 46, 51, 52, 55, 44, 50, 53, 54, 46, 52, 48, 57, 122, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 50, 49, 51, 46, 54, 56, 49, 34, 32, 121, 61, 34, 50, 51, 56, 46, 56, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 57, 46, 51, 50, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 55, 52, 46, 52, 50, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 50, 48, 56, 46, 56, 54, 49, 34, 32, 121, 61, 34, 50, 51, 48, 46, 49, 52, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 56, 57, 46, 53, 51, 49, 34, 32, 121, 61, 34, 50, 53, 54, 46, 52, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 52, 56, 46, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 50, 51, 55, 46, 56, 51, 57, 44, 50, 57, 49, 46, 52, 50, 57, 32, 50, 48, 56, 46, 56, 53, 54, 44, 50, 56, 50, 46, 54, 55, 52, 32, 50, 48, 56, 46, 56, 53, 54, 44, 50, 55, 51, 46, 57, 49, 57, 32, 50, 51, 55, 46, 56, 51, 57, 44, 50, 56, 50, 46, 54, 55, 52, 32, 9, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 55, 56, 46, 52, 51, 53, 44, 50, 53, 54, 46, 52, 48, 57, 108, 56, 46, 49, 57, 49, 45, 51, 51, 46, 52, 48, 52, 99, 48, 46, 55, 53, 52, 45, 51, 46, 48, 55, 54, 45, 49, 46, 56, 50, 57, 45, 53, 46, 57, 57, 52, 45, 53, 46, 51, 48, 54, 45, 53, 46, 57, 57, 52, 104, 45, 53, 46, 55, 55, 13, 10, 9, 9, 99, 45, 51, 46, 52, 55, 55, 44, 48, 45, 54, 46, 48, 54, 49, 44, 50, 46, 57, 49, 56, 45, 53, 46, 51, 48, 54, 44, 53, 46, 57, 57, 52, 76, 55, 56, 46, 52, 51, 53, 44, 50, 53, 54, 46, 52, 48, 57, 122, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 49, 50, 46, 50, 52, 56, 44, 50, 51, 48, 46, 49, 52, 51, 99, 45, 53, 46, 51, 51, 53, 44, 48, 45, 57, 46, 54, 54, 49, 44, 51, 46, 57, 49, 57, 45, 57, 46, 54, 54, 49, 44, 56, 46, 55, 53, 54, 118, 53, 54, 46, 57, 48, 56, 99, 48, 44, 49, 48, 46, 54, 51, 56, 44, 49, 48, 46, 57, 53, 53, 44, 51, 48, 46, 54, 52, 51, 44, 52, 56, 46, 51, 48, 53, 44, 51, 48, 46, 54, 52, 51, 13, 10, 9, 115, 52, 56, 46, 51, 48, 53, 45, 50, 48, 46, 48, 48, 54, 44, 52, 56, 46, 51, 48, 53, 45, 51, 48, 46, 54, 52, 51, 118, 45, 53, 54, 46, 57, 48, 56, 99, 48, 45, 52, 46, 56, 51, 53, 45, 52, 46, 51, 50, 53, 45, 56, 46, 55, 53, 54, 45, 57, 46, 54, 54, 49, 45, 56, 46, 55, 53, 54, 72, 49, 49, 50, 46, 50, 52, 56, 76, 49, 49, 50, 46, 50, 52, 56, 44, 50, 51, 48, 46, 49, 52, 51, 122, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 49, 53, 48, 46, 56, 57, 49, 44, 50, 55, 51, 46, 57, 49, 57, 104, 45, 52, 56, 46, 51, 48, 53, 86, 50, 51, 57, 46, 51, 52, 99, 48, 45, 53, 46, 48, 55, 57, 44, 52, 46, 49, 49, 56, 45, 57, 46, 49, 57, 55, 44, 57, 46, 49, 57, 55, 45, 57, 46, 49, 57, 55, 104, 51, 57, 46, 49, 48, 55, 118, 52, 51, 46, 55, 55, 54, 72, 49, 53, 48, 46, 56, 57, 49, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 49, 53, 48, 46, 56, 57, 49, 44, 50, 55, 51, 46, 57, 49, 57, 104, 52, 56, 46, 51, 48, 53, 118, 50, 48, 46, 55, 56, 52, 99, 48, 44, 49, 50, 46, 54, 57, 56, 45, 49, 48, 46, 50, 57, 52, 44, 50, 50, 46, 57, 57, 50, 45, 50, 50, 46, 57, 57, 50, 44, 50, 50, 46, 57, 57, 50, 104, 45, 50, 46, 51, 50, 13, 10, 9, 9, 99, 45, 49, 50, 46, 54, 57, 56, 44, 48, 45, 50, 50, 46, 57, 57, 50, 45, 49, 48, 46, 50, 57, 52, 45, 50, 50, 46, 57, 57, 50, 45, 50, 50, 46, 57, 57, 50, 76, 49, 53, 48, 46, 56, 57, 49, 44, 50, 55, 51, 46, 57, 49, 57, 76, 49, 53, 48, 46, 56, 57, 49, 44, 50, 55, 51, 46, 57, 49, 57, 122, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 100, 61, 34, 77, 49, 48, 50, 46, 53, 56, 55, 44, 50, 55, 51, 46, 57, 49, 57, 104, 52, 56, 46, 51, 48, 53, 118, 50, 48, 46, 55, 56, 52, 99, 48, 44, 49, 50, 46, 54, 57, 56, 45, 49, 48, 46, 50, 57, 52, 44, 50, 50, 46, 57, 57, 50, 45, 50, 50, 46, 57, 57, 50, 44, 50, 50, 46, 57, 57, 50, 104, 45, 50, 46, 51, 50, 13, 10, 9, 99, 45, 49, 50, 46, 54, 57, 56, 44, 48, 45, 50, 50, 46, 57, 57, 50, 45, 49, 48, 46, 50, 57, 52, 45, 50, 50, 46, 57, 57, 50, 45, 50, 50, 46, 57, 57, 50, 67, 49, 48, 50, 46, 53, 56, 55, 44, 50, 57, 52, 46, 55, 48, 51, 44, 49, 48, 50, 46, 53, 56, 55, 44, 50, 55, 51, 46, 57, 49, 57, 44, 49, 48, 50, 46, 53, 56, 55, 44, 50, 55, 51, 46, 57, 49, 57, 122, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 49, 52, 49, 46, 50, 51, 49, 44, 51, 49, 51, 46, 50, 49, 56, 118, 45, 51, 57, 46, 50, 57, 57, 104, 45, 57, 46, 54, 54, 49, 118, 52, 51, 46, 51, 51, 52, 67, 49, 51, 53, 46, 49, 54, 50, 44, 51, 49, 54, 46, 53, 57, 50, 44, 49, 51, 56, 46, 52, 49, 44, 51, 49, 53, 46, 49, 53, 44, 49, 52, 49, 46, 50, 51, 49, 44, 51, 49, 51, 46, 50, 49, 56, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 49, 50, 49, 46, 57, 48, 57, 44, 51, 49, 55, 46, 50, 53, 51, 118, 45, 52, 51, 46, 51, 51, 52, 104, 45, 57, 46, 54, 54, 49, 118, 51, 57, 46, 50, 57, 57, 67, 49, 49, 53, 46, 48, 54, 57, 44, 51, 49, 53, 46, 49, 53, 44, 49, 49, 56, 46, 51, 49, 54, 44, 51, 49, 54, 46, 53, 57, 50, 44, 49, 50, 49, 46, 57, 48, 57, 44, 51, 49, 55, 46, 50, 53, 51, 122, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 49, 50, 46, 50, 52, 49, 34, 32, 121, 61, 34, 50, 53, 54, 46, 52, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 66, 52, 52, 49, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 49, 50, 46, 50, 52, 49, 34, 32, 121, 61, 34, 50, 51, 56, 46, 56, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 49, 55, 46, 48, 56, 49, 34, 32, 121, 61, 34, 50, 52, 52, 46, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 57, 46, 51, 50, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 49, 53, 46, 56, 54, 49, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 54, 56, 46, 55, 55, 52, 34, 32, 121, 61, 34, 50, 51, 56, 46, 56, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 49, 57, 46, 51, 50, 50, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 55, 52, 46, 52, 50, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 54, 51, 46, 57, 52, 49, 34, 32, 121, 61, 34, 51, 48, 56, 46, 57, 52, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 54, 51, 46, 57, 52, 49, 34, 32, 121, 61, 34, 50, 51, 48, 46, 49, 52, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 53, 57, 46, 49, 49, 49, 34, 32, 121, 61, 34, 51, 49, 55, 46, 55, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 53, 48, 54, 52, 65, 65, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 51, 56, 46, 54, 52, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 50, 49, 51, 46, 54, 56, 49, 34, 32, 121, 61, 34, 51, 48, 56, 46, 57, 52, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 50, 56, 46, 57, 56, 52, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 50, 48, 52, 46, 48, 51, 49, 34, 32, 121, 61, 34, 51, 49, 55, 46, 55, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 53, 48, 54, 52, 65, 65, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 51, 56, 46, 54, 52, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 50, 49, 46, 57, 49, 49, 34, 32, 121, 61, 34, 50, 50, 49, 46, 51, 57, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 53, 55, 46, 57, 54, 55, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 52, 54, 46, 48, 54, 49, 34, 32, 121, 61, 34, 49, 57, 53, 46, 49, 51, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 66, 52, 52, 49, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 57, 46, 54, 54, 49, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 50, 54, 46, 50, 55, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 52, 49, 46, 50, 51, 49, 44, 50, 48, 56, 46, 50, 53, 53, 99, 45, 55, 46, 57, 57, 49, 44, 48, 45, 49, 52, 46, 52, 57, 49, 45, 53, 46, 56, 57, 49, 45, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 115, 54, 46, 53, 45, 49, 51, 46, 49, 51, 50, 44, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 13, 10, 9, 9, 115, 49, 52, 46, 52, 57, 49, 44, 53, 46, 56, 57, 49, 44, 49, 52, 46, 52, 57, 49, 44, 49, 51, 46, 49, 51, 50, 67, 49, 53, 53, 46, 55, 50, 49, 44, 50, 48, 50, 46, 51, 54, 52, 44, 49, 52, 57, 46, 50, 50, 49, 44, 50, 48, 56, 46, 50, 53, 53, 44, 49, 52, 49, 46, 50, 51, 49, 44, 50, 48, 56, 46, 50, 53, 53, 122, 32, 77, 49, 52, 49, 46, 50, 51, 49, 44, 49, 57, 48, 46, 55, 52, 53, 99, 45, 50, 46, 54, 54, 53, 44, 48, 45, 52, 46, 56, 51, 44, 49, 46, 57, 54, 51, 45, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 13, 10, 9, 9, 99, 48, 44, 50, 46, 52, 49, 53, 44, 50, 46, 49, 54, 53, 44, 52, 46, 51, 55, 56, 44, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 99, 50, 46, 54, 54, 53, 44, 48, 44, 52, 46, 56, 51, 45, 49, 46, 57, 54, 51, 44, 52, 46, 56, 51, 45, 52, 46, 51, 55, 56, 67, 49, 52, 54, 46, 48, 54, 49, 44, 49, 57, 50, 46, 55, 48, 55, 44, 49, 52, 51, 46, 56, 57, 54, 44, 49, 57, 48, 46, 55, 52, 53, 44, 49, 52, 49, 46, 50, 51, 49, 44, 49, 57, 48, 46, 55, 52, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 54, 48, 46, 53, 53, 50, 44, 50, 48, 56, 46, 50, 53, 53, 99, 45, 55, 46, 57, 57, 49, 44, 48, 45, 49, 52, 46, 52, 57, 49, 45, 53, 46, 56, 57, 49, 45, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 115, 54, 46, 53, 45, 49, 51, 46, 49, 51, 50, 44, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 13, 10, 9, 9, 115, 49, 52, 46, 52, 57, 49, 44, 53, 46, 56, 57, 49, 44, 49, 52, 46, 52, 57, 49, 44, 49, 51, 46, 49, 51, 50, 67, 49, 55, 53, 46, 48, 52, 50, 44, 50, 48, 50, 46, 51, 54, 52, 44, 49, 54, 56, 46, 53, 52, 51, 44, 50, 48, 56, 46, 50, 53, 53, 44, 49, 54, 48, 46, 53, 53, 50, 44, 50, 48, 56, 46, 50, 53, 53, 122, 32, 77, 49, 54, 48, 46, 53, 53, 50, 44, 49, 57, 48, 46, 55, 52, 53, 99, 45, 50, 46, 54, 54, 53, 44, 48, 45, 52, 46, 56, 51, 44, 49, 46, 57, 54, 51, 45, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 13, 10, 9, 9, 99, 48, 44, 50, 46, 52, 49, 53, 44, 50, 46, 49, 54, 53, 44, 52, 46, 51, 55, 56, 44, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 99, 50, 46, 54, 54, 53, 44, 48, 44, 52, 46, 56, 51, 45, 49, 46, 57, 54, 51, 44, 52, 46, 56, 51, 45, 52, 46, 51, 55, 56, 67, 49, 54, 53, 46, 51, 56, 50, 44, 49, 57, 50, 46, 55, 48, 55, 44, 49, 54, 51, 46, 50, 49, 55, 44, 49, 57, 48, 46, 55, 52, 53, 44, 49, 54, 48, 46, 53, 53, 50, 44, 49, 57, 48, 46, 55, 52, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 55, 57, 46, 56, 55, 52, 44, 50, 49, 55, 46, 48, 49, 49, 99, 45, 55, 46, 57, 57, 49, 44, 48, 45, 49, 52, 46, 52, 57, 49, 45, 53, 46, 56, 57, 49, 45, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 115, 54, 46, 53, 45, 49, 51, 46, 49, 51, 50, 44, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 13, 10, 9, 9, 115, 49, 52, 46, 52, 57, 49, 44, 53, 46, 56, 57, 49, 44, 49, 52, 46, 52, 57, 49, 44, 49, 51, 46, 49, 51, 50, 83, 49, 56, 55, 46, 56, 54, 52, 44, 50, 49, 55, 46, 48, 49, 49, 44, 49, 55, 57, 46, 56, 55, 52, 44, 50, 49, 55, 46, 48, 49, 49, 122, 32, 77, 49, 55, 57, 46, 56, 55, 52, 44, 49, 57, 57, 46, 53, 99, 45, 50, 46, 54, 54, 53, 44, 48, 45, 52, 46, 56, 51, 44, 49, 46, 57, 54, 51, 45, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 13, 10, 9, 9, 99, 48, 44, 50, 46, 52, 49, 53, 44, 50, 46, 49, 54, 53, 44, 52, 46, 51, 55, 56, 44, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 99, 50, 46, 54, 54, 53, 44, 48, 44, 52, 46, 56, 51, 45, 49, 46, 57, 54, 51, 44, 52, 46, 56, 51, 45, 52, 46, 51, 55, 56, 67, 49, 56, 52, 46, 55, 48, 52, 44, 50, 48, 49, 46, 52, 54, 50, 44, 49, 56, 50, 46, 53, 51, 57, 44, 49, 57, 57, 46, 53, 44, 49, 55, 57, 46, 56, 55, 52, 44, 49, 57, 57, 46, 53, 122, 34, 47, 62, 13, 10, 9, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 53, 70, 53, 70, 53, 59, 34, 32, 100, 61, 34, 77, 49, 50, 49, 46, 57, 48, 57, 44, 50, 49, 55, 46, 48, 49, 49, 99, 45, 55, 46, 57, 57, 49, 44, 48, 45, 49, 52, 46, 52, 57, 49, 45, 53, 46, 56, 57, 49, 45, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 115, 54, 46, 53, 45, 49, 51, 46, 49, 51, 50, 44, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 13, 10, 9, 9, 115, 49, 52, 46, 52, 57, 49, 44, 53, 46, 56, 57, 49, 44, 49, 52, 46, 52, 57, 49, 44, 49, 51, 46, 49, 51, 50, 67, 49, 51, 54, 46, 51, 57, 57, 44, 50, 49, 49, 46, 49, 50, 44, 49, 50, 57, 46, 56, 57, 57, 44, 50, 49, 55, 46, 48, 49, 49, 44, 49, 50, 49, 46, 57, 48, 57, 44, 50, 49, 55, 46, 48, 49, 49, 122, 32, 77, 49, 50, 49, 46, 57, 48, 57, 44, 49, 57, 57, 46, 53, 99, 45, 50, 46, 54, 54, 53, 44, 48, 45, 52, 46, 56, 51, 44, 49, 46, 57, 54, 51, 45, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 13, 10, 9, 9, 99, 48, 44, 50, 46, 52, 49, 53, 44, 50, 46, 49, 54, 53, 44, 52, 46, 51, 55, 56, 44, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 115, 52, 46, 56, 51, 45, 49, 46, 57, 54, 51, 44, 52, 46, 56, 51, 45, 52, 46, 51, 55, 56, 67, 49, 50, 54, 46, 55, 51, 57, 44, 50, 48, 49, 46, 52, 54, 50, 44, 49, 50, 52, 46, 53, 55, 52, 44, 49, 57, 57, 46, 53, 44, 49, 50, 49, 46, 57, 48, 57, 44, 49, 57, 57, 46, 53, 122, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 100, 61, 34, 77, 49, 55, 57, 46, 56, 55, 52, 44, 50, 57, 49, 46, 52, 50, 57, 118, 52, 46, 51, 55, 56, 99, 48, 44, 50, 46, 52, 49, 52, 45, 50, 46, 49, 54, 55, 44, 52, 46, 51, 55, 56, 45, 52, 46, 56, 51, 44, 52, 46, 51, 55, 56, 115, 45, 52, 46, 56, 51, 45, 49, 46, 57, 54, 52, 45, 52, 46, 56, 51, 45, 52, 46, 51, 55, 56, 118, 45, 52, 46, 51, 55, 56, 72, 49, 55, 57, 46, 56, 55, 52, 13, 10, 9, 32, 77, 49, 56, 57, 46, 53, 51, 52, 44, 50, 56, 50, 46, 54, 55, 52, 104, 45, 50, 56, 46, 57, 56, 51, 118, 49, 51, 46, 49, 51, 50, 99, 48, 44, 55, 46, 50, 52, 49, 44, 54, 46, 53, 48, 49, 44, 49, 51, 46, 49, 51, 50, 44, 49, 52, 46, 52, 57, 49, 44, 49, 51, 46, 49, 51, 50, 99, 55, 46, 57, 57, 49, 44, 48, 44, 49, 52, 46, 52, 57, 49, 45, 53, 46, 56, 57, 49, 44, 49, 52, 46, 52, 57, 49, 45, 49, 51, 46, 49, 51, 50, 76, 49, 56, 57, 46, 53, 51, 52, 44, 50, 56, 50, 46, 54, 55, 52, 13, 10, 9, 76, 49, 56, 57, 46, 53, 51, 52, 44, 50, 56, 50, 46, 54, 55, 52, 122, 34, 47, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 65, 48, 68, 50, 59, 34, 32, 100, 61, 34, 77, 49, 55, 53, 46, 53, 48, 55, 44, 50, 54, 53, 46, 49, 54, 51, 104, 45, 48, 46, 57, 50, 56, 99, 45, 53, 46, 48, 55, 57, 44, 48, 45, 57, 46, 49, 57, 55, 45, 52, 46, 49, 49, 56, 45, 57, 46, 49, 57, 55, 45, 57, 46, 49, 57, 55, 118, 45, 55, 46, 56, 55, 50, 99, 48, 45, 53, 46, 48, 55, 57, 44, 52, 46, 49, 49, 56, 45, 57, 46, 49, 57, 55, 44, 57, 46, 49, 57, 55, 45, 57, 46, 49, 57, 55, 13, 10, 9, 104, 48, 46, 57, 50, 56, 99, 53, 46, 48, 55, 57, 44, 48, 44, 57, 46, 49, 57, 55, 44, 52, 46, 49, 49, 56, 44, 57, 46, 49, 57, 55, 44, 57, 46, 49, 57, 55, 118, 55, 46, 56, 55, 50, 67, 49, 56, 52, 46, 55, 48, 52, 44, 50, 54, 49, 46, 48, 52, 55, 44, 49, 56, 48, 46, 53, 56, 54, 44, 50, 54, 53, 46, 49, 54, 51, 44, 49, 55, 53, 46, 53, 48, 55, 44, 50, 54, 53, 46, 49, 54, 51, 122, 34, 47, 62, 13, 10, 60, 101, 108, 108, 105, 112, 115, 101, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 53, 48, 54, 52, 65, 65, 59, 34, 32, 99, 120, 61, 34, 49, 53, 48, 46, 56, 57, 49, 34, 32, 99, 121, 61, 34, 50, 55, 51, 46, 57, 50, 34, 32, 114, 120, 61, 34, 49, 52, 46, 52, 57, 49, 34, 32, 114, 121, 61, 34, 49, 51, 46, 49, 51, 34, 47, 62, 13, 10, 60, 114, 101, 99, 116, 32, 120, 61, 34, 49, 52, 54, 46, 48, 54, 49, 34, 32, 121, 61, 34, 49, 55, 55, 46, 54, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 65, 66, 52, 52, 54, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 57, 46, 54, 54, 49, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 50, 54, 46, 50, 55, 34, 47, 62, 13, 10, 60, 112, 97, 116, 104, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 100, 61, 34, 77, 49, 50, 49, 46, 57, 48, 57, 44, 50, 50, 49, 46, 51, 56, 56, 108, 45, 57, 46, 54, 54, 49, 45, 56, 46, 55, 53, 54, 108, 53, 46, 54, 53, 57, 45, 53, 46, 49, 50, 57, 99, 56, 46, 55, 52, 56, 45, 55, 46, 57, 50, 56, 44, 50, 48, 46, 54, 49, 51, 45, 49, 50, 46, 51, 56, 49, 44, 51, 50, 46, 57, 56, 52, 45, 49, 50, 46, 51, 56, 49, 108, 48, 44, 48, 13, 10, 9, 99, 49, 50, 46, 51, 55, 49, 44, 48, 44, 50, 52, 46, 50, 51, 55, 44, 52, 46, 52, 53, 52, 44, 51, 50, 46, 57, 56, 52, 44, 49, 50, 46, 51, 56, 49, 108, 53, 46, 54, 53, 57, 44, 53, 46, 49, 50, 57, 108, 45, 57, 46, 54, 54, 49, 44, 56, 46, 55, 53, 54, 72, 49, 50, 49, 46, 57, 48, 57, 122, 34, 47, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 101, 108, 108, 105, 112, 115, 101, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 68, 50, 53, 48, 59, 34, 32, 99, 120, 61, 34, 49, 53, 48, 46, 56, 57, 49, 34, 32, 99, 121, 61, 34, 50, 49, 50, 46, 54, 51, 34, 32, 114, 120, 61, 34, 52, 46, 56, 51, 34, 32, 114, 121, 61, 34, 52, 46, 51, 55, 56, 34, 47, 62, 13, 10, 9, 60, 101, 108, 108, 105, 112, 115, 101, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 68, 50, 53, 48, 59, 34, 32, 99, 120, 61, 34, 49, 51, 49, 46, 53, 55, 49, 34, 32, 99, 121, 61, 34, 50, 49, 50, 46, 54, 51, 34, 32, 114, 120, 61, 34, 52, 46, 56, 51, 34, 32, 114, 121, 61, 34, 52, 46, 51, 55, 56, 34, 47, 62, 13, 10, 9, 60, 101, 108, 108, 105, 112, 115, 101, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 70, 70, 68, 50, 53, 48, 59, 34, 32, 99, 120, 61, 34, 49, 55, 48, 46, 50, 49, 49, 34, 32, 99, 121, 61, 34, 50, 49, 50, 46, 54, 51, 34, 32, 114, 120, 61, 34, 52, 46, 56, 51, 34, 32, 114, 121, 61, 34, 52, 46, 51, 55, 56, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 9, 60, 114, 101, 99, 116, 32, 120, 61, 34, 54, 51, 46, 57, 52, 49, 34, 32, 121, 61, 34, 50, 53, 54, 46, 52, 49, 34, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 119, 105, 100, 116, 104, 61, 34, 52, 56, 46, 51, 34, 32, 104, 101, 105, 103, 104, 116, 61, 34, 56, 46, 55, 53, 54, 34, 47, 62, 13, 10, 9, 60, 112, 111, 108, 121, 103, 111, 110, 32, 115, 116, 121, 108, 101, 61, 34, 102, 105, 108, 108, 58, 35, 67, 56, 52, 49, 52, 66, 59, 34, 32, 112, 111, 105, 110, 116, 115, 61, 34, 54, 51, 46, 57, 52, 51, 44, 50, 57, 49, 46, 52, 50, 57, 32, 57, 50, 46, 57, 50, 54, 44, 50, 56, 50, 46, 54, 55, 52, 32, 57, 50, 46, 57, 50, 54, 44, 50, 55, 51, 46, 57, 49, 57, 32, 54, 51, 46, 57, 52, 51, 44, 50, 56, 50, 46, 54, 55, 52, 32, 9, 34, 47, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 103, 62, 13, 10, 60, 47, 103, 62, 13, 10, 60, 47, 115, 118, 103, 62, 13, 10 },
                             FlagType = "data:image/svg+xml;base64,",
                             IsDeleted = false,
@@ -2038,11 +2385,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
@@ -2070,11 +2426,20 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PaidAmount")
                         .HasPrecision(18, 2)
@@ -2110,6 +2475,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -2124,6 +2495,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("PlanName")
                         .IsRequired()
@@ -2149,7 +2523,8 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(4400),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(8255),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 1,
                             MaxMemberNumberPerBranch = 50,
@@ -2162,7 +2537,8 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(4410),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(8270),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 3,
                             MaxMemberNumberPerBranch = 100,
@@ -2175,7 +2551,8 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(4413),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(8275),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 5,
                             MaxMemberNumberPerBranch = 200,
@@ -2188,7 +2565,8 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 26, 15, 15, 52, 307, DateTimeKind.Utc).AddTicks(4415),
+                            CreatedAt = new DateTime(2024, 4, 26, 17, 32, 37, 92, DateTimeKind.Utc).AddTicks(8310),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 10,
                             MaxMemberNumberPerBranch = 400,
@@ -2214,6 +2592,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<int>("GymId")
                         .HasColumnType("int");
 
@@ -2222,6 +2606,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<byte>("PlanId")
                         .HasColumnType("tinyint");
@@ -2266,6 +2653,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -2274,6 +2667,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("Reps")
                         .HasColumnType("int");
@@ -2319,6 +2715,12 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -2336,6 +2738,9 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
