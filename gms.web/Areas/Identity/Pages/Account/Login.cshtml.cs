@@ -5,6 +5,7 @@
 using gms.common.Models.Identity;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
+using gms.service.TestUser;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,14 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly UserManager<GymUserEntity> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<GymUserEntity> signInManager, ILogger<LoginModel> logger, UserManager<GymUserEntity> userManager)
+        private readonly IGymUserService _gymUserService;
+
+        public LoginModel(SignInManager<GymUserEntity> signInManager, ILogger<LoginModel> logger, UserManager<GymUserEntity> userManager, IGymUserService gymUserService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _gymUserService = gymUserService;
         }
 
         /// <summary>
@@ -114,7 +118,8 @@ namespace gms.web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    GymUserEntity user = await _userManager.FindByEmailAsync(Input.Email);
+                    // GymUserEntity user = await _userManager.FindByEmailAsync(Input.Email);
+                    GymUserEntity user = await _gymUserService.GetGymUserByEmail(Input.Email);
 
                     if (user is not null)
                     {

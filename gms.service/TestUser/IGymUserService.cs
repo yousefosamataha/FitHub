@@ -5,5 +5,6 @@ namespace gms.service.TestUser;
 
 public interface IGymUserService
 {
-    public Task<GymUserDto> UpdateGymUser(GymUserEntity entity);
+    Task<GymUserDto> UpdateGymUser(GymUserEntity entity);
+    Task<GymUserEntity> GetGymUserByEmail(string email);
 }

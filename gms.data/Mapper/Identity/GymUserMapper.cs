@@ -30,8 +30,7 @@ public static class GymUserMapper
             Name = entity.FirstName + " " + entity.LastName,
             GenderId = entity.GenderId,
             GymUserTypeId = entity.GymUserTypeId,
-            State = entity.State,
-            StatusId = entity.StatusId
+            UserStatusId = entity.StatusId
         };
     }
 }

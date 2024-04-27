@@ -14,9 +14,7 @@ public sealed record GymUserClaimsDto
 
     public required GenderEnum GenderId { get; init; }
 
-    public required string? State { get; init; }
-
-    public required StatusEnum StatusId { get; init; }
+    public required StatusEnum UserStatusId { get; init; }
 
     public required GymUserTypeEnum? GymUserTypeId { get; init; }
 }

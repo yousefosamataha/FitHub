@@ -2,6 +2,7 @@
 using gms.data;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.TestUser;
 public class GymUserService : IGymUserService
@@ -10,6 +11,12 @@ public class GymUserService : IGymUserService
     public GymUserService(ApplicationDbContext context)
     {
         _context = context;
+    }
+
+    public async Task<GymUserEntity> GetGymUserByEmail(string email)
+    {
+        var entity = await _context.Users.FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower().Trim(), email.ToLower().Trim()));
+        return entity;
     }
 
     public async Task<GymUserDto> UpdateGymUser(GymUserEntity entity)

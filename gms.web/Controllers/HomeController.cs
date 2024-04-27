@@ -1,5 +1,4 @@
 ﻿using gms.common.Models.Shared.Country;
-using gms.common.ViewModels;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
