@@ -1,4 +1,6 @@
-﻿using gms.data;
+﻿using gms.common.Models.GymCat.GymGeneralSetting;
+using gms.data;
+using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
@@ -15,4 +17,10 @@ public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>,
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting)
+    {
+        GymGeneralSettingEntity newGeneralSettingEntity = newGeneralSetting.ToEntity();
+        await AddAsync(newGeneralSettingEntity);
+        return newGeneralSettingEntity.ToDTO();
+    }
 }

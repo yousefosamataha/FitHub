@@ -15,10 +15,6 @@ internal class GymConfiguration : IEntityTypeConfiguration<GymEntity>
 
         builder.Property(g => g.Name).IsRequired().HasMaxLength(256);
 
-        //builder.HasOne(g => g.GeneralSetting)
-        //       .WithOne(gg => gg.Gym)
-        //       .HasForeignKey<GymEntity>(g => g.GeneralSettingId);
-
         builder.HasMany(g => g.SystemSubscriptions)
                .WithOne(ss => ss.Gym)
                .HasForeignKey(ss => ss.GymId);

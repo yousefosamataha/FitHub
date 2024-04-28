@@ -12,6 +12,7 @@ var signUp = function () {
 	var planPeriodMonthButton;
 	var planPeriodAnnualButton;
 	var CountriesList;
+	var passwordMeter;
 
 	// Handle Stepper
 	var initStepper = function () {
@@ -36,18 +37,12 @@ var signUp = function () {
 
 		// Validation before going to next page
 		stepperObj.on('kt.stepper.next', function (stepper) {
-			console.log('stepper.next');
-
-			// Validate form before change stepper step
-			var validator = validations[stepper.getCurrentStepIndex() - 1]; // get validator for currnt step
+			var validator = validations[stepper.getCurrentStepIndex() - 1];
 
 			if (validator) {
 				validator.validate().then(function (status) {
-					console.log('validated!');
-
 					if (status == 'Valid') {
 						stepper.goNext();
-
 						KTUtil.scrollTop();
 					} else {
 						KTUtil.scrollTop();
@@ -55,38 +50,18 @@ var signUp = function () {
 				});
 			} else {
 				stepper.goNext();
-
 				KTUtil.scrollTop();
 			}
 		});
 
 		// Prev event
 		stepperObj.on('kt.stepper.previous', function (stepper) {
-			console.log('stepper.previous');
-
 			stepper.goPrevious();
 			KTUtil.scrollTop();
 		});
 	}
 	var handleForm = function () {
-		formSubmitButton.addEventListener('click', function (e) {
-			// Validate form before change stepper step
-			var validator = validations[2]; // get validator for last form
-
-			validator.validate().then(function (status) {
-				console.log('validated!');
-
-				if (status == 'Valid') {
-					// Prevent default button action
-					e.preventDefault();
-					form.submit();
-				} else {
-					KTUtil.scrollTop();
-				}
-			});
-		});
-	}
-	var initValidation = function () {
+		// Init form validation rules.
 		// Step 1
 		validations.push(FormValidation.formValidation(
 			form,
@@ -207,6 +182,14 @@ var signUp = function () {
 						validators: {
 							notEmpty: {
 								message: 'This Field Is Required!'
+							},
+							callback: {
+								message: 'Please enter valid password!',
+								callback: function (input) {
+									if (input.value.length > 0) {
+										return validatePassword();
+									}
+								}
 							}
 						}
 					},
@@ -219,14 +202,17 @@ var signUp = function () {
 								compare: function () {
 									return form.querySelector('[name="Input.Password"]').value;
 								},
-								message: 'The password and its confirm are not the same'
+								message: 'The password and its confirm are not the same!'
 							}
 						}
 					}
 				},
 				plugins: {
-					trigger: new FormValidation.plugins.Trigger(),
-					// Bootstrap Framework Integration
+					trigger: new FormValidation.plugins.Trigger({
+						event: {
+							'password': false
+						}
+					}),
 					bootstrap: new FormValidation.plugins.Bootstrap5({
 						rowSelector: '.fv-row',
 						eleInvalidClass: '',
@@ -235,6 +221,44 @@ var signUp = function () {
 				}
 			}
 		));
+
+		// Handle form submit
+		formSubmitButton.addEventListener('click', function (e) {
+			var validator = validations[2];
+			validator.revalidateField('Input.Password');
+
+			validator.validate().then(function (status) {
+				if (status == 'Valid') {
+					e.preventDefault();
+					form.submit();
+				} else {
+					KTUtil.scrollTop();
+				}
+			});
+		});
+
+		// Handle password input
+		form.querySelector('input[name="Input.Password"]').addEventListener('input', function () {
+			if (this.value.length > 0) {
+				validations[2].updateFieldStatus('Input.Password', 'NotValidated');
+			}
+		});
+	}
+
+	// Password input validation
+	var validatePassword = function () {
+		return (passwordMeter.score > 70);
+	}
+
+	// Init Birth Date Flatpickr
+	var initFlatpickr = () => {
+		const birthDateElement = document.querySelector('[name="Input.GymUser.BirthDate"]');
+
+		$(birthDateElement).flatpickr({
+			// locale: globalClass.flatpickrLanguage,
+			dateFormat: "Y-m-d",
+			altFormat: "d/m/Y",
+		});
 	}
 
 	// Handle Plan Period Selection
@@ -357,16 +381,17 @@ var signUp = function () {
 			}
 
 			form = stepper.querySelector('#registerForm');
-			// form = stepper.querySelector('#kt_create_account_form');
 			formSubmitButton = stepper.querySelector('[data-kt-stepper-action="submit"]');
 			formContinueButton = stepper.querySelector('[data-kt-stepper-action="next"]');
 			planPeriodMonthButton = stepper.querySelector('[data-kt-plan="month"]');
 			planPeriodAnnualButton = stepper.querySelector('[data-kt-plan="annual"]');
+			passwordMeter = KTPasswordMeter.getInstance(document.querySelector('[data-kt-password-meter="true"]'));
+			passwordMeter.options.minLength = 10;
 
 			// Handlers
 			initStepper();
-			initValidation();
 			handleForm();
+			initFlatpickr();
 			handlePlanPeriodSelection();
 			handleSelectCountry();
 			changeCountry();

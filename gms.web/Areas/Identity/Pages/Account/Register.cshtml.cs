@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using gms.service.Gym.GymGeneralSettingsRepository;
+using gms.common.Models.GymCat.GymGeneralSetting;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
@@ -28,6 +30,7 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly ISystemSubscriptionService _systemSubscriptionService;
         private readonly IGymBranchService _gymBranchService;
         private readonly ICountryService _countryService;
+        private readonly IGymGeneralSettingService _gymGeneralSettingService;
         private readonly IGymUserService _gymUserService;
 
         public RegisterModel(
@@ -40,7 +43,8 @@ namespace gms.web.Areas.Identity.Pages.Account
             ISystemSubscriptionService systemSubscriptionService,
             IGymBranchService gymBranchService,
             ICountryService countryService,
-            IGymUserService gymUserService)
+            IGymUserService gymUserService,
+            IGymGeneralSettingService gymGeneralSettingService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -53,6 +57,7 @@ namespace gms.web.Areas.Identity.Pages.Account
             _countryService = countryService;
             _gymBranchService = gymBranchService;
             _gymUserService = gymUserService;
+            _gymGeneralSettingService = gymGeneralSettingService;
         }
 
         [BindProperty]
@@ -81,10 +86,18 @@ namespace gms.web.Areas.Identity.Pages.Account
 
             public CreateGymDTO GymDTO { get; set; }
             public CreateSystemSubscriptionDTO SystemSubscriptionDTO { get; set; }
+            public CreateGeneralSettingDTO GeneralSettingDTO
+            {
+                get => new CreateGeneralSettingDTO();
+
+                set
+                {
+
+                }
+            }
             public CreateBranchDTO GymBranchDTO { get; set; }
             public GymUserEntity GymUser { get; set; }
         }
-
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -96,24 +109,38 @@ namespace gms.web.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+
+            // (1) Create Gym
             var CreatedGym = await _gymService.CreateGymAsync(Input.GymDTO);
+
+            // (2) Create SystemSubscription
+            var test = new CreateGeneralSettingDTO();
             Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
             var CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
 
-            var user = CreateUser();
-            user.EmailConfirmed = true;
-            // user.BranchId = null;
-            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, Input.Password);
-            GymUserEntity createdUser = await _userManager.FindByEmailAsync(Input.Email);
+            // (3) Create GeneralSetting
+            Input.GeneralSettingDTO.IsShared = true;
+            var CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(Input.GeneralSettingDTO);
 
+            // (4) Create Branch
             Input.GymBranchDTO.GymId = CreatedGym.Id;
             Input.GymBranchDTO.BranchName = "Main Branch";
             Input.GymBranchDTO.IsMainBranch = true;
-            var CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO, createdUser.Id);
-            createdUser.BranchId = CreatedBranch.Id;
-            var userDTO = await _gymUserService.UpdateGymUser(createdUser);
+            Input.GymBranchDTO.GeneralSettingId = CreatedGeneralSetting.Id;
+            var CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
+            // createdUser.BranchId = CreatedBranch.Id;
+            // var userDTO = await _gymUserService.UpdateGymUser(createdUser);
+
+            // (5) Create User
+            var user = CreateUser();
+            user.EmailConfirmed = true;
+            user.BranchId = CreatedBranch.Id;
+            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+            var result = await _userManager.CreateAsync(user, Input.Password);
+            // GymUserEntity createdUser = await _userManager.FindByEmailAsync(Input.Email);
+
+
 
 
             // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

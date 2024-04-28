@@ -1,5 +1,6 @@
 ﻿@{
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+
 }
 
 <div id="kt_app_header" class="app-header d-flex flex-column flex-stack">
@@ -160,7 +161,7 @@
             <!--begin::User menu-->
             <div class="app-navbar-item ms-2 ms-lg-7 me-lg-7 me-3" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
+                <div class="cursor-pointer symbol symbol-30px symbol-lg-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
                     <img src="~/assets/media/avatars/300-2.jpg" alt="user" />
                 </div>
                 <!--begin::User account menu-->
@@ -268,9 +269,9 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="../../demo39/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">
-                            <span class="menu-title">@localizer["sign_out"]</span>
-                        </a>
+                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                            <a id="SignOutButton" class="menu-link px-5">@localizer["sign_out"]</a>
+                        </form>
                     </div>
                     <!--end::Menu item-->
                 </div>

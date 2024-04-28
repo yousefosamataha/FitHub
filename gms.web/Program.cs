@@ -2,6 +2,7 @@ using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
 using gms.service.Gym.GymBranchRepository;
+using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
@@ -89,6 +90,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService)); 
 
 	builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService)); 
+
+	builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService)); 
 }
 
 

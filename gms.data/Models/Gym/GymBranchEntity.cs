@@ -38,5 +38,5 @@ public class GymBranchEntity : BaseEntity
     public virtual ICollection<MealTimeEntity> MealTimes { get; set; }
     public virtual ICollection<GymNotificationEntity> GymNotifications { get; set; }
     public virtual ICollection<GymEventReservationEntity> GymEventReservations { get; set; }
-    // public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
+    public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
 }

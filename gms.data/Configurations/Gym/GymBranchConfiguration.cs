@@ -81,10 +81,10 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
                .WithOne(gre => gre.GymBranch)
                .HasForeignKey(gre => gre.BranchId);
 
-        builder.HasQueryFilter(gb => gb.IsDeleted == false);
+        builder.HasOne(gb => gb.GeneralSetting)
+               .WithMany(gg => gg.GymBranches)
+               .HasForeignKey(gb => gb.GeneralSettingId);
 
-        //builder.HasOne(gb => gb.GeneralSetting)
-        //       .WithOne(gg => gg.GymBranch)
-        //       .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
+        builder.HasQueryFilter(gb => gb.IsDeleted == false);
     }
 }

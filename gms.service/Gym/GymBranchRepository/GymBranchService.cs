@@ -17,6 +17,12 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch)
+    {
+        GymBranchEntity newBranchEntity = newBranch.ToEntity();
+        await AddAsync(newBranchEntity);
+        return newBranchEntity.ToDTO();
+    }
 
     public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch, int? userId)
     {

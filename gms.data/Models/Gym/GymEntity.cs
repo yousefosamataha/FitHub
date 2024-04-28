@@ -6,11 +6,10 @@ namespace gms.data.Models.Gym;
 public class GymEntity : BaseEntity
 {
 	public required string Name { get; set; }
-	public int GeneralSettingId { get; set; }
+    public byte[]? GymLogo { get; set; }
 
-	// Navigation properties
-	// public virtual GymGeneralSettingEntity GeneralSetting { get; set; }
-	public virtual ICollection<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
+    // Navigation properties
+    public virtual ICollection<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
 
 	public virtual ICollection<GymBranchEntity> GymBranches { get; set; }
 }

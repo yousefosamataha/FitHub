@@ -3,7 +3,6 @@
 #nullable disable
 
 using gms.common.Models.Identity;
-using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.TestUser;
 using Microsoft.AspNetCore.Authentication;
@@ -21,7 +20,6 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
         private readonly ILogger<LoginModel> _logger;
-
         private readonly IGymUserService _gymUserService;
 
         public LoginModel(SignInManager<GymUserEntity> signInManager, ILogger<LoginModel> logger, UserManager<GymUserEntity> userManager, IGymUserService gymUserService)
@@ -32,58 +30,26 @@ namespace gms.web.Areas.Identity.Pages.Account
             _gymUserService = gymUserService;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
@@ -123,14 +89,14 @@ namespace gms.web.Areas.Identity.Pages.Account
 
                     if (user is not null)
                     {
-                        ClaimsIdentity claimsIdentity = new(GetCustomClaims(user.ToClaimsDTO()), IdentityConstants.ApplicationScheme);
+                        //ClaimsIdentity claimsIdentity = new(GetCustomClaims(user.ToClaimsDTO()), IdentityConstants.ApplicationScheme);
 
-                        AuthenticationProperties authProperties = new()
-                        {
-                            IsPersistent = Input.RememberMe
-                        };
+                        //AuthenticationProperties authProperties = new()
+                        //{
+                        //    IsPersistent = Input.RememberMe
+                        //};
 
-                        await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                        //await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);

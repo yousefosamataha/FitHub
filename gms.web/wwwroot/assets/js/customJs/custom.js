@@ -26,13 +26,15 @@ var globalClass = function () {
 
     // [2] Sidebar Minimiz Status
     var sidebarMinimizeClick = function () {
-        document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
-            if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
-                sessionStorage.setItem("sidebar-minimize", false);
-            } else {
-                sessionStorage.setItem("sidebar-minimize", true);
-            }
-        });
+        if (document.getElementById("kt_app_sidebar_toggle")) {
+            document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
+                if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
+                    sessionStorage.setItem("sidebar-minimize", false);
+                } else {
+                    sessionStorage.setItem("sidebar-minimize", true);
+                }
+            });
+        }
     }
 
     var activeSidebarMinimize = function () {
@@ -90,11 +92,19 @@ var globalClass = function () {
         return flatpickrOptions;
     }
 
+    // [5] SignOut Button Submit Action
+    function signOut() {
+        $("#SignOutButton").on('click', function () {
+            $(this).parent().submit();
+        });
+    }
+
     return {
         init: function () {
             activeSideMenuTab();
             sidebarMinimizeClick();
             activeSidebarMinimize();
+            signOut();
         },
         checkLanguage: function (cname) {
             return getCookie(cname);

@@ -599,17 +599,12 @@
                                         <div class="mb-1">
                                             <!--begin::Label-->
                                             <label class="form-label required ms-2">
-                                                New Password
+                                                Password
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input wrapper-->
                                             <div class="position-relative mb-3">
                                                 <input class="form-control" type="password" asp-for="Input.Password" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" autocomplete="off" />
-
-                                                <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                                                    <i class="ki-solid ki-eye-slash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                                    <i class="ki-solid ki-eye d-none fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                                </span>
                                             </div>
                                             <!--end::Input wrapper-->
                                             <!--begin::Meter-->
@@ -624,7 +619,7 @@
                                         <!--end::Wrapper-->
                                         <!--begin::Hint-->
                                         <div class="text-muted">
-                                            Use 8 or more characters with a mix of letters, numbers & symbols.
+                                            Use 10 or more characters with a mix of letters, numbers & symbols.
                                         </div>
                                         <!--end::Hint-->
                                     </div>
@@ -683,7 +678,7 @@
     <script src="~/assets/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script type="module" src="~/assets/js/customJs/SignUp.js"></script>
+    <script src="~/assets/js/customJs/SignUp.js" asp-append-version="true"></script>
     @*<partial name="_ValidationScriptsPartial" />*@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
