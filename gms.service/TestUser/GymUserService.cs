@@ -15,7 +15,10 @@ public class GymUserService : IGymUserService
 
     public async Task<GymUserEntity> GetGymUserByEmail(string email)
     {
-        var entity = await _context.Users.FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower().Trim(), email.ToLower().Trim()));
+        var entity = await _context.Users
+                                   .Include(u => u.GymBranch)
+                                   .ThenInclude(gb => gb.Gym)
+                                   .FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower().Trim(), email.ToLower().Trim()));
         return entity;
     }
 
