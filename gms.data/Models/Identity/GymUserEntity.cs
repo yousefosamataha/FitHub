@@ -12,6 +12,7 @@ public class GymUserEntity : IdentityUser<int>
 {
     public int BranchId { get; set; }
     public byte[]? Image { get; set; }
+    public ImageTypeEnum? ImageTypeId { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public GenderEnum GenderId { get; set; }

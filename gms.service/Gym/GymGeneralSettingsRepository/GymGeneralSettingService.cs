@@ -4,6 +4,7 @@ using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.Gym.GymGeneralSettingsRepository;
 public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>, IGymGeneralSettingService
@@ -23,4 +24,12 @@ public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>,
         await AddAsync(newGeneralSettingEntity);
         return newGeneralSettingEntity.ToDTO();
     }
+
+	public async Task<GeneralSettingDTO> UpdateGymGeneralSettingAsync(GeneralSettingDTO updateGeneralSettingDTO)
+	{
+		GymGeneralSettingEntity currentGeneralSettingEntity = await _context.GymGeneralSettings.FirstOrDefaultAsync(gs => gs.Id == updateGeneralSettingDTO.Id);
+		GymGeneralSettingEntity updatedGeneralSettingEntity = updateGeneralSettingDTO.ToUpdatedEntity(currentGeneralSettingEntity);
+		await UpdateAsync(updatedGeneralSettingEntity);
+		return updatedGeneralSettingEntity.ToDTO();
+	}
 }

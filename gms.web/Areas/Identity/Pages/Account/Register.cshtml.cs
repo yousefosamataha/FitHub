@@ -15,10 +15,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.common.Models.GymCat.GymGeneralSetting;
+using gms.data.Models.Gym;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+	public class RegisterModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
@@ -28,9 +29,9 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IGymService _gymService;
         private readonly ISystemSubscriptionService _systemSubscriptionService;
+        private readonly IGymGeneralSettingService _gymGeneralSettingService;
         private readonly IGymBranchService _gymBranchService;
         private readonly ICountryService _countryService;
-        private readonly IGymGeneralSettingService _gymGeneralSettingService;
         private readonly IGymUserService _gymUserService;
 
         public RegisterModel(
@@ -65,7 +66,6 @@ namespace gms.web.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
         public List<CountryDTO> CountriesList { get; set; }
-
         public class InputModel
         {
             // [Required]
@@ -86,15 +86,6 @@ namespace gms.web.Areas.Identity.Pages.Account
 
             public CreateGymDTO GymDTO { get; set; }
             public CreateSystemSubscriptionDTO SystemSubscriptionDTO { get; set; }
-            public CreateGeneralSettingDTO GeneralSettingDTO
-            {
-                get => new CreateGeneralSettingDTO();
-
-                set
-                {
-
-                }
-            }
             public CreateBranchDTO GymBranchDTO { get; set; }
             public GymUserEntity GymUser { get; set; }
         }
@@ -113,14 +104,28 @@ namespace gms.web.Areas.Identity.Pages.Account
             // (1) Create Gym
             var CreatedGym = await _gymService.CreateGymAsync(Input.GymDTO);
 
-            // (2) Create SystemSubscription
-            var test = new CreateGeneralSettingDTO();
-            Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
+			// (2) Create SystemSubscription
+			Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
             var CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
 
             // (3) Create GeneralSetting
-            Input.GeneralSettingDTO.IsShared = true;
-            var CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(Input.GeneralSettingDTO);
+            var GeneralSettingEntity = new GymGeneralSettingEntity();
+            var GeneralSettingDTO = new CreateGeneralSettingDTO()
+            {
+                Weight = GeneralSettingEntity.Weight,
+                Height = GeneralSettingEntity.Height,
+                Chest = GeneralSettingEntity.Chest,
+                Waist = GeneralSettingEntity.Waist,
+                Thing = GeneralSettingEntity.Thing,
+                Arms = GeneralSettingEntity.Arms,
+                Fat = GeneralSettingEntity.Fat,
+                ReminderDays = GeneralSettingEntity.ReminderDays,
+                ReminderMessage = GeneralSettingEntity.ReminderMessage,
+                IsShared = true,
+                ReportHeader = GeneralSettingEntity.ReportHeader,
+                ReportFooter = GeneralSettingEntity.ReportFooter,
+            };
+            var CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(GeneralSettingDTO);
 
             // (4) Create Branch
             Input.GymBranchDTO.GymId = CreatedGym.Id;
@@ -128,8 +133,6 @@ namespace gms.web.Areas.Identity.Pages.Account
             Input.GymBranchDTO.IsMainBranch = true;
             Input.GymBranchDTO.GeneralSettingId = CreatedGeneralSetting.Id;
             var CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
-            // createdUser.BranchId = CreatedBranch.Id;
-            // var userDTO = await _gymUserService.UpdateGymUser(createdUser);
 
             // (5) Create User
             var user = CreateUser();
@@ -138,52 +141,18 @@ namespace gms.web.Areas.Identity.Pages.Account
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
-            // GymUserEntity createdUser = await _userManager.FindByEmailAsync(Input.Email);
+            GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
 
 
+			// (6)
+			CreatedSystemSubscription.CreatedById = createdUser.Id;
+			var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);
+			CreatedGeneralSetting.CreatedById = createdUser.Id;
+			var updatedGeneralSetting = await _gymGeneralSettingService.UpdateGymGeneralSettingAsync(CreatedGeneralSetting);
+			CreatedBranch.CreatedById = createdUser.Id;
+			var updatedBranch = await _gymBranchService.UpdateBranchAsync(CreatedBranch);
 
-
-            // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            //if (ModelState.IsValid)
-            //{
-
-
-            //if (result.Succeeded)
-            //{
-            //    _logger.LogInformation("User created a new account with password.");
-
-            //    var userId = await _userManager.GetUserIdAsync(user);
-            //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            //    var callbackUrl = Url.Page(
-            //        "/Account/ConfirmEmail",
-            //        pageHandler: null,
-            //        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-            //        protocol: Request.Scheme);
-
-            //    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-            //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            //    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-            //    {
-            //        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-            //    }
-            //    else
-            //    {
-            //        await _signInManager.SignInAsync(user, isPersistent: false);
-            //        return LocalRedirect(returnUrl);
-            //    }
-            //}
-            //foreach (var error in result.Errors)
-            //{
-            //    ModelState.AddModelError(string.Empty, error.Description);
-            //}
-            // }
-
-            // If we got this far, something failed, redisplay form
-            // return Page();
-            return LocalRedirect(returnUrl);
+			return LocalRedirect(returnUrl);
         }
 
         private GymUserEntity CreateUser()

@@ -12,4 +12,5 @@ public record BranchDTO
     public required string Email { get; set; }
     public bool IsMainBranch { get; set; }
     public int GeneralSettingId { get; set; }
+	public int? CreatedById { get; set; }
 }

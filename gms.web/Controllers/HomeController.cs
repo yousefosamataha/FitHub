@@ -26,12 +26,12 @@ public class HomeController : BaseController<HomeController>
         _userManager = userManager;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
 	{
         System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-        var test = _userManager.GetUserAsync(currentUser);
+        var currentUserData =  await _userManager.GetUserAsync(currentUser);
 
-        return View();
+        return View(currentUserData);
 	}
 
 	public IActionResult AddNewMembership()

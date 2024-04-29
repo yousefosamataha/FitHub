@@ -412,7 +412,7 @@
                                                 <option></option>
                                                 @foreach (var c in Model.CountriesList.OrderBy(c => c.Name))
                                                 {
-                                                    <option value="@c.Id" data-country-flag="@(c.FlagType + c.Flag)">@c.Name</option>
+                                                    <option value="@c.Id" data-country-flag="@c.Flag">@c.Name</option>
                                                 }
                                             </select>
                                             <!--end::Select2-->

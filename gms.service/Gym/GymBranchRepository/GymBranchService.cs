@@ -4,6 +4,7 @@ using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.Gym.GymBranchRepository;
 public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchService
@@ -30,4 +31,12 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
         await AddAsync(newBranchEntity, userId);
         return newBranchEntity.ToDTO();
     }
+
+	public async Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO)
+	{
+		GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(ss => ss.Id == updateBranchDTO.Id);
+		GymBranchEntity updatedBranchEntity = updateBranchDTO.ToUpdatedEntity(currentBranchEntity);
+		await UpdateAsync(updatedBranchEntity);
+		return updatedBranchEntity.ToDTO();
+	}
 }

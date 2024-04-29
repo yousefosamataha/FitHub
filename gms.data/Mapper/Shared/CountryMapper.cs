@@ -18,8 +18,7 @@ public static class CountryMapper
             TimezoneOffset = source.TimezoneOffset,
             Language = source.Language,
             CallingCode = source.CallingCode,
-            Flag = Convert.ToBase64String(source.Flag),
-            FlagType = source.FlagType,
+            Flag = $"data:image/{source.FlagTypeId.ToString()}+xml;base64,{Convert.ToBase64String(source.Flag)}",
         };
     }
 }

@@ -11,13 +11,16 @@ public static class SystemSubscriptionMapper
         {
             PlanId = source.PlanId,
             GymId = source.GymId,
-        };
+            SubscriptionTypeId = source.SubscriptionTypeId,
+            CreatedById = source.CreatedById
+		};
     }
 
     public static SystemSubscriptionDTO ToDTO(this SystemSubscriptionEntity source)
     {
         return new SystemSubscriptionDTO()
         {
+            Id = source.Id,
             PlanId = source.PlanId,
             GymId = source.GymId,
             SubscriptionTypeId = source.SubscriptionTypeId,
@@ -25,6 +28,21 @@ public static class SystemSubscriptionMapper
             SubscriptionStartTime = source.SubscriptionStartTime,
             SubscriptionEndTime = source.SubscriptionEndTime,
             SubscriptionStatusId = source.SubscriptionStatusId,
+            CreatedById = (int)source.CreatedById            
         };
     }
+
+	public static SystemSubscriptionEntity ToUpdatedEntity(this SystemSubscriptionDTO source, SystemSubscriptionEntity entity)
+	{
+		entity.PlanId = source.PlanId;
+		entity.GymId = source.GymId > default(int) && source.GymId != entity.GymId ? source.GymId : entity.GymId;
+		entity.SubscriptionTypeId = source.SubscriptionTypeId;
+		entity.SubscriptionAmount = source.SubscriptionAmount;
+		entity.SubscriptionStartTime = source.SubscriptionStartTime;
+		entity.SubscriptionEndTime = source.SubscriptionEndTime;
+		entity.SubscriptionStatusId = source.SubscriptionStatusId;
+		entity.CreatedById = source.CreatedById > default(int) && source.CreatedById != entity.CreatedById ? source.CreatedById : entity.CreatedById;
+
+		return entity;
+	}
 }

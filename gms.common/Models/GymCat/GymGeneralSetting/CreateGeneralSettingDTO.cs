@@ -14,4 +14,5 @@ public record CreateGeneralSettingDTO
     public bool IsShared { get; set; }
     public byte[]? ReportHeader { get; set; }
     public byte[]? ReportFooter { get; set; }
+	public int? CreatedById { get; set; }
 }

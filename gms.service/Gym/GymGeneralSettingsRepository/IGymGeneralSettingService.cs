@@ -6,4 +6,5 @@ namespace gms.service.Gym.GymGeneralSettingsRepository;
 public interface IGymGeneralSettingService : IBaseRepository<GymGeneralSettingEntity>
 {
     Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting);
+	Task<GeneralSettingDTO> UpdateGymGeneralSettingAsync(GeneralSettingDTO updateGeneralSettingDTO);
 }

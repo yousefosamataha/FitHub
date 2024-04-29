@@ -12,4 +12,5 @@ public record SystemSubscriptionDTO
     public DateTime SubscriptionStartTime { get; set; }
     public DateTime SubscriptionEndTime { get; set; }
     public StatusEnum SubscriptionStatusId { get; set; }
+	public int CreatedById { get; set; }
 }

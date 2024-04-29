@@ -12,5 +12,4 @@ public record struct CountryDTO
     public required string Language { get; set; }
     public required string CallingCode { get; set; }
     public required string Flag { get; set; }
-    public required string FlagType { get; set; }
 }
