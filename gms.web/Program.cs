@@ -19,142 +19,154 @@ using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 
-	builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+    builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
-	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+    builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
-	builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+    builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-	builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-					.AddEntityFrameworkStores<ApplicationDbContext>()
-					.AddDefaultUI();
+    builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultUI();
 
 
-	builder.Services.ConfigureApplicationCookie(options =>
-	{
-		options.LoginPath = "/Identity/Account/Login";
-		options.LogoutPath = "/Identity/Account/Logout";
-		options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-		options.SlidingExpiration = true;
-	});
+    builder.Services.ConfigureApplicationCookie(options =>
+    {
+        options.LoginPath = "/Identity/Account/Login";
+        options.LogoutPath = "/Identity/Account/Logout";
+        options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+        options.SlidingExpiration = true;
+    });
 
-	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
-	{
-		options.ValidationInterval = TimeSpan.Zero;
-	});
+    //builder.Services.AddAuthentication(options =>
+    //{
+    //    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    //    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+    //}).AddCookie(IdentityConstants.ApplicationScheme, options =>
+    //{
+    //    options.LoginPath = "/Identity/Account/Login";
+    //    options.LogoutPath = "/Identity/Account/Logout";
+    //    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    //    options.SlidingExpiration = true;
+    //});
 
-	builder.Services.AddControllersWithViews();
+    builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+    {
+        options.ValidationInterval = TimeSpan.Zero;
+    });
 
-	builder.Services.AddLocalization();
+    builder.Services.AddControllersWithViews();
 
-	builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+    builder.Services.AddLocalization();
 
-	builder.Services.AddMvc()
-					.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-					.AddDataAnnotationsLocalization(options =>
-					{
-						options.DataAnnotationLocalizerProvider = (type, factory) =>
-							factory.Create(typeof(JsonStringLocalizerFactory));
-					});
+    builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
-	builder.Services.Configure<RequestLocalizationOptions>(options =>
-	{
-		CultureInfo[]? supportedLanguages = new[]
-		{
-			new CultureInfo(CulturesInfoStrings.English),
-			new CultureInfo(CulturesInfoStrings.Arabic),
-			new CultureInfo(CulturesInfoStrings.French)
-		};
+    builder.Services.AddMvc()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization(options =>
+                    {
+                        options.DataAnnotationLocalizerProvider = (type, factory) =>
+                            factory.Create(typeof(JsonStringLocalizerFactory));
+                    });
 
-		options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
-		options.SupportedCultures = supportedLanguages;
-		options.SupportedUICultures = supportedLanguages;
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        CultureInfo[]? supportedLanguages = new[]
+        {
+            new CultureInfo(CulturesInfoStrings.English),
+            new CultureInfo(CulturesInfoStrings.Arabic),
+            new CultureInfo(CulturesInfoStrings.French)
+        };
 
-	});
+        options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
+        options.SupportedCultures = supportedLanguages;
+        options.SupportedUICultures = supportedLanguages;
 
-	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    });
 
-	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-	builder.Services.AddScoped(typeof(IGymService), typeof(GymService)); 
+    builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-	builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService)); 
+    builder.Services.AddScoped(typeof(IGymService), typeof(GymService));
 
-	builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService)); 
+    builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService));
 
-	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService)); 
+    builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService));
 
-	builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService)); 
+    builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
 
-	builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService)); 
+    builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
+
+    builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
 }
 
 
 WebApplication? app = builder.Build();
 {
-	if (app.Environment.IsDevelopment())
-	{
-		app.UseMigrationsEndPoint();
-	}
-	else
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMigrationsEndPoint();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-	app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-	app.UseStaticFiles();
+    app.UseStaticFiles();
 
-	app.UseRouting();
+    app.UseRouting();
 
-	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+    string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
+    app.UseRequestLocalization(new RequestLocalizationOptions()
+        .SetDefaultCulture(supportedCultures[0])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures));
 
-	app.UseAuthentication();
-	app.UseAuthorization();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
-	app.MapRazorPages();
+    app.MapRazorPages();
 
-	app.MapControllerRoute(
-		name: "default",
-		pattern: "{controller=Home}/{action=Index}/{id?}"
-	);
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 
-	using var scope = app.Services.CreateScope();
-	IServiceProvider services = scope.ServiceProvider;
-	ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-	ILogger logger = LoggerProvider.CreateLogger("app");
-	try
-	{
-		UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+    using var scope = app.Services.CreateScope();
+    IServiceProvider services = scope.ServiceProvider;
+    ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+    ILogger logger = LoggerProvider.CreateLogger("app");
+    try
+    {
+        UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
 
-		RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
+        RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
 
-		await Seeds.SeedBasicUserAsync(userManager);
+        await Seeds.SeedBasicUserAsync(userManager);
 
-		await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+        await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
 
-		logger.LogInformation("Data Seeded");
+        logger.LogInformation("Data Seeded");
 
-		logger.LogInformation("Application Started");
-	}
-	catch (Exception ex)
-	{
-		logger.LogWarning(ex, "An error Occured While Seeding Data");
-	}
+        logger.LogInformation("Application Started");
+    }
+    catch (Exception ex)
+    {
+        logger.LogWarning(ex, "An error Occured While Seeding Data");
+    }
 
-	app.Run();
+    app.Run();
 }
 
 

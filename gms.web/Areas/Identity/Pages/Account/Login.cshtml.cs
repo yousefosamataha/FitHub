@@ -3,6 +3,7 @@
 #nullable disable
 
 using gms.common.Models.Identity;
+using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.TestUser;
 using Microsoft.AspNetCore.Authentication;
@@ -76,32 +77,34 @@ namespace gms.web.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    // GymUserEntity user = await _userManager.FindByEmailAsync(Input.Email);
                     GymUserEntity user = await _gymUserService.GetGymUserByEmail(Input.Email);
 
                     if (user is not null)
                     {
-                        //ClaimsIdentity claimsIdentity = new(GetCustomClaims(user.ToClaimsDTO()), IdentityConstants.ApplicationScheme);
 
-                        //AuthenticationProperties authProperties = new()
-                        //{
-                        //    IsPersistent = Input.RememberMe
-                        //};
+                        List<Claim> claims = GetCustomClaims(user.ToClaimsDTO());
 
-                        //await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                        ClaimsPrincipal userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+
+                        ((ClaimsIdentity)userPrincipal.Identity).AddClaims(claims);
+
+                        await _userManager.UpdateSecurityStampAsync(user);
+
+                        await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, userPrincipal,
+                            new AuthenticationProperties
+                            {
+                                IsPersistent = Input.RememberMe
+                            }
+                        );
 
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                     }
-
                 }
                 else
                 {
