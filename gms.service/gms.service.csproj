@@ -19,6 +19,5 @@
 
     <ItemGroup>
       <Folder Include="Gym\GymStaffSpecializationRepository\" />
-      <Folder Include="NewFolder\" />
     </ItemGroup>
 </Project>

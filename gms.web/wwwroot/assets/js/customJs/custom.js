@@ -2,7 +2,6 @@
 
 // Class definition
 var globalClass = function () {
-
     // [1] Activat SideMenu Tab
     var activeSideMenuTab = function () {
         let pathname = window.location.pathname;

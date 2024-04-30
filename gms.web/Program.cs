@@ -4,6 +4,7 @@ using gms.data.Seeds;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymRepository;
+using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
 using gms.service.TestUser;
@@ -104,6 +105,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
 
     builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
+    builder.Services.AddScoped(typeof(IGymMembershipPlanService), typeof(GymMembershipPlanService));
 }
 
 

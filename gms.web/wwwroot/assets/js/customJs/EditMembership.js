@@ -1,10 +1,10 @@
-﻿"use strict";
+"use strict";
 import { globalClass } from './custom.js';
 
 // Class definition
-var addNewMembership = function () {
-    // Shared variables
-    const form = document.getElementById('add_new_membership_form');
+var editMembership = function () {
+     Shared variables
+    const form = document.getElementById('edit_membership_form');
     const selectClassesInputElm = document.querySelector('#select_classes');
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     const hostName = window.location.origin;
@@ -211,14 +211,14 @@ var addNewMembership = function () {
 
     return {
         init: function () {
-            handleMembershipStatus();
-            handleClassLimitation();
-            formSubmition();
+             handleMembershipStatus();
+             handleClassLimitation();
+             formSubmition();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    addNewMembership.init();
+    editMembership.init();
 });

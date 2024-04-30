@@ -47,7 +47,6 @@
   <ItemGroup>
     <Folder Include="Views\Activity\" />
     <Folder Include="Views\Class\" />
-    <Folder Include="Views\Membership\" />
     <Folder Include="Views\Workout\" />
     <Folder Include="Views\Subscription\" />
     <Folder Include="Views\Staff\" />

@@ -3,6 +3,7 @@ using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
+using gms.service.TestUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -17,32 +18,25 @@ public class HomeController : BaseController<HomeController>
 	private readonly IGymBranchService _gymBranchService;
 	private readonly ICountryService _countryService;
     private readonly UserManager<GymUserEntity> _userManager;
+	private readonly IGymUserService _gymUserService;
 
-    public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService, UserManager<GymUserEntity> userManager)
-    {
-        _gymService = gymService;
-        _gymBranchService = gymBranchService;
-        _countryService = countryService;
-        _userManager = userManager;
-    }
+	public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService, UserManager<GymUserEntity> userManager, IGymUserService gymUserService)
+	{
+		_gymService = gymService;
+		_gymBranchService = gymBranchService;
+		_countryService = countryService;
+		_userManager = userManager;
+		_gymUserService = gymUserService;
+	}
 
-    public async Task<IActionResult> Index()
+	public async Task<IActionResult> Index()
 	{
         System.Security.Claims.ClaimsPrincipal currentUser = this.User;
         var currentUserData =  await _userManager.GetUserAsync(currentUser);
+        var test =  GetUserId();
 
         return View(currentUserData);
 	}
-
-	public IActionResult AddNewMembership()
-	{
-		return View();
-	}
-
-    public IActionResult MembershipsList()
-    {
-        return View();
-    }
 
     public IActionResult AddNewMember()
     {
@@ -135,5 +129,18 @@ public class HomeController : BaseController<HomeController>
             new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(7) }
         );
         return LocalRedirect(redirecturl);
+    }
+
+    [HttpGet]
+    public IActionResult GetJsonlocalizer(string culture)
+    {
+        // var ReadJson = System.IO.File.ReadAllText(@"~/" + culture + ".json");
+        // Get the path to the JSON file
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", $"{culture}.json");
+
+        // Read the entire file content as a string
+        string jsonContent = System.IO.File.ReadAllText(filePath);
+
+        return Content(jsonContent, "application/json");
     }
 }

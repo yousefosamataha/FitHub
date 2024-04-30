@@ -10,13 +10,14 @@ var MembershipsList = function () {
     var creationMinDate, creationMaxDate;
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
+    const hostName = window.location.origin;
 
     // Init Datatable
     var initDatatable = function () {
         // Init datatable
         datatable = $(table).DataTable({
             language: {
-                url: `assets/plugins/localization/datatable-${datatableLanguage}.json`,
+                url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
             },
             "info": true,
             'order': [],
@@ -29,11 +30,10 @@ var MembershipsList = function () {
             "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
             "pagingType": "full_numbers"
         });
-
             
         // Re-init functions on datatable re-draws
         datatable.on('draw', function () {
-            handleDeleteRows();
+            // handleDeleteRows();
             // convertEnglishDigitsToArabicDigits();
         });
     }
@@ -77,19 +77,14 @@ var MembershipsList = function () {
 
         // Filter datatable on submit
         filterButton.addEventListener('click', function () {
-            var filterString = '';
-
             // Get filter values
-            if (selectOption.value !== '') {
-                // Build filter value options
-                filterString += selectOption.value;
-            }
+            handleSelectOptionFilter(selectOption.value);
 
             // Filter Daterange
-            handleFlatpickr(creationDateRangeFilter._flatpickr.selectedDates);
+            handleFlatpickrFilter(creationDateRangeFilter._flatpickr.selectedDates);
 
             // Filter datatable
-            datatable.search(filterString).draw();
+            datatable.draw();
         });
 
         // Reset datatable
@@ -99,15 +94,15 @@ var MembershipsList = function () {
 
             // Reset Flatpickr
             creationDateflatpickr.clear();
-            handleFlatpickr(new Array(0));
 
             // Filter datatable
-            datatable.search('').draw();
+            $.fn.dataTable.ext.search = new Array(0);
+            datatable.search("").draw();
         });
     }
 
     // Handle flatpickr
-    var handleFlatpickr = (creationDates) => {
+    var handleFlatpickrFilter = (creationDates) => {
         creationMinDate = creationDates[0] || creationDates[0] != undefined ? new Date(creationDates[0]) : null;
         creationMaxDate = creationDates[1] || creationDates[1] != undefined ? new Date(creationDates[1]) : null;
 
@@ -127,6 +122,31 @@ var MembershipsList = function () {
                 return false;
             }
         );
+    }
+
+    var handleSelectOptionFilter = (selectOptionValue) => {
+        // Datatable date filter
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var statusDate = data[4].trim();
+                selectOptionValue = selectOptionValue != "" ? selectOptionValue : statusDate;
+
+                if (statusDate === selectOptionValue && statusDate.length === selectOptionValue.length) {
+                    return true;
+                }
+                return false;
+            }
+        );
+    }
+
+    // Edite Membership
+    var editeMembership = () => {
+        document.querySelectorAll(".edit-membership-btn").forEach(e => {
+            e.addEventListener("click", function () {
+                console.log(`view membership, Id: ${e.dataset.id}, BranchId: ${e.dataset.branchId}`);
+                window.location.href = `/Membership/EditMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
+            });
+        });
     }
 
     // Delete cateogry
@@ -210,7 +230,6 @@ var MembershipsList = function () {
         init: function () {
             table = document.querySelector('#membership-list');
 
-
             if (!table) {
                 return;
             }
@@ -219,8 +238,9 @@ var MembershipsList = function () {
             initFlatpickr();
             handleSearchDatatable();
             handleTableFilter();
-            handleDeleteRows();
+            // handleDeleteRows();
             // convertEnglishDigitsToArabicDigits();
+            editeMembership();
         }
     };
 }();

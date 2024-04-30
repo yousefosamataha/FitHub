@@ -3,7 +3,6 @@
 #nullable disable
 
 using gms.common.Models.Identity;
-using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.TestUser;
 using Microsoft.AspNetCore.Authentication;
@@ -16,7 +15,7 @@ using System.Security.Claims;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-    public class LoginModel : PageModel
+	public class LoginModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
@@ -86,21 +85,20 @@ namespace gms.web.Areas.Identity.Pages.Account
 
                     if (user is not null)
                     {
+                        //List<Claim> claims = GetCustomClaims(user.ToClaimsDTO());
 
-                        List<Claim> claims = GetCustomClaims(user.ToClaimsDTO());
+                        //ClaimsPrincipal userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
 
-                        ClaimsPrincipal userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+                        //((ClaimsIdentity)userPrincipal.Identity).AddClaims(claims);
 
-                        ((ClaimsIdentity)userPrincipal.Identity).AddClaims(claims);
+                        //await _userManager.UpdateSecurityStampAsync(user);
 
-                        await _userManager.UpdateSecurityStampAsync(user);
-
-                        await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, userPrincipal,
-                            new AuthenticationProperties
-                            {
-                                IsPersistent = Input.RememberMe
-                            }
-                        );
+                        //await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, userPrincipal,
+                        //    new AuthenticationProperties
+                        //    {
+                        //        IsPersistent = Input.RememberMe
+                        //    }
+                        //);
 
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
