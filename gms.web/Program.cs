@@ -91,6 +91,10 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     });
 
+    //builder.Services.AddScoped(typeof(IUserStore<GymUserEntity>));
+
+    //builder.Services.AddScoped(typeof(IUserEmailStore<GymUserEntity>));
+
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
     builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

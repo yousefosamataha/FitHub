@@ -24,7 +24,7 @@ public static class MembershipMapper
 		};
 	}
 
-	public static MembershipDTO ToDTO(this GymMembershipPlanEntity source)
+	public static MembershipDTO ToDTO(this GymMembershipPlanEntity source, string? TimezoneOffset = null)
 	{
 		return new MembershipDTO()
 		{
@@ -41,7 +41,7 @@ public static class MembershipMapper
 			ClassLimitDays = source.ClassLimitDays,
 			ClassLimitationId = source.ClassLimitationId,
 			CreatedById = source.CreatedById,
-            CreatedAt = source.CreatedAt
+			CreatedAt = source.CreatedAt.AddHours(int.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
 		};
 	}
 

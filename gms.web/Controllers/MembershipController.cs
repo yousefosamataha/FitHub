@@ -1,15 +1,13 @@
 ﻿using gms.common.ViewModels.Membership;
-using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
-using gms.service.GymUserRepository;
 using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.common.Models.MembershipCat;
 using gms.common.Enums;
+using gms.data.Models.Identity;
 
 namespace gms.web.Controllers;
 
@@ -19,23 +17,17 @@ public class MembershipController : BaseController<MembershipController>
 	private readonly IGymService _gymService;
     private readonly IGymBranchService _gymBranchService;
     private readonly ICountryService _countryService;
-	private readonly UserManager<GymUserEntity> _userManager;
-	private readonly IGymUserService _gymUserService;
 	private readonly IGymMembershipPlanService _gymMembershipPlanService;
 
 	public MembershipController(
 		IGymService gymService,
 		IGymBranchService gymBranchService,
 		ICountryService countryService,
-		UserManager<GymUserEntity> userManager,
-		IGymUserService gymUserService,
 		IGymMembershipPlanService gymMembershipPlanService)
 	{
 		_gymService = gymService;
 		_gymBranchService = gymBranchService;
 		_countryService = countryService;
-		_userManager = userManager;
-		_gymUserService = gymUserService;
 		_gymMembershipPlanService = gymMembershipPlanService;
 	}
 
@@ -46,9 +38,7 @@ public class MembershipController : BaseController<MembershipController>
 
     public IActionResult AddNewMembership()
     {
-        var model = new MembershipVM();
-
-		return View(model);
+		return View();
     }
 
 	[HttpPost]
@@ -75,9 +65,9 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> MembershipsList()
 	{
-		var currentUser = await GetCurrentUserData();
-		var membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(currentUser.BranchId);
-		var viewModel = new MembershipsListVM();
+		GymUserEntity currentUser = await GetCurrentUserData();
+		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(currentUser.BranchId);
+		MembershipsListVM viewModel = new ();
         viewModel.BranchCurrencySymbol = currentUser.GymBranch.Country.CurrencySymbol;
         viewModel.MembershipsList = membershipPlansList.Select(mp => new MembershipVM()
 		{
@@ -154,12 +144,4 @@ public class MembershipController : BaseController<MembershipController>
 
         return Ok();
     }
-
-    private async Task<GymUserEntity> GetCurrentUserData()
-	{
-		System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-		var currentUserData = await _userManager.GetUserAsync(currentUser);
-		var allUserData = await _gymUserService.GetGymUserByEmail(currentUserData.Email);
-		return allUserData;
-	}
 }

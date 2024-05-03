@@ -55,7 +55,7 @@ public class GymUserController : BaseController<GymUserController>
         var modelDTO = new CreateGymUserDTO()
         {
             BranchId = currentUser.BranchId,
-            Image = model.Image,
+            Image = model.Image?.Split(";base64,")[1],
             ImageType = model.Image?.Split(";base64,")[0].Split("data:image/")[1],
             FirstName = model.FirstName,
             LastName = model.LastName,

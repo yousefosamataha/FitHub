@@ -13,17 +13,27 @@ public class GymUserService : IGymUserService
 {
     private readonly UserManager<GymUserEntity> _userManager;
     private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
-    private readonly ApplicationDbContext _context;
+	private readonly IUserStore<GymUserEntity> _userStore;
+	private readonly IUserEmailStore<GymUserEntity> _emailStore;
+	private readonly ApplicationDbContext _context;
 
-    public GymUserService(UserManager<GymUserEntity> userManager, RoleManager<GymIdentityRoleEntity> roleManager, ApplicationDbContext context, IUserStore<GymUserEntity> userStore)
-    {
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _context = context;
-    }
 
-    #region Roles
-    public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
+	public GymUserService(
+        UserManager<GymUserEntity> userManager, 
+        RoleManager<GymIdentityRoleEntity> roleManager, 
+        ApplicationDbContext context, 
+        IUserStore<GymUserEntity> userStore, 
+        IUserEmailStore<GymUserEntity> emailStore)
+	{
+		_userManager = userManager;
+		_roleManager = roleManager;
+		_context = context;
+		_emailStore = emailStore;
+		_userStore = userStore;
+	}
+
+	#region Roles
+	public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
     {
         List<GymUserEntity> gymUsersEntities = await _userManager.Users.ToListAsync();
 
@@ -110,8 +120,8 @@ public class GymUserService : IGymUserService
 
     public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity)
     {
-        // await _userStore.SetUserNameAsync(entity.ToEntity(), entity.Email, CancellationToken.None);
-        // await _emailStore.SetEmailAsync(entity.ToEntity(), entity.Email, CancellationToken.None);
+        await _userStore.SetUserNameAsync(entity.ToEntity(), entity.Email, CancellationToken.None);
+        await _emailStore.SetEmailAsync(entity.ToEntity(), entity.Email, CancellationToken.None);
         var result = await _userManager.CreateAsync(entity.ToEntity(), entity.Password);
         GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
         return createdUser.ToDTO();

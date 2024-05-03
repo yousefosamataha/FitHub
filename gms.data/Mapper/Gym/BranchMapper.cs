@@ -40,14 +40,13 @@ public static class BranchMapper
 
 	public static GymBranchEntity ToUpdatedEntity(this BranchDTO source, GymBranchEntity entity)
 	{
-		entity.GymId = source.GymId > default(int) && source.GymId != entity.GymId ? source.GymId : entity.GymId;
 		entity.BranchName = !string.IsNullOrWhiteSpace(source.BranchName) && !string.Equals(source.BranchName, entity.BranchName, StringComparison.OrdinalIgnoreCase) ? source.BranchName : entity.BranchName;
 		entity.Address = !string.IsNullOrWhiteSpace(source.Address) && !string.Equals(source.Address, entity.Address, StringComparison.OrdinalIgnoreCase) ? source.Address : entity.Address;
 		entity.ContactNumber = !string.IsNullOrWhiteSpace(source.ContactNumber) && !string.Equals(source.ContactNumber, entity.ContactNumber, StringComparison.OrdinalIgnoreCase) ? source.ContactNumber : entity.ContactNumber;
 		entity.CountryId = source.CountryId;
 		entity.Email = !string.IsNullOrWhiteSpace(source.Email) && !string.Equals(source.Email, entity.Email, StringComparison.OrdinalIgnoreCase) ? source.Email : entity.Email;
 		entity.IsMainBranch = source.IsMainBranch;
-		entity.CreatedById = source.GeneralSettingId > default(int) && source.GeneralSettingId != entity.GeneralSettingId ? source.GeneralSettingId : entity.GeneralSettingId;
+		entity.GeneralSettingId = source.GeneralSettingId > default(int) && source.GeneralSettingId != entity.GeneralSettingId ? source.GeneralSettingId : entity.GeneralSettingId;
 		entity.CreatedById = source.CreatedById > default(int) && source.CreatedById != entity.CreatedById ? source.CreatedById : entity.CreatedById;
 
 		return entity;
