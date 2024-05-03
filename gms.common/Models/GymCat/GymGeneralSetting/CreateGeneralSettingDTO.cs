@@ -2,17 +2,17 @@
 
 public record CreateGeneralSettingDTO
 {
-    public string Weight { get; set; }
-    public string Height { get; set; }
-    public string Chest { get; set; }
-    public string Waist { get; set; }
-    public string Thing { get; set; }
-    public string Arms { get; set; }
-    public string Fat { get; set; }
-    public int ReminderDays { get; set; }
-    public string ReminderMessage { get; set; }
-    public bool IsShared { get; set; }
-    public byte[]? ReportHeader { get; set; }
-    public byte[]? ReportFooter { get; set; }
-	public int? CreatedById { get; set; }
+    public string Weight { get; init; }
+    public string Height { get; init; }
+    public string Chest { get; init; }
+    public string Waist { get; init; }
+    public string Thing { get; init; }
+    public string Arms { get; init; }
+    public string Fat { get; init; }
+    public int ReminderDays { get; init; }
+    public string ReminderMessage { get; init; }
+    public bool IsShared { get; init; }
+    public byte[]? ReportHeader { get; init; }
+    public byte[]? ReportFooter { get; init; }
+	public int? CreatedById { get; init; }
 }

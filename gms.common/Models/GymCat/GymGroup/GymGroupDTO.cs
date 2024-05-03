@@ -2,9 +2,9 @@
 
 public class GymGroupDTO
 {
-    public int Id { get; set; }
-    public int BranchId { get; set; }
-    public required string Name { get; set; }
-    public string? Image { get; set; }
-    public string? ImageType { get; set; }
+    public int Id { get; init; }
+    public int BranchId { get; init; }
+    public required string Name { get; init; }
+    public string? Image { get; init; }
+    public string? ImageType { get; init; }
 }

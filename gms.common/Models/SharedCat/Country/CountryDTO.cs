@@ -2,14 +2,14 @@
 
 public record struct CountryDTO
 {
-    public int Id { get; set; }
-    public required string Name { get; set; }
-    public required string Currency { get; set; }
-    public required string CurrencyCode { get; set; }
-    public required string CurrencySymbol { get; set; }
-    public required string TimeZone { get; set; }
-    public required string TimezoneOffset { get; set; }
-    public required string Language { get; set; }
-    public required string CallingCode { get; set; }
-    public required string Flag { get; set; }
+    public int Id { get; init; }
+    public required string Name { get; init; }
+    public required string Currency { get; init; }
+    public required string CurrencyCode { get; init; }
+    public required string CurrencySymbol { get; init; }
+    public required string TimeZone { get; init; }
+    public required string TimezoneOffset { get; init; }
+    public required string Language { get; init; }
+    public required string CallingCode { get; init; }
+    public required string Flag { get; init; }
 }

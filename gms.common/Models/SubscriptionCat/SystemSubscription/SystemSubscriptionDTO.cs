@@ -4,13 +4,13 @@ namespace gms.common.Models.SubscriptionCat.SystemSubscription;
 
 public record SystemSubscriptionDTO
 {
-    public int Id { get; set; }
-    public PlansEnum PlanId { get; set; }
-    public int GymId { get; set; }
-    public SubscriptionTypeEnum SubscriptionTypeId { get; set; }
-    public decimal SubscriptionAmount { get; set; }
-    public DateTime SubscriptionStartTime { get; set; }
-    public DateTime SubscriptionEndTime { get; set; }
-    public StatusEnum SubscriptionStatusId { get; set; }
-	public int CreatedById { get; set; }
+    public int Id { get; init; }
+    public PlansEnum PlanId { get; init; }
+    public int GymId { get; init; }
+    public SubscriptionTypeEnum SubscriptionTypeId { get; init; }
+    public decimal SubscriptionAmount { get; init; }
+    public DateTime SubscriptionStartTime { get; init; }
+    public DateTime SubscriptionEndTime { get; init; }
+    public StatusEnum SubscriptionStatusId { get; init; }
+	public int CreatedById { get; init; }
 }

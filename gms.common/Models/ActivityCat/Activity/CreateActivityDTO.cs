@@ -2,9 +2,9 @@
 
 public record struct CreateActivityDTO
 {
-    public int BranchId { get; set; }
+    public int BranchId { get; init; }
 
-    public required string Title { get; set; }
+    public required string Title { get; init; }
 
-    public int ActivityCategoryId { get; set; }
+    public int ActivityCategoryId { get; init; }
 }
