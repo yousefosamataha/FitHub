@@ -2,7 +2,7 @@
 using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
-using gms.service.TestUser;
+using gms.service.GymUserRepository;
 using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -52,7 +52,7 @@ public class MembershipController : BaseController<MembershipController>
     }
 
 	[HttpPost]
-	public async Task<IActionResult> AddNewMembershipAsync(MembershipVM model)
+	public async Task<IActionResult> AddNewMembership(MembershipVM model)
 	{
 		var currentUser = await GetCurrentUserData();
 		var modelDTO = new CreateMembershipDTO() {
@@ -147,7 +147,15 @@ public class MembershipController : BaseController<MembershipController>
 		return RedirectToAction("MembershipsList");
 	}
 
-	private async Task<GymUserEntity> GetCurrentUserData()
+	[HttpPost]
+	public async Task<IActionResult> DeleteMembership(int id, int branchId)
+    {
+        var result = await _gymMembershipPlanService.DeleteMembershipAsync(id, branchId);
+
+        return Ok();
+    }
+
+    private async Task<GymUserEntity> GetCurrentUserData()
 	{
 		System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 		var currentUserData = await _userManager.GetUserAsync(currentUser);

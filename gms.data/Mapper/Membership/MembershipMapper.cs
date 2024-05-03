@@ -56,7 +56,7 @@ public static class MembershipMapper
 		entity.SignupFee = source.SignupFee > default(decimal) && source.SignupFee != entity.SignupFee ? source.SignupFee : entity.SignupFee;
 		entity.MembershipDescription = !string.IsNullOrWhiteSpace(source.MembershipDescription) && !string.Equals(source.MembershipDescription, entity.MembershipDescription, StringComparison.OrdinalIgnoreCase) ? source.MembershipDescription : entity.MembershipDescription;
 		entity.ClassIsLimit = source.ClassIsLimit;
-		entity.ClassLimitDays = source.ClassLimitDays > default(int) && source.ClassLimitDays != entity.ClassLimitDays ? source.ClassLimitDays : entity.ClassLimitDays;
+		entity.ClassLimitDays = source.ClassLimitDays;
 		entity.ClassLimitationId = source.ClassLimitationId;
 		entity.CreatedById = source.CreatedById > default(int) && source.CreatedById != entity.CreatedById ? source.CreatedById : entity.CreatedById;
 

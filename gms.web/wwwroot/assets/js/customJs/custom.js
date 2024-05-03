@@ -98,6 +98,30 @@ var globalClass = function () {
         });
     }
 
+    // [6] Declare Toastr Options
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toastr-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "500000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    // [7] Handle Delete Tooltip
+    var handleDeleteTooltip = function () {
+        document.querySelectorAll(".tooltip").forEach(e => e.remove());
+    }
+
     return {
         init: function () {
             activeSideMenuTab();
@@ -108,7 +132,8 @@ var globalClass = function () {
         checkLanguage: function (cname) {
             return getCookie(cname);
         },
-        flatpickrLanguage: specifyFlatpickrLanguage()
+        flatpickrLanguage: specifyFlatpickrLanguage(),
+        handleTooltip: () => handleDeleteTooltip()
     };
 }();
 

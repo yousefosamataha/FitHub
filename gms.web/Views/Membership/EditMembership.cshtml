@@ -40,7 +40,8 @@
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
 			<!--begin::Form-->
-			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" asp-action="UpdateMembershipPlan" method="post">
+@* 			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" asp-action="UpdateMembershipPlan" method="post">
+ *@			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<input type="hidden" asp-for="@Model.Id" />
 				<input type="hidden" asp-for="@Model.BranchId" />
 				<!--begin::Aside column-->
@@ -143,7 +144,7 @@
 							<div class="d-flex flex-wrap align-items-center gap-5 mb-7">
 								<!--begin::Radio-->
 								<div class="form-check form-check-custom form-check-solid">
-									<input class="form-check-input" id="limited" asp-for="@Model.ClassIsLimit" type="radio" value="true" checked="checked" />
+									<input class="form-check-input" id="limited" asp-for="@Model.ClassIsLimit" type="radio" value="true" />
 									<label class="form-check-label text-gray-700" for="limited">@localizer["limited"]</label>
 								</div>
 								<!--end::Radio-->
@@ -180,7 +181,7 @@
 							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="fv-row">
-								<label class="required form-label ms-2">@localizer["select_classes"]</label>
+								<label class="form-label ms-2">@localizer["select_classes"]</label>
 								<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_class_name"]" id="select_classes" name="SelectedClasses" />
 							</div>
 							<!--end::Input group-->

@@ -4,7 +4,7 @@
 
 using gms.common.Models.Identity;
 using gms.data.Models.Identity;
-using gms.service.TestUser;
+using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-	public class LoginModel : PageModel
+    public class LoginModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;

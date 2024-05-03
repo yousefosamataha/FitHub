@@ -34,6 +34,7 @@
   "valid_from": "صالح من",
   "to": "إلى",
   "thisfieldisrequired": "هذه الخانة مطلوبه !",
+  "otheractions": "إجراءات أخرى",
   "---badge_status---": "------------------------------------------",
   "status": "الحالة",
   "all": "الكل",
@@ -148,5 +149,12 @@
   "search_by_staff_name": "البحث بأسم الموظف",
   "staff_name": "اسم الموظف",
   "role": "الوظيفة",
-  "staff_status": "حالة الموظف"
+  "staff_status": "حالة الموظف",
+  "---training_classes/add_new_class---": "------------------",
+  "class_info": "معلومات الفصل",
+  "class_name": "اسم الفصل",
+  "select_staff": "حدد موظف",
+  "booking_fees": "رسوم الحجز",
+  "start_time": "وقت البدء",
+  "end_time": "وقت الأنتهاء"
 }

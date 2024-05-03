@@ -1,4 +1,6 @@
-﻿@{
+﻿@using gms.common.ViewModels.GymUser
+@model GymUserVM
+@{
     ViewData["Title"] = localizer["add_new_member"];
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
@@ -56,7 +58,7 @@
                         <!--begin::Card body-->
                         <div class="card-body text-center pt-0">
                             <!--begin::Image input-->
-                            <div class="image-input image-input-empty image-input-outline symbol-label-blank mb-3" data-kt-image-input="true">
+                            <div class="image-input image-input-empty image-input-outline symbol-label-blank mb-3" id="kt_image_input_control" data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
                                 <div class="image-input-wrapper w-150px h-150px"></div>
                                 <!--end::Preview existing avatar-->
@@ -66,7 +68,7 @@
                                     <i class="ki-outline ki-pencil fs-7"></i>
                                     <!--end::Icon-->
                                     <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                    <input type="file" asp-for="@Model.Image" accept=".png, .jpg, .jpeg" />
                                     <input type="hidden" name="avatar_remove" />
                                     <!--end::Inputs-->
                                 </label>
@@ -109,10 +111,10 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
-                            <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" id="member_status_select">
+                            <select class="form-select mb-2" asp-for="@Model.StatusId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" id="member_status_select">
                                 <option></option>
-                                <option value="@localizer["active"].Value" selected="selected">@localizer["active"]</option>
-                                <option value="@localizer["inactive"].Value">@localizer["inactive"]</option>
+                                <option value="1" selected="selected">@localizer["active"]</option>
+                                <option value="2">@localizer["inactive"]</option>
                             </select>
                             <!--end::Select2-->
                         </div>
@@ -138,13 +140,13 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["first_name"]</label>
-                                    <input type="text" name="FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["last_name"]</label>
-                                    <input type="text" name="LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -152,17 +154,17 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                    <input class="form-control" name="Birthdate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                    <input class="form-control" asp-for="@Model.BirthDate" id="birthdate_date_picker" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col fv-row">
                                     <label class="required form-label ms-2">@localizer["gender"]</label>
                                     <!--begin::Select Status-->
-                                    <select class="form-select" name="Gender" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                    <select class="form-select" asp-for="@Model.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                         <option></option>
-                                        <option value="@localizer["male"]">@localizer["male"]</option>
-                                        <option value="@localizer["female"]">@localizer["female"]</option>
+                                        <option value="1">@localizer["male"]</option>
+                                        <option value="1">@localizer["female"]</option>
                                     </select>
                                     <!--end::Select Status-->
                                 </div>
@@ -184,16 +186,16 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
-                                <!--begin::Input group-->
+                                @* <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["email"]</label>
                                     <input type="email" name="Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
                                 </div>
-                                <!--end::Input group-->
+                                <!--end::Input group--> *@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["mobile_number"]</label>
-                                    <input type="text" name="Mobile" class="form-control" placeholder="@localizer["enter"] @localizer["mobile_number"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.PhoneNumber" class="form-control" placeholder="@localizer["enter"] @localizer["mobile_number"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -201,20 +203,20 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["city"]</label>
-                                    <input type="text" class="form-control" name="City" placeholder="@localizer["enter"] @localizer["city"] @localizer["here"]" />
+                                    <input type="text" class="form-control" asp-for="@Model.City" placeholder="@localizer["enter"] @localizer["city"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["state"]</label>
-                                    <input type="text" name="State" class="form-control" placeholder="@localizer["enter"] @localizer["state"] @localizer["here"]" />
+                                    <input type="text" class="form-control" asp-for="@Model.State" placeholder="@localizer["enter"] @localizer["state"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
                             <!--begin::Input group-->
                             <div class="fv-row">
                                 <label class="required form-label ms-2">@localizer["address"]</label>
-                                <input type="text" name="Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+                                <input type="text" asp-for="@Model.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -233,16 +235,22 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
-                                <!--begin::Input group-->
+                                @* <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["username"]</label>
                                     <input type="text" name="Username" class="form-control" placeholder="@localizer["enter"] @localizer["username"] @localizer["here"]" />
+                                </div>
+                                <!--end::Input group--> *@
+                                <!--begin::Input group-->
+                                <div class="col mb-5 fv-row">
+                                    <label class="required form-label ms-2">@localizer["email"]</label>
+                                    <input type="email" asp-for="@Model.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col fv-row">
                                     <label class="required form-label ms-2">@localizer["password"]</label>
-                                    <input type="password" name="Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
+                                    <input type="password" asp-for="@Model.Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -324,5 +332,27 @@
 </div>
 <!--end::Content wrapper-->
 @section Scripts {
-    <script type="module" src="~/assets/js/customJs/AddNewMember.js"></script>
+    <script type="module" src="~/assets/js/customJs/AddNewMember.js" asp-append-version="true"></script>
+
+    <script>
+        // var imageInputElement = document.querySelector("#kt_image_input_control");
+        // var imageInput = KTImageInput.getInstance(imageInputElement);
+        // console.log(imageInput);
+        // // console.log(imageInput.getInputElement());
+        // // console.log(imageInput.goElement());
+
+        // // Add change event listener to input[type=file]
+        // document.getElementById('imageInput').addEventListener('change', function (event) {
+        //     var file = event.target.files[0];
+
+        //     // Read the file as Data URL
+        //     var reader = new FileReader();
+        //     reader.onload = function (event) {
+        //         // Convert the selected image to base64-encoded string
+        //         var base64Image = event.target.result;
+        //         console.log(base64Image); // Log base64-encoded image
+        //     };
+        //     reader.readAsDataURL(file);
+        // });
+    </script>
 }

@@ -17,4 +17,12 @@ public class MembershipVM
 	public int? ClassLimitDays { get; set; }
 	public MembershipClassLimitationEnum? ClassLimitationId { get; set; }
 	public DateTime? CreatedAt { get; set; }
+
+	public List<test>? SelectedClasses { get; set;}
+}
+
+public class test
+{
+	public int value { get; set; }
+	public string name { get; set; }
 }

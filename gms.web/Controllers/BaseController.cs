@@ -10,10 +10,10 @@ public class BaseController<T> : Controller where T : BaseController<T>
     private IStringLocalizer<T>? _localizer;
     private RequestLocalizationOptions _requestLocalizationOptions;
     private IHttpContextAccessor _httpContextAccessor;
-	#endregion
+    #endregion
 
-	#region Protected
-	protected ILogger<T>? logger =>
+    #region Protected
+    protected ILogger<T>? logger =>
         _logger ?? HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
 
     protected IStringLocalizer<T>? localizer =>

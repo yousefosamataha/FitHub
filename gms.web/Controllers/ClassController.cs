@@ -14,4 +14,20 @@ public class ClassController : BaseController<ClassController>
 	{
 		return View();
 	}
+
+
+	public IActionResult AddNewClass()
+	{
+		return View();
+	}
+
+	public IActionResult ClassesList()
+	{
+		return View();
+	}
+
+	public IActionResult ClassesSchedule()
+	{
+		return View();
+	}
 }

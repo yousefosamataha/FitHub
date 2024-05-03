@@ -3,11 +3,12 @@ using gms.data.Models.Identity;
 using gms.data.Seeds;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
+using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymRepository;
+using gms.service.GymUserRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
-using gms.service.TestUser;
 using gms.services.Base;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -102,10 +103,13 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
 
-    builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
-
     builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
+
     builder.Services.AddScoped(typeof(IGymMembershipPlanService), typeof(GymMembershipPlanService));
+
+    builder.Services.AddScoped(typeof(IGymGroupService), typeof(GymGroupService));
+
+    builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
 }
 
 

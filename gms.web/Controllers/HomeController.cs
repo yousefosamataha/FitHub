@@ -3,7 +3,7 @@ using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
-using gms.service.TestUser;
+using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -38,16 +38,6 @@ public class HomeController : BaseController<HomeController>
         return View(currentUserData);
 	}
 
-    public IActionResult AddNewMember()
-    {
-        return View();
-    }
-
-    public IActionResult Memberslist()
-    {
-        return View();
-    }
-
     public IActionResult AddNewStaff()
     {
         return View();
@@ -64,31 +54,6 @@ public class HomeController : BaseController<HomeController>
     }
 
     public IActionResult Permissions()
-    {
-        return View();
-    }
-
-    public IActionResult AddNewGroup()
-    {
-        return View();
-    }
-
-    public IActionResult GroupsList()
-    {
-        return View();
-    }
-
-    public IActionResult AddNewClass()
-    {
-        return View();
-    }
-
-    public IActionResult ClassesList()
-    {
-        return View();
-    }
-
-    public IActionResult ClassesSchedule()
     {
         return View();
     }

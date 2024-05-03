@@ -40,7 +40,7 @@
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
 			<!--begin::Form-->
-			<form id="add_new_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" asp-action="AddNewMembership" method="post">
+			<form id="add_new_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<!--begin::Aside column-->
 				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
 					<!--begin::Status-->
@@ -165,21 +165,21 @@
 									<!--begin::Label-->
 									<label class="required form-label ms-2">@localizer["repetition_type"]</label>
 									<!--end::Label-->
-									<!--begin::Select Status-->
+									<!--begin::Select-->
 									<select class="form-select" asp-for="@Model.ClassLimitationId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" membership-list-filter="status">
 										<option></option>
 										<option value="1">Class Every Week</option>
 										<option value="2">Class Every Month</option>
 									</select>
-									<!--end::Select Status-->
+									<!--end::Select-->
 								</div>
 								<!--end::Input group-->
 							</div>
 							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="fv-row">
-								<label class="required form-label ms-2">@localizer["select_classes"]</label>
-								<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_class_name"]" id="select_classes" name="SelectedClasses" />
+								<label class="form-label ms-2">@localizer["select_classes"]</label>
+								<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_class_name"]" asp-for="@Model.SelectedClasses" />
 							</div>
 							<!--end::Input group-->
 						</div>

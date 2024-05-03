@@ -3,7 +3,7 @@ import { globalClass } from './custom.js';
 
 // Class definition
 var editMembership = function () {
-     Shared variables
+    // Shared variables
     const form = document.getElementById('edit_membership_form');
     const selectClassesInputElm = document.querySelector('#select_classes');
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
@@ -47,27 +47,6 @@ var editMembership = function () {
                         }
                     },
                     'MembershipDurationTypeId': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'SelectedClasses': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'ClassLimitDays': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'ClassLimitationId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
@@ -132,6 +111,8 @@ var editMembership = function () {
 
         allConditions.forEach(radio => {
             radio.addEventListener('change', e => {
+                allConditions.forEach(ele => $(ele).removeAttr("checked"));
+                $(e.target).attr("checked", "checked");
                 if (e.target.value === "true") {
                     conditionMatch.classList.remove('d-none');
                     jsonlocalizerData().then(data => {
@@ -152,6 +133,8 @@ var editMembership = function () {
                     });
                 } else {
                     conditionMatch.classList.add('d-none');
+                    $('[name="ClassLimitDays"]').val(null);
+                    $('[name="ClassLimitationId"]').val(null).trigger('change');
                     validator.removeField("ClassLimitDays");
                     validator.removeField("ClassLimitationId");
                 }
@@ -202,18 +185,59 @@ var editMembership = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     if (status == 'Valid') {
-                        form.submit();
+                        // form.submit();
+                        var data = {};
+                        data.Id = $('[name="Id"]').val();
+                        data.BranchId = $('[name="BranchId"]').val();
+                        data.MembershipStatusId = $('[name="MembershipStatusId"]').val();
+                        data.MembershipName = $('[name="MembershipName"]').val();
+                        data.MembershipDuration = $('[name="MembershipDuration"]').val();
+                        data.MembershipDurationTypeId = $('[name="MembershipDurationTypeId"]').val();
+                        data.MembershipDescription = $('[name="MembershipDescription"]').val();
+                        data.ClassIsLimit = $('[name="ClassIsLimit"][checked="checked"]').val();
+                        data.ClassLimitDays = $('[name="ClassLimitDays"]').val();
+                        data.ClassLimitationId = $('[name="ClassLimitationId"]').val();
+                        data.SelectedClasses = tagify.value;
+                        data.MembershipAmount = $('[name="MembershipAmount"]').val();
+                        data.SignupFee = $('[name="SignupFee"]').val();
+
+                        $.ajax({
+                            url: '/Membership/UpdateMembershipPlan',
+                            type: 'POST',
+                            data: {
+                                model: data
+                            },
+                            success: function (response) {
+                                window.location.href = `/Membership/MembershipsList`;
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
                     }
                 });
             }
         });
     }
 
+    // Handle On Edit Change
+    const handleOnEditChange = () => {
+        $("#MembershipStatusId").change();
+        const conditionMatch = document.querySelector('[data-kt-ecommerce-catalog-add-category="auto-options"]');
+        var value = $('[name="ClassIsLimit"][checked="checked"]').val();
+        if (value === "true") {
+            conditionMatch.classList.remove('d-none');
+        } else {
+            conditionMatch.classList.add('d-none');
+        }
+    }
+
     return {
         init: function () {
-             handleMembershipStatus();
-             handleClassLimitation();
-             formSubmition();
+            handleMembershipStatus();
+            handleClassLimitation();
+            formSubmition();
+            handleOnEditChange();
         }
     };
 }();

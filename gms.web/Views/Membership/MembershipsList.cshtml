@@ -155,11 +155,11 @@
                                             <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-membership-btn" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@mp.Id" data-branch-id="@mp.BranchId">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </button>
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-membership-btn" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@mp.Id" data-branch-id="@mp.BranchId">
                                                 <i class="ki-solid ki-trash fs-2"></i>
-                                            </a>
+                                            </button>
                                             <!--begin::Menu-->
-                                            <button type="button" class="btn btn-sm btn-icon btn-bg-light btn-light-info" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
+                                            <button type="button" class="btn btn-sm btn-icon btn-bg-light btn-light-info" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-toggle="tooltip" title="@localizer["otheractions"]" data-bs-custom-class="tooltip-inverse">
                                                 <i class="ki-solid ki-setting-4 fs-2"></i>
                                             </button>
                                             <!--begin::Menu 3-->

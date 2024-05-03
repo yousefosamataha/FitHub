@@ -5,7 +5,7 @@ using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
-using gms.service.TestUser;
+using gms.service.GymUserRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
 using Microsoft.AspNetCore.Authentication;
@@ -19,7 +19,7 @@ using gms.data.Models.Gym;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-	public class RegisterModel : PageModel
+    public class RegisterModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;

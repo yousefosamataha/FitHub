@@ -34,6 +34,7 @@
   "valid_from": "Valid From",
   "to": "To",
   "thisfieldisrequired": "This Field Is Required !",
+  "otheractions": "Other Actions",
   "---badge_status---": "------------------------------------------",
   "status": "Status",
   "all": "All",
@@ -148,5 +149,13 @@
   "search_by_staff_name": "Search By Staff Name",
   "staff_name": "Staff Name",
   "role": "Role",
-  "staff_status": "Staff Status"
+  "staff_status": "Staff Status",
+  "---training_classes/add_new_class---": "------------------",
+  "class_info": "Class Info",
+  "class_name": "Class Name",
+  "select_staff": "Select Staff",
+  "select_location": "Select Location",
+  "booking_fees": "Booking Fees",
+  "start_time": "Start Time",
+  "end_time": "End Time"
 }

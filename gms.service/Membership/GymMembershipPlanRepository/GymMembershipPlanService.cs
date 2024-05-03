@@ -6,6 +6,7 @@ using gms.data.Models.Membership;
 using gms.service.Gym.GymBranchRepository;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.Membership.GymMembershipPlanRepository;
@@ -66,5 +67,12 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
 		await UpdateAsync(updatedMembershipEntity);
 		return updatedMembershipEntity.ToDTO();
 	}
+
+    public async Task<IActionResult> DeleteMembershipAsync(int id, int branchId)
+    {
+        var MembershipEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == branchId);
+        await DeleteAsync(MembershipEntity);
+        return new OkResult();
+    }
 }
 

@@ -2,7 +2,7 @@
 import { globalClass } from './custom.js';
 
 // Class definition
-var MembershipsList = function () {
+var membershipsList = function () {
     // Shared variables
     var table;
     var datatable;
@@ -21,7 +21,7 @@ var MembershipsList = function () {
             },
             "info": true,
             'order': [],
-            'pageLength': 10,
+            'pageLength': 6,
             'columnDefs': [
                 { render: DataTable.render.number(',', '.', 2), targets: 2 },
                 { render: DataTable.render.number(',', '.', 2), targets: 3 },
@@ -140,11 +140,43 @@ var MembershipsList = function () {
     }
 
     // Edite Membership
-    var editeMembership = () => {
+    var editMembership = () => {
         document.querySelectorAll(".edit-membership-btn").forEach(e => {
             e.addEventListener("click", function () {
-                console.log(`view membership, Id: ${e.dataset.id}, BranchId: ${e.dataset.branchId}`);
                 window.location.href = `/Membership/EditMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
+            });
+        });
+    }
+
+    // Delete Membership
+    var deleteMembership = () => {
+        // Select all delete buttons
+        const deleteButtons = table.querySelectorAll('.delete-membership-btn');
+
+        deleteButtons.forEach(d => {
+            d.addEventListener("click", function (e) {
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                $.ajax({
+                    url: '/Membership/DeleteMembership',
+                    type: 'POST',
+                    data: {
+                        id: e.target.dataset.id,
+                        branchId: e.target.dataset.branchId
+                    },
+                    success: function (response) {
+                        // Remove current row
+                        datatable.row($(parent)).remove().draw();
+                        globalClass.handleTooltip();
+                        toastr.success("Membership Deleted Successfully!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+
+                // window.location.href = `/Membership/DeleteMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
             });
         });
     }
@@ -240,12 +272,13 @@ var MembershipsList = function () {
             handleTableFilter();
             // handleDeleteRows();
             // convertEnglishDigitsToArabicDigits();
-            editeMembership();
+            editMembership();
+            deleteMembership();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    MembershipsList.init();
+    membershipsList.init();
 });

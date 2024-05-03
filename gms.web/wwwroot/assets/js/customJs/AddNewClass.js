@@ -2,21 +2,21 @@
 import { globalClass } from './custom.js';
 
 // Class definition
-var addNewMembership = function () {
+var addNewClass = function () {
     // Shared variables
-    const form = document.getElementById('add_new_membership_form');
-    const selectClassesInputElm = document.querySelector('#SelectedClasses');
+    const form = document.getElementById('add_new_class_form');
+    // const selectClassesInputElm = document.querySelector('#SelectedClasses');
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
-    const hostName = window.location.origin;
-    var classesList = [
-        { value: 1, name: 'Yoga Class' },
-        { value: 2, name: 'Aerobics Class' },
-        { value: 3, name: 'Hit Class' },
-        { value: 4, name: 'Cardio Class' },
-        { value: 5, name: 'Pilates' },
-        { value: 6, name: 'Zumba Class' },
-        { value: 7, name: 'Power Yoga Class' },
-    ];
+    //const hostName = window.location.origin;
+    //var classesList = [
+    //    { value: 1, name: 'Yoga Class' },
+    //    { value: 2, name: 'Aerobics Class' },
+    //    { value: 3, name: 'Hit Class' },
+    //    { value: 4, name: 'Cardio Class' },
+    //    { value: 5, name: 'Pilates' },
+    //    { value: 6, name: 'Zumba Class' },
+    //    { value: 7, name: 'Power Yoga Class' },
+    //];
     var jsonlocalizerData = () => {
         return $.ajax({
             url: '/Home/GetJsonlocalizer',
@@ -32,49 +32,42 @@ var addNewMembership = function () {
         validator = FormValidation.formValidation(form,
             {
                 fields: {
-                    'MembershipName': {
+                    'ClassName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'MembershipDuration': {
+                    'SelectedStaffId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'MembershipDurationTypeId': {
+                    'SelectedLocationId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'ClassLimitDays': {
+                    'BookingFees': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'ClassLimitationId': {
+                    'StartTime': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'MembershipAmount': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'SignupFee': {
+                    'EndTime': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
@@ -94,99 +87,37 @@ var addNewMembership = function () {
         );
     });
 
-    // Membership Status Handler
-    const handleMembershipStatus = () => {
-        const target = document.getElementById('membership_status');
-        const select = document.getElementById('MembershipStatusId');
-        const statusClasses = ['bg-success', 'bg-danger'];
-
-        $(select).on('change', function (e) {
-            const value = e.target.value;
-            console.log(value);
-            switch (value) {
-                case '1': {
-                    target.classList.remove(...statusClasses);
-                    target.classList.add('bg-success');
-                    break;
-                }
-                case '2': {
-                    target.classList.remove(...statusClasses);
-                    target.classList.add('bg-danger');
-                    break;
-                }
-            }
-        });
-    }
-
-    // Membership Class Limitation
-    const handleClassLimitation = () => {
-        const allConditions = document.querySelectorAll('[name="ClassIsLimit"][type="radio"]');
-        const conditionMatch = document.querySelector('[data-kt-ecommerce-catalog-add-category="auto-options"]');
-
-        allConditions.forEach(radio => {
-            radio.addEventListener('change', e => {
-                allConditions.forEach(ele => $(ele).removeAttr("checked"));
-                $(e.target).attr("checked", "checked");
-                if (e.target.value === "true") {
-                    conditionMatch.classList.remove('d-none');
-                    jsonlocalizerData().then(data => {
-                        validator.addField("ClassLimitDays", {
-                            validators: {
-                                notEmpty: {
-                                    message: data.thisfieldisrequired
-                                }
-                            }
-                        });
-                        validator.addField("ClassLimitationId", {
-                            validators: {
-                                notEmpty: {
-                                    message: data.thisfieldisrequired
-                                }
-                            }
-                        });
-                    });
-                } else {
-                    conditionMatch.classList.add('d-none');
-                    $('[name="ClassLimitDays"]').val(null);
-                    $('[name="ClassLimitationId"]').val(null).trigger('change');
-                    validator.removeField("ClassLimitDays");
-                    validator.removeField("ClassLimitationId");
-                }
-            });
-        })
-    }
-
     // Membership Classes Selection
-    function tagTemplate(tagData) {
-        return `
-        <tag title="${tagData.name}" contenteditable='false' spellcheck='false' tabIndex="-1" class="${this.settings.classNames.tag}" ${this.getAttributes(tagData)}>
-            <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
-            <div class="d-flex align-items-center">
-                <span class='tagify__tag-text'>${tagData.name}</span>
-            </div>
-        </tag>`
-    }
-    function suggestionItemTemplate(tagData) {
-        return `
-        <div ${this.getAttributes(tagData)} class='tagify__dropdown__item' tabindex="0" role="option">
-        ${tagData.name}
-        </div>`
-    }
+    //function tagTemplate(tagData) {
+    //    return `
+    //    <tag title="${tagData.name}" contenteditable='false' spellcheck='false' tabIndex="-1" class="${this.settings.classNames.tag}" ${this.getAttributes(tagData)}>
+    //        <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
+    //        <div class="d-flex align-items-center">
+    //            <span class='tagify__tag-text'>${tagData.name}</span>
+    //        </div>
+    //    </tag>`
+    //}
+    //function suggestionItemTemplate(tagData) {
+    //    return `
+    //    <div ${this.getAttributes(tagData)} class='tagify__dropdown__item' tabindex="0" role="option">
+    //    ${tagData.name}
+    //    </div>`
+    //}
 
-    var tagify = new Tagify(selectClassesInputElm, {
-        whitelist: classesList,
-        dropdown: {
-            closeOnSelect: false,
-            enabled: 0,
-            maxItems: 20,
-            classname: 'tagify__inline__suggestions',
-            searchKeys: ['name']
-        },
-        templates: {
-            tag: tagTemplate,
-            dropdownItem: suggestionItemTemplate
-        }
-    })
+    //var tagify = new Tagify(selectClassesInputElm, {
+    //    whitelist: classesList,
+    //    dropdown: {
+    //        closeOnSelect: false,
+    //        enabled: 0,
+    //        maxItems: 20,
+    //        classname: 'tagify__inline__suggestions',
+    //        searchKeys: ['name']
+    //    },
+    //    templates: {
+    //        tag: tagTemplate,
+    //        dropdownItem: suggestionItemTemplate
+    //    }
+    //})
 
     // Add New Membership Form Submition
     const formSubmition = () => {
@@ -238,14 +169,14 @@ var addNewMembership = function () {
 
     return {
         init: function () {
-            handleMembershipStatus();
-            handleClassLimitation();
-            formSubmition();
+            //handleMembershipStatus();
+            //handleClassLimitation();
+            //formSubmition();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    addNewMembership.init();
+    addNewClass.init();
 });
