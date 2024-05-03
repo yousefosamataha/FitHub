@@ -2,14 +2,14 @@
 
 public record CreateBranchDTO
 {
-    public int GymId { get; init; }
-    public string BranchName { get; init; }
-    public int? StartYear { get; init; }
-    public required string Address { get; init; }
-    public required string ContactNumber { get; init; }
-    public int CountryId { get; init; }
-    public required string Email { get; init; }
-    public bool IsMainBranch { get; init; }
-    public int GeneralSettingId { get; init; }
-	public int? CreatedById { get; init; }
+    public int GymId { get; set; }
+    public string BranchName { get; set; }
+    public int? StartYear { get; set; }
+    public required string Address { get; set; }
+    public required string ContactNumber { get; set; }
+    public int CountryId { get; set; }
+    public required string Email { get; set; }
+    public bool IsMainBranch { get; set; }
+    public int GeneralSettingId { get; set; }
+	public int? CreatedById { get; set; }
 }

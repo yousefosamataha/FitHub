@@ -18,5 +18,5 @@ public class CreateGymUserDTO
     public string? Email { get; init; }
     public string? Password { get; init; }
     public StatusEnum? StatusId { get; init; }
-	public GymUserTypeEnum? GymUserTypeId { get; init }
+	public GymUserTypeEnum? GymUserTypeId { get; init; }
 }

@@ -19,7 +19,7 @@ using gms.data.Models.Gym;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+	public class RegisterModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
@@ -143,14 +143,13 @@ namespace gms.web.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
 
-
 			// (6)
-			CreatedSystemSubscription.CreatedById = createdUser.Id;
-			var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);
-			CreatedGeneralSetting.CreatedById = createdUser.Id;
-			var updatedGeneralSetting = await _gymGeneralSettingService.UpdateGymGeneralSettingAsync(CreatedGeneralSetting);
-			CreatedBranch.CreatedById = createdUser.Id;
-			var updatedBranch = await _gymBranchService.UpdateBranchAsync(CreatedBranch);
+			//CreatedSystemSubscription.CreatedById = createdUser.Id;
+			//var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);
+			//CreatedGeneralSetting.CreatedById = createdUser.Id;
+			//var updatedGeneralSetting = await _gymGeneralSettingService.UpdateGymGeneralSettingAsync(CreatedGeneralSetting);
+			//CreatedBranch.CreatedById = createdUser.Id;
+			//var updatedBranch = await _gymBranchService.UpdateBranchAsync(CreatedBranch);
 
 			return LocalRedirect(returnUrl);
         }
