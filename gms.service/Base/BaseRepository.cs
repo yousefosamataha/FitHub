@@ -171,30 +171,30 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return await query.ToListAsync();
     }
 
-    public T Add(T entity, int? userId = 0)
+    public T Add(T entity)
     {
         entity.CreatedAt = DateTime.UtcNow;
-        entity.CreatedById = userId;
+        entity.CreatedById = GetUserId();
         _context.Set<T>().Add(entity);
         SavaChanges();
         return entity;
     }
 
-    public async Task<T> AddAsync(T entity, int? userId = 0)
+    public async Task<T> AddAsync(T entity)
     {
         entity.CreatedAt = DateTime.UtcNow;
-        entity.CreatedById = userId;
+        entity.CreatedById = GetUserId();
         _context.Set<T>().Add(entity);
         await SaveChangesAsync();
         return entity;
     }
 
-    public List<T> AddRange(List<T> entities, int? userId = 0)
+    public List<T> AddRange(List<T> entities)
     {
         entities.Select(e =>
         {
             e.CreatedAt = DateTime.UtcNow;
-            e.CreatedById = userId;
+            e.CreatedById = GetUserId();
             return e;
         }).ToList();
 
@@ -205,12 +205,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return entities;
     }
 
-    public async Task<List<T>> AddRangeAsync(List<T> entities, int? userId = 0)
+    public async Task<List<T>> AddRangeAsync(List<T> entities)
     {
         entities.Select(e =>
         {
             e.CreatedAt = DateTime.UtcNow;
-            e.CreatedById = userId;
+            e.CreatedById = GetUserId();
             return e;
         }).ToList();
 
@@ -221,57 +221,57 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return entities;
     }
 
-    public T Update(T entity, int? userId = 0)
+    public T Update(T entity)
     {
         entity.ModifiedAt = DateTime.UtcNow;
-        entity.ModifiedById = userId;
+        entity.ModifiedById = GetUserId();
         _context.Set<T>().Update(entity);
         SavaChanges();
         return entity;
     }
 
-    public async Task<T> UpdateAsync(T entity, int? userId = 0)
+    public async Task<T> UpdateAsync(T entity)
     {
         entity.ModifiedAt = DateTime.UtcNow;
-        entity.ModifiedById = userId;
+        entity.ModifiedById = GetUserId();
         _context.Set<T>().Update(entity);
         await SaveChangesAsync();
         return entity;
     }
 
-    public void Delete(T entity, int? userId = 0)
+    public void Delete(T entity)
     {
         entity.IsDeleted = true;
-        entity.DeletedById = userId;
+        entity.DeletedById = GetUserId();
         _context.Set<T>().Update(entity);
         SavaChanges();
     }
 
-    public async Task DeleteAsync(T entity, int? userId = 0)
+    public async Task DeleteAsync(T entity)
     {
         entity.IsDeleted = true;
-        entity.DeletedById = userId;
+        entity.DeletedById = GetUserId();
         entity.DeletedAt = DateTime.UtcNow;
         _context.Set<T>().Update(entity);
         await SaveChangesAsync();
     }
 
-    public void DeleteRange(List<T> entities, int? userId = 0)
+    public void DeleteRange(List<T> entities)
     {
         _context.Set<T>()
                 .Where(e => entities.Contains(e))
                 .ExecuteUpdate(e => e.SetProperty(p => p.IsDeleted, true)
-                                     .SetProperty(p => p.DeletedById, userId)
+                                     .SetProperty(p => p.DeletedById, GetUserId())
                                      .SetProperty(p => p.DeletedAt, DateTime.UtcNow));
         SavaChanges();
     }
 
-    public async Task DeleteRangeAsync(List<T> entities, int? userId = 0)
+    public async Task DeleteRangeAsync(List<T> entities)
     {
         await _context.Set<T>()
                       .Where(e => entities.Contains(e))
                       .ExecuteUpdateAsync(e => e.SetProperty(p => p.IsDeleted, true)
-                                                .SetProperty(p => p.DeletedById, userId)
+                                                .SetProperty(p => p.DeletedById, GetUserId())
                                                 .SetProperty(p => p.DeletedAt, DateTime.UtcNow));
         await SaveChangesAsync();
     }
@@ -329,5 +329,20 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         {
             throw ex;
         }
+    }
+
+    public int GetUserId()
+    {
+        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value);
+    }
+
+    public int GetBranchId()
+    {
+        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value);
+    }
+
+    public int GetGymId()
+    {
+        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value);
     }
 }
