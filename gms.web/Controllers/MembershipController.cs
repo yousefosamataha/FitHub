@@ -8,6 +8,7 @@ using gms.service.Membership.GymMembershipPlanRepository;
 using gms.common.Models.MembershipCat;
 using gms.data.Models.Identity;
 using gms.data.Mapper.Membership;
+using gms.common.Models.GymCat.Branch;
 
 namespace gms.web.Controllers;
 
@@ -33,10 +34,10 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> Index()
 	{
-		GymUserEntity currentUser = await GetCurrentUserData();
-		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(currentUser.BranchId);
-		MembershipsListVM viewModel = new();
-		viewModel.BranchCurrencySymbol = currentUser.GymBranch.Country.CurrencySymbol;
+		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(GetBranchId());
+        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+        MembershipsListVM viewModel = new();
+		viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
 		viewModel.MembershipsList = membershipPlansList;
 		return View(viewModel);
 	}
@@ -54,9 +55,9 @@ public class MembershipController : BaseController<MembershipController>
 		return Json(new {Success = true, Message = ""});
 	}
 
-	public async Task<IActionResult> EditMembership(int id, int branchId)
+	public async Task<IActionResult> EditMembership(int id)
 	{
-		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, branchId);
+		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, GetBranchId());
 		return View(membership.ToUpdateDTO());
 	}
 

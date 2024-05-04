@@ -7,5 +7,6 @@ public interface IGymBranchService : IBaseRepository<GymBranchEntity>
 {
     Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch);
 
+    Task<BranchDTO> GetBranchByIdAsync(int branchId);
     Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO);
 }

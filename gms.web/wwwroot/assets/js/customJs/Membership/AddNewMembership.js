@@ -222,7 +222,7 @@ var addNewMembership = function () {
                             success: function (response) {
                                 console.log(response);
                                 if (response.success) {
-                                    console.log("Membership Added successfully!");
+                                    // console.log("Membership Added successfully!");
                                     // toastr.success("Membership Added successfully!");
                                     // toastr.success("تمت إضافة العضوية بنجاح!");
                                     window.location.href = `/Membership`;

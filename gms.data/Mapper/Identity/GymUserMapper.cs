@@ -56,7 +56,7 @@ public static class GymUserMapper
 			Email = entity.Email,
             GenderId = entity.GenderId,
             GymUserTypeId = entity.GymUserTypeId,
-            UserStatusId = entity.StatusId
+            UserStatusId = entity.StatusId,
         };
     }
 }

@@ -143,7 +143,7 @@ var membershipsList = function () {
     var editMembership = () => {
         document.querySelectorAll(".edit-membership-btn").forEach(e => {
             e.addEventListener("click", function () {
-                window.location.href = `/Membership/EditMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
+                window.location.href = `/Membership/EditMembership?id=${e.dataset.id}`;
             });
         });
     }
