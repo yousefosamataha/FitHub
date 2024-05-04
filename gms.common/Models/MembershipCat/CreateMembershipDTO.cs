@@ -5,14 +5,14 @@ namespace gms.common.Models.MembershipCat;
 public record CreateMembershipDTO
 {
 	public int BranchId { get; set; }
-	public required string MembershipName { get; set; }
-	public int MembershipDuration { get; set; }
-	public MembershipLengthTypeEnum MembershipDurationTypeId { get; set; }
-	public decimal MembershipAmount { get; set; }
-	public StatusEnum MembershipStatusId { get; set; }
-	public decimal SignupFee { get; set; }
-	public string? MembershipDescription { get; set; }
-	public bool ClassIsLimit { get; set; }
-	public int? ClassLimitDays { get; set; }
-	public MembershipClassLimitationEnum? ClassLimitationId { get; set; }
+	public required string MembershipName { get; init; }
+	public int MembershipDuration { get; init; }
+	public MembershipLengthTypeEnum MembershipDurationTypeId { get; init; }
+	public decimal MembershipAmount { get; init; }
+	public StatusEnum MembershipStatusId { get; init; }
+	public decimal SignupFee { get; init; }
+	public string? MembershipDescription { get; init; }
+	public bool ClassIsLimit { get; init; }
+	public int? ClassLimitDays { get; init; }
+	public MembershipClassLimitationEnum? ClassLimitationId { get; init; }
 }

@@ -186,7 +186,6 @@ var editMembership = function () {
                     if (status == 'Valid') {
                         var data = {};
                         data.Id = $('[name="Id"]').val();
-                        data.BranchId = $('[name="BranchId"]').val();
                         data.MembershipStatusId = $('[name="MembershipStatusId"]').val();
                         data.MembershipName = $('[name="MembershipName"]').val();
                         data.MembershipDuration = $('[name="MembershipDuration"]').val();
@@ -207,7 +206,9 @@ var editMembership = function () {
                             },
                             success: function (response) {
                                 console.log(response);
-                                // window.location.href = `/Membership/MembershipsList`;
+                                if (response.success) {
+                                    window.location.href = `/Membership`;
+                                }
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);

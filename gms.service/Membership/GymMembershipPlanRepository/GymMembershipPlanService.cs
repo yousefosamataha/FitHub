@@ -43,7 +43,7 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
         return MembershipEntity.ToDTO();
     }
 
-	public async Task<MembershipDTO> UpdateGymMembershipPlanAsync(MembershipDTO updatemembershipDTO)
+	public async Task<MembershipDTO> UpdateGymMembershipPlanAsync(UpdateMembershipDTO updatemembershipDTO)
 	{
 		GymMembershipPlanEntity currentMembershipEntity = await _context.GymMembershipPlans.FirstOrDefaultAsync(mp => mp.Id == updatemembershipDTO.Id);
 		GymMembershipPlanEntity updatedMembershipEntity = updatemembershipDTO.ToUpdatedEntity(currentMembershipEntity);
