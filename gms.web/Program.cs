@@ -1,7 +1,15 @@
-using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.data.Seeds;
+using gms.service.Gym.GymBranchRepository;
+using gms.service.Gym.GymGeneralSettingsRepository;
+using gms.service.Gym.GymGroupRepository;
+using gms.service.Gym.GymRepository;
+using gms.service.GymUserRepository;
+using gms.service.Membership.GymMembershipPlanRepository;
+using gms.service.Shared.CountryRepository;
+using gms.service.Subscription.SystemSubscriptionRepository;
+using gms.services.Base;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -37,6 +45,18 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
         options.SlidingExpiration = true;
     });
 
+    //builder.Services.AddAuthentication(options =>
+    //{
+    //    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    //    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+    //}).AddCookie(IdentityConstants.ApplicationScheme, options =>
+    //{
+    //    options.LoginPath = "/Identity/Account/Login";
+    //    options.LogoutPath = "/Identity/Account/Logout";
+    //    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    //    options.SlidingExpiration = true;
+    //});
+
     builder.Services.Configure<SecurityStampValidatorOptions>(options =>
     {
         options.ValidationInterval = TimeSpan.Zero;
@@ -71,10 +91,29 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     });
 
+    //builder.Services.AddScoped(typeof(IUserStore<GymUserEntity>));
+
+    //builder.Services.AddScoped(typeof(IUserEmailStore<GymUserEntity>));
+
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    //builder.Services.AddScoped<IGymUserService, GymUserService>();
-    //builder.Services.AddScoped<IGymRolesService, GymRolesService>();
+    builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+    builder.Services.AddScoped(typeof(IGymService), typeof(GymService));
+
+    builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService));
+
+    builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService));
+
+    builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
+
+    builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
+
+    builder.Services.AddScoped(typeof(IGymMembershipPlanService), typeof(GymMembershipPlanService));
+
+    builder.Services.AddScoped(typeof(IGymGroupService), typeof(GymGroupService));
+
+    builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
 }
 
 

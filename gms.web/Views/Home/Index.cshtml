@@ -1,8 +1,12 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization;
 @using Microsoft.AspNetCore.Mvc.Localization;
+@using gms.data.Models.Identity
 @inject IViewLocalizer localizer;
+@model GymUserEntity
+
 @{
-    ViewData["Title"] = "Dashboard";
+	ViewData["Title"] = "Dashboard";
+	var test = Model;
 }
 
 <!--begin::Content wrapper-->
@@ -18,7 +22,7 @@
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        Hi, Yousef
+                        Hi, @Model.FirstName
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->

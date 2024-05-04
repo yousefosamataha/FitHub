@@ -7,11 +7,9 @@ public class GymMembershipPaymentHistoryEntity : BaseEntity
     public int GymMemberMembershipId { get; set; }
     public decimal PaidAmount { get; set; }
     public PaymentMethodEnum PaymentMethodId { get; set; }
-    public string TransactionId { get; set; }
+    public string? TransactionId { get; set; }
+    public DateTime PaidDate { get; set; }
 
+    // Navigation properties
     public virtual GymMemberMembershipEntity GymMemberMembership { get; set; }
-
-    // TODO: Add Relation Entities
-    //public int GymId { get; set; } // FK
-    //public int CreatedById { get; set; }
 }

@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Models\Branch\**" />
+	  <EmbeddedResource Remove="Models\Branch\**" />
+	  <None Remove="Models\Branch\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

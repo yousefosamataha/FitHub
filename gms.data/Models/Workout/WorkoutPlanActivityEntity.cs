@@ -14,6 +14,7 @@ public class WorkoutPlanActivityEntity : BaseEntity
 	public double Kg { get; set; }
 	public TimeSpan RestTime { get; set; }
 
-	public virtual WorkoutPlanEntity WorkoutPlan { get; set; }
+    // Navigation properties
+    public virtual WorkoutPlanEntity WorkoutPlan { get; set; }
 	public virtual ActivityEntity Activity { get; set; }
 }

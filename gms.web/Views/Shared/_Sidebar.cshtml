@@ -43,7 +43,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("AddNewMembership", "Home")">
+							<a class="menu-link" asp-controller="Membership" asp-action="AddNewMembership">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -55,7 +55,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("MembershipsList", "Home")">
+							<a class="menu-link" asp-controller="Membership" asp-action="MembershipsList">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -97,7 +97,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("AddNewMember", "Home")">
+									<a class="menu-link" href="@Url.Action("AddNewMember", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -109,7 +109,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("MembersList", "Home")">
+									<a class="menu-link" href="@Url.Action("MembersList", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -138,7 +138,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("AddNewStaff", "Home")">
+									<a class="menu-link" href="@Url.Action("AddNewStaff", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -150,7 +150,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("StaffsList", "Home")">
+									<a class="menu-link" href="@Url.Action("StaffsList", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -179,7 +179,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("Roles", "Home")">
+									<a class="menu-link" href="@Url.Action("Roles", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -191,7 +191,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("Permissions", "Home")">
+									<a class="menu-link" href="@Url.Action("Permissions", "GymUser")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -224,7 +224,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("AddNewGroup", "Home")">
+							<a class="menu-link" href="@Url.Action("AddNewGroup", "Gym")">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -236,7 +236,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("GroupsList", "Home")">
+							<a class="menu-link" href="@Url.Action("GroupsList", "Gym")">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -265,7 +265,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("AddNewClass", "Home")">
+							<a class="menu-link" href="@Url.Action("AddNewClass", "Class")">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -277,7 +277,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("ClassesList", "Home")">
+							<a class="menu-link" href="@Url.Action("ClassesList", "Class")">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -289,7 +289,7 @@
 						<!--begin:Menu item-->
 						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("ClassesSchedule", "Home")">
+							<a class="menu-link" href="@Url.Action("ClassesSchedule", "Class")">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>

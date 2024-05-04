@@ -13,8 +13,25 @@ internal class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlanEn
 
 		builder.HasKey(wp => wp.Id);
 
-		builder.HasMany(wp => wp.WorkoutPlanActivities)
+        builder.HasOne(wp => wp.GymBranch)
+               .WithMany(gb => gb.WorkoutPlans)
+               .HasForeignKey(wp => wp.BranchId);
+
+        builder.HasOne(wp => wp.GymMemberUser)
+               .WithMany(gu => gu.MemberWorkoutPlans)
+               .HasForeignKey(wp => wp.GymMemberUserId)
+			   .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(wp => wp.GymStaffUser)
+               .WithMany(gu => gu.StaffWorkoutPlans)
+               .HasForeignKey(wp => wp.AssignedByGymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(wp => wp.WorkoutPlanActivities)
 			   .WithOne(wpa => wpa.WorkoutPlan)
-			   .HasForeignKey(wpa => wpa.WorkoutPlanId);
+			   .HasForeignKey(wpa => wpa.WorkoutPlanId)
+			   .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(wp => wp.IsDeleted == false);
 	}
 }

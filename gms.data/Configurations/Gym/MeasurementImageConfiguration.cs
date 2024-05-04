@@ -15,6 +15,8 @@ internal class MeasurementImageConfiguration : IEntityTypeConfiguration<Measurem
 
 		builder.HasOne(mi => mi.GymMeasurement)
 			   .WithMany(gm => gm.MeasurementImages)
-			   .HasForeignKey(mi => mi.MeasurementId);
-	}
+			   .HasForeignKey(mi => mi.GymMeasurementId);
+
+        builder.HasQueryFilter(mi => mi.IsDeleted == false);
+    }
 }

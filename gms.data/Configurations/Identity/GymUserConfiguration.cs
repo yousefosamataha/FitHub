@@ -12,18 +12,14 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
 {
     public void Configure(EntityTypeBuilder<GymUserEntity> builder)
     {
+        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUser", gmsDbProperties.DbSchema);
+       
         ValueConverter<DateOnly, DateTime> dateOnlyConverter = new(
                                                                     dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
                                                                     dateTime => DateOnly.FromDateTime(dateTime)
                                                                 );
 
-        builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityUser", gmsDbProperties.DbSchema);
-
         builder.HasKey(gu => gu.Id);
-
-        builder.Property(gu => gu.Address).IsRequired(false);
-
-        builder.Property(gu => gu.City).IsRequired(false);
 
         builder.Property(gu => gu.BirthDate)
                .HasConversion(dateOnlyConverter)
@@ -33,17 +29,74 @@ internal class GymUserConfiguration : IEntityTypeConfiguration<GymUserEntity>
                .IsRequired()
                .HasDefaultValue(GymUserTypeEnum.Member);
 
-        //builder.HasOne(gu => gu.GymStaffSpecialization)
-        //       .WithMany(gss => gss.GymUsers)
-        //       .HasForeignKey(gu => gu.GymStaffSpecializationId).IsRequired(false);
+        builder.HasOne(gu => gu.GymBranch)
+               .WithMany(g => g.GymUsers)
+               .HasForeignKey(gu => gu.BranchId);
 
-        //builder.HasOne(gu => gu.Gym)
-        //       .WithMany(g => g.GymUsers)
-        //       .HasForeignKey(gu => gu.GymId);
+        builder.HasMany(gu => gu.GymStaffSpecializations)
+               .WithOne(gss => gss.GymStaffUser)
+               .HasForeignKey(gss => gss.GymStaffId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-        //builder.HasMany(gu => gu.GymBranchUsers)
-        //       .WithOne(gbu => gbu.GymUser)
-        //       .HasForeignKey(gu => gu.GymUserId);
+        builder.HasMany(gu => gu.GymMemberMemberships)
+               .WithOne(gmm => gmm.GymMemberUser)
+               .HasForeignKey(gss => gss.MemberId)
+               .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasMany(gu => gu.StaffClasses)
+               .WithOne(sc => sc.GymStaffUser)
+               .HasForeignKey(sc => sc.StaffId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.MemberClasses)
+               .WithOne(mc => mc.GymMemberUser)
+               .HasForeignKey(mc => mc.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymMemberGroups)
+               .WithOne(gmg => gmg.GymMemberUser)
+               .HasForeignKey(gmg => gmg.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymStaffGroups)
+               .WithOne(gsg => gsg.GymStaffUser)
+               .HasForeignKey(gsg => gsg.GymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.MemberWorkoutPlans)
+               .WithOne(wp => wp.GymMemberUser)
+               .HasForeignKey(wp => wp.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.StaffWorkoutPlans)
+               .WithOne(wp => wp.GymStaffUser)
+               .HasForeignKey(wp => wp.AssignedByGymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymMeasurements)
+               .WithOne(gm => gm.GymMemberUser)
+               .HasForeignKey(gm => gm.GymMemberUserId);
+
+        builder.HasMany(gu => gu.MemberNutritionPlans)
+               .WithOne(np => np.GymMemberUser)
+               .HasForeignKey(np => np.GymMemberUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.StaffNutritionPlans)
+               .WithOne(np => np.GymStaffUser)
+               .HasForeignKey(np => np.AssignedByGymStaffUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymNotificationSenderUsers)
+               .WithOne(gn => gn.GymSenderUser)
+               .HasForeignKey(gn => gn.GymSenderUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(gu => gu.GymNotificationReceiverUsers)
+               .WithOne(gn =>  gn.GymReceiverUser)
+               .HasForeignKey(gn => gn.GymReceiverUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gu => gu.IsDeleted == false);
     }
 }

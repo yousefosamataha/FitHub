@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using gms.service.Activity.ActivityCategoryRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
@@ -6,6 +7,12 @@ namespace gms.web.Controllers;
 [Authorize]
 public class ActivityController : BaseController<ActivityController>
 {
+	private readonly IActivityCategoryService _activityCategoryService;
+
+	public ActivityController()
+	{
+
+	}
 	public IActionResult Index()
 	{
 		return View();

@@ -1,19 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using gms.data.Models.Identity;
+using gms.service.GymUserRepository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace gms.web.Controllers;
 public class BaseController<T> : Controller where T : BaseController<T>
 {
-	#region Private
-	private ILogger<T>? _logger;
-	private IStringLocalizer<T>? _localizer;
+    #region Private
+    private ILogger<T>? _logger;
+    private IStringLocalizer<T>? _localizer;
+    private RequestLocalizationOptions _requestLocalizationOptions;
+    private IHttpContextAccessor _httpContextAccessor;
+	private UserManager<GymUserEntity> _userManager;
+	private IGymUserService _gymUserService;
 	#endregion
 
 	#region Protected
 	protected ILogger<T>? logger =>
-		_logger ?? HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
+        _logger ?? HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
 
-	protected IStringLocalizer<T>? localizer =>
-		_localizer ?? HttpContext.RequestServices.GetRequiredService<IStringLocalizer<T>>();
+    protected IStringLocalizer<T>? localizer =>
+        _localizer ?? HttpContext.RequestServices.GetRequiredService<IStringLocalizer<T>>();
+
+    protected RequestLocalizationOptions? requestLocalizationOptions =>
+        _requestLocalizationOptions ?? HttpContext.RequestServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+
+    protected IHttpContextAccessor httpContextAccessor =>
+        _httpContextAccessor ?? HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>();
+	protected UserManager<GymUserEntity> userManager =>
+		_userManager ?? HttpContext.RequestServices.GetRequiredService<UserManager<GymUserEntity>>();
+
+    protected IGymUserService gymUserService =>
+		_gymUserService ?? HttpContext.RequestServices.GetRequiredService<IGymUserService>();
 	#endregion
+
+	public string GetUserId()
+    {
+        return httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value;
+    }
+
+	public async Task<GymUserEntity> GetCurrentUserData()
+	{
+		System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+		var currentUserData = await userManager.GetUserAsync(currentUser);
+		var allUserData = await gymUserService.GetGymUserByEmail(currentUserData.Email);
+		return allUserData;
+	}
 }

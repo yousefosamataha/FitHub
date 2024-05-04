@@ -15,10 +15,14 @@ internal class WorkoutPlanActivityConfiguration : IEntityTypeConfiguration<Worko
 
 		builder.HasOne(wpa => wpa.WorkoutPlan)
 			   .WithMany(wp => wp.WorkoutPlanActivities)
-			   .HasForeignKey(wpa => wpa.WorkoutPlanId);
+			   .HasForeignKey(wpa => wpa.WorkoutPlanId)
+			   .OnDelete(DeleteBehavior.Restrict);
 
 		builder.HasOne(wpa => wpa.Activity)
 			   .WithMany(a => a.WorkoutPlanActivities)
-			   .HasForeignKey(wpa => wpa.ActivityId);
-	}
+			   .HasForeignKey(wpa => wpa.ActivityId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(wpa => wpa.IsDeleted == false);
+    }
 }

@@ -7,7 +7,9 @@ public class SubscriptionPaymentEntity : BaseEntity
     public int SubscriptionId { get; set; }
     public PaymentMethodEnum PaymentMethodId { get; set; }
     public decimal PaidAmount { get; set; }
-    public string TransactionId { get; set; }
+    public string? TransactionId { get; set; }
     public DateTime PaidDate { get; set; }
-    public virtual SystemSubscriptionEntity Subscription { get; set; }
+
+    // Navigation properties
+    public virtual SystemSubscriptionEntity SystemSubscription { get; set; }
 }

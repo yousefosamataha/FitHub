@@ -14,7 +14,8 @@ internal class ClassScheduleDayConfiguration : IEntityTypeConfiguration<ClassSch
         builder.HasKey(csd => csd.Id);
 
         builder.HasOne(csd => csd.ClassSchedule)
-                .WithMany(cs => cs.ClassScheduleDays)
-                .HasForeignKey(csd => csd.ClassId);
+               .WithMany(cs => cs.ClassScheduleDays)
+               .HasForeignKey(csd => csd.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -12,27 +12,10 @@ internal class GymGeneralSettingConfiguration : IEntityTypeConfiguration<GymGene
 
         builder.HasKey(gg => gg.Id);
 
-        builder.Property(gg => gg.Weight).IsRequired(false);
-
-        builder.Property(gg => gg.Height).IsRequired(false);
-
-        builder.Property(gg => gg.Chest).IsRequired(false);
-
-        builder.Property(gg => gg.Waist).IsRequired(false);
-
-        builder.Property(gg => gg.Thing).IsRequired(false);
-
-        builder.Property(gg => gg.Arms).IsRequired(false);
-
-        builder.Property(gg => gg.Fat).IsRequired(false);
-
-        builder.HasOne(gg => gg.Gym)
-               .WithOne(g => g.GeneralSetting)
-               .HasForeignKey<GymEntity>(g => g.GeneralSettingId);
-
-        builder.HasOne(gg => gg.GymBranch)
+        builder.HasMany(gg => gg.GymBranches)
                .WithOne(gb => gb.GeneralSetting)
-               .HasForeignKey<GymBranchEntity>(gb => gb.GeneralSettingId);
+               .HasForeignKey(gb => gb.GeneralSettingId);
 
+        builder.HasQueryFilter(gb => gb.IsDeleted == false);
     }
 }
