@@ -13,12 +13,12 @@ public class BaseController<T> : Controller where T : BaseController<T>
     private IStringLocalizer<T>? _localizer;
     private RequestLocalizationOptions _requestLocalizationOptions;
     private IHttpContextAccessor _httpContextAccessor;
-	private UserManager<GymUserEntity> _userManager;
-	private IGymUserService _gymUserService;
-	#endregion
+    private UserManager<GymUserEntity> _userManager;
+    private IGymUserService _gymUserService;
+    #endregion
 
-	#region Protected
-	protected ILogger<T>? logger =>
+    #region Protected
+    protected ILogger<T>? logger =>
         _logger ?? HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
 
     protected IStringLocalizer<T>? localizer =>
@@ -29,23 +29,33 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     protected IHttpContextAccessor httpContextAccessor =>
         _httpContextAccessor ?? HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>();
-	protected UserManager<GymUserEntity> userManager =>
-		_userManager ?? HttpContext.RequestServices.GetRequiredService<UserManager<GymUserEntity>>();
+    protected UserManager<GymUserEntity> userManager =>
+        _userManager ?? HttpContext.RequestServices.GetRequiredService<UserManager<GymUserEntity>>();
 
     protected IGymUserService gymUserService =>
-		_gymUserService ?? HttpContext.RequestServices.GetRequiredService<IGymUserService>();
-	#endregion
+        _gymUserService ?? HttpContext.RequestServices.GetRequiredService<IGymUserService>();
+    #endregion
 
-	public string GetUserId()
+    public int GetUserId()
     {
-        return httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value;
+        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value);
     }
 
-	public async Task<GymUserEntity> GetCurrentUserData()
-	{
-		System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-		var currentUserData = await userManager.GetUserAsync(currentUser);
-		var allUserData = await gymUserService.GetGymUserByEmail(currentUserData.Email);
-		return allUserData;
-	}
+    public int GetBranchId()
+    {
+        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value);
+    }
+
+    public int GetGymId()
+    {
+        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value);
+    }
+
+    public async Task<GymUserEntity> GetCurrentUserData()
+    {
+        System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+        var currentUserData = await userManager.GetUserAsync(currentUser);
+        var allUserData = await gymUserService.GetGymUserByEmail(currentUserData.Email);
+        return allUserData;
+    }
 }

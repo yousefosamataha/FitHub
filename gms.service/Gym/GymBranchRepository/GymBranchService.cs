@@ -25,18 +25,11 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
         return newBranchEntity.ToDTO();
     }
 
-    public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch, int? userId)
+    public async Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO)
     {
-        GymBranchEntity newBranchEntity = newBranch.ToEntity();
-        await AddAsync(newBranchEntity, userId);
-        return newBranchEntity.ToDTO();
+        GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(ss => ss.Id == updateBranchDTO.Id);
+        GymBranchEntity updatedBranchEntity = updateBranchDTO.ToUpdatedEntity(currentBranchEntity);
+        await UpdateAsync(updatedBranchEntity);
+        return updatedBranchEntity.ToDTO();
     }
-
-	public async Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO)
-	{
-		GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(ss => ss.Id == updateBranchDTO.Id);
-		GymBranchEntity updatedBranchEntity = updateBranchDTO.ToUpdatedEntity(currentBranchEntity);
-		await UpdateAsync(updatedBranchEntity);
-		return updatedBranchEntity.ToDTO();
-	}
 }
