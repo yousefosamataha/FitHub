@@ -50,7 +50,6 @@ public class MembershipController : BaseController<MembershipController>
 	public async Task<JsonResult> AddNewMembership(CreateMembershipDTO modelDTO)
 	{
 		GymUserEntity currentUser = await GetCurrentUserData();
-		modelDTO.BranchId = currentUser.BranchId;
 		await _gymMembershipPlanService.CreateGymMembershipPlanAsync(modelDTO);
 		return Json(new {Success = true, Message = ""});
 	}
