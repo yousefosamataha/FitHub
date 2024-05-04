@@ -333,16 +333,25 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 
     public int GetUserId()
     {
-        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value);
+        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 
     public int GetBranchId()
     {
-        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value);
+        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 
     public int GetGymId()
     {
-        return int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value);
+        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 }
