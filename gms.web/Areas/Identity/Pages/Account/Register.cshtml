@@ -11,10 +11,10 @@
 <html @(IsRTL ? "direction=rtl dir=rtl style=direction: rtl" : "lang=en")>
 <!--begin::Head-->
 <head>
-    <title>@ViewData["Title"] | gms</title>
+    <title>@ViewData["Title"] | FitHub</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="~/favicon.ico" />
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,15 +56,24 @@
             <!--begin::Aside-->
             <div class="d-flex flex-column flex-lg-row-auto w-lg-350px w-xl-500px">
                 <div class="d-flex flex-column position-lg-fixed top-0 bottom-0 w-lg-350px w-xl-500px hover-scroll-y bgi-size-cover bgi-position-center" style="background-image: url(../../../assets/media/misc/auth-bg.png);">
-                    @*<!--begin::Header-->
-                    <div class="d-flex flex-center py-10 py-lg-20 mt-lg-20">
-                    <!--begin::Logo-->
-                    <a href="../../demo39/dist/index.html">
-                    <img alt="Logo" src="~/assets/media/logos/custom-1.png" class="h-70px" />
-                    </a>
-                    <!--end::Logo-->
-                    </div>
-                    <!--end::Header-->*@
+                    <!--begin::Header-->
+                    @*<div class="d-flex flex-center py-10 py-lg-20 mt-lg-20">
+                        <!--begin::Logo-->
+                        <a href="/">
+                            @if (!IsRTL)
+                            {
+                                <img alt="Logo" src="~/assets/Images/logo_title_dark_ltr.png" class="h-35px theme-light-show" />
+                                <img alt="Logo" src="~/assets/Images/logo_title_light_ltr.png" class="h-35px theme-dark-show" />
+                            }
+                            else
+                            {
+                                <img alt="Logo" src="~/assets/Images/logo_title_dark_rtl.png" class="h-35px theme-light-show" />
+                                <img alt="Logo" src="~/assets/Images/logo_title_light_rtl.png" class="h-35px theme-dark-show" />
+                            }
+                        </a>
+                        <!--end::Logo-->
+                    </div>*@
+                    <!--end::Header-->
                     <!--begin::Body-->
                     <div class="d-flex flex-row-fluid justify-content-center align-items-center p-10">
                         <!--begin::Nav-->
@@ -589,8 +598,8 @@
                                     <!--end::Input group-->
                                     @*<!--begin::Input group-->
                                     <div class="col mb-5 fv-row">
-                                        <label class="required form-label ms-2">@localizer["password"]</label>
-                                        <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
+                                    <label class="required form-label ms-2">@localizer["password"]</label>
+                                    <input type="password" asp-for="Input.Password" class="form-control" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" />
                                     </div>
                                     <!--end::Input group-->*@
                                     <!--begin::Input group-->
@@ -624,7 +633,6 @@
                                         <!--end::Hint-->
                                     </div>
                                     <!--end::Input group--->
-
                                     <!--begin::Input group-->
                                     <div class="col fv-row">
                                         <label class="required form-label ms-2">Confirm Password</label>

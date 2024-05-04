@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.ActivityCat.Activity;
 
-public record struct ActivityDTO
+public record ActivityDTO
 {
     public required int ActivityId { get; init; }
 

@@ -15,11 +15,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.common.Models.GymCat.GymGeneralSetting;
-using gms.data.Models.Gym;
+using gms.common.Enums;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-	public class RegisterModel : PageModel
+    public class RegisterModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
@@ -109,22 +109,8 @@ namespace gms.web.Areas.Identity.Pages.Account
             var CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
 
             // (3) Create GeneralSetting
-            var GeneralSettingEntity = new GymGeneralSettingEntity();
-            var GeneralSettingDTO = new CreateGeneralSettingDTO()
-            {
-                Weight = GeneralSettingEntity.Weight,
-                Height = GeneralSettingEntity.Height,
-                Chest = GeneralSettingEntity.Chest,
-                Waist = GeneralSettingEntity.Waist,
-                Thing = GeneralSettingEntity.Thing,
-                Arms = GeneralSettingEntity.Arms,
-                Fat = GeneralSettingEntity.Fat,
-                ReminderDays = GeneralSettingEntity.ReminderDays,
-                ReminderMessage = GeneralSettingEntity.ReminderMessage,
-                IsShared = true,
-                ReportHeader = GeneralSettingEntity.ReportHeader,
-                ReportFooter = GeneralSettingEntity.ReportFooter,
-            };
+            CreateGeneralSettingDTO GeneralSettingDTO = new();
+            GeneralSettingDTO.IsShared = true;
             var CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(GeneralSettingDTO);
 
             // (4) Create Branch
@@ -138,6 +124,8 @@ namespace gms.web.Areas.Identity.Pages.Account
             var user = CreateUser();
             user.EmailConfirmed = true;
             user.BranchId = CreatedBranch.Id;
+            user.GymUserTypeId = GymUserTypeEnum.Owner;
+            user.StatusId = StatusEnum.Active;
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
