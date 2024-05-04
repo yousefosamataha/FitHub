@@ -37,12 +37,12 @@ public class MembershipController : BaseController<MembershipController>
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddNewMembership(CreateMembershipDTO modelDTO)
+	public async Task<JsonResult> AddNewMembership(CreateMembershipDTO modelDTO)
 	{
 		GymUserEntity currentUser = await GetCurrentUserData();
 		modelDTO.BranchId = currentUser.BranchId;
 		await _gymMembershipPlanService.CreateGymMembershipPlanAsync(modelDTO);
-		return Ok();
+		return Json(new {Success = true, Message = ""});
 	}
 
 	public async Task<IActionResult> MembershipsList()
@@ -62,10 +62,10 @@ public class MembershipController : BaseController<MembershipController>
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> UpdateMembershipPlan(MembershipDTO modelDTO)
+	public async Task<JsonResult> UpdateMembershipPlan(MembershipDTO modelDTO)
 	{
 		await _gymMembershipPlanService.UpdateGymMembershipPlanAsync(modelDTO);
-		return Ok();
+		return Json(new { Success = true, Message = "" });
 	}
 
 	[HttpPost]
