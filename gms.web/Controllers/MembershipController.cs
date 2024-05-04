@@ -42,7 +42,7 @@ public class MembershipController : BaseController<MembershipController>
 		GymUserEntity currentUser = await GetCurrentUserData();
 		modelDTO.BranchId = currentUser.BranchId;
 		await _gymMembershipPlanService.CreateGymMembershipPlanAsync(modelDTO);
-		return RedirectToAction("MembershipsList");
+		return Ok();
 	}
 
 	public async Task<IActionResult> MembershipsList()
@@ -64,24 +64,8 @@ public class MembershipController : BaseController<MembershipController>
 	[HttpPost]
 	public async Task<IActionResult> UpdateMembershipPlan(MembershipDTO modelDTO)
 	{
-		//var modelDTO = new MembershipDTO()
-		//{
-		//	Id = (int)model.Id,
-		//	BranchId = (int)model.BranchId,
-		//	MembershipName = model.MembershipName,
-		//	MembershipDuration = (int)model.MembershipDuration,
-		//	MembershipDurationTypeId = (MembershipLengthTypeEnum)model.MembershipDurationTypeId,
-		//	MembershipAmount = (decimal)model.MembershipAmount,
-		//	MembershipStatusId = (StatusEnum)model.MembershipStatusId,
-		//	SignupFee = (decimal)model.SignupFee,
-		//	MembershipDescription = model.MembershipDescription,
-		//	ClassIsLimit = (bool)model.ClassIsLimit,
-		//	ClassLimitDays = model.ClassLimitDays,
-		//	ClassLimitationId = model.ClassLimitationId is null ? 0 : (MembershipClassLimitationEnum)model.ClassLimitationId,
-		//};
-		var updatedMembership = await _gymMembershipPlanService.UpdateGymMembershipPlanAsync(modelDTO);
-
-		return RedirectToAction("MembershipsList");
+		await _gymMembershipPlanService.UpdateGymMembershipPlanAsync(modelDTO);
+		return Ok();
 	}
 
 	[HttpPost]

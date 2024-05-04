@@ -88,7 +88,6 @@ var editMembership = function () {
 
         $(select).on('change', function (e) {
             const value = e.target.value;
-            console.log(value);
             switch (value) {
                 case '1': {
                     target.classList.remove(...statusClasses);
@@ -204,10 +203,11 @@ var editMembership = function () {
                             url: '/Membership/UpdateMembershipPlan',
                             type: 'POST',
                             data: {
-                                model: data
+                                modelDTO: data
                             },
                             success: function (response) {
-                                window.location.href = `/Membership/MembershipsList`;
+                                console.log(response);
+                                // window.location.href = `/Membership/MembershipsList`;
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);
