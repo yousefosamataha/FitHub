@@ -38463,6 +38463,12 @@ textarea.form-control-lg {
     color: var(--bs-primary)
 }
 
+.menu-state-bg-light-info .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .menu-state-bg-light-info .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
+    transition: color .2s ease;
+    background-color: var(--bs-info-light);
+    color: var(--bs-info)
+}
+
     .menu-state-bg-light-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .menu-state-bg-light-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
         color: var(--bs-primary)
     }
@@ -50585,7 +50591,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-primary {
+.badge-light-primary, .badge-light-male {
     color: var(--bs-primary);
     background-color: var(--bs-primary-light)
 }
@@ -50601,7 +50607,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-secondary {
+.badge-light-secondary, .badge-light-cancelled {
     background-color: var(--bs-secondary-light);
     color: var(--bs-secondary-inverse);
 }
@@ -50617,7 +50623,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-success {
+.badge-light-success, .badge-light-active, .badge-light-fullypaid {
     color: var(--bs-success);
     background-color: var(--bs-success-light)
 }
@@ -50633,7 +50639,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-info {
+.badge-light-info, .badge-light-partiallypaid {
     color: var(--bs-info);
     background-color: var(--bs-info-light)
 }
@@ -50649,7 +50655,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-warning {
+.badge-light-warning, .badge-light-suspend {
     color: var(--bs-warning);
     background-color: var(--bs-warning-light)
 }
@@ -50665,7 +50671,7 @@ code:not([class*=language-]) {
         background-color: transparent
     }
 
-.badge-light-danger {
+.badge-light-danger, .badge-light-inactive, .badge-light-expired, .badge-light-notpaid {
     color: var(--bs-danger);
     background-color: var(--bs-danger-light)
 }

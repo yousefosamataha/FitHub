@@ -13,12 +13,17 @@ internal class GymEventReservationConfiguration : IEntityTypeConfiguration<GymEv
 
         builder.HasKey(er => er.Id);
 
-        builder.Property(er => er.EventName)
-               .IsRequired()
-               .HasMaxLength(256);
+        builder.Property(er => er.EventName).IsRequired().HasMaxLength(256);
 
-        builder.HasOne(er => er.GymEventPlace)
-               .WithMany(ep => ep.GymEventReservations)
-               .HasForeignKey(ep => ep.GymEventPlaceId);
+        builder.HasOne(ger => ger.GymBranch)
+               .WithMany(gb => gb.GymEventReservations)
+               .HasForeignKey(ger => ger.BranchId);
+
+        builder.HasOne(ger => ger.GymLocation)
+               .WithMany(gl => gl.GymEventReservations)
+               .HasForeignKey(ger => ger.GymLocationId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(ger => ger.IsDeleted == false);
     }
 }

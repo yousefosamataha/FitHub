@@ -6,7 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class StaffController : BaseController<StaffController>
 {
-	public IActionResult Index()
+    public StaffController()
+    {
+        
+    }
+    public IActionResult Index()
 	{
 		return View();
 	}

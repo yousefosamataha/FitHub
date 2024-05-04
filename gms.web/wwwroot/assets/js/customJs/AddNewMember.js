@@ -39,13 +39,6 @@ var addNewMember = function () {
                         }
                     }
                 },
-                'Email': {
-                    validators: {
-                        notEmpty: {
-                            message: 'This Field Is Required!'
-                        }
-                    }
-                },
                 'Mobile': {
                     validators: {
                         notEmpty: {
@@ -53,28 +46,7 @@ var addNewMember = function () {
                         }
                     }
                 },
-                'State': {
-                    validators: {
-                        notEmpty: {
-                            message: 'This Field Is Required!'
-                        }
-                    }
-                },
-                'City': {
-                    validators: {
-                        notEmpty: {
-                            message: 'This Field Is Required!'
-                        }
-                    }
-                },
-                'Address': {
-                    validators: {
-                        notEmpty: {
-                            message: 'This Field Is Required!'
-                        }
-                    }
-                },
-                'Username': {
+                'Email': {
                     validators: {
                         notEmpty: {
                             message: 'This Field Is Required!'
@@ -101,6 +73,7 @@ var addNewMember = function () {
         }
     );
     var birthDateFlatpickr;
+    var base64Image;
     const groupsList = [
         { value: 1, name: 'Aerobics', image: 'https://img.freepik.com/free-vector/running-abstract-concept-vector-illustration-sports-lifestyle-daily-workout-training-exercise-speed-race-morning-jogging-outdoor-stadium-marathon-athlete-track-activity-abstract-metaphor_335657-4260.jpg?t=st=1709327762~exp=1709331362~hmac=2684bd0d55a82e65a4e8fb1c0fb117d77a883367a257a0a83d80c3312e9211b4&w=740' },
         { value: 2, name: 'Body Building', image: 'https://img.freepik.com/free-vector/protein-shake-illustration_23-2150017421.jpg?t=st=1709327868~exp=1709331468~hmac=18aca94170607f4193f4f9ea73c87c091d84e0eab82932fc9f7bbd84dc74e98c&w=740' },
@@ -186,6 +159,19 @@ var addNewMember = function () {
         whitelist: groupsList
     })
 
+    // Convert To Base64
+    var convertToBase64 = () => {
+        document.getElementById('Image').addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                base64Image = event.target.result;
+                console.log(base64Image); // Log base64-encoded image
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     // Add New Membership Form Submition
     const formSubmition = () => {
         const submitButton = document.getElementById('add_new_member_form_submit');
@@ -197,31 +183,36 @@ var addNewMember = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     if (status == 'Valid') {
-                        // Show loading indication and Disable button to avoid multiple click
-                        submitButton.setAttribute('data-kt-indicator', 'on');
-                        submitButton.disabled = true;
+                        var data = {};
+                        data.Image = base64Image;
+                        data.StatusId = $('[name="StatusId"]').val();
+                        data.FirstName = $('[name="FirstName"]').val();
+                        data.LastName = $('[name="LastName"]').val();
+                        data.MembershipDescription = $('[name="MembershipDescription"]').val();
+                        data.BirthDate = $('[name="BirthDate"]').val();
+                        data.GenderId = $('[name="GenderId"]').val();
+                        data.PhoneNumber = $('[name="PhoneNumber"]').val();
+                        data.City = $('[name="City"]').val();
+                        data.State = $('[name="State"]').val();
+                        data.Address = $('[name="Address"]').val();
+                        data.Email = $('[name="Email"]').val();
+                        data.Password = $('[name="Password"]').val();
 
-                        // Simulate form submission.
-                        setTimeout(function () {
-                            // Remove loading indication
-                            submitButton.removeAttribute('data-kt-indicator');
-
-                            // Enable button
-                            submitButton.disabled = false;
-
-                            // Show popup confirmation
-                            Swal.fire({
-                                text: "Form has been successfully submitted!",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
-
-                            //form.submit(); // Submit form
-                        }, 2000);
+                        $.ajax({
+                            url: '/GymUser/AddNewMember',
+                            type: 'POST',
+                            data: {
+                                model: data
+                            },
+                            success: function (response) {
+                                //toastr.success("Membership Added successfully!");
+                                //toastr.success("تمت إضافة العضوية بنجاح!");
+                                //window.location.href = `/Membership/MembershipsList`;
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
                     }
                 });
             }
@@ -232,6 +223,7 @@ var addNewMember = function () {
         init: function () {
             initFlatpickr();
             handleMemberStatus();
+            convertToBase64();
             formSubmition();
         }
     };

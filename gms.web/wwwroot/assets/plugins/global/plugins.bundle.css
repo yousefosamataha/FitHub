@@ -46899,7 +46899,7 @@ body.swal2-toast-shown .swal2-container {
 }
 
     .select2-container--bootstrap5.select2-container--disabled .form-select .select2-selection__placeholder, .select2-container--bootstrap5.select2-container--disabled .form-select .select2-selection__rendered {
-        color: var(--bs-gray-500) !important
+        color: var(--bs-gray-600) !important
     }
 
     .select2-container--bootstrap5.select2-container--disabled .form-select.form-select-transparent {

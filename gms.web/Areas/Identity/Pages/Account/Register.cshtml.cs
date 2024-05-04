@@ -1,21 +1,25 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
+﻿using gms.common.Models.GymCat.Branch;
+using gms.common.Models.GymCat.Gym;
+using gms.common.Models.Shared.Country;
+using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data.Models.Identity;
+using gms.service.Gym.GymBranchRepository;
+using gms.service.Gym.GymRepository;
+using gms.service.GymUserRepository;
+using gms.service.Shared.CountryRepository;
+using gms.service.Subscription.SystemSubscriptionRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
+using gms.service.Gym.GymGeneralSettingsRepository;
+using gms.common.Models.GymCat.GymGeneralSetting;
+using gms.data.Models.Gym;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+	public class RegisterModel : PageModel
     {
         private readonly SignInManager<GymUserEntity> _signInManager;
         private readonly UserManager<GymUserEntity> _userManager;
@@ -23,13 +27,25 @@ namespace gms.web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<GymUserEntity> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IGymService _gymService;
+        private readonly ISystemSubscriptionService _systemSubscriptionService;
+        private readonly IGymGeneralSettingService _gymGeneralSettingService;
+        private readonly IGymBranchService _gymBranchService;
+        private readonly ICountryService _countryService;
+        private readonly IGymUserService _gymUserService;
 
         public RegisterModel(
             UserManager<GymUserEntity> userManager,
             IUserStore<GymUserEntity> userStore,
             SignInManager<GymUserEntity> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IGymService gymService,
+            ISystemSubscriptionService systemSubscriptionService,
+            IGymBranchService gymBranchService,
+            ICountryService countryService,
+            IGymUserService gymUserService,
+            IGymGeneralSettingService gymGeneralSettingService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -37,122 +53,118 @@ namespace gms.web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _gymService = gymService;
+            _systemSubscriptionService = systemSubscriptionService;
+            _countryService = countryService;
+            _gymBranchService = gymBranchService;
+            _gymUserService = gymUserService;
+            _gymGeneralSettingService = gymGeneralSettingService;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+        public List<CountryDTO> CountriesList { get; set; }
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            // [Required]
+            // [EmailAddress]
+            // [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            // [Required]
+            // [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            // [DataType(DataType.Password)]
+            // [Display(Name = "Password")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            // [DataType(DataType.Password)]
+            // [Display(Name = "Confirm password")]
+            // [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+            public CreateGymDTO GymDTO { get; set; }
+            public CreateSystemSubscriptionDTO SystemSubscriptionDTO { get; set; }
+            public CreateBranchDTO GymBranchDTO { get; set; }
+            public GymUserEntity GymUser { get; set; }
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            CountriesList = await _countryService.GetCountriesListAsync();
+            // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+
+            // (1) Create Gym
+            var CreatedGym = await _gymService.CreateGymAsync(Input.GymDTO);
+
+			// (2) Create SystemSubscription
+			Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
+            var CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
+
+            // (3) Create GeneralSetting
+            var GeneralSettingEntity = new GymGeneralSettingEntity();
+            var GeneralSettingDTO = new CreateGeneralSettingDTO()
             {
-                var user = CreateUser();
+                Weight = GeneralSettingEntity.Weight,
+                Height = GeneralSettingEntity.Height,
+                Chest = GeneralSettingEntity.Chest,
+                Waist = GeneralSettingEntity.Waist,
+                Thing = GeneralSettingEntity.Thing,
+                Arms = GeneralSettingEntity.Arms,
+                Fat = GeneralSettingEntity.Fat,
+                ReminderDays = GeneralSettingEntity.ReminderDays,
+                ReminderMessage = GeneralSettingEntity.ReminderMessage,
+                IsShared = true,
+                ReportHeader = GeneralSettingEntity.ReportHeader,
+                ReportFooter = GeneralSettingEntity.ReportFooter,
+            };
+            var CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(GeneralSettingDTO);
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+            // (4) Create Branch
+            Input.GymBranchDTO.GymId = CreatedGym.Id;
+            Input.GymBranchDTO.BranchName = "Main Branch";
+            Input.GymBranchDTO.IsMainBranch = true;
+            Input.GymBranchDTO.GeneralSettingId = CreatedGeneralSetting.Id;
+            var CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
+            // (5) Create User
+            var user = CreateUser();
+            user.EmailConfirmed = true;
+            user.BranchId = CreatedBranch.Id;
+            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+            var result = await _userManager.CreateAsync(user, Input.Password);
+            GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+			// (6)
+			//CreatedSystemSubscription.CreatedById = createdUser.Id;
+			//var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);
+			//CreatedGeneralSetting.CreatedById = createdUser.Id;
+			//var updatedGeneralSetting = await _gymGeneralSettingService.UpdateGymGeneralSettingAsync(CreatedGeneralSetting);
+			//CreatedBranch.CreatedById = createdUser.Id;
+			//var updatedBranch = await _gymBranchService.UpdateBranchAsync(CreatedBranch);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return Page();
+			return LocalRedirect(returnUrl);
         }
 
         private GymUserEntity CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<GymUserEntity>();
+                var user = Activator.CreateInstance<GymUserEntity>();
+                user.FirstName = Input.GymUser.FirstName;
+                user.LastName = Input.GymUser.LastName;
+                user.GenderId = Input.GymUser.GenderId;
+                user.BirthDate = Input.GymUser.BirthDate;
+                user.Email = Input.GymUser.Email;
+                return user;
             }
             catch
             {

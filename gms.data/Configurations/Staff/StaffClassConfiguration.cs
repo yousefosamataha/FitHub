@@ -13,8 +13,14 @@ internal class StaffClassConfiguration : IEntityTypeConfiguration<StaffClassEnti
 
         builder.HasKey(sc => sc.Id);
 
+        builder.HasOne(sc => sc.GymStaffUser)
+               .WithMany(gu => gu.StaffClasses)
+               .HasForeignKey(sc => sc.StaffId)
+               .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasOne(sc => sc.ClassSchedule)
                .WithMany(cs => cs.StaffClasses)
-               .HasForeignKey(sc => sc.ClassId);
+               .HasForeignKey(sc => sc.ClassScheduleId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

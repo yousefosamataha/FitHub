@@ -15,20 +15,29 @@ internal class ActivityConfiguration : IEntityTypeConfiguration<ActivityEntity>
 
         builder.Property(a => a.Title).IsRequired().HasMaxLength(256);
 
-        builder.HasOne(a => a.ActivityCategory)
-               .WithMany(ac => ac.Activities)
-               .HasForeignKey(a => a.ActivityCategoryId);
+        builder.HasOne(a => a.GymBranch)
+               .WithMany(gb => gb.Activities)
+               .HasForeignKey(a => a.BranchId);
 
         builder.HasMany(a => a.MembershipActivities)
                .WithOne(ma => ma.Activity)
-               .HasForeignKey(ma => ma.ActivityId);
+               .HasForeignKey(ma => ma.ActivityId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(a => a.ActivityVideos)
                .WithOne(av => av.Activity)
                .HasForeignKey(av => av.ActivityId);
 
+        builder.HasOne(a => a.ActivityCategory)
+               .WithMany(ac => ac.Activities)
+               .HasForeignKey(a => a.ActivityCategoryId)
+               .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasMany(a => a.WorkoutPlanActivities)
                .WithOne(wpa => wpa.Activity)
-               .HasForeignKey(wpa => wpa.ActivityId);
+               .HasForeignKey(wpa => wpa.ActivityId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(a => a.IsDeleted == false);
     }
 }
