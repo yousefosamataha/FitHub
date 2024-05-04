@@ -1,5 +1,5 @@
 "use strict";
-import { globalClass } from './custom.js';
+import { globalClass } from '../custom.js';
 
 // Class definition
 var editMembership = function () {
@@ -185,7 +185,6 @@ var editMembership = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     if (status == 'Valid') {
-                        // form.submit();
                         var data = {};
                         data.Id = $('[name="Id"]').val();
                         data.BranchId = $('[name="BranchId"]').val();
@@ -197,7 +196,7 @@ var editMembership = function () {
                         data.ClassIsLimit = $('[name="ClassIsLimit"][checked="checked"]').val();
                         data.ClassLimitDays = $('[name="ClassLimitDays"]').val();
                         data.ClassLimitationId = $('[name="ClassLimitationId"]').val();
-                        data.SelectedClasses = tagify.value;
+                        // data.SelectedClasses = tagify.value;
                         data.MembershipAmount = $('[name="MembershipAmount"]').val();
                         data.SignupFee = $('[name="SignupFee"]').val();
 

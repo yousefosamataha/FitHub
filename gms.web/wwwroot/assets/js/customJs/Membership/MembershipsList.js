@@ -1,5 +1,5 @@
 ﻿"use strict";
-import { globalClass } from './custom.js';
+import { globalClass } from '../custom.js';
 
 // Class definition
 var membershipsList = function () {
@@ -156,14 +156,14 @@ var membershipsList = function () {
         deleteButtons.forEach(d => {
             d.addEventListener("click", function (e) {
                 // Select parent row
-                const parent = e.target.closest('tr');
+                const parent = this.closest('tr');
 
                 $.ajax({
                     url: '/Membership/DeleteMembership',
                     type: 'POST',
                     data: {
-                        id: e.target.dataset.id,
-                        branchId: e.target.dataset.branchId
+                        id: this.dataset.id,
+                        branchId: this.dataset.branchId
                     },
                     success: function (response) {
                         // Remove current row
@@ -175,8 +175,6 @@ var membershipsList = function () {
                         console.error('Error:', error);
                     }
                 });
-
-                // window.location.href = `/Membership/DeleteMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
             });
         });
     }
@@ -270,8 +268,6 @@ var membershipsList = function () {
             initFlatpickr();
             handleSearchDatatable();
             handleTableFilter();
-            // handleDeleteRows();
-            // convertEnglishDigitsToArabicDigits();
             editMembership();
             deleteMembership();
         }

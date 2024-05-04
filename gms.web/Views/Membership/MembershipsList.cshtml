@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = localizer["memberships_list"];
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
-    var test = Model;
 }
 
 <!--begin::Content wrapper-->
@@ -25,7 +24,6 @@
                     <ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
                         <li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
                         <li class="breadcrumb-item text-gray-600">@localizer["memberships"]</li>
-                        @* <li class="breadcrumb-item text-gray-600">@localizer["membershipslist"]</li> *@
                     </ol>
                     <!--end::Breadcrumb-->
                 </div>
@@ -193,5 +191,5 @@
 <!--end::Content wrapper-->
 
 @section Scripts {
-    <script type="module" src="~/assets/js/customJs/MembershipsList.js" asp-append-version="true"></script>
+    <script type="module" src="~/assets/js/customJs/Membership/MembershipsList.js" asp-append-version="true"></script>
 }

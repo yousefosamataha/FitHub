@@ -1,5 +1,5 @@
-﻿@using gms.common.ViewModels.Membership
-@model MembershipVM
+﻿@using gms.common.Models.MembershipCat
+@model MembershipDTO
 @{
 	ViewData["Title"] = localizer["editmembership"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
@@ -40,8 +40,7 @@
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
 			<!--begin::Form-->
-@* 			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" asp-action="UpdateMembershipPlan" method="post">
- *@			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<input type="hidden" asp-for="@Model.Id" />
 				<input type="hidden" asp-for="@Model.BranchId" />
 				<!--begin::Aside column-->
@@ -244,5 +243,5 @@
 <!--end::Content wrapper-->
 
 @section Scripts {
-	<script type="module" src="~/assets/js/customJs/EditMembership.js" asp-append-version="true"></script>
+	<script type="module" src="~/assets/js/customJs/Membership/EditMembership.js" asp-append-version="true"></script>
 }

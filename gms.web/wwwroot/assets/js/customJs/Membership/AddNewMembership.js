@@ -1,11 +1,11 @@
 ﻿"use strict";
-import { globalClass } from './custom.js';
+import { globalClass } from '../custom.js';
 
 // Class definition
 var addNewMembership = function () {
     // Shared variables
     const form = document.getElementById('add_new_membership_form');
-    const selectClassesInputElm = document.querySelector('#SelectedClasses');
+    const selectClassesInputElm = document.querySelector('[name="SelectedClasses"]');
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     const hostName = window.location.origin;
     var classesList = [
@@ -199,7 +199,6 @@ var addNewMembership = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     if (status == 'Valid') {
-                        // form.submit();
                         var data = {};
                         data.MembershipStatusId = $('[name="MembershipStatusId"]').val();
                         data.MembershipName = $('[name="MembershipName"]').val();
@@ -209,7 +208,7 @@ var addNewMembership = function () {
                         data.ClassIsLimit = $('[name="ClassIsLimit"][checked="checked"]').val();
                         data.ClassLimitDays = $('[name="ClassLimitDays"]').val();
                         data.ClassLimitationId = $('[name="ClassLimitationId"]').val();
-                        data.SelectedClasses = tagify.value;
+                        // data.SelectedClasses = tagify.value;
                         data.MembershipAmount = $('[name="MembershipAmount"]').val();
                         data.SignupFee = $('[name="SignupFee"]').val();
 
@@ -217,13 +216,12 @@ var addNewMembership = function () {
                             url: '/Membership/AddNewMembership',
                             type: 'POST',
                             data: {
-                                model: data
+                                modelDTO: data
                             },
-                            // dataType: "json",
-                            // contentType: "application/json; charset=utf-8;",
                             success: function (response) {
-                                //toastr.success("Membership Added successfully!");
-                                //toastr.success("تمت إضافة العضوية بنجاح!");
+                                console.log("Membership Added successfully!");
+                                // toastr.success("Membership Added successfully!");
+                                // toastr.success("تمت إضافة العضوية بنجاح!");
                                 window.location.href = `/Membership/MembershipsList`;
                             },
                             error: function (xhr, status, error) {

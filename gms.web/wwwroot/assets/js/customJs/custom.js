@@ -100,7 +100,7 @@ var globalClass = function () {
 
     // [6] Declare Toastr Options
     toastr.options = {
-        "closeButton": true,
+        "closeButton": false,
         "debug": false,
         "newestOnTop": true,
         "progressBar": false,
@@ -109,7 +109,7 @@ var globalClass = function () {
         "onclick": null,
         "showDuration": "300",
         "hideDuration": "1000",
-        "timeOut": "500000",
+        "timeOut": "1500",
         "extendedTimeOut": "1000",
         "showEasing": "swing",
         "hideEasing": "linear",

@@ -20,11 +20,10 @@ public static class MembershipMapper
 			ClassIsLimit = source.ClassIsLimit,
 			ClassLimitDays = source.ClassLimitDays,
 			ClassLimitationId = source.ClassLimitationId,
-			CreatedById = source.CreatedById,
 		};
 	}
 
-	public static MembershipDTO ToDTO(this GymMembershipPlanEntity source, string? TimezoneOffset = null)
+	public static MembershipDTO ToDTO(this GymMembershipPlanEntity source, string? TimezoneOffset = "0")
 	{
 		return new MembershipDTO()
 		{
