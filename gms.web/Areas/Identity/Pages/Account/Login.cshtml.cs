@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using gms.common.Models.Identity;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.GymUserRepository;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using System.Security.Claims;
 namespace gms.web.Areas.Identity.Pages.Account
 {
@@ -106,24 +106,33 @@ namespace gms.web.Areas.Identity.Pages.Account
 
         private async Task<List<Claim>> GetCustomClaims(GymUserEntity user)
         {
-            List<Claim> claims = new();
-
-            PropertyInfo[] properties = (user.ToClaimsDTO()).GetType().GetProperties();
-
-            foreach (PropertyInfo property in properties)
+            try
             {
-                object value = property.GetValue(user);
-                if (value is not null)
-                    claims.Add(new Claim(property.Name, value.ToString()));
+                List<Claim> claims = new();
+
+                GymUserClaimsDto claimsObject = user.ToClaimsDTO();
+
+                claims.Add(new Claim("UserId", claimsObject.UserId.ToString()));
+                claims.Add(new Claim("GymId", claimsObject.GymId.ToString()));
+                claims.Add(new Claim("BranchId", claimsObject.BranchId.ToString()));
+                claims.Add(new Claim("Name", claimsObject.Name.ToString()));
+                claims.Add(new Claim("GenderId", claimsObject.GenderId.ToString()));
+                claims.Add(new Claim("UserStatusId", claimsObject.UserStatusId.ToString()));
+                claims.Add(new Claim("GymUserTypeId", claimsObject.GymUserTypeId.ToString()));
+
+                ClaimsIdentity identity = new(claims);
+
+                ClaimsPrincipal userPrincipal = new(identity);
+
+                await _userManager.AddClaimsAsync(user, claims);
+
+                return claims;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
 
-            ClaimsIdentity identity = new(claims);
-
-            ClaimsPrincipal userPrincipal = new(identity);
-
-            await _userManager.AddClaimsAsync(user, claims);
-
-            return claims;
         }
     }
 }
