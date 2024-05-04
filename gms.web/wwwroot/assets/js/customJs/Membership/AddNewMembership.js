@@ -225,7 +225,7 @@ var addNewMembership = function () {
                                     console.log("Membership Added successfully!");
                                     // toastr.success("Membership Added successfully!");
                                     // toastr.success("تمت إضافة العضوية بنجاح!");
-                                    window.location.href = `/Membership/MembershipsList`;
+                                    window.location.href = `/Membership`;
                                 }
                             },
                             error: function (xhr, status, error) {

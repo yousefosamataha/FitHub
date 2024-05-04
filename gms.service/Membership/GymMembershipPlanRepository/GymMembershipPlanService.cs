@@ -26,7 +26,8 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
     public async Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership)
 	{
 		GymMembershipPlanEntity newMembershipEntity = newMembership.ToEntity();
-		await AddAsync(newMembershipEntity);
+        newMembershipEntity.BranchId = GetBranchId();
+        await AddAsync(newMembershipEntity);
 		return newMembershipEntity.ToDTO();
 	}
 
