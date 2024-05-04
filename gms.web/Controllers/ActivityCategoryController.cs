@@ -1,53 +1,53 @@
-﻿using gms.common.Models.ActivityCat.ActivityCategory;
-using gms.data.Mapper.Activity;
-using gms.data.Models.Activity;
-using gms.service.Activity.ActivityCategoryRepository;
-using Microsoft.AspNetCore.Mvc;
+﻿//using gms.common.Models.ActivityCat.ActivityCategory;
+//using gms.data.Mapper.Activity;
+//using gms.data.Models.Activity;
+//using gms.service.Activity.ActivityCategoryRepository;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace gms.web.Controllers;
+//namespace gms.web.Controllers;
 
-public class ActivityCategoryController : Controller
-{
-    private readonly IActivityCategoryService _activityCategoryService;
+//public class ActivityCategoryController : Controller
+//{
+//    private readonly IActivityCategoryService _activityCategoryService;
 
-    public ActivityCategoryController(IActivityCategoryService activityCategoryService = null)
-    {
-        _activityCategoryService = activityCategoryService;
-    }
+//    public ActivityCategoryController(IActivityCategoryService activityCategoryService = null)
+//    {
+//        _activityCategoryService = activityCategoryService;
+//    }
 
-    [HttpGet]
-    public IActionResult Create()
-    {
-        CreateActivityCategoryDTO model = new()
-        {
-            Name = string.Empty
-        };
+//    [HttpGet]
+//    public IActionResult Create()
+//    {
+//        CreateActivityCategoryDTO model = new()
+//        {
+//            Name = string.Empty
+//        };
 
-        return View(model);
-    }
+//        return View(model);
+//    }
 
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateActivityCategoryDTO newModel)
-    {
-        ActivityCategoryEntity entity = await _activityCategoryService.AddAsync(newModel.ToEntity());
+//    [HttpPost]
+//    public async Task<IActionResult> Create(CreateActivityCategoryDTO newModel)
+//    {
+//        ActivityCategoryEntity entity = await _activityCategoryService.AddAsync(newModel.ToEntity());
 
-        ActivityCategoryDTO entityDto = entity.ToDTO();
+//        ActivityCategoryDTO entityDto = entity.ToDTO();
 
-        return RedirectToAction(nameof(Index));
-    }
+//        return RedirectToAction(nameof(Index));
+//    }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Edit(int id)
-    {
-        ActivityCategoryDTO entity = await _activityCategoryService.GetByIdAsync(id);
-        return View(entity);
-    }
+//    [HttpGet]
+//    public async Task<IActionResult> Edit(int id)
+//    {
+//        ActivityCategoryDTO entity = await _activityCategoryService.GetByIdAsync(id);
+//        return View(entity);
+//    }
 
-    [HttpGet]
-    public async Task<IActionResult> Index()
-    {
-        List<ActivityCategoryDTO> entitiesDtos = (await _activityCategoryService.GetAllAsync()).Select(ac => ac.ToDTO()).ToList();
+//    [HttpGet]
+//    public async Task<IActionResult> Index()
+//    {
+//        List<ActivityCategoryDTO> entitiesDtos = (await _activityCategoryService.GetAllAsync()).Select(ac => ac.ToDTO()).ToList();
 
-        return View(entitiesDtos);
-    }
-}
+//        return View(entitiesDtos);
+//    }
+//}
