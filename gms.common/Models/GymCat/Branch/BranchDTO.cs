@@ -1,4 +1,6 @@
-﻿namespace gms.common.Models.GymCat.Branch;
+﻿using gms.common.Models.Shared.Country;
+
+namespace gms.common.Models.GymCat.Branch;
 
 public record BranchDTO
 {
@@ -13,4 +15,5 @@ public record BranchDTO
     public bool IsMainBranch { get; init; }
     public int GeneralSettingId { get; init; }
 	public int? CreatedById { get; init; }
+    public CountryDTO Country { get; init; }
 }

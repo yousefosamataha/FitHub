@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.Shared.Country;
 
-public record struct CountryDTO
+public record CountryDTO
 {
     public int Id { get; init; }
     public required string Name { get; init; }

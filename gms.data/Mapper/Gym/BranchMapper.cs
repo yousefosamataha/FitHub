@@ -1,4 +1,5 @@
 ﻿using gms.common.Models.GymCat.Branch;
+using gms.data.Mapper.Shared;
 using gms.data.Models.Gym;
 
 namespace gms.data.Mapper.Gym;
@@ -35,6 +36,7 @@ public static class BranchMapper
             IsMainBranch = source.IsMainBranch,
             GeneralSettingId = source.GeneralSettingId,
 			CreatedById = source.CreatedById,
+            Country = source.Country.ToDTO()
 		};
     }
 
