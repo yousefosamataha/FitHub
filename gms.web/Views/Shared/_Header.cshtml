@@ -14,9 +14,17 @@
             </div>
             <!--end::Sidebar mobile toggle-->
             <!--begin::Logo-->
-            <a href="../../demo39/dist/index.html" class="app-sidebar-logo">
-                <img alt="Logo" src="~/assets/media/logos/demo39.svg" class="h-25px theme-light-show" />
-                <img alt="Logo" src="~/assets/media/logos/demo39-dark.svg" class="h-25px theme-dark-show" />
+            <a asp-controller="Home" asp-action="Index" class="app-sidebar-logo">
+                @if(!IsRTL)
+                {
+                    <img alt="Logo" src="~/assets/Images/logo_title_dark_ltr.png" class="h-30px h-lg-35px theme-light-show" />
+                    <img alt="Logo" src="~/assets/Images/logo_title_light_ltr.png" class="h-30px h-lg-35px theme-dark-show" />
+                }
+                else
+                {
+                    <img alt="Logo" src="~/assets/Images/logo_title_dark_rtl.png" class="h-30px h-lg-35px theme-light-show" />
+                    <img alt="Logo" src="~/assets/Images/logo_title_light_rtl.png" class="h-30px h-lg-35px theme-dark-show" />
+                }
             </a>
             <!--end::Logo-->
         </div>

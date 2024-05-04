@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.ActivityCat.ActivityVideo;
 
-public record struct CreateActivityVideoDTO
+public record CreateActivityVideoDTO
 {
     public int ActivityId { get; init; }
 

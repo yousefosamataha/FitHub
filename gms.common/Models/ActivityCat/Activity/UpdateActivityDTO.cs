@@ -1,5 +1,5 @@
 ﻿namespace gms.common.Models.ActivityCat.Activity;
-public record struct UpdateActivityDTO
+public record UpdateActivityDTO
 {
     public int BranchId { get; init; }
 
