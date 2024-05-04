@@ -51,7 +51,9 @@ public static class GymUserMapper
             UserId = entity.Id,
             GymId = entity.GymBranch.GymId,
             BranchId = entity.BranchId,
-            Name = entity.FirstName + " " + entity.LastName,
+            FirstName = entity.FirstName,
+            LastName = entity.LastName,
+			Email = entity.Email,
             GenderId = entity.GenderId,
             GymUserTypeId = entity.GymUserTypeId,
             UserStatusId = entity.StatusId

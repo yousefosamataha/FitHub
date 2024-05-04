@@ -38,7 +38,7 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     public int GetUserId()
     {
-        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value, out int result))
+		if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value, out int result))
             return result;
         else
             return 0;
@@ -46,7 +46,7 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     public int GetBranchId()
     {
-        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
+        if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
             return result;
         else
             return 0;
@@ -54,7 +54,7 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     public int GetGymId()
     {
-        if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
+        if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
             return result;
         else
             return 0;

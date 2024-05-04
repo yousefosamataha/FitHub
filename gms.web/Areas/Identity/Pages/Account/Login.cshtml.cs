@@ -115,9 +115,11 @@ namespace gms.web.Areas.Identity.Pages.Account
                 claims.Add(new Claim("UserId", claimsObject.UserId.ToString()));
                 claims.Add(new Claim("GymId", claimsObject.GymId.ToString()));
                 claims.Add(new Claim("BranchId", claimsObject.BranchId.ToString()));
-                claims.Add(new Claim("Name", claimsObject.Name.ToString()));
+                claims.Add(new Claim("FirstName", claimsObject.FirstName.ToString()));
+                claims.Add(new Claim("LastName", claimsObject.LastName.ToString()));
                 claims.Add(new Claim("GenderId", claimsObject.GenderId.ToString()));
-                claims.Add(new Claim("UserStatusId", claimsObject.UserStatusId.ToString()));
+                claims.Add(new Claim("Email", claimsObject.Email.ToString()));
+                // claims.Add(new Claim("UserStatusId", claimsObject.UserStatusId.ToString()));
                 claims.Add(new Claim("GymUserTypeId", claimsObject.GymUserTypeId.ToString()));
 
                 ClaimsIdentity identity = new(claims);
