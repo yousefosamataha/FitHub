@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using gms.common.Models.Identity;
+using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Authentication;
@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Security.Claims;
-
 namespace gms.web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
@@ -85,22 +84,12 @@ namespace gms.web.Areas.Identity.Pages.Account
 
                     if (user is not null)
                     {
-                        //List<Claim> claims = GetCustomClaims(user.ToClaimsDTO());
+                        await GetCustomClaims(user);
 
-                        //ClaimsPrincipal userPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
-
-                        //((ClaimsIdentity)userPrincipal.Identity).AddClaims(claims);
-
-                        //await _userManager.UpdateSecurityStampAsync(user);
-
-                        //await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, userPrincipal,
-                        //    new AuthenticationProperties
-                        //    {
-                        //        IsPersistent = Input.RememberMe
-                        //    }
-                        //);
+                        await _signInManager.RefreshSignInAsync(user);
 
                         _logger.LogInformation("User logged in.");
+
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -115,11 +104,11 @@ namespace gms.web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private List<Claim> GetCustomClaims(GymUserClaimsDto user)
+        private async Task<List<Claim>> GetCustomClaims(GymUserEntity user)
         {
             List<Claim> claims = new();
 
-            PropertyInfo[] properties = user.GetType().GetProperties();
+            PropertyInfo[] properties = (user.ToClaimsDTO()).GetType().GetProperties();
 
             foreach (PropertyInfo property in properties)
             {
@@ -127,6 +116,12 @@ namespace gms.web.Areas.Identity.Pages.Account
                 if (value is not null)
                     claims.Add(new Claim(property.Name, value.ToString()));
             }
+
+            ClaimsIdentity identity = new(claims);
+
+            ClaimsPrincipal userPrincipal = new(identity);
+
+            await _userManager.AddClaimsAsync(user, claims);
 
             return claims;
         }
