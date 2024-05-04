@@ -6,6 +6,6 @@ namespace gms.service.Gym.GymBranchRepository;
 public interface IGymBranchService : IBaseRepository<GymBranchEntity>
 {
     Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch);
-    Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch, int? userId);
+
     Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO);
 }
