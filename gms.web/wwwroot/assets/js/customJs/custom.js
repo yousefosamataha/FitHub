@@ -2,7 +2,6 @@
 
 // Class definition
 var globalClass = function () {
-
     // [1] Activat SideMenu Tab
     var activeSideMenuTab = function () {
         let pathname = window.location.pathname;
@@ -26,13 +25,15 @@ var globalClass = function () {
 
     // [2] Sidebar Minimiz Status
     var sidebarMinimizeClick = function () {
-        document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
-            if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
-                sessionStorage.setItem("sidebar-minimize", false);
-            } else {
-                sessionStorage.setItem("sidebar-minimize", true);
-            }
-        });
+        if (document.getElementById("kt_app_sidebar_toggle")) {
+            document.getElementById("kt_app_sidebar_toggle").addEventListener("click", () => {
+                if (document.getElementById("kt_app_sidebar_toggle").classList.contains("active")) {
+                    sessionStorage.setItem("sidebar-minimize", false);
+                } else {
+                    sessionStorage.setItem("sidebar-minimize", true);
+                }
+            });
+        }
     }
 
     var activeSidebarMinimize = function () {
@@ -90,16 +91,49 @@ var globalClass = function () {
         return flatpickrOptions;
     }
 
+    // [5] SignOut Button Submit Action
+    function signOut() {
+        $("#SignOutButton").on('click', function () {
+            $(this).parent().submit();
+        });
+    }
+
+    // [6] Declare Toastr Options
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toastr-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "1500",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    // [7] Handle Delete Tooltip
+    var handleDeleteTooltip = function () {
+        document.querySelectorAll(".tooltip").forEach(e => e.remove());
+    }
+
     return {
         init: function () {
             activeSideMenuTab();
             sidebarMinimizeClick();
             activeSidebarMinimize();
+            signOut();
         },
         checkLanguage: function (cname) {
             return getCookie(cname);
         },
-        flatpickrLanguage: specifyFlatpickrLanguage()
+        flatpickrLanguage: specifyFlatpickrLanguage(),
+        handleTooltip: () => handleDeleteTooltip()
     };
 }();
 

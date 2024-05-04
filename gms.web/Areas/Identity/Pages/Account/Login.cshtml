@@ -109,7 +109,7 @@
                                     <!--begin::Input group--->
                                     <div class="fv-row mb-8 fv-plugins-icon-container">
                                         <!--begin::Email-->
-                                        <input asp-for="Input.Email" class="form-control form-control-solid" autocomplete="username" aria-required="true" placeholder="Email" />
+                                        <input asp-for="Input.Email" class="form-control form-control-solid" autocomplete="off" aria-required="true" placeholder="Email" />
                                         <!--end::Email-->
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         <span asp-validation-for="Input.Email" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></span>
@@ -117,7 +117,7 @@
                                     <!--end::Input group--->
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <!--begin::Password-->
-                                        <input asp-for="Input.Password" class="form-control form-control-solid" autocomplete="current-password" aria-required="true" placeholder="password" />
+                                        <input asp-for="Input.Password" class="form-control form-control-solid" autocomplete="off" aria-required="true" placeholder="password" />
                                         <!--end::Password-->
                                         <span asp-validation-for="Input.Password" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></span>
                                     </div>

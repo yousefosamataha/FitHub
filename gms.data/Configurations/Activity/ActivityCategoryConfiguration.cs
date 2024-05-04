@@ -13,8 +13,17 @@ internal class ActivityCategoryConfiguration : IEntityTypeConfiguration<Activity
 
         builder.HasKey(ac => ac.Id);
 
-        builder.Property(ac => ac.Name)
-               .IsRequired()
-               .HasMaxLength(100);
+        builder.Property(ac => ac.Name).IsRequired().HasMaxLength(100);
+
+        builder.HasOne(ac => ac.GymBranch)
+               .WithMany(gb => gb.ActivityCategories)
+               .HasForeignKey(ac => ac.BranchId);
+
+        builder.HasMany(ac => ac.Activities)
+               .WithOne(a => a.ActivityCategory)
+               .HasForeignKey(a => a.ActivityCategoryId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(ac => ac.IsDeleted == false);
     }
 }

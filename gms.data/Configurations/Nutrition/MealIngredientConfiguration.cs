@@ -13,6 +13,8 @@ internal class MealIngredientConfiguration : IEntityTypeConfiguration<MealIngred
 
         builder.HasKey(mi => mi.Id);
 
+        builder.Property(mi => mi.Title).IsRequired().HasMaxLength(256);
+
         builder.Property(mi => mi.Calories).HasPrecision(18, 2);
         builder.Property(mi => mi.ServingSizeG).HasPrecision(18, 2);
         builder.Property(mi => mi.FatTotalG).HasPrecision(18, 2);
@@ -27,6 +29,8 @@ internal class MealIngredientConfiguration : IEntityTypeConfiguration<MealIngred
 
         builder.HasOne(mi => mi.NutritionPlanMeal)
                .WithMany(npm => npm.MealIngredients)
-               .HasForeignKey(mi => mi.MealId);
+               .HasForeignKey(mi => mi.NutritionPlanMealId);
+
+        builder.HasQueryFilter(mi => mi.IsDeleted == false);
     }
 }

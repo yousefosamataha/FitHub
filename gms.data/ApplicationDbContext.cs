@@ -4,6 +4,8 @@ using gms.data.Models.Enum;
 using gms.data.Models.Event;
 using gms.data.Models.Gym;
 using gms.data.Models.Identity;
+using gms.data.Models.Member;
+using gms.data.Models.Membership;
 using gms.data.Models.Nutrition;
 using gms.data.Models.Shared;
 using gms.data.Models.Staff;
@@ -11,7 +13,6 @@ using gms.data.Models.Subscription;
 using gms.data.Models.Workout;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace gms.data;
 public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentityRoleEntity, int, GymUserClaimEntity, GymUserRoleEntity, GymUserLoginEntity, GymRoleClaimEntity, GymUserTokenEntity>
@@ -39,7 +40,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     #endregion
 
     #region Subscription
-    public DbSet<PlanEntity> SystemPlans { get; set; }
+    public DbSet<SystemPlanEntity> SystemPlans { get; set; }
     public DbSet<SystemSubscriptionEntity> SystemSubscriptions { get; set; }
     public DbSet<SubscriptionPaymentEntity> SubscriptionsPayments { get; set; }
     #endregion
@@ -51,12 +52,22 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<GymNotificationEntity> GymNotifications { get; set; }
     public DbSet<MeasurementImageEntity> MeasurementImages { get; set; }
     public DbSet<GymMeasurementEntity> GymMeasurements { get; set; }
-    //public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
-    //public DbSet<GymBranchUsersEntity> GymBranchUsers { get; set; }
+    public DbSet<GymSpecializationEntity> GymSpecializations { get; set; }
+    public DbSet<GymGroupEntity> GymGroups { get; set; }
+    public DbSet<GymMemberGroupEntity> GymMemberGroups { get; set; }
+    public DbSet<GymStaffGroupEntity> GymStaffGroups { get; set; }
+    public DbSet<GymLocationEntity> ClassLocations { get; set; }
     #endregion
 
     #region Shared
     public DbSet<CountryEntity> Countries { get; set; }
+    #endregion
+
+    #region Membership
+    public DbSet<GymMembershipPlanEntity> GymMembershipPlans { get; set; }
+    public DbSet<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
+    public DbSet<GymMembershipPaymentHistoryEntity> GymMembershipPaymentHistories { get; set; }
+    public DbSet<GymMembershipPlanClassEntity> GymMembershipPlanClasses { get; set; }
     #endregion
 
     #region Activity
@@ -89,7 +100,6 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
 
     #region Class
     public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
-    public DbSet<ClassLocationEntity> ClassLocations { get; set; }
     public DbSet<ClassScheduleDayEntity> ClassScheduleDays { get; set; }
     #endregion
 
@@ -97,10 +107,17 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<StaffClassEntity> StaffClasses { get; set; }
     #endregion
 
-    #region Event
-    public DbSet<GymEventPlaceEntity> GymEventPlaces { get; set; }
+    #region Member
+    public DbSet<MemberClassEntity> MemberClasses { get; set; }
     #endregion
 
+    #region Event
+    public DbSet<GymEventReservationEntity> GymEventReservations { get; set; }
+    #endregion
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseLazyLoadingProxies();
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

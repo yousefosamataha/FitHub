@@ -1,11 +1,14 @@
-﻿using gms.data.Models.Base;
+﻿using gms.common.Enums;
+using gms.data.Models.Base;
 
 namespace gms.data.Models.Gym;
 
 public class MeasurementImageEntity : BaseEntity
 {
+	public int GymMeasurementId { get; set; }
 	public byte[] Image { get; set; }
-	public int MeasurementId { get; set; }
+    public ImageTypeEnum ImageTypeId { get; set; }
 
-	public GymMeasurementEntity GymMeasurement { get; set; }
+    // Navigation properties
+    public GymMeasurementEntity GymMeasurement { get; set; }
 }

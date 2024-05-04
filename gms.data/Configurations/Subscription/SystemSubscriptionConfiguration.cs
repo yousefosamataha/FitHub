@@ -15,5 +15,12 @@ internal class SystemSubscriptionConfiguration : IEntityTypeConfiguration<System
 
         builder.Property(ss => ss.SubscriptionAmount).HasPrecision(18, 2);
 
+        builder.HasOne(ss => ss.Gym)
+               .WithMany(g => g.SystemSubscriptions)
+               .HasForeignKey(ss => ss.GymId);
+
+        builder.HasMany(ss => ss.SubscriptionPayments)
+               .WithOne(sp => sp.SystemSubscription)
+               .HasForeignKey(sp => sp.SubscriptionId);
     }
 }
