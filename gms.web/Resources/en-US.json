@@ -35,6 +35,7 @@
   "to": "To",
   "thisfieldisrequired": "This Field Is Required !",
   "otheractions": "Other Actions",
+  "allowed_file_types": "Allowed file types: png, jpg, jpeg.",
   "---badge_status---": "------------------------------------------",
   "status": "Status",
   "all": "All",
@@ -157,5 +158,7 @@
   "select_location": "Select Location",
   "booking_fees": "Booking Fees",
   "start_time": "Start Time",
-  "end_time": "End Time"
+  "end_time": "End Time",
+  "---groups_list---": "------------------",
+  "group_name": "Group Name"
 }

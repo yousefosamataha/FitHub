@@ -40,7 +40,7 @@ public static class MembershipMapper
 			ClassLimitDays = source.ClassLimitDays,
 			ClassLimitationId = source.ClassLimitationId,
 			CreatedById = source.CreatedById,
-			CreatedAt = source.CreatedAt.AddHours(int.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
+			CreatedAt = source.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
 		};
 	}
 

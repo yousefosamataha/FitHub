@@ -1,6 +1,5 @@
-﻿
-using gms.common.Models.GymCat.GymGroup;
-using gms.common.ViewModels.Gym;
+﻿using gms.common.Models.GymCat.GymGroup;
+using gms.data.Mapper.Gym;
 using gms.service.Gym.GymGroupRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,38 +13,50 @@ public class GymController : BaseController<GymController>
 		_gymGroupService = gymGroupService;
 	}
 
+
+    #region Gym Group Cat
     public IActionResult AddNewGroup()
     {
-        return View();
+        return PartialView("_AddNewGroup");
     }
 
     [HttpPost]
-	public async Task<IActionResult> AddNewGroup(GymGroupVM model)
+	public async Task<IActionResult> AddNewGroup(CreateGymGroupDTO model)
 	{
-		var currentUser = await GetCurrentUserData();
-		var modelDTO = new CreateGymGroupDTO()
-		{
-			BranchId = currentUser.BranchId,
+		CreateGymGroupDTO modelDTO = new () {
+			BranchId = GetBranchId(),
 			Name = model.Name,	
 			Image = model.Image?.Split(";base64,")[1],
 			ImageType = model.Image?.Split(";base64,")[0].Split("data:image/")[1],
 		};
 		var result = await _gymGroupService.AddGymGroupAsync(modelDTO);
-		return View();
+		return Json(result);
 	}
 
 	public async Task<IActionResult> GroupsList()
 	{
-		var currentUser = await GetCurrentUserData();
-		var listOfGymGroup = await _gymGroupService.GetGymGroupsListAsync(currentUser.BranchId);
-		var listOfGymGroupVM = listOfGymGroup.Select(gg => new GymGroupVM()
-		{
-			Id = gg.Id,
-			BranchId = gg.BranchId,
-			Image = gg.Image,
-			Name = gg.Name,
-		}).ToList();
-
-		return View(listOfGymGroupVM);
+        List<GymGroupDTO> listOfGymGroups = await _gymGroupService.GetGymGroupsListAsync();
+		return View(listOfGymGroups);
 	}
+
+    public async Task<IActionResult> EditGroup(int id)
+    {
+        var group = await _gymGroupService.GetGroupAsync(id);
+        return PartialView("_EditGroup", group.ToUpdateDTO());
+    }
+
+	[HttpPost]
+	public async Task<JsonResult> UpdateGroup(UpdateGroupDTO modelDTO)
+	{
+		await _gymGroupService.UpdateGymGroupAsync(modelDTO);
+		return Json(new { Success = true, Message = "" });
+	}
+
+	[HttpPost]
+    public async Task<JsonResult> DeleteGroup(int id)
+    {
+        await _gymGroupService.DeleteGroupAsync(id);
+        return Json(new { Success = true, Message = "" });
+    }
+    #endregion
 }

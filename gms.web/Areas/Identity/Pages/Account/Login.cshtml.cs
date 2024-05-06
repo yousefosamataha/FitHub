@@ -119,7 +119,7 @@ namespace gms.web.Areas.Identity.Pages.Account
                 claims.Add(new Claim("LastName", claimsObject.LastName.ToString()));
                 claims.Add(new Claim("GenderId", claimsObject.GenderId.ToString()));
                 claims.Add(new Claim("Email", claimsObject.Email.ToString()));
-                // claims.Add(new Claim("UserStatusId", claimsObject.UserStatusId.ToString()));
+                claims.Add(new Claim("UserStatusId", claimsObject.UserStatusId.ToString()));
                 claims.Add(new Claim("GymUserTypeId", claimsObject.GymUserTypeId.ToString()));
 
                 ClaimsIdentity identity = new(claims);
