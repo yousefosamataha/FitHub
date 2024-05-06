@@ -99,13 +99,8 @@ public class HomeController : BaseController<HomeController>
     [HttpGet]
     public IActionResult GetJsonlocalizer(string culture)
     {
-        // var ReadJson = System.IO.File.ReadAllText(@"~/" + culture + ".json");
-        // Get the path to the JSON file
         string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", $"{culture}.json");
-
-        // Read the entire file content as a string
         string jsonContent = System.IO.File.ReadAllText(filePath);
-
-        return Content(jsonContent, "application/json");
+		return Content(jsonContent, "application/json");
     }
 }
