@@ -1,5 +1,6 @@
 ﻿using gms.common.Models.Identity;
 using gms.common.Models.IdentityCat;
+using gms.common.Models.Role;
 using gms.common.ViewModels;
 using gms.data.Models.Identity;
 
@@ -7,8 +8,8 @@ namespace gms.service.GymUserRepository;
 public interface IGymUserService
 {
     Task<List<GymUserViewModel>> GetAllUserByGymIdAsync();
-    Task<GymUserRolesViewModel> GetUserRolesByUserIdAsync(int userId);
-    Task<GymUserRolesViewModel> UpdateGymUserRolesAsyn(GymUserRolesViewModel gymUserRoles);
+    Task<GymUserRolesDTO> GetUserRolesByUserIdAsync(int userId);
+    Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(GymUserRolesDTO gymUserRoles);
 
 
     Task<GymUserDTO> UpdateGymUser(GymUserEntity entity);

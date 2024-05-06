@@ -1,5 +1,7 @@
 ﻿using gms.common.Models.Identity;
 using gms.common.Models.IdentityCat;
+using gms.common.Models.Role;
+using gms.common.Models.SharedCat;
 using gms.common.ViewModels;
 using gms.data;
 using gms.data.Mapper.Identity;
@@ -13,23 +15,23 @@ public class GymUserService : IGymUserService
 {
     private readonly UserManager<GymUserEntity> _userManager;
     private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
-	//private readonly IUserStore<GymUserEntity> _userStore;
-	//private readonly IUserEmailStore<GymUserEntity> _emailStore;
-	private readonly ApplicationDbContext _context;
+    //private readonly IUserStore<GymUserEntity> _userStore;
+    //private readonly IUserEmailStore<GymUserEntity> _emailStore;
+    private readonly ApplicationDbContext _context;
 
 
-	public GymUserService(
-        UserManager<GymUserEntity> userManager, 
-        RoleManager<GymIdentityRoleEntity> roleManager, 
+    public GymUserService(
+        UserManager<GymUserEntity> userManager,
+        RoleManager<GymIdentityRoleEntity> roleManager,
         ApplicationDbContext context)
-	{
-		_userManager = userManager;
-		_roleManager = roleManager;
-		_context = context;
-	}
+    {
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _context = context;
+    }
 
-	#region Roles
-	public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
+    #region Roles
+    public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
     {
         List<GymUserEntity> gymUsersEntities = await _userManager.Users.ToListAsync();
 
@@ -48,20 +50,20 @@ public class GymUserService : IGymUserService
         }
         return gymUsers;
     }
-    public async Task<GymUserRolesViewModel> GetUserRolesByUserIdAsync(int userId)
+    public async Task<GymUserRolesDTO> GetUserRolesByUserIdAsync(int userId)
     {
         GymUserEntity user = await _userManager.FindByIdAsync(userId.ToString());
         if (user is null)
-            return new GymUserRolesViewModel();
+            return new GymUserRolesDTO();
 
         List<GymIdentityRoleEntity> roles = await _roleManager.Roles.ToListAsync();
 
-        GymUserRolesViewModel gymuserRolesViewModel = new()
+        GymUserRolesDTO gymuserRolesViewModel = new()
         {
             UserId = userId,
             UserName = user.UserName,
             Email = user.Email,
-            Roles = roles.Select(r => new SelectItemViewModel()
+            Roles = roles.Select(r => new SelectItemDTO()
             {
                 Text = r.Name,
                 IsSelected = _userManager.IsInRoleAsync(user, r.Name).Result
@@ -69,11 +71,11 @@ public class GymUserService : IGymUserService
         };
         return gymuserRolesViewModel;
     }
-    public async Task<GymUserRolesViewModel> UpdateGymUserRolesAsyn(GymUserRolesViewModel gymUserRoles)
+    public async Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(GymUserRolesDTO gymUserRoles)
     {
         GymUserEntity user = await _userManager.FindByEmailAsync(gymUserRoles.Email);
         if (user is null)
-            return new GymUserRolesViewModel();
+            return new GymUserRolesDTO();
 
         var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -82,12 +84,12 @@ public class GymUserService : IGymUserService
 
         List<GymIdentityRoleEntity> roles = await _roleManager.Roles.ToListAsync();
 
-        GymUserRolesViewModel updatedGymUserRolesViewModel = new()
+        GymUserRolesDTO updatedGymUserRolesViewModel = new()
         {
             UserId = user.Id,
             UserName = user.UserName,
             Email = user.Email,
-            Roles = roles.Select(r => new SelectItemViewModel()
+            Roles = roles.Select(r => new SelectItemDTO()
             {
                 Text = r.Name,
                 IsSelected = _userManager.IsInRoleAsync(user, r.Name).Result
