@@ -31,10 +31,10 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
 		return newMembershipEntity.ToDTO();
 	}
 
-	public async Task<List<MembershipDTO>> GetMembershipPlansListAsync(int branchId)
+	public async Task<List<MembershipDTO>> GetMembershipPlansListAsync()
 	{
-        GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == branchId, ["Country"]);
-        List<GymMembershipPlanEntity> listOfMembership = await FindAllAsync(mp => mp.BranchId == branchId);
+        GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == GetBranchId(), ["Country"]);
+        List<GymMembershipPlanEntity> listOfMembership = await FindAllAsync(mp => mp.BranchId == GetBranchId());
         return listOfMembership.Select(mp => mp.ToDTO(branchData.Country.TimezoneOffset)).ToList();
 	}
 

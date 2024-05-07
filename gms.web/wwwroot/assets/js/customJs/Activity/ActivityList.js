@@ -6,8 +6,6 @@ var groupsList = function () {
     // Shared variables
     var table;
     var datatable;
-    var creationDateflatpickr;
-    var creationMinDate, creationMaxDate;
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
     const hostName = window.location.origin;
@@ -31,7 +29,7 @@ var groupsList = function () {
             'order': [],
             'pageLength': 6,
             'columnDefs': [
-                { orderable: false, targets: [0, 3] }
+                { orderable: false, targets: 2 }
             ],
             "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
             "pagingType": "full_numbers"
@@ -53,84 +51,76 @@ var groupsList = function () {
         });
     }
 
-    // Init Creation Date Flatpickr
-    var initFlatpickr = () => {
-        const element = document.querySelector('#groups_list_flatpickr');
-        creationDateflatpickr = $(element).flatpickr({
-            locale: globalClass.flatpickrLanguage,
-            dateFormat: "Y-m-d",
-            altFormat: "d/m/Y",
-            mode: "range",
-            onChange: function (selectedDates) {
-                handleFlatpickrFilter(selectedDates);
-            },
-        });
-    }
-
-    // Handle Flatpickr
-    var handleFlatpickrFilter = (creationDates) => {
-        creationMinDate = creationDates[0] || creationDates[0] != undefined ? new Date(creationDates[0]) : null;
-        creationMaxDate = creationDates[1] || creationDates[1] != undefined ? new Date(creationDates[1]) : null;
-
-        // Datatable date filter
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                var min = creationMinDate;
-                var max = creationMaxDate;
-                var creationDate = new Date(moment($(data[2]).text(), 'DD/MM/YYYY'));
-
-                if ((min === null && max === null) ||
-                    (min <= creationDate && max === null) ||
-                    (min <= creationDate && max >= creationDate)
-                ) {
-                    return true;
-                }
-                return false;
-            }
-        );
-        datatable.draw();
-    }
-
-    // Handle Clear Flatpickr
-    var handleClearFlatpickr = () => {
-        const clearButton = document.querySelector('#groups_list_flatpickr_clear');
-        clearButton.addEventListener('click', e => {
-            creationDateflatpickr.clear();
-        });
-    }
-
-    // Add Group
+    // Add New Activity
     var handleAddNewGroup = () => {
-        document.querySelector("#add_new_group").addEventListener("click", () => {
+        document.querySelector("#add_new_activity").addEventListener("click", () => {
             // Select Modal Element And Set Title
             const modalEl = document.querySelector("#main_modal");
             jsonlocalizerData().then(data => {
-                modalEl.querySelector("h3").innerText = data["add_new_group"];
+                modalEl.querySelector("h3").innerText = data["add_new_activity"];
             });
 
             if (modalEl) {
                 const modal = new bootstrap.Modal(modalEl);
                 $.ajax({
-                    url: '/Gym/AddNewGroup',
+                    url: '/Activity/AddNewActivity',
                     type: 'GET',
                     success: function (data) {
                         $(modalEl.querySelector(".modal-body")).empty().html(data);
                         modal.show();
 
+                        $('#Activity_ActivityCategoryId').select2({
+                            minimumResultsForSearch: -1
+                        });
+
+                        $('#select_memberships').select2({
+                            minimumResultsForSearch: -1
+                        });
+
+                        $('#kt_docs_repeater_basic').repeater({
+                            initEmpty: false,
+
+                            defaultValues: {
+                                'text-input': 'foo'
+                            },
+
+                            show: function () {
+                                $(this).slideDown();
+                            },
+
+                            hide: function (deleteElement) {
+                                $(this).slideUp(deleteElement);
+                            }
+                        });
+
                         // Handle Form Validation
-                        const addNewGroupForm = document.getElementById('add_new_group_form');
-                        var addNewGroupValidator;
+                        const addNewActivityForm = document.getElementById('add_new_Activity_form');
+                        var addNewActivityValidator;
                         jsonlocalizerData().then(data => {
-                            addNewGroupValidator = FormValidation.formValidation(addNewGroupForm,
+                            addNewActivityValidator = FormValidation.formValidation(addNewActivityForm,
                                 {
                                     fields: {
-                                        'Name': {
+                                        'Activity.ActivityCategoryId': {
                                             validators: {
                                                 notEmpty: {
                                                     message: data.thisfieldisrequired
                                                 }
                                             }
-                                        }
+                                        },
+                                        'Activity.Title': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        },
+                                        'SelectedMembershipIds': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        },
                                     },
                                     plugins: {
                                         trigger: new FormValidation.plugins.Trigger(),
@@ -144,43 +134,32 @@ var groupsList = function () {
                             );
                         });
 
-                        // Handle Input Image
-                        var imageInputElement = document.querySelector("#image_input_control");
-                        var imageInput = new KTImageInput(imageInputElement);
-                        var base64Image;
-                        document.getElementById('Image').addEventListener('change', function (event) {
-                            var file = event.target.files[0];
-                            var reader = new FileReader();
-                            reader.onload = function (event) {
-                                base64Image = event.target.result;
-                                console.log(base64Image);
-                            };
-                            reader.readAsDataURL(file);
-                        });
-                        
                         // Handle Form Submition
-                        const submitButton = document.getElementById('add_new_group_form_submit');
+                        const submitButton = document.getElementById('add_new_Activity_form_submit');
                         submitButton.addEventListener('click', function (e) {
                             // Prevent default button action
                             e.preventDefault();
 
                             // Validate form before submit
-                            if (addNewGroupValidator) {
-                                addNewGroupValidator.validate().then(function (status) {
+                            if (addNewActivityValidator) {
+                                addNewActivityValidator.validate().then(function (status) {
                                     if (status == 'Valid') {
                                         var data = {};
-                                        data.Name = $('[name="Name"]').val();
-                                        data.Image = base64Image;
+                                        data.Activity = {};
+                                        data.Activity.Title = $('[name="Activity.Title"]').val();
+                                        data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
+                                        data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
+                                        console.log(data);
                                         $.ajax({
-                                            url: '/Gym/AddNewGroup',
+                                            url: '/Activity/AddNewActivity',
                                             type: 'POST',
                                             data: {
-                                                model: data
+                                                activityModal: data
                                             },
                                             dataType: 'json',
                                             success: function (response) {
                                                 console.log(response);
-                                                window.location.href = `/Gym/GroupsList`;
+                                                //window.location.href = `/Gym/GroupsList`;
                                             }
                                         });
                                     }
@@ -255,7 +234,7 @@ var groupsList = function () {
                                     }
                                 );
                             });
-                            
+
                             document.getElementById('Image').addEventListener('change', function (event) {
                                 var file = event.target.files[0];
                                 var reader = new FileReader();
@@ -296,7 +275,7 @@ var groupsList = function () {
                                         }
                                     });
                                 }
-                            }); 
+                            });
                         }
                     });
                 }
@@ -337,7 +316,7 @@ var groupsList = function () {
     // Public methods
     return {
         init: function () {
-            table = document.querySelector('#groups_list');
+            table = document.querySelector('#activities_list');
 
             if (!table) {
                 return;
@@ -345,11 +324,9 @@ var groupsList = function () {
 
             initDatatable();
             handleSearchDatatable();
-            initFlatpickr();
-            handleClearFlatpickr();
             handleAddNewGroup();
-            editGroup();
-            deleteGroup();
+            //editGroup();
+            //deleteGroup();
         }
     };
 }();

@@ -5,5 +5,6 @@ using gms.services.Base;
 namespace gms.service.Activity.ActivityCategoryRepository;
 public interface IActivityCategoryService : IBaseRepository<ActivityCategoryEntity>
 {
+	Task<List<ActivityCategoryDTO>> GetActivityCategoriesListAsync();
     Task<ActivityCategoryDTO> GetByIdAsync(int id);
 }

@@ -19,10 +19,11 @@ public static class ActivityMapper
     {
         return new ActivityDTO()
         {
-            ActivityId = source.Id,
+            Id = source.Id,
             Title = source.Title,
             BranchId = source.BranchId,
-            ActivityCategoryId = source.ActivityCategoryId
+            ActivityCategoryId = source.ActivityCategoryId,
+            ActivityCategory = source.ActivityCategory?.ToDTO()
         };
     }
 

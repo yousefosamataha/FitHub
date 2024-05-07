@@ -1,4 +1,6 @@
-﻿using gms.data;
+﻿using gms.common.Models.ActivityCat.MembershipActivity;
+using gms.data;
+using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
@@ -15,5 +17,10 @@ public class MembershipActivityService : BaseRepository<MembershipActivityEntity
         _httpContextAccessor = httpContextAccessor;
     }
 
-
+	public async Task<bool> CreateNewMembershipActivityAsync(List<CreateMembershipActivityDTO> membershipActivitiesListDto)
+	{
+		List<MembershipActivityEntity> createMembershipActivity = membershipActivitiesListDto.Select(ma => ma.ToEntity()).ToList();
+		await AddRangeAsync(createMembershipActivity);
+		return true;
+	}
 }

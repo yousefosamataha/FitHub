@@ -74,6 +74,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<ActivityCategoryEntity> ActivityCategories { get; set; }
     public DbSet<ActivityVideoEntity> ActivityVideos { get; set; }
     public DbSet<ActivityEntity> Activities { get; set; }
+    public DbSet<MembershipActivityEntity> MembershipActivities { get; set; }
     #endregion
 
     #region Enum
