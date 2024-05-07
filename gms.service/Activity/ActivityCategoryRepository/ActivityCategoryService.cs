@@ -17,7 +17,13 @@ public class ActivityCategoryService : BaseRepository<ActivityCategoryEntity>, I
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<ActivityCategoryDTO> GetByIdAsync(int id)
+	public async Task<List<ActivityCategoryDTO>> GetActivityCategoriesListAsync()
+	{
+		List<ActivityCategoryEntity> activityCategoriesList = await FindAllAsync(ac => ac.BranchId == GetBranchId());
+		return activityCategoriesList.Select(a => a.ToDTO()).ToList();
+	}
+
+	public async Task<ActivityCategoryDTO> GetByIdAsync(int id)
     {
         ActivityCategoryEntity entity = await base.GetByIdAsync(id);
 

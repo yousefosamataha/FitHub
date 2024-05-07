@@ -1,0 +1,70 @@
+﻿@using gms.common.Models.GymCat.GymGroup
+@model GymGroupDTO
+@{
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Form-->
+<form id="add_new_group_form" class="form d-flex flex-column flex-lg-row">
+	<!--begin::Wrapper-->
+	<div class="w-100">
+		<!--begin::Input group-->
+		<div class="mb-5">
+			<!--begin::Label-->
+			<label class="d-block form-label fs-6 mb-5 ms-2">@localizer["image"]</label>
+			<!--end::Label-->
+			<!--begin::Image input-->
+			<div class="image-input image-input-empty image-input-outline image-input-placeholder" id="image_input_control" data-kt-image-input="true">
+				<!--begin::Preview existing avatar-->
+				<div class="image-input-wrapper w-125px h-125px"></div>
+				<!--end::Preview existing avatar-->
+				<!--begin::Label-->
+				<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+					<i class="ki-outline ki-pencil fs-7"></i>
+					<!--begin::Inputs-->
+					<input type="file" asp-for="@Model.Image" accept=".png, .jpg, .jpeg" />
+					<input type="hidden" name="Image_remove" />
+					<!--end::Inputs-->
+				</label>
+				<!--end::Label-->
+				<!--begin::Cancel-->
+				<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+					<i class="ki-outline ki-cross fs-2"></i>
+				</span>
+				<!--end::Cancel-->
+				<!--begin::Remove-->
+				<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+					<i class="ki-outline ki-cross fs-2"></i>
+				</span>
+				<!--end::Remove-->
+			</div>
+			<!--end::Image input-->
+			<!--begin::Hint-->
+			<div class="form-text">@localizer["allowed_file_types"]</div>
+			<!--end::Hint-->
+		</div>
+		<!--end::Input group-->
+		<!--begin::Input group-->
+		<div class="mb-5 fv-row">
+			<label class="required form-label ms-2">@localizer["group_name"]</label>
+			<input type="text" class="form-control" asp-for="@Model.Name" placeholder="@localizer["enter"] @localizer["group_name"] @localizer["here"]" />
+		</div>
+		<!--end::Input group-->
+		<div class="d-flex justify-content-end px-5">
+			<!--begin::Reset Button-->
+			<button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+			<!--end::Reset Button-->
+			<!--begin::Button-->
+			<button type="submit" id="add_new_group_form_submit" class="btn btn-primary">
+				<span class="indicator-label">@localizer["save"]</span>
+				<span class="indicator-progress">
+					@localizer["please_wait"]...
+					<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+				</span>
+			</button>
+			<!--end::Button-->
+		</div>
+	</div>
+	<!--end::Wrapper-->
+</form>
+<!--end::Form-->

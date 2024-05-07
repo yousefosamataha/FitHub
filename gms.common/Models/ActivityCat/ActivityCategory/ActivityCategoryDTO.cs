@@ -2,9 +2,9 @@
 
 namespace gms.common.Models.ActivityCat.ActivityCategory;
 
-public record struct ActivityCategoryDTO
+public record ActivityCategoryDTO
 {
-    public required int ActivityCategoryId { get; init; }
+    public required int Id { get; init; }
 
     public int BranchId { get; init; }
 

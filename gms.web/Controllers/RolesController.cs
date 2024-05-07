@@ -1,4 +1,4 @@
-﻿using gms.common.ViewModels;
+﻿using gms.common.Models.Role;
 using gms.data.Models.Identity;
 using gms.service.GymRolesRepository;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +12,9 @@ namespace gms.web.Controllers;
 public class RolesController : BaseController<RolesController>
 {
 	private readonly IGymRolesService _gymRolesService;
+
 	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+
 	public RolesController(IGymRolesService gymRolesService, RoleManager<GymIdentityRoleEntity> roleManager)
 	{
 		_gymRolesService = gymRolesService;
@@ -20,18 +22,18 @@ public class RolesController : BaseController<RolesController>
 	}
 	public async Task<IActionResult> GymRoles()
 	{
-		List<GymRoleViewModel> roles = await _gymRolesService.GetAllRolesAsync();
+		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
 		return View(roles);
 	}
 	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
 	{
-		GymRolePermissionsViewModel result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
+		GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
 		return View(result);
 	}
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> AddGymRole(AddRoleViewModel newRole)
+	public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
 	{
 		if (!ModelState.IsValid)
 			return View("GymRoles", await _gymRolesService.GetAllRolesAsync());
@@ -42,15 +44,15 @@ public class RolesController : BaseController<RolesController>
 		}
 		await _roleManager.CreateAsync(new GymIdentityRoleEntity()
 		{
-			 Name = newRole.RoleName.Trim()
-        });
+			Name = newRole.RoleName.Trim()
+		});
 
 		return RedirectToAction(nameof(GymRoles));
 	}
 
-	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsViewModel rolePermissions)
+	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
 	{
-        GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(rolePermissions.RoleId.ToString());
+		GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(rolePermissions.RoleId.ToString());
 
 		if (role is null)
 			return NotFound();

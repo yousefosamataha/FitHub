@@ -26,14 +26,15 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
     public async Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership)
 	{
 		GymMembershipPlanEntity newMembershipEntity = newMembership.ToEntity();
-		await AddAsync(newMembershipEntity);
+        newMembershipEntity.BranchId = GetBranchId();
+        await AddAsync(newMembershipEntity);
 		return newMembershipEntity.ToDTO();
 	}
 
-	public async Task<List<MembershipDTO>> GetMembershipPlansListAsync(int branchId)
+	public async Task<List<MembershipDTO>> GetMembershipPlansListAsync()
 	{
-        GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == branchId, ["Country"]);
-        List<GymMembershipPlanEntity> listOfMembership = await FindAllAsync(mp => mp.BranchId == branchId);
+        GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == GetBranchId(), ["Country"]);
+        List<GymMembershipPlanEntity> listOfMembership = await FindAllAsync(mp => mp.BranchId == GetBranchId());
         return listOfMembership.Select(mp => mp.ToDTO(branchData.Country.TimezoneOffset)).ToList();
 	}
 
@@ -43,7 +44,7 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
         return MembershipEntity.ToDTO();
     }
 
-	public async Task<MembershipDTO> UpdateGymMembershipPlanAsync(MembershipDTO updatemembershipDTO)
+	public async Task<MembershipDTO> UpdateGymMembershipPlanAsync(UpdateMembershipDTO updatemembershipDTO)
 	{
 		GymMembershipPlanEntity currentMembershipEntity = await _context.GymMembershipPlans.FirstOrDefaultAsync(mp => mp.Id == updatemembershipDTO.Id);
 		GymMembershipPlanEntity updatedMembershipEntity = updatemembershipDTO.ToUpdatedEntity(currentMembershipEntity);

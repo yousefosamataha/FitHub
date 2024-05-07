@@ -2,7 +2,7 @@
 
 namespace gms.common.Models.ActivityCat.ActivityVideo;
 
-public record struct ActivityVideoDTO
+public record ActivityVideoDTO
 {
     public required int ActivityVideoId { get; init; }
 

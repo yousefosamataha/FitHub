@@ -68,13 +68,13 @@
                                     @foreach (ActivityCategoryDTO item in Model)
                                     {
                                         <tr>
-                                            <td>@item.ActivityCategoryId</td>
+                                            <td>@item.Id</td>
                                             <td>@item.Name</td>
                                             <td>@item.BranchId</td>
                                             <td>@item.Activities.Count()</td>
                                             <td>
-                                                <a id="btnEdit" style="padding:10px" asp-area="" asp-controller="ActivityCategory" asp-action="Edit" asp-route-Id="@item.ActivityCategoryId" title="Edit"><i class="fas fa-edit text-primary fa-1x"></i> Edit</a>
-                                                <a id="btnDelete" style="padding:10px" asp-area="" asp-controller="ActivityCategory" asp-action="Delete" asp-route-Id="@item.ActivityCategoryId" title="Delete"><i class="fas fa-trash text-primary fa-1x"> Delete</i></a>
+                                                <a id="btnEdit" style="padding:10px" asp-area="" asp-controller="ActivityCategory" asp-action="Edit" asp-route-Id="@item.Id" title="Edit"><i class="fas fa-edit text-primary fa-1x"></i> Edit</a>
+                                                <a id="btnDelete" style="padding:10px" asp-area="" asp-controller="ActivityCategory" asp-action="Delete" asp-route-Id="@item.Id" title="Delete"><i class="fas fa-trash text-primary fa-1x"> Delete</i></a>
                                             </td>
                                         </tr>
                                     }

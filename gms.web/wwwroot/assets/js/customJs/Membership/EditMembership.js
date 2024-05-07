@@ -88,7 +88,6 @@ var editMembership = function () {
 
         $(select).on('change', function (e) {
             const value = e.target.value;
-            console.log(value);
             switch (value) {
                 case '1': {
                     target.classList.remove(...statusClasses);
@@ -187,7 +186,6 @@ var editMembership = function () {
                     if (status == 'Valid') {
                         var data = {};
                         data.Id = $('[name="Id"]').val();
-                        data.BranchId = $('[name="BranchId"]').val();
                         data.MembershipStatusId = $('[name="MembershipStatusId"]').val();
                         data.MembershipName = $('[name="MembershipName"]').val();
                         data.MembershipDuration = $('[name="MembershipDuration"]').val();
@@ -204,10 +202,13 @@ var editMembership = function () {
                             url: '/Membership/UpdateMembershipPlan',
                             type: 'POST',
                             data: {
-                                model: data
+                                modelDTO: data
                             },
                             success: function (response) {
-                                window.location.href = `/Membership/MembershipsList`;
+                                console.log(response);
+                                if (response.success) {
+                                    window.location.href = `/Membership`;
+                                }
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);

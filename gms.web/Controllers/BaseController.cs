@@ -38,17 +38,26 @@ public class BaseController<T> : Controller where T : BaseController<T>
 
     public int GetUserId()
     {
-        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value);
+		if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 
     public int GetBranchId()
     {
-        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value);
+        if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 
     public int GetGymId()
     {
-        return int.Parse(httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value);
+        if (int.TryParse(httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
+            return result;
+        else
+            return 0;
     }
 
     public async Task<GymUserEntity> GetCurrentUserData()

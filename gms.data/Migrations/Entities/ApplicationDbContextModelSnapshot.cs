@@ -344,7 +344,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 280, DateTimeKind.Utc).AddTicks(990),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 13, DateTimeKind.Utc).AddTicks(8693),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GenderName = "Male",
                             IsDeleted = false
@@ -353,7 +353,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)7,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 280, DateTimeKind.Utc).AddTicks(998),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 13, DateTimeKind.Utc).AddTicks(8702),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GenderName = "Female",
                             IsDeleted = false
@@ -399,7 +399,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1482),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7128),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Weight"
@@ -407,7 +407,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1498),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7135),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Height"
@@ -415,7 +415,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1502),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7137),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Chest"
@@ -423,7 +423,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1506),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7140),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Waist"
@@ -431,7 +431,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1550),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7142),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Thing"
@@ -439,7 +439,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1558),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7146),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Arms"
@@ -447,7 +447,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 307, DateTimeKind.Utc).AddTicks(1561),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 34, DateTimeKind.Utc).AddTicks(7148),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Fat"
@@ -493,7 +493,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 333, DateTimeKind.Utc).AddTicks(6384),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 52, DateTimeKind.Utc).AddTicks(3500),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Beginner"
@@ -501,7 +501,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 333, DateTimeKind.Utc).AddTicks(6396),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 52, DateTimeKind.Utc).AddTicks(3507),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Intermediate"
@@ -509,7 +509,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 333, DateTimeKind.Utc).AddTicks(6400),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 52, DateTimeKind.Utc).AddTicks(3509),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             LevelName = "Advanced"
@@ -558,7 +558,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 337, DateTimeKind.Utc).AddTicks(523),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 54, DateTimeKind.Utc).AddTicks(6888),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             PaymentMethod = "Cash"
@@ -566,7 +566,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 337, DateTimeKind.Utc).AddTicks(534),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 54, DateTimeKind.Utc).AddTicks(6895),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             PaymentMethod = "Credit"
@@ -616,7 +616,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 1,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(15),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3063),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Active"
@@ -625,7 +625,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 2,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(28),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3069),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "InActive"
@@ -634,7 +634,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 3,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(32),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3107),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Suspend"
@@ -643,7 +643,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 4,
                             BadgeColorId = (byte)6,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(36),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3110),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Cancelled"
@@ -652,7 +652,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 5,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(40),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3113),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "Expired"
@@ -661,7 +661,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 6,
                             BadgeColorId = (byte)3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(47),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3117),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "NotPaid"
@@ -670,7 +670,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 7,
                             BadgeColorId = (byte)4,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(51),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3120),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "PartiallyPaid"
@@ -679,7 +679,7 @@ namespace gms.data.Migrations.Entities
                         {
                             Id = 8,
                             BadgeColorId = (byte)2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 338, DateTimeKind.Utc).AddTicks(54),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 55, DateTimeKind.Utc).AddTicks(3122),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionStatus = "FullyPaid"
@@ -728,7 +728,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(4871),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(2464),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionType = "Monthly"
@@ -736,7 +736,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(4897),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(2482),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             SubscriptionType = "Annually"
@@ -926,6 +926,18 @@ namespace gms.data.Migrations.Entities
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Arms")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Inches");
+
+                    b.Property<string>("Chest")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Inches");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -937,6 +949,18 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<int?>("DeletedById")
                         .HasColumnType("int");
+
+                    b.Property<string>("Fat")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Percentage");
+
+                    b.Property<string>("Height")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Centimeter");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -950,6 +974,17 @@ namespace gms.data.Migrations.Entities
                     b.Property<int?>("ModifiedById")
                         .HasColumnType("int");
 
+                    b.Property<int>("ReminderDays")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(5);
+
+                    b.Property<string>("ReminderMessage")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Hello {0},\r\n      Your Membership  {1}  started at {2} and it will expire on {3}.\r\nThank You.");
+
                     b.Property<byte[]>("ReportFooter")
                         .HasColumnType("varbinary(max)");
 
@@ -961,6 +996,24 @@ namespace gms.data.Migrations.Entities
 
                     b.Property<byte?>("ReportHeaderTypeId")
                         .HasColumnType("tinyint");
+
+                    b.Property<string>("Thing")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Inches");
+
+                    b.Property<string>("Waist")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Inches");
+
+                    b.Property<string>("Weight")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("KG");
 
                     b.HasKey("Id");
 
@@ -1538,7 +1591,7 @@ namespace gms.data.Migrations.Entities
                     b.Property<byte>("GymUserTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint")
-                        .HasDefaultValue((byte)2);
+                        .HasDefaultValue((byte)3);
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
@@ -2536,7 +2589,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(8606),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(5173),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 1,
@@ -2550,7 +2603,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(8622),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(5184),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 3,
@@ -2564,7 +2617,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(8626),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(5188),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 5,
@@ -2578,7 +2631,7 @@ namespace gms.data.Migrations.Entities
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 28, 19, 7, 50, 339, DateTimeKind.Utc).AddTicks(8631),
+                            CreatedAt = new DateTime(2024, 5, 4, 18, 22, 51, 56, DateTimeKind.Utc).AddTicks(5191),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             MaxBranchNumber = 10,

@@ -1,4 +1,4 @@
-﻿@model List<GymRoleViewModel>;
+﻿@model List<GymRoleDTO>;
 @{
 	ViewData["Title"] = localizer["staffslist"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
@@ -84,7 +84,7 @@
 				<!--end::Card header-->
 				<!--begin::Card body-->
 				<div class="card-body pt-0">
-					<Partial name="_AddRoleForm" model="new AddRoleViewModel()" />
+					<Partial name="_AddRoleForm" model="new CreateGymRoleDTO()" />
 					<!--begin::Table-->
 					<table class="table align-middle table-row-dashed fs-6" id="membership_list">
 						<thead>
@@ -94,7 +94,7 @@
 							</tr>
 						</thead>
 						<tbody class="fw-semibold text-gray-700">
-							@foreach (GymRoleViewModel item in Model)
+							@foreach (GymRoleDTO item in Model)
 							{
 								<tr>
 									<td class="text-center">

@@ -11,7 +11,7 @@ public record CreateGeneralSettingDTO
     public string Fat { get; init; }
     public int ReminderDays { get; init; }
     public string ReminderMessage { get; init; }
-    public bool IsShared { get; init; }
+    public bool IsShared { get; set; }
     public byte[]? ReportHeader { get; init; }
     public byte[]? ReportFooter { get; init; }
 	public int? CreatedById { get; init; }
