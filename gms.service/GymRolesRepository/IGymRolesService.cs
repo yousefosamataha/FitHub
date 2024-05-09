@@ -1,13 +1,14 @@
 ﻿using gms.common.Models.Role;
+using gms.data.Models.Identity;
 
 namespace gms.service.GymRolesRepository;
 public interface IGymRolesService
 {
     Task<List<GymRoleDTO>> GetAllRolesAsync();
-
     Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
-
-    Task<GymRoleDTO> CreateRoleAsync(string roleName);
+    Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);
+    Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role);
+    Task AddClaimsForSuperAdminUser();
 
     //GetAllGymPermissions();
 }

@@ -1,21 +1,27 @@
 ﻿using gms.common.Constants;
+using gms.common.Enums;
 using gms.common.Models.Role;
 using gms.common.Models.SharedCat;
+using gms.data;
+using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace gms.service.GymRolesRepository;
 public class GymRolesService : IGymRolesService
 {
     private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
-    public GymRolesService(RoleManager<GymIdentityRoleEntity> roleManager)
+    private readonly ApplicationDbContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public GymRolesService(RoleManager<GymIdentityRoleEntity> roleManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _roleManager = roleManager;
+        _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
-
-
-
     public async Task<List<GymRoleDTO>> GetAllRolesAsync()
     {
         List<GymRoleDTO> roles = await _roleManager.Roles.Select(r => new GymRoleDTO()
@@ -54,8 +60,30 @@ public class GymRolesService : IGymRolesService
         return result;
     }
 
-    public async Task<GymRoleDTO> CreateRoleAsync(string roleName)
+    public async Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO newRole)
     {
-        throw new NotImplementedException();
+        GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
+        await _context.Roles.AddAsync(newIdentityRoleEntity);
+        return newIdentityRoleEntity.ToDTO();
+    }
+
+    public async Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role)
+    {
+        IList<Claim> allRoleClaims = await _roleManager.GetClaimsAsync(role);
+
+        List<string> permissionList = PermissionsConstants.GenerateAllPermissionsList();
+
+        foreach (string? permission in permissionList)
+        {
+            if (!allRoleClaims.Any(c => c.Type == PermissionsConstants.Permission && c.Value == permission))
+                await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
+        }
+        return role;
+    }
+
+    public async Task AddClaimsForSuperAdminUser()
+    {
+        GymIdentityRoleEntity superadminRole = await _roleManager.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
+        await AddAllPermissionClaims(superadminRole);
     }
 }
