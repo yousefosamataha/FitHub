@@ -4,7 +4,7 @@ using gms.common.Models.Role;
 using gms.common.ViewModels;
 using gms.data.Models.Identity;
 
-namespace gms.service.GymUserRepository;
+namespace gms.service.Identity.GymUserRepository;
 public interface IGymUserService
 {
     Task<List<GymUserViewModel>> GetAllUserByGymIdAsync();

@@ -1,5 +1,5 @@
 ﻿using gms.data.Models.Identity;
-using gms.service.GymUserRepository;
+using gms.service.Identity.GymUserRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;

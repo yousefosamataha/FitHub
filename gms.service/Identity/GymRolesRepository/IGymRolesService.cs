@@ -1,7 +1,7 @@
 ﻿using gms.common.Models.Role;
 using gms.data.Models.Identity;
 
-namespace gms.service.GymRolesRepository;
+namespace gms.service.Identity.GymRolesRepository;
 public interface IGymRolesService
 {
     Task<List<GymRoleDTO>> GetAllRolesAsync();

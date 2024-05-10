@@ -9,7 +9,7 @@ using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymRepository;
-using gms.service.GymUserRepository;
+using gms.service.Identity.GymUserRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;

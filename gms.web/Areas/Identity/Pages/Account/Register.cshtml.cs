@@ -5,7 +5,6 @@ using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
-using gms.service.GymUserRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.common.Models.GymCat.GymGeneralSetting;
 using gms.common.Enums;
+using gms.service.Identity.GymUserRepository;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {

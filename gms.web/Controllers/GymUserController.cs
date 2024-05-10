@@ -4,7 +4,7 @@ using gms.common.Models.Role;
 using gms.common.ViewModels;
 using gms.common.ViewModels.GymUser;
 using gms.data.Models.Identity;
-using gms.service.GymUserRepository;
+using gms.service.Identity.GymUserRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

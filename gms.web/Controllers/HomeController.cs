@@ -3,11 +3,11 @@ using gms.data.Models.Identity;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Shared.CountryRepository;
-using gms.service.GymUserRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using gms.service.Identity.GymUserRepository;
 
 namespace gms.web.Controllers;
 

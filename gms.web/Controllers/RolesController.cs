@@ -1,6 +1,6 @@
 ﻿using gms.common.Models.Role;
 using gms.data.Models.Identity;
-using gms.service.GymRolesRepository;
+using gms.service.Identity.GymRolesRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
