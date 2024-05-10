@@ -20,11 +20,13 @@ public class RolesController : BaseController<RolesController>
 		_gymRolesService = gymRolesService;
 		_roleManager = roleManager;
 	}
+
 	public async Task<IActionResult> Index()
 	{
 		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
 		return View(roles);
 	}
+
 	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
 	{
 		GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
@@ -36,18 +38,18 @@ public class RolesController : BaseController<RolesController>
 	public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
 	{
 		if (!ModelState.IsValid)
-			return View("GymRoles", await _gymRolesService.GetAllRolesAsync());
+			return View("Index", await _gymRolesService.GetAllRolesAsync());
 		if (await _roleManager.RoleExistsAsync(newRole.RoleName))
 		{
 			ModelState.AddModelError("RoleName", "Role Already Exists");
-			return View("GymRoles", await _gymRolesService.GetAllRolesAsync());
+			return View("Index", await _gymRolesService.GetAllRolesAsync());
 		}
 		await _roleManager.CreateAsync(new GymIdentityRoleEntity()
 		{
 			Name = newRole.RoleName.Trim()
 		});
 
-		return RedirectToAction(nameof(GymRoles));
+		return RedirectToAction(nameof(Index));
 	}
 
 	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
@@ -66,6 +68,6 @@ public class RolesController : BaseController<RolesController>
 		foreach (Claim newClaim in roleNewClaims)
 			await _roleManager.AddClaimAsync(role, newClaim);
 
-		return RedirectToAction(nameof(GymRoles));
+		return RedirectToAction(nameof(Index));
 	}
 }

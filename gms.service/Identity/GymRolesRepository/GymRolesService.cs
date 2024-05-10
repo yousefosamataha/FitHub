@@ -47,7 +47,7 @@ public class GymRolesService : IGymRolesService
 			return 0;
 	}
 
-	public async Task CreateRolesToBranch(int BranchId)
+	public async Task CreateRolesToBranch(int branchId)
 	{
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
 		{
@@ -55,7 +55,7 @@ public class GymRolesService : IGymRolesService
 			{
 				Name = role.ToString(),
 				NormalizedName = role.ToString().ToUpper(),
-				BranchId = BranchId,
+				BranchId = branchId,
 				IsDeleteable = false,
 				IsUpdateable = false
 			};
@@ -108,6 +108,7 @@ public class GymRolesService : IGymRolesService
 
 	public async Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO newRole)
 	{
+		GymIdentityRoleEntity isExist = await _roleManager.FindByNameAsync(newRole.RoleName);
 		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
 		newIdentityRoleEntity.BranchId = GetBranchId();
 		newIdentityRoleEntity.IsDeleteable = true;
@@ -124,8 +125,28 @@ public class GymRolesService : IGymRolesService
 
 		foreach (string? permission in permissionList)
 		{
-			if (!allRoleClaims.Any(c => c.Type == PermissionsConstants.Permission && c.Value == permission))
+			if (!allRoleClaims.Any(c => string.Equals(c.Type, PermissionsConstants.Permission, StringComparison.OrdinalIgnoreCase) &&
+										string.Equals(c.Value, permission, StringComparison.OrdinalIgnoreCase))
+								  )
+			{
 				await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
+			}
+		}
+		return role;
+	}
+
+	public async Task<GymIdentityRoleEntity> AddPermissionsToRoles(GymIdentityRoleEntity role, List<string> permissionsList)
+	{
+		IList<Claim> allRoleClaims = await _roleManager.GetClaimsAsync(role);
+
+		foreach (string? permission in permissionsList)
+		{
+			if (!allRoleClaims.Any(c => string.Equals(c.Type, PermissionsConstants.Permission, StringComparison.OrdinalIgnoreCase) &&
+										string.Equals(c.Value, permission, StringComparison.OrdinalIgnoreCase))
+								  )
+			{
+				await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
+			}
 		}
 		return role;
 	}
