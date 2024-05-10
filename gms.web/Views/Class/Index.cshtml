@@ -1,6 +1,7 @@
-﻿@model List<ActivityDTO>
+﻿@using gms.common.ViewModels.Class
+@model ClassesListVM
 @{
-    ViewData["Title"] = localizer["activities"];
+    ViewData["Title"] = localizer["classes_list"];
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
@@ -17,13 +18,13 @@
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        @localizer["activities_list"]
+                        @localizer["classes_list"]
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
                         <li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
-                        <li class="breadcrumb-item text-gray-600">@localizer["activities"]</li>
+                        <li class="breadcrumb-item text-gray-600">@localizer["training_classes"]</li>
                     </ol>
                     <!--end::Breadcrumb-->
                 </div>
@@ -47,18 +48,18 @@
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-                            <input type="text" groups-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_activity_name"]" />
+                            <input type="text" class-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_class_name"]" />
                         </div>
                         <!--end::Search-->
                     </div>
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        <!--begin::Add Activity-->
-                        <button id="add_new_activity" class="btn btn-primary">
-                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_activity"]
+                        <!--begin::Add Class-->
+                        <button id="add_new_class" class="btn btn-primary">
+                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_class"]
                         </button>
-                        <!--end::Add Activity-->
+                        <!--end::Add Class-->
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -66,30 +67,34 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6" id="activities_list">
+                    <table class="table align-middle table-row-dashed fs-6" id="Class_list">
                         <thead>
                             <tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
-                                <th class="text-start min-w-150px">@localizer["activity_name"]</th>
-                                <th class="text-start min-w-150px">@localizer["activity_category"]</th>
+                                <th class="text-start min-w-150px">@localizer["class_name"]</th>
+                                @* <th class="text-start min-w-100px">@localizer["trainer_name"]</th> *@
+                                <th class="text-center min-w-100px">@localizer["start_time"]</th>
+                                <th class="text-center min-w-100px">@localizer["end_time"]</th>
+                                <th class="text-center min-w-100px">@localizer["location"]</th>
+                                <th class="text-start min-w-100px">@localizer["booking_fees"]</th>
                                 <th class="text-center min-w-100px">@localizer["actions"]</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-700">
-                            @foreach (var a in Model)
+                            @foreach (var c in Model.ClassesList)
                             {
                                 <tr>
-                                    <td class="text-start" data-order="@a.Title">@a.Title</td>
-                                    <td class="text-start" data-order="@a.ActivityCategory.Name">@a.ActivityCategory.Name</td>
+                                    <td class="text-start" data-order="@c.ClassName">@c.ClassName</td>
+                                    <td class="text-center" data-order="@c.StartTime">@c.StartTime</td>
+                                    <td class="text-center" data-order="@c.EndTime">@c.EndTime</td>
+                                    <td class="text-center" data-order="">Class 1</td>
+                                    <td class="text-start" data-order="@c.ClassFees">@Model.BranchCurrencySymbol @c.ClassFees</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
                                                 <i class="ki-solid ki-trash fs-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-2 show-activity-videos-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["show_activity_videos"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
-                                                <i class="ki-solid ki-eye fs-2"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -108,7 +113,6 @@
     <!--end::Content-->
 </div>
 <!--end::Content wrapper-->
-
 @section Scripts {
-    <script type="module" src="~/assets/js/customJs/Activity/ActivityList.js" asp-append-version="true"></script>
+    <script type="module" src="~/assets/js/customJs/Class/ClassesList.js" asp-append-version="true"></script>
 }

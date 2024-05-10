@@ -56,7 +56,7 @@
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Filter-->
                         <div>
-                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-toggle="tooltip" title="@localizer["filter"]" data-bs-custom-class="tooltip-inverse">
+                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["filter"]" data-bs-custom-class="tooltip-inverse">
                                 <i class="ki-solid ki-filter fs-2"></i>
                             </button>
                             <!--begin::Filter Menu-->
@@ -124,7 +124,7 @@
                                 <th class="text-center min-w-100px">@localizer["creation_date"]</th>
                                 <th class="text-center min-w-100px">@localizer["actions"]</th>
                             </tr>
-                        </thead>
+                        </thead>    
                         <tbody class="fw-semibold text-gray-700">
                             @foreach (var mp in Model.MembershipsList)
                             {

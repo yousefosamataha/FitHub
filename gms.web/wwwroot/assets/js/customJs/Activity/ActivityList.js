@@ -374,10 +374,12 @@ var activitiesList = function () {
         });
     }
 
-    // ============
+    // Add New Activity Category
     var handleAddNewActivityCategory = () => {
         $(document).on('click', '.add-new-activity-category', function () {
             const modalEl = document.querySelector("#main_modal");
+            var activityCategoryTable;
+            document.querySelector("#main_modal .modal-dialog").classList.add("mw-750px");
             jsonlocalizerData().then(data => {
                 modalEl.querySelector("h3").innerText = data["add_new_activity_category"];
             });
@@ -388,6 +390,21 @@ var activitiesList = function () {
                 success: function (data) {
                     $(modalEl.querySelector(".modal-body")).empty().html(data);
                     $('.popover').remove();
+
+                    // Init Datatable
+                    activityCategoryTable = $("#activity_Category_list").DataTable({
+                        language: {
+                            url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
+                        },
+                        "info": true,
+                        'order': [],
+                        'pageLength': 4,
+                        'columnDefs': [
+                            { orderable: false, targets: 1 }
+                        ],
+                        "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
+                        "pagingType": "full_numbers"
+                    });
 
                     // Handle Form Validation
                     const addNewActivityCategoryForm = document.getElementById('add_new_activity_category_form');
@@ -431,9 +448,7 @@ var activitiesList = function () {
                                 },
                                 success: function (response) {
                                     // Remove current row
-                                    //datatable.row($(parent)).remove().draw(false);
-                                    $(parent).remove();
-                                    // globalClass.handleTooltip();
+                                    activityCategoryTable.row($(parent)).remove().draw(false);
                                     toastr.success("Activity Category Deleted Successfully!");
                                 },
                                 error: function (xhr, status, error) {

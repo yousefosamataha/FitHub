@@ -49,17 +49,16 @@ public class GymRolesService : IGymRolesService
 
 	public async Task CreateRolesToBranch(int BranchId)
 	{
-		List<GymIdentityRoleEntity> roles = new();
+		// List<GymIdentityRoleEntity> roles = new();
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
 		{
 			GymIdentityRoleEntity newRole = new()
 			{
-				Id = (int)role,
 				Name = role.ToString(),
 				NormalizedName = role.ToString().ToUpper(),
 				BranchId = BranchId
 			};
-			roles.Add(newRole);
+			// roles.Add(newRole);
 			await _roleManager.CreateAsync(newRole);
 		};
 		//await _context.Roles.AddRangeAsync(roles);
