@@ -9,5 +9,5 @@ public interface IGymRolesService
 	Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
 	Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);
 	Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role);
-	Task AddClaimsForSuperAdminUser();
+	Task AddClaimsForGymOwnerUser();
 }

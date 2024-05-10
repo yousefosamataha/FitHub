@@ -55,7 +55,9 @@ public class GymRolesService : IGymRolesService
 			{
 				Name = role.ToString(),
 				NormalizedName = role.ToString().ToUpper(),
-				BranchId = BranchId
+				BranchId = BranchId,
+				IsDeleteable = false,
+				IsUpdateable = false
 			};
 			await _roleManager.CreateAsync(newRole);
 		};
@@ -103,7 +105,9 @@ public class GymRolesService : IGymRolesService
 	{
 		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
 		newIdentityRoleEntity.BranchId = GetBranchId();
-		await _context.Roles.AddAsync(newIdentityRoleEntity);
+		newIdentityRoleEntity.IsDeleteable = true;
+		newIdentityRoleEntity.IsUpdateable = true;
+		await _roleManager.CreateAsync(newIdentityRoleEntity);
 		return newIdentityRoleEntity.ToDTO();
 	}
 
@@ -121,9 +125,9 @@ public class GymRolesService : IGymRolesService
 		return role;
 	}
 
-	public async Task AddClaimsForSuperAdminUser()
+	public async Task AddClaimsForGymOwnerUser()
 	{
-		GymIdentityRoleEntity superadminRole = await _roleManager.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
-		await AddAllPermissionClaims(superadminRole);
+		GymIdentityRoleEntity gymOwnerRole = await _roleManager.FindByNameAsync(RolesEnum.GymOwner.ToString());
+		await AddAllPermissionClaims(gymOwnerRole);
 	}
 }
