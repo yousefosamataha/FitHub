@@ -60,6 +60,11 @@ public class GymRolesService : IGymRolesService
 				IsUpdateable = false
 			};
 			await _roleManager.CreateAsync(newRole);
+
+			if (string.Equals(role.ToString(), RolesEnum.GymOwner.ToString(), StringComparison.OrdinalIgnoreCase))
+			{
+				await AddAllPermissionClaims(newRole);
+			}
 		};
 	}
 
@@ -123,11 +128,5 @@ public class GymRolesService : IGymRolesService
 				await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
 		}
 		return role;
-	}
-
-	public async Task AddClaimsForGymOwnerUser()
-	{
-		GymIdentityRoleEntity gymOwnerRole = await _roleManager.FindByNameAsync(RolesEnum.GymOwner.ToString());
-		await AddAllPermissionClaims(gymOwnerRole);
 	}
 }
