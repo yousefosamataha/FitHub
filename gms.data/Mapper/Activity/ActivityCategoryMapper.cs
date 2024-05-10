@@ -18,10 +18,10 @@ public static class ActivityCategoryMapper
     {
         return new ActivityCategoryDTO()
         {
-            ActivityCategoryId = source.Id,
+            Id = source.Id,
             Name = source.Name,
             BranchId = source.BranchId,
-            Activities = source.Activities.Select(a => a.ToDTO()).ToList()
+            // Activities = source.Activities.Select(a => a.ToDTO()).ToList()
         };
     }
 

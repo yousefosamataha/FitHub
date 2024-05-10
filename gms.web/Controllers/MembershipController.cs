@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.common.Models.MembershipCat;
 using gms.data.Models.Identity;
+using gms.data.Mapper.Membership;
+using gms.common.Models.GymCat.Branch;
 
 namespace gms.web.Controllers;
 
@@ -30,6 +32,15 @@ public class MembershipController : BaseController<MembershipController>
 		_gymMembershipPlanService = gymMembershipPlanService;
 	}
 
+	public async Task<IActionResult> Index()
+	{
+		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync();
+        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+        MembershipsListVM viewModel = new();
+		viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
+		viewModel.MembershipsList = membershipPlansList;
+		return View(viewModel);
+	}
 
 	public IActionResult AddNewMembership()
 	{
@@ -37,61 +48,30 @@ public class MembershipController : BaseController<MembershipController>
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddNewMembership(CreateMembershipDTO modelDTO)
+	public async Task<JsonResult> AddNewMembership(CreateMembershipDTO modelDTO)
 	{
 		GymUserEntity currentUser = await GetCurrentUserData();
-		modelDTO.BranchId = currentUser.BranchId;
 		await _gymMembershipPlanService.CreateGymMembershipPlanAsync(modelDTO);
-		return RedirectToAction("MembershipsList");
+		return Json(new {Success = true, Message = ""});
 	}
 
-	public async Task<IActionResult> MembershipsList()
+	public async Task<IActionResult> EditMembership(int id)
 	{
-		GymUserEntity currentUser = await GetCurrentUserData();
-		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(currentUser.BranchId);
-		MembershipsListVM viewModel = new();
-		viewModel.BranchCurrencySymbol = currentUser.GymBranch.Country.CurrencySymbol;
-		viewModel.MembershipsList = membershipPlansList;
-		return View(viewModel);
-	}
-
-	public async Task<IActionResult> EditMembership(int id, int branchId)
-	{
-		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, branchId);
-		return View(membership);
+		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, GetBranchId());
+		return View(membership.ToUpdateDTO());
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> UpdateMembershipPlan(MembershipDTO modelDTO)
+	public async Task<JsonResult> UpdateMembershipPlan(UpdateMembershipDTO modelDTO)
 	{
-		//var modelDTO = new MembershipDTO()
-		//{
-		//	Id = (int)model.Id,
-		//	BranchId = (int)model.BranchId,
-		//	MembershipName = model.MembershipName,
-		//	MembershipDuration = (int)model.MembershipDuration,
-		//	MembershipDurationTypeId = (MembershipLengthTypeEnum)model.MembershipDurationTypeId,
-		//	MembershipAmount = (decimal)model.MembershipAmount,
-		//	MembershipStatusId = (StatusEnum)model.MembershipStatusId,
-		//	SignupFee = (decimal)model.SignupFee,
-		//	MembershipDescription = model.MembershipDescription,
-		//	ClassIsLimit = (bool)model.ClassIsLimit,
-		//	ClassLimitDays = model.ClassLimitDays,
-		//	ClassLimitationId = model.ClassLimitationId is null ? 0 : (MembershipClassLimitationEnum)model.ClassLimitationId,
-		//};
-		var updatedMembership = await _gymMembershipPlanService.UpdateGymMembershipPlanAsync(modelDTO);
-
-		return RedirectToAction("MembershipsList");
+		await _gymMembershipPlanService.UpdateGymMembershipPlanAsync(modelDTO);
+		return Json(new { Success = true, Message = "" });
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> DeleteMembership(int id, int branchId)
+	public async Task<JsonResult> DeleteMembership(int id, int branchId)
 	{
-		var result = await _gymMembershipPlanService.DeleteMembershipAsync(id, branchId);
-		if (result)
-		{
-			return Ok();
-		}
-		return BadRequest();
+		await _gymMembershipPlanService.DeleteMembershipAsync(id, branchId);
+		return Json(new { Success = true, Message = "" });
 	}
 }

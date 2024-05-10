@@ -1,9 +1,10 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.IdentityCat;
+using gms.common.Models.Role;
 using gms.common.ViewModels;
 using gms.common.ViewModels.GymUser;
 using gms.data.Models.Identity;
-using gms.service.GymUserRepository;
+using gms.service.Identity.GymUserRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,15 +31,15 @@ public class GymUserController : BaseController<GymUserController>
 	}
 	public async Task<IActionResult> GymUserRoles(int userId)
 	{
-		GymUserRolesViewModel user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
+		GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
 		return View(user);
 	}
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> UpdateUserRoles(GymUserRolesViewModel userRoles)
+	public async Task<IActionResult> UpdateUserRoles(GymUserRolesDTO userRoles)
 	{
-		GymUserRolesViewModel user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
+		GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
 		return RedirectToAction(nameof(GymUsers));
 	}
     #endregion

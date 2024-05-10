@@ -1,5 +1,5 @@
 ﻿@using gms.common.Models.MembershipCat
-@model MembershipDTO
+@model UpdateMembershipDTO
 @{
 	ViewData["Title"] = localizer["editmembership"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
@@ -42,7 +42,6 @@
 			<!--begin::Form-->
 			<form id="edit_membership_form" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
 				<input type="hidden" asp-for="@Model.Id" />
-				<input type="hidden" asp-for="@Model.BranchId" />
 				<!--begin::Aside column-->
 				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
 					<!--begin::Status-->

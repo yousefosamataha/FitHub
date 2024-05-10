@@ -10,5 +10,5 @@ public class MeasurementImageEntity : BaseEntity
     public ImageTypeEnum ImageTypeId { get; set; }
 
     // Navigation properties
-    public GymMeasurementEntity GymMeasurement { get; set; }
+    public virtual GymMeasurementEntity GymMeasurement { get; set; }
 }

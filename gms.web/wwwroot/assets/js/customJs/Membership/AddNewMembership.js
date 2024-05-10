@@ -218,11 +218,15 @@ var addNewMembership = function () {
                             data: {
                                 modelDTO: data
                             },
+                            dataType: 'json',
                             success: function (response) {
-                                console.log("Membership Added successfully!");
-                                // toastr.success("Membership Added successfully!");
-                                // toastr.success("تمت إضافة العضوية بنجاح!");
-                                window.location.href = `/Membership/MembershipsList`;
+                                console.log(response);
+                                if (response.success) {
+                                    // console.log("Membership Added successfully!");
+                                    // toastr.success("Membership Added successfully!");
+                                    // toastr.success("تمت إضافة العضوية بنجاح!");
+                                    window.location.href = `/Membership`;
+                                }
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);

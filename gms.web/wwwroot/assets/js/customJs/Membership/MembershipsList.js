@@ -143,7 +143,7 @@ var membershipsList = function () {
     var editMembership = () => {
         document.querySelectorAll(".edit-membership-btn").forEach(e => {
             e.addEventListener("click", function () {
-                window.location.href = `/Membership/EditMembership?id=${e.dataset.id}&branchId=${e.dataset.branchId}`;
+                window.location.href = `/Membership/EditMembership?id=${e.dataset.id}`;
             });
         });
     }
@@ -167,8 +167,8 @@ var membershipsList = function () {
                     },
                     success: function (response) {
                         // Remove current row
-                        datatable.row($(parent)).remove().draw();
-                        globalClass.handleTooltip();
+                        datatable.row($(parent)).remove().draw(false);
+                        // globalClass.handleTooltip();
                         toastr.success("Membership Deleted Successfully!");
                     },
                     error: function (xhr, status, error) {

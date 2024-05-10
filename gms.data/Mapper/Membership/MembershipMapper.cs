@@ -40,13 +40,30 @@ public static class MembershipMapper
 			ClassLimitDays = source.ClassLimitDays,
 			ClassLimitationId = source.ClassLimitationId,
 			CreatedById = source.CreatedById,
-			CreatedAt = source.CreatedAt.AddHours(int.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
+			CreatedAt = source.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
 		};
 	}
 
-	public static GymMembershipPlanEntity ToUpdatedEntity(this MembershipDTO source, GymMembershipPlanEntity entity)
+	public static UpdateMembershipDTO ToUpdateDTO(this MembershipDTO source)
 	{
-		entity.BranchId = source.BranchId > default(int) && source.BranchId != entity.BranchId ? source.BranchId : entity.BranchId;
+		return new UpdateMembershipDTO()
+		{
+			Id = source.Id,
+			MembershipName = source.MembershipName,
+			MembershipDuration = source.MembershipDuration,
+			MembershipDurationTypeId = source.MembershipDurationTypeId,
+			MembershipAmount = source.MembershipAmount,
+			MembershipStatusId = source.MembershipStatusId,
+			SignupFee = source.SignupFee,
+			MembershipDescription = source.MembershipDescription,
+			ClassIsLimit = source.ClassIsLimit,
+			ClassLimitDays = source.ClassLimitDays,
+			ClassLimitationId = source.ClassLimitationId
+		};
+	}
+
+	public static GymMembershipPlanEntity ToUpdatedEntity(this UpdateMembershipDTO source, GymMembershipPlanEntity entity)
+	{
 		entity.MembershipName = !string.IsNullOrWhiteSpace(source.MembershipName) && !string.Equals(source.MembershipName, entity.MembershipName, StringComparison.OrdinalIgnoreCase) ? source.MembershipName : entity.MembershipName;
 		entity.MembershipDuration = source.MembershipDuration > default(int) && source.MembershipDuration != entity.MembershipDuration ? source.MembershipDuration : entity.MembershipDuration;
 		entity.MembershipDurationTypeId = source.MembershipDurationTypeId;
@@ -57,7 +74,6 @@ public static class MembershipMapper
 		entity.ClassIsLimit = source.ClassIsLimit;
 		entity.ClassLimitDays = source.ClassLimitDays;
 		entity.ClassLimitationId = source.ClassLimitationId;
-		entity.CreatedById = source.CreatedById > default(int) && source.CreatedById != entity.CreatedById ? source.CreatedById : entity.CreatedById;
 
 		return entity;
 	}

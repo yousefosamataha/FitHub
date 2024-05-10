@@ -1,6 +1,6 @@
-﻿@{
+﻿@model GymUserDTO
+@{
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
-
 }
 
 <div id="kt_app_header" class="app-header d-flex flex-column flex-stack">
@@ -14,9 +14,17 @@
             </div>
             <!--end::Sidebar mobile toggle-->
             <!--begin::Logo-->
-            <a href="../../demo39/dist/index.html" class="app-sidebar-logo">
-                <img alt="Logo" src="~/assets/media/logos/demo39.svg" class="h-25px theme-light-show" />
-                <img alt="Logo" src="~/assets/media/logos/demo39-dark.svg" class="h-25px theme-dark-show" />
+            <a asp-controller="Home" asp-action="Index" class="app-sidebar-logo">
+                @if(!IsRTL)
+                {
+                    <img alt="Logo" src="~/assets/Images/logo_title_dark_ltr.png" class="h-30px h-lg-35px theme-light-show" />
+                    <img alt="Logo" src="~/assets/Images/logo_title_light_ltr.png" class="h-30px h-lg-35px theme-dark-show" />
+                }
+                else
+                {
+                    <img alt="Logo" src="~/assets/Images/logo_title_dark_rtl.png" class="h-30px h-lg-35px theme-light-show" />
+                    <img alt="Logo" src="~/assets/Images/logo_title_light_rtl.png" class="h-30px h-lg-35px theme-dark-show" />
+                }
             </a>
             <!--end::Logo-->
         </div>
@@ -178,11 +186,10 @@
                             <!--begin::Username-->
                             <div class="d-flex flex-column">
                                 <div class="fw-bold d-flex align-items-center fs-5">
-                                    Max Smith
+                                    @Model.FirstName
                                     <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                 </div>
-                                <a href="#"
-                                   class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">@Model.Email</a>
                             </div>
                             <!--end::Username-->
                         </div>

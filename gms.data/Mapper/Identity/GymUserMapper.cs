@@ -15,12 +15,12 @@ public static class GymUserMapper
             ImageTypeId = (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.ImageType),
             FirstName = source.FirstName,
 			LastName = source.LastName,
-			GenderId = (common.Enums.GenderEnum)source.GenderId,
+            GenderId = (GenderEnum)source.GenderId,
             BirthDate = (DateOnly)source.BirthDate,
             Address = source.Address,
             City = source.City,
 			State = source.State,
-			StatusId = (common.Enums.StatusEnum)source.StatusId,
+			StatusId = (StatusEnum)source.StatusId,
 			GymUserTypeId = source.GymUserTypeId
 		};
 	}
@@ -34,12 +34,12 @@ public static class GymUserMapper
 			Image = $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}",
 			FirstName = entity.FirstName,
 			LastName = entity.LastName,
-			GenderId = (common.Enums.GenderEnum)entity.GenderId,
-			BirthDate = (DateOnly)entity.BirthDate,
+			GenderId = entity.GenderId,
+			BirthDate = entity.BirthDate,
 			Address = entity.Address,
 			City = entity.City,
 			State = entity.State,
-			StatusId = (common.Enums.StatusEnum)entity.StatusId,
+			StatusId = entity.StatusId,
 			GymUserTypeId = entity.GymUserTypeId
 		};
     }
@@ -51,10 +51,12 @@ public static class GymUserMapper
             UserId = entity.Id,
             GymId = entity.GymBranch.GymId,
             BranchId = entity.BranchId,
-            Name = entity.FirstName + " " + entity.LastName,
+            FirstName = entity.FirstName,
+            LastName = entity.LastName,
+			Email = entity.Email,
             GenderId = entity.GenderId,
             GymUserTypeId = entity.GymUserTypeId,
-            UserStatusId = entity.StatusId
+            UserStatusId = entity.StatusId,
         };
     }
 }

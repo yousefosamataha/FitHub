@@ -6,8 +6,8 @@ namespace gms.service.Membership.GymMembershipPlanRepository;
 public interface IGymMembershipPlanService : IBaseRepository<GymMembershipPlanEntity>
 {
 	Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership);
-	Task<List<MembershipDTO>> GetMembershipPlansListAsync(int branchId);
+	Task<List<MembershipDTO>> GetMembershipPlansListAsync();
 	Task<MembershipDTO> GetMembershipAsync(int id,int branchId);
-	Task<MembershipDTO> UpdateGymMembershipPlanAsync(MembershipDTO membershipDTO);
+	Task<MembershipDTO> UpdateGymMembershipPlanAsync(UpdateMembershipDTO membershipDTO);
 	Task<bool> DeleteMembershipAsync(int id, int branchId);
 }
