@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.Role;
 
-public sealed class CreateGymRoleDTO
+public sealed record CreateGymRoleDTO
 {
-    public string RoleName { get; init; }
+	public string RoleName { get; init; }
 }

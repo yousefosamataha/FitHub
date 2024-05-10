@@ -68,15 +68,13 @@ public class GymRolesService : IGymRolesService
 
 	public async Task<List<GymRoleDTO>> GetAllRolesAsync()
 	{
-		List<GymRoleDTO> roles = await _roleManager.Roles.Select(r => new GymRoleDTO()
+		List<GymRoleDTO> roles = await _roleManager.Roles.Where(r => r.BranchId == GetBranchId()).Select(r => new GymRoleDTO()
 		{
 			RoleId = r.Id,
 			RoleName = r.Name
 		}).ToListAsync();
 		return roles;
 	}
-
-
 
 	public async Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId)
 	{
@@ -109,6 +107,7 @@ public class GymRolesService : IGymRolesService
 	public async Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO newRole)
 	{
 		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
+		newIdentityRoleEntity.BranchId = GetBranchId();
 		await _context.Roles.AddAsync(newIdentityRoleEntity);
 		return newIdentityRoleEntity.ToDTO();
 	}
