@@ -49,20 +49,23 @@ public class GymRolesService : IGymRolesService
 
 	public async Task CreateRolesToBranch(int BranchId)
 	{
-		// List<GymIdentityRoleEntity> roles = new();
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
 		{
 			GymIdentityRoleEntity newRole = new()
 			{
 				Name = role.ToString(),
 				NormalizedName = role.ToString().ToUpper(),
-				BranchId = BranchId
+				BranchId = BranchId,
+				IsDeleteable = false,
+				IsUpdateable = false
 			};
-			// roles.Add(newRole);
 			await _roleManager.CreateAsync(newRole);
+
+			if (string.Equals(role.ToString(), RolesEnum.GymOwner.ToString(), StringComparison.OrdinalIgnoreCase))
+			{
+				await AddAllPermissionClaims(newRole);
+			}
 		};
-		//await _context.Roles.AddRangeAsync(roles);
-		//await _context.SaveChangesAsync();
 	}
 
 	public async Task<List<GymRoleDTO>> GetAllRolesAsync()
@@ -107,7 +110,9 @@ public class GymRolesService : IGymRolesService
 	{
 		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
 		newIdentityRoleEntity.BranchId = GetBranchId();
-		await _context.Roles.AddAsync(newIdentityRoleEntity);
+		newIdentityRoleEntity.IsDeleteable = true;
+		newIdentityRoleEntity.IsUpdateable = true;
+		await _roleManager.CreateAsync(newIdentityRoleEntity);
 		return newIdentityRoleEntity.ToDTO();
 	}
 
@@ -123,11 +128,5 @@ public class GymRolesService : IGymRolesService
 				await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
 		}
 		return role;
-	}
-
-	public async Task AddClaimsForSuperAdminUser()
-	{
-		GymIdentityRoleEntity superadminRole = await _roleManager.FindByNameAsync(RolesEnum.SuperAdmin.ToString());
-		await AddAllPermissionClaims(superadminRole);
 	}
 }

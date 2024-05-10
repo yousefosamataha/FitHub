@@ -138,7 +138,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 			IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
 			GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
-
+			await _userManager.AddToRolesAsync(user, Enum.GetNames(typeof(RolesEnum)).ToList());
 			// (6)
 			//CreatedSystemSubscription.CreatedById = createdUser.Id;
 			//var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);

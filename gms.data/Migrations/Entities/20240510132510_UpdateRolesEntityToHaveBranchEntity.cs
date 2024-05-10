@@ -35,201 +35,215 @@ namespace gms.data.Migrations.Entities
                 nullable: false,
                 defaultValue: 0);
 
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDeleteable",
+                table: "gms.Identity.GymIdentityRole",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsUpdateable",
+                table: "gms.Identity.GymIdentityRole",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.UpdateData(
                 table: "gms.GenderEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 396, DateTimeKind.Utc).AddTicks(6672));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 256, DateTimeKind.Utc).AddTicks(8479));
 
             migrationBuilder.UpdateData(
                 table: "gms.GenderEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 396, DateTimeKind.Utc).AddTicks(6685));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 256, DateTimeKind.Utc).AddTicks(8491));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8204));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3026));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8229));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3039));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8232));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3042));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8236));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3045));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8246));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3048));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8252));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3053));
 
             migrationBuilder.UpdateData(
                 table: "gms.GymResultMeasurement",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 421, DateTimeKind.Utc).AddTicks(8254));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 281, DateTimeKind.Utc).AddTicks(3055));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 443, DateTimeKind.Utc).AddTicks(7932));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 305, DateTimeKind.Utc).AddTicks(8640));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 443, DateTimeKind.Utc).AddTicks(7947));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 305, DateTimeKind.Utc).AddTicks(8653));
 
             migrationBuilder.UpdateData(
                 table: "gms.MemberLevelEnum",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 443, DateTimeKind.Utc).AddTicks(7951));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 305, DateTimeKind.Utc).AddTicks(8657));
 
             migrationBuilder.UpdateData(
                 table: "gms.PaymentMethodEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 446, DateTimeKind.Utc).AddTicks(4228));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 309, DateTimeKind.Utc).AddTicks(5879));
 
             migrationBuilder.UpdateData(
                 table: "gms.PaymentMethodEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 446, DateTimeKind.Utc).AddTicks(4241));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 309, DateTimeKind.Utc).AddTicks(5910));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2217));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9533));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2228));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9557));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2232));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9565));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2236));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9572));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2240));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9578));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2244));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9589));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2259));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9595));
 
             migrationBuilder.UpdateData(
                 table: "gms.StatusEnum",
                 keyColumn: "Id",
                 keyValue: 8,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 447, DateTimeKind.Utc).AddTicks(2263));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 310, DateTimeKind.Utc).AddTicks(9602));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(4477));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 312, DateTimeKind.Utc).AddTicks(9648));
 
             migrationBuilder.UpdateData(
                 table: "gms.SubscriptionTypeEnum",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(4500));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 312, DateTimeKind.Utc).AddTicks(9688));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(8093));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 313, DateTimeKind.Utc).AddTicks(5353));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(8108));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 313, DateTimeKind.Utc).AddTicks(5381));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(8111));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 313, DateTimeKind.Utc).AddTicks(5388));
 
             migrationBuilder.UpdateData(
                 table: "gms.SystemPlan",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 5, 10, 12, 10, 48, 448, DateTimeKind.Utc).AddTicks(8113));
+                value: new DateTime(2024, 5, 10, 13, 25, 7, 313, DateTimeKind.Utc).AddTicks(5392));
 
             migrationBuilder.CreateIndex(
                 name: "IX_gms.Identity.GymIdentityRole_BranchId",
@@ -258,6 +272,14 @@ namespace gms.data.Migrations.Entities
 
             migrationBuilder.DropColumn(
                 name: "BranchId",
+                table: "gms.Identity.GymIdentityRole");
+
+            migrationBuilder.DropColumn(
+                name: "IsDeleteable",
+                table: "gms.Identity.GymIdentityRole");
+
+            migrationBuilder.DropColumn(
+                name: "IsUpdateable",
                 table: "gms.Identity.GymIdentityRole");
 
             migrationBuilder.UpdateData(
