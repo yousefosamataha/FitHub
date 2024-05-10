@@ -20,7 +20,7 @@ public class RolesController : BaseController<RolesController>
 		_gymRolesService = gymRolesService;
 		_roleManager = roleManager;
 	}
-	public async Task<IActionResult> GymRoles()
+	public async Task<IActionResult> Index()
 	{
 		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
 		return View(roles);
