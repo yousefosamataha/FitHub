@@ -4,9 +4,10 @@ using gms.data.Models.Identity;
 namespace gms.service.Identity.GymRolesRepository;
 public interface IGymRolesService
 {
-    Task<List<GymRoleDTO>> GetAllRolesAsync();
-    Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
-    Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);
-    Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role);
-    Task AddClaimsForSuperAdminUser();
+	Task CreateAllRolesinBranch(int BranchId);
+	Task<List<GymRoleDTO>> GetAllRolesAsync();
+	Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
+	Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);
+	Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role);
+	Task AddClaimsForSuperAdminUser();
 }

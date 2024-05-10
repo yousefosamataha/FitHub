@@ -11,9 +11,13 @@ internal class GymIdentityRoleConfiguration : IEntityTypeConfiguration<GymIdenti
 	{
 		builder.ToTable(gmsDbProperties.DbIdentityTablePrefix + ".GymIdentityRole", gmsDbProperties.DbSchema);
 
-		builder.HasOne(gu => gu.GymBranch)
-			   .WithMany(g => g.GymRoles)
-			   .HasForeignKey(gu => gu.BranchId);
+		builder.Property(gr => gr.BranchId).IsRequired();
+
+		builder.HasOne(gr => gr.GymBranch)
+			   .WithMany(gb => gb.GymRoles)
+			   .HasForeignKey(gr => gr.BranchId)
+			   .OnDelete(DeleteBehavior.Restrict);
+
 
 		//builder.HasData(GetSystemRoles());
 	}

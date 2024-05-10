@@ -35,7 +35,8 @@ internal class GymBranchConfiguration : IEntityTypeConfiguration<GymBranchEntity
 
 		builder.HasMany(gb => gb.GymRoles)
 			   .WithOne(gr => gr.GymBranch)
-			   .HasForeignKey(gr => gr.BranchId);
+			   .HasForeignKey(gr => gr.BranchId)
+			   .OnDelete(DeleteBehavior.Restrict);
 
 		builder.HasMany(gb => gb.GymSpecializations)
 			   .WithOne(gs => gs.GymBranch)
