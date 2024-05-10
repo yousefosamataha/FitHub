@@ -7,4 +7,8 @@ public interface IActivityService : IBaseRepository<ActivityEntity>
 {
 	Task<ActivityDTO> CreateNewActivityAsync(CreateActivityDTO createActivityDto);
 	Task<List<ActivityDTO>> GetActivitiesListAsync();
+	Task<ActivityDTO> GetActivityAsync(int id);
+	Task<ActivityDTO> UpdateActivityAsync(UpdateActivityDTO updateActivityDto);
+
+    Task<bool> DeleteActivityAsync(int activityId);
 }

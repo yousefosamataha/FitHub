@@ -2,8 +2,9 @@
 import { globalClass } from '../custom.js';
 
 // Class definition
-var groupsList = function () {
+var activitiesList = function () {
     // Shared variables
+    var modal;
     var table;
     var datatable;
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
@@ -52,7 +53,7 @@ var groupsList = function () {
     }
 
     // Add New Activity
-    var handleAddNewGroup = () => {
+    var handleAddNewActivity = () => {
         document.querySelector("#add_new_activity").addEventListener("click", () => {
             // Select Modal Element And Set Title
             const modalEl = document.querySelector("#main_modal");
@@ -61,7 +62,7 @@ var groupsList = function () {
             });
 
             if (modalEl) {
-                const modal = new bootstrap.Modal(modalEl);
+                modal = new bootstrap.Modal(modalEl);
                 $.ajax({
                     url: '/Activity/AddNewActivity',
                     type: 'GET',
@@ -92,6 +93,8 @@ var groupsList = function () {
                                 $(this).slideUp(deleteElement);
                             }
                         });
+
+                        $('.add-new-activity-category-popover-btn').popover();
 
                         // Handle Form Validation
                         const addNewActivityForm = document.getElementById('add_new_Activity_form');
@@ -144,12 +147,19 @@ var groupsList = function () {
                             if (addNewActivityValidator) {
                                 addNewActivityValidator.validate().then(function (status) {
                                     if (status == 'Valid') {
+                                        submitButton.setAttribute('data-kt-indicator', 'on');
+                                        submitButton.disabled = true;
+
+                                        var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
+                                        var activityVideos = [];
+                                        textareas.forEach(e => e.value.length > 0 ? activityVideos.push(e.value) : true);
                                         var data = {};
                                         data.Activity = {};
                                         data.Activity.Title = $('[name="Activity.Title"]').val();
                                         data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
                                         data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
-                                        console.log(data);
+                                        data.ActivityVideos = activityVideos;
+
                                         $.ajax({
                                             url: '/Activity/AddNewActivity',
                                             type: 'POST',
@@ -159,7 +169,7 @@ var groupsList = function () {
                                             dataType: 'json',
                                             success: function (response) {
                                                 console.log(response);
-                                                //window.location.href = `/Gym/GroupsList`;
+                                                window.location.href = `/Activity/Index`;
                                             }
                                         });
                                     }
@@ -173,22 +183,22 @@ var groupsList = function () {
     }
 
     // Edite Group
-    var editGroup = () => {
+    var editActivity = () => {
         // Select all delete buttons
-        const editButtons = table.querySelectorAll('.edit-group-btn');
+        const editButtons = table.querySelectorAll('.edit-activity-btn');
 
         editButtons.forEach(Button => {
             Button.addEventListener("click", function (e) {
                 // Select Modal Element And Set Title
                 const modalEl = document.querySelector("#main_modal");
                 jsonlocalizerData().then(data => {
-                    modalEl.querySelector("h3").innerText = "Edit";
+                    modalEl.querySelector("h3").innerText = data["edit_activity"];
                 });
 
                 if (modalEl) {
                     const modal = new bootstrap.Modal(modalEl);
                     $.ajax({
-                        url: '/Gym/EditGroup',
+                        url: '/Activity/EditActivity',
                         type: 'Post',
                         data: {
                             id: this.dataset.id
@@ -197,31 +207,70 @@ var groupsList = function () {
                             $(modalEl.querySelector(".modal-body")).empty().html(data);
                             modal.show();
 
-                            // Handle Input Image
-                            var imageInputElement = document.querySelector("#image_input_control");
-                            var imageInput = new KTImageInput(imageInputElement);
-                            var base64Image = imageInput.src.split('url("')[1].split('")')[0];
-                            $("#image_input_control .btn[data-kt-image-input-action='remove']").show();
-                            $("#image_input_control .btn[data-kt-image-input-action='remove']").css("display", "flex");
+                            $('#Activity_ActivityCategoryId').select2({
+                                minimumResultsForSearch: -1
+                            });
 
-                            $("#image_input_control .btn[data-kt-image-input-action='remove']").click(function () {
-                                base64Image = null;
+                            $('#select_memberships').select2({
+                                minimumResultsForSearch: -1
+                            });
+
+                            $('#kt_docs_repeater_basic').repeater({
+                                initEmpty: false,
+                                defaultValues: {
+                                    'text-input': ''
+                                },
+                                show: function () {
+                                    $(this).find('textarea').val('');
+                                    $(this).slideDown();
+                                },
+                                hide: function (deleteElement) {
+                                    $(this).slideUp(deleteElement);
+                                }
+                            });
+
+                            $.ajax({
+                                url: '/Activity/GetActivityMembershipsById',
+                                type: 'GET',
+                                data: {
+                                    activityId: $('[name="Activity.Id"]').val()
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    var membershipIds = [];
+                                    response.data.forEach(m => membershipIds.push(m.membershipPlanId));
+                                    $('#select_memberships').val(membershipIds).trigger('change');
+                                }
                             });
 
                             // Handle Form Validation
-                            const addNewGroupForm = document.getElementById('update_group_form');
-                            var addNewGroupValidator;
+                            const updateActivityForm = document.getElementById('update_Activity_form');
+                            var updateActivityValidator;
                             jsonlocalizerData().then(data => {
-                                addNewGroupValidator = FormValidation.formValidation(addNewGroupForm,
+                                updateActivityValidator = FormValidation.formValidation(updateActivityForm,
                                     {
                                         fields: {
-                                            'Name': {
+                                            'Activity.ActivityCategoryId': {
                                                 validators: {
                                                     notEmpty: {
                                                         message: data.thisfieldisrequired
                                                     }
                                                 }
-                                            }
+                                            },
+                                            'Activity.Title': {
+                                                validators: {
+                                                    notEmpty: {
+                                                        message: data.thisfieldisrequired
+                                                    }
+                                                }
+                                            },
+                                            'SelectedMembershipIds': {
+                                                validators: {
+                                                    notEmpty: {
+                                                        message: data.thisfieldisrequired
+                                                    }
+                                                }
+                                            },
                                         },
                                         plugins: {
                                             trigger: new FormValidation.plugins.Trigger(),
@@ -235,41 +284,41 @@ var groupsList = function () {
                                 );
                             });
 
-                            document.getElementById('Image').addEventListener('change', function (event) {
-                                var file = event.target.files[0];
-                                var reader = new FileReader();
-                                reader.onload = function (event) {
-                                    base64Image = event.target.result;
-                                    console.log(base64Image);
-                                };
-                                reader.readAsDataURL(file);
-                            });
-
                             // Handle Form Submition
-                            const submitButton = document.getElementById('update_group_form_submit');
+                            const submitButton = document.getElementById('update_activity_form_submit');
                             submitButton.addEventListener('click', function (e) {
                                 // Prevent default button action
                                 e.preventDefault();
 
                                 // Validate form before submit
-                                if (addNewGroupValidator) {
-                                    addNewGroupValidator.validate().then(function (status) {
+                                if (updateActivityValidator) {
+                                    updateActivityValidator.validate().then(function (status) {
                                         if (status == 'Valid') {
+                                            submitButton.setAttribute('data-kt-indicator', 'on');
+                                            submitButton.disabled = true;
+
+                                            var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
+                                            var activityVideos = [];
+                                            textareas.forEach(e => activityVideos.push(e.value));
                                             var data = {};
-                                            data.Id = $('[name="Id"]').val();
-                                            data.Name = $('[name="Name"]').val();
-                                            data.Image = base64Image != '' ? base64Image : null;
+                                            data.Activity = {};
+                                            data.Activity.Id = $('[name="Activity.Id"]').val();
+                                            data.Activity.Title = $('[name="Activity.Title"]').val();
+                                            data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
+                                            data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
+                                            data.ActivityVideos = activityVideos;
+                                            console.log(data);
 
                                             $.ajax({
-                                                url: '/Gym/UpdateGroup',
+                                                url: '/Activity/UpdateActivity',
                                                 type: 'POST',
                                                 data: {
-                                                    modelDTO: data
+                                                    updateActivityDTO: data
                                                 },
                                                 dataType: 'json',
                                                 success: function (response) {
                                                     console.log(response);
-                                                    window.location.href = `/Gym/GroupsList`;
+                                                    window.location.href = `/Activity/Index`;
                                                 }
                                             });
                                         }
@@ -284,9 +333,9 @@ var groupsList = function () {
     }
 
     // Delete Group
-    var deleteGroup = () => {
+    var deleteActivity = () => {
         // Select all delete buttons
-        const deleteButtons = table.querySelectorAll('.delete-group-btn');
+        const deleteButtons = table.querySelectorAll('.delete-activity-btn');
 
         deleteButtons.forEach(d => {
             d.addEventListener("click", function (e) {
@@ -294,21 +343,138 @@ var groupsList = function () {
                 const parent = this.closest('tr');
 
                 $.ajax({
-                    url: '/Gym/DeleteGroup',
+                    url: '/Activity/DeleteActivity',
                     type: 'POST',
                     data: {
                         id: this.dataset.id
                     },
                     success: function (response) {
                         // Remove current row
-                        datatable.row($(parent)).remove().draw();
-                        globalClass.handleTooltip();
-                        toastr.success("Group Deleted Successfully!");
+                        datatable.row($(parent)).remove().draw(false);
+                        // globalClass.handleTooltip();
+                        toastr.success("Activity Deleted Successfully!");
                     },
                     error: function (xhr, status, error) {
                         console.error('Error:', error);
                     }
                 });
+            });
+        });
+    }
+
+    // Show Activity Videos
+    var showActivityVideos = () => {
+        // Select all delete buttons
+        const showButtons = table.querySelectorAll('.show-activity-videos-btn');
+
+        showButtons.forEach(s => {
+            s.addEventListener("click", function (e) {
+                window.location.href = `/Activity/ActivityVideos?activityId=${this.dataset.id}`;
+            });
+        });
+    }
+
+    // ============
+    var handleAddNewActivityCategory = () => {
+        $(document).on('click', '.add-new-activity-category', function () {
+            const modalEl = document.querySelector("#main_modal");
+            jsonlocalizerData().then(data => {
+                modalEl.querySelector("h3").innerText = data["add_new_activity_category"];
+            });
+
+            $.ajax({
+                url: '/Activity/AddNewActivityCategory',
+                type: 'GET',
+                success: function (data) {
+                    $(modalEl.querySelector(".modal-body")).empty().html(data);
+                    $('.popover').remove();
+
+                    // Handle Form Validation
+                    const addNewActivityCategoryForm = document.getElementById('add_new_activity_category_form');
+                    var addNewActivityCategoryValidator;
+                    jsonlocalizerData().then(data => {
+                        addNewActivityCategoryValidator = FormValidation.formValidation(addNewActivityCategoryForm,
+                            {
+                                fields: {
+                                    'CreateActivityCategory.Name': {
+                                        validators: {
+                                            notEmpty: {
+                                                message: data.thisfieldisrequired
+                                            }
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    trigger: new FormValidation.plugins.Trigger(),
+                                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                                        rowSelector: '.fv-row',
+                                        eleInvalidClass: '',
+                                        eleValidClass: ''
+                                    })
+                                }
+                            }
+                        );
+                    });
+
+                    // Select all delete buttons
+                    const deleteButtons = document.querySelectorAll('.delete-activity-category-btn');
+                    deleteButtons.forEach(d => {
+                        d.addEventListener("click", function (e) {
+                            // Select parent row
+                            const parent = this.closest('tr');
+
+                            $.ajax({
+                                url: '/Activity/DeleteActivityCategory',
+                                type: 'POST',
+                                data: {
+                                    id: this.dataset.id
+                                },
+                                success: function (response) {
+                                    // Remove current row
+                                    //datatable.row($(parent)).remove().draw(false);
+                                    $(parent).remove();
+                                    // globalClass.handleTooltip();
+                                    toastr.success("Activity Category Deleted Successfully!");
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        });
+                    });
+
+                    // Handle Form Submition
+                    const submitButton = document.getElementById('add_new_Activity_category_form_submit');
+                    submitButton.addEventListener('click', function (e) {
+                        // Prevent default button action
+                        e.preventDefault();
+
+                        // Validate form before submit
+                        if (addNewActivityCategoryValidator) {
+                            addNewActivityCategoryValidator.validate().then(function (status) {
+                                if (status == 'Valid') {
+                                    submitButton.setAttribute('data-kt-indicator', 'on');
+                                    submitButton.disabled = true;
+
+                                    var data = {};
+                                    data.Name = $('[name="CreateActivityCategory.Name"]').val();
+
+                                    $.ajax({
+                                        url: '/Activity/AddNewActivityCategory',
+                                        type: 'POST',
+                                        data: {
+                                            activityCategoryModal: data
+                                        },
+                                        dataType: 'json',
+                                        success: function (response) {
+                                            modal.hide();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
             });
         });
     }
@@ -324,14 +490,16 @@ var groupsList = function () {
 
             initDatatable();
             handleSearchDatatable();
-            handleAddNewGroup();
-            //editGroup();
-            //deleteGroup();
+            handleAddNewActivity();
+            editActivity();
+            deleteActivity();
+            showActivityVideos();
+            handleAddNewActivityCategory();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    groupsList.init();
+    activitiesList.init();
 });

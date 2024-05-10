@@ -1,6 +1,4 @@
-﻿using gms.common.Models.ActivityCat.Activity;
-
-namespace gms.common.Models.ActivityCat.ActivityCategory;
+﻿namespace gms.common.Models.ActivityCat.ActivityCategory;
 
 public record ActivityCategoryDTO
 {
@@ -9,6 +7,4 @@ public record ActivityCategoryDTO
     public int BranchId { get; init; }
 
     public required string Name { get; init; }
-
-    public List<ActivityDTO> Activities { get; init; }
 }

@@ -1,30 +1,18 @@
 ﻿@using gms.common.ViewModels.Activity
-@model AddNewActivityVM
+@model UpdateActivityVM
 @{
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
 <!--begin::Form-->
-<form id="add_new_Activity_form" class="form d-flex flex-column flex-lg-row">
+<form id="update_Activity_form" class="form d-flex flex-column flex-lg-row">
+    <input type="hidden" asp-for="@Model.Activity.Id" />
     <!--begin::Wrapper-->
     <div class="w-100">
         <!--begin::Input group-->
-        <div class="mb-5 fv-row">
+        <div class="col mb-5 fv-row">
             <!--begin::Label-->
-            <label class="form-label d-flex align-items-center ms-2">
-                <span class="required">@localizer["activity_category"]</span>
-                <span role="button" class="ms-1 @(!Model.ActivityCategories.Any() ? "pulse pulse-danger" : "") add-new-activity-category-popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="@localizer["to_add_new_activity_category"] <span class='add-new-activity-category text-primary' role='button'>@localizer["click_here"]</span>" style="width: 15px;
-                    height: 15px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;">
-                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                    @if (!Model.ActivityCategories.Any())
-                    {
-                        <span class="pulse-ring" style="width: 30px;height: 30px;"></span>  
-                    }
-                </span>
-            </label>
+            <label class="required form-label ms-2">@localizer["activity_category"]</label>
             <!--end::Label-->
             <!--begin::Select-->
             <select class="form-select" asp-for="@Model.Activity.ActivityCategoryId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
@@ -40,7 +28,7 @@
         <!--begin::Input group-->
         <div class="mb-5 fv-row">
             <label class="required form-label ms-2">@localizer["activity_name"]</label>
-            <input type="text" asp-for="@Model.Activity.Title" class="form-control" placeholder="@localizer["enter"] @localizer["embedded_link"] @localizer["here"]" />
+            <input type="text" asp-for="@Model.Activity.Title" class="form-control" placeholder="@localizer["enter"] @localizer["activity_name"] @localizer["here"]" />
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
@@ -65,18 +53,39 @@
             <!--begin::Form group-->
             <div class="form-group">
                 <div data-repeater-list="kt_docs_repeater_basic">
-                    <div data-repeater-item>
-                        <div class="form-group mb-5 row">
-                            <div class="col-md-10">
-                                <textarea class="form-control mb-2 mb-md-0" data-kt-autosize="true" placeholder="@localizer["enter"] @localizer["embedded_link"] @localizer["here"]" style="resize: none;"></textarea>
+                    @if (Model.ActivityVideos.Any())
+                    {
+                        @foreach (var av in Model.ActivityVideos)
+                        {
+                            <div data-repeater-item>
+                                <div class="form-group mb-5 row">
+                                    <div class="col-10">
+                                        <textarea class="form-control mb-2 mb-md-0" name="text-input" data-kt-autosize="true" placeholder="@localizer["enter"] @localizer["embedded_link"] @localizer["here"]" style="resize: none;">@av</textarea>
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="javascript:;" data-repeater-delete class="btn btn-icon btn-bg-light btn-light-danger btn-sm">
+                                            <i class="ki-solid ki-trash fs-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-1">
-                                <a href="javascript:;" data-repeater-delete class="btn btn-icon btn-bg-light btn-light-danger btn-sm">
-                                    <i class="ki-solid ki-trash fs-2"></i>
-                                </a>
+                        }
+                    }
+                    else
+                    {
+                        <div data-repeater-item>
+                            <div class="form-group mb-5 row">
+                                <div class="col-10">
+                                    <textarea class="form-control mb-2 mb-md-0" name="text-input" data-kt-autosize="true" placeholder="@localizer["enter"] @localizer["embedded_link"] @localizer["here"]" style="resize: none;"></textarea>
+                                </div>
+                                <div class="col-1">
+                                    <a href="javascript:;" data-repeater-delete class="btn btn-icon btn-bg-light btn-light-danger btn-sm">
+                                        <i class="ki-solid ki-trash fs-2"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
             <!--end::Form group-->
@@ -95,7 +104,7 @@
             <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
             <!--end::Reset Button-->
             <!--begin::Button-->
-            <button type="submit" id="add_new_Activity_form_submit" class="btn btn-primary">
+            <button type="submit" id="update_activity_form_submit" class="btn btn-primary">
                 <span class="indicator-label">@localizer["save"]</span>
                 <span class="indicator-progress">
                     @localizer["please_wait"]...

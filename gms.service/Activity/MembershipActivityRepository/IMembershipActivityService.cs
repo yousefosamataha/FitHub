@@ -5,5 +5,8 @@ using gms.services.Base;
 namespace gms.service.Activity.MembershipActivityRepository;
 public interface IMembershipActivityService : IBaseRepository<MembershipActivityEntity>
 {
-	Task<bool> CreateNewMembershipActivityAsync(List<CreateMembershipActivityDTO> membershipActivitiesListDto);
+    Task<List<MembershipActivityDTO>> GetActivityMembershipsListAsync(int activityId);
+    Task<bool> CreateNewMembershipActivityAsync(List<CreateMembershipActivityDTO> membershipActivitiesListDto);
+
+    Task<bool> UpdateMembershipActivityAsync(List<CreateMembershipActivityDTO> updateMembershipActivitiesListDto, int activityId);
 }

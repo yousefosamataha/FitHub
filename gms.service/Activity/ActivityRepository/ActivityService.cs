@@ -31,4 +31,25 @@ public class ActivityService : BaseRepository<ActivityEntity>, IActivityService
         List<ActivityEntity> listOfActivities = await FindAllAsync(a => a.BranchId == GetBranchId(), ["ActivityCategory"]);
         return listOfActivities.Select(a => a.ToDTO()).ToList();
     }
+
+	public async Task<ActivityDTO> GetActivityAsync(int id)
+	{
+		var activityEntity = await FindAsync(a => a.Id == id && a.BranchId == GetBranchId());
+		return activityEntity.ToDTO();
+	}
+
+    public async Task<ActivityDTO> UpdateActivityAsync(UpdateActivityDTO updateActivityDto)
+    {
+        ActivityEntity curentActivityEntity = await FindAsync(a => a.Id == updateActivityDto.Id);
+        ActivityEntity updatedActivityEntity = updateActivityDto.ToUpdatedEntity(curentActivityEntity);
+        await UpdateAsync(updatedActivityEntity);
+        return updatedActivityEntity.ToDTO();
+    }
+
+    public async Task<bool> DeleteActivityAsync(int activityId)
+    {
+        ActivityEntity activityEntity = await FindAsync(a => a.Id == activityId && a.BranchId == GetBranchId());
+        await DeleteAsync(activityEntity);
+        return true;
+    }
 }

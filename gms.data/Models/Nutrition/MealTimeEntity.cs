@@ -10,5 +10,5 @@ public class MealTimeEntity : BaseEntity
 
     // Navigation properties
     public virtual GymBranchEntity GymBranch { get; set; }
-    public ICollection<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
+    public virtual ICollection<NutritionPlanMealEntity> NutritionPlanMeals { get; set; }
 }

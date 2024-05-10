@@ -20,7 +20,7 @@ internal class MembershipActivityConfiguration : IEntityTypeConfiguration<Member
 
         builder.HasOne(ma => ma.MembershipPlan)
                .WithMany(gmp => gmp.MembershipActivities)
-               .HasForeignKey(ma => ma.ActivityId)
+               .HasForeignKey(ma => ma.MembershipPlanId)
                .OnDelete(DeleteBehavior.Restrict);
     }
 }

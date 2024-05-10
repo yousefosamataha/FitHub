@@ -4,11 +4,11 @@ using gms.common.Models.MembershipCat;
 
 namespace gms.common.ViewModels.Activity;
 
-public class AddNewActivityVM
+public class UpdateActivityVM
 {
-	public CreateActivityDTO Activity { get; set; }
+	public UpdateActivityDTO Activity { get; set; }
 	public List<ActivityCategoryDTO> ActivityCategories { get; set; }
 	public List<MembershipDTO> Memberships { get; set; }
-	public List<int> MembershipIds { get; set; }
+    public List<int> MembershipIds { get; set; }
 	public List<string> ActivityVideos { get; set; }
 }

@@ -5,7 +5,7 @@
 using gms.common.Models.Identity;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
-using gms.service.GymUserRepository;
+using gms.service.Identity.GymUserRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

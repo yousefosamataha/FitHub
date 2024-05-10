@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace gms.common.Models.Role;
 
-namespace gms.common.Models.Role;
-
-public sealed class CreateGymRoleDTO
+public sealed record CreateGymRoleDTO
 {
-    [Required, StringLength(256)]
-    public string RoleName { get; set; }
+	public string RoleName { get; init; }
 }
