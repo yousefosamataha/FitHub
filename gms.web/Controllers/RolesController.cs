@@ -1,6 +1,6 @@
 ﻿using gms.common.Models.Role;
 using gms.data.Models.Identity;
-using gms.service.GymRolesRepository;
+using gms.service.Identity.GymRolesRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ public class RolesController : BaseController<RolesController>
 		_gymRolesService = gymRolesService;
 		_roleManager = roleManager;
 	}
-	public async Task<IActionResult> GymRoles()
+	public async Task<IActionResult> Index()
 	{
 		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
 		return View(roles);

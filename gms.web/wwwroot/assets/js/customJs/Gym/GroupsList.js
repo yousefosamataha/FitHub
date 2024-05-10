@@ -11,7 +11,6 @@ var groupsList = function () {
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
     const hostName = window.location.origin;
-    let test;
     var jsonlocalizerData = () => {
         return $.ajax({
             url: '/Home/GetJsonlocalizer',
@@ -100,7 +99,7 @@ var groupsList = function () {
         });
     }
 
-    // ------------
+    // Add Group
     var handleAddNewGroup = () => {
         document.querySelector("#add_new_group").addEventListener("click", () => {
             // Select Modal Element And Set Title
@@ -169,6 +168,9 @@ var groupsList = function () {
                             if (addNewGroupValidator) {
                                 addNewGroupValidator.validate().then(function (status) {
                                     if (status == 'Valid') {
+                                        submitButton.setAttribute('data-kt-indicator', 'on');
+                                        submitButton.disabled = true;
+
                                         var data = {};
                                         data.Name = $('[name="Name"]').val();
                                         data.Image = base64Image;
@@ -204,7 +206,7 @@ var groupsList = function () {
                 // Select Modal Element And Set Title
                 const modalEl = document.querySelector("#main_modal");
                 jsonlocalizerData().then(data => {
-                    modalEl.querySelector("h3").innerText = "Edit";
+                    modalEl.querySelector("h3").innerText = data["edit_group"];
                 });
 
                 if (modalEl) {
@@ -277,6 +279,9 @@ var groupsList = function () {
                                 if (addNewGroupValidator) {
                                     addNewGroupValidator.validate().then(function (status) {
                                         if (status == 'Valid') {
+                                            submitButton.setAttribute('data-kt-indicator', 'on');
+                                            submitButton.disabled = true;
+
                                             var data = {};
                                             data.Id = $('[name="Id"]').val();
                                             data.Name = $('[name="Name"]').val();
@@ -323,8 +328,8 @@ var groupsList = function () {
                     },
                     success: function (response) {
                         // Remove current row
-                        datatable.row($(parent)).remove().draw();
-                        globalClass.handleTooltip();
+                        datatable.row($(parent)).remove().draw(false);
+                        // globalClass.handleTooltip();
                         toastr.success("Group Deleted Successfully!");
                     },
                     error: function (xhr, status, error) {

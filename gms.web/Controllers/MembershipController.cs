@@ -34,7 +34,7 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> Index()
 	{
-		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync(GetBranchId());
+		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync();
         BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
         MembershipsListVM viewModel = new();
 		viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;

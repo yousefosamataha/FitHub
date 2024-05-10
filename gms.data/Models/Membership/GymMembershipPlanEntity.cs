@@ -21,8 +21,8 @@ public class GymMembershipPlanEntity : BaseEntity
     // Navigation properties
     public virtual GymBranchEntity GymBranch { get; set; }
     public virtual ICollection<GymMemberMembershipEntity> GymMemberMemberships { get; set; }
-    public ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
-    public ICollection<MembershipActivityEntity> MembershipActivities { get; set; }
+    public virtual ICollection<GymMembershipPlanClassEntity> MembershipPlanClasses { get; set; }
+    public virtual ICollection<MembershipActivityEntity> MembershipActivities { get; set; }
 
     // TODO: Add Relation Entities
     // public int? InstallmentPlanId { get; set; }

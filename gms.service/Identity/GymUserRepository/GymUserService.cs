@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
-namespace gms.service.GymUserRepository;
+namespace gms.service.Identity.GymUserRepository;
 public class GymUserService : IGymUserService
 {
     private readonly UserManager<GymUserEntity> _userManager;

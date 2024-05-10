@@ -2,6 +2,11 @@
 
 public enum ModulesEnum
 {
-    Gym,
-    GymClass
+	Gym,
+	GymClass,
+	Membership,
+	ActivityCategory,
+	Activity,
+	Nutrition,
+	Workout
 }
