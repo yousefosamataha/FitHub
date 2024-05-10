@@ -1,4 +1,6 @@
-﻿using gms.data;
+﻿using gms.common.Models.ClassCat.Class;
+using gms.data;
+using gms.data.Mapper.Class;
 using gms.data.Models.Class;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
@@ -15,4 +17,9 @@ public class ClassScheduleService : BaseRepository<ClassScheduleEntity>, IClassS
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<List<ClassDTO>> GetClassesListAsync()
+    {
+        List<ClassScheduleEntity> listOfClasses = await FindAllAsync(c => c.BranchId == GetBranchId(), ["GymLocation"]);
+        return listOfClasses.Select(c => c.ToDTO()).ToList();
+    }
 }
