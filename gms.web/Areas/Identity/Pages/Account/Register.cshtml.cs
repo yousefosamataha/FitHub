@@ -126,7 +126,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			BranchDTO CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
 			// (5) Create Branch Roles
-			await _gymRoleService.CreateAllRolesinBranch(CreatedBranch.Id);
+			await _gymRoleService.CreateRolesToBranch(CreatedBranch.Id);
 
 			// (6) Create User
 			GymUserEntity user = CreateUser();

@@ -4,7 +4,7 @@ using gms.data.Models.Identity;
 namespace gms.service.Identity.GymRolesRepository;
 public interface IGymRolesService
 {
-	Task CreateAllRolesinBranch(int BranchId);
+	Task CreateRolesToBranch(int BranchId);
 	Task<List<GymRoleDTO>> GetAllRolesAsync();
 	Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
 	Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);

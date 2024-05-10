@@ -47,7 +47,7 @@ public class GymRolesService : IGymRolesService
 			return 0;
 	}
 
-	public async Task CreateAllRolesinBranch(int BranchId)
+	public async Task CreateRolesToBranch(int BranchId)
 	{
 		List<GymIdentityRoleEntity> roles = new();
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
@@ -60,10 +60,10 @@ public class GymRolesService : IGymRolesService
 				BranchId = BranchId
 			};
 			roles.Add(newRole);
+			await _roleManager.CreateAsync(newRole);
 		};
-
-		await _context.Roles.AddRangeAsync(roles);
-		await _context.SaveChangesAsync();
+		//await _context.Roles.AddRangeAsync(roles);
+		//await _context.SaveChangesAsync();
 	}
 
 	public async Task<List<GymRoleDTO>> GetAllRolesAsync()
