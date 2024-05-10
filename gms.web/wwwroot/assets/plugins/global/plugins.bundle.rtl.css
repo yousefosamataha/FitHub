@@ -47270,7 +47270,7 @@ readers do not read off random characters that represent icons */
   margin-bottom: 0.1rem;
 }
 .select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) .select2-selection__choice .select2-selection__choice__display {
-  margin-left: 1.1rem;
+  margin-right: 1.1rem;
   font-size: 1.1rem;
 }
 .select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) .select2-search__field {

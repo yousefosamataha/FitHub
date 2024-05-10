@@ -9,5 +9,5 @@ public class MembershipActivityEntity : BaseEntity
 
     // Navigation properties
     public virtual ActivityEntity Activity { get; set; }
-    public GymMembershipPlanEntity MembershipPlan { get; set; }
+    public virtual GymMembershipPlanEntity MembershipPlan { get; set; }
 }

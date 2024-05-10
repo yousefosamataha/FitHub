@@ -18,10 +18,9 @@ public static class ActivityVideoMapper
     {
         return new ActivityVideoDTO()
         {
-            ActivityVideoId = source.Id,
+            Id = source.Id,
             ActivityId = source.ActivityId,
             VideoPath = source.VideoPath,
-            Activity = source.Activity.ToDTO()
         };
     }
 

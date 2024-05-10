@@ -3,6 +3,7 @@ using gms.data.Models.Identity;
 using gms.data.Seeds;
 using gms.service.Activity.ActivityCategoryRepository;
 using gms.service.Activity.ActivityRepository;
+using gms.service.Activity.ActivityVideoRepository;
 using gms.service.Activity.MembershipActivityRepository;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
@@ -123,6 +124,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped(typeof(IActivityCategoryService), typeof(ActivityCategoryService));
 
     builder.Services.AddScoped(typeof(IMembershipActivityService), typeof(MembershipActivityService));
+
+    builder.Services.AddScoped(typeof(IActivityVideoService), typeof(ActivityVideoService));
 }
 
 

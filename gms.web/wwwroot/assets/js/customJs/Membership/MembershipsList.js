@@ -167,8 +167,8 @@ var membershipsList = function () {
                     },
                     success: function (response) {
                         // Remove current row
-                        datatable.row($(parent)).remove().draw();
-                        globalClass.handleTooltip();
+                        datatable.row($(parent)).remove().draw(false);
+                        // globalClass.handleTooltip();
                         toastr.success("Membership Deleted Successfully!");
                     },
                     error: function (xhr, status, error) {
