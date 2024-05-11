@@ -1,6 +1,6 @@
 ﻿using gms.common.Enums;
-using gms.common.Models.IdentityCat;
-using gms.common.Models.Role;
+using gms.common.Models.Identity.Role;
+using gms.common.Models.Identity.User;
 using gms.common.ViewModels;
 using gms.common.ViewModels.GymUser;
 using gms.data.Models.Identity;
@@ -24,24 +24,24 @@ public class GymUserController : BaseController<GymUserController>
 
     #region Roles
     public async Task<IActionResult> GymUsers()
-	{
-		List<GymUserViewModel> users = await _gymUserService.GetAllUserByGymIdAsync();
-		return View(users);
+    {
+        List<GymUserViewModel> users = await _gymUserService.GetAllUserByGymIdAsync();
+        return View(users);
 
-	}
-	public async Task<IActionResult> GymUserRoles(int userId)
-	{
-		GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
-		return View(user);
-	}
+    }
+    public async Task<IActionResult> GymUserRoles(int userId)
+    {
+        GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
+        return View(user);
+    }
 
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> UpdateUserRoles(GymUserRolesDTO userRoles)
-	{
-		GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
-		return RedirectToAction(nameof(GymUsers));
-	}
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateUserRoles(GymUserRolesDTO userRoles)
+    {
+        GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
+        return RedirectToAction(nameof(GymUsers));
+    }
     #endregion
 
     public IActionResult AddNewMember()
@@ -49,7 +49,7 @@ public class GymUserController : BaseController<GymUserController>
         return View();
     }
 
-	[HttpPost]
+    [HttpPost]
     public async Task<IActionResult> AddNewMember(GymUserVM model)
     {
         var currentUser = await GetCurrentUserData();
