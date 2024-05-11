@@ -2,72 +2,63 @@
 using gms.data.Models.Identity;
 using gms.service.Identity.GymRolesRepository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace gms.web.Controllers;
 
 [Authorize]
 public class RolesController : BaseController<RolesController>
 {
-    private readonly IGymRolesService _gymRolesService;
+	private readonly IGymRolesService _gymRolesService;
 
-    private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+	public RolesController(IGymRolesService gymRolesService)
+	{
+		_gymRolesService = gymRolesService;
+	}
 
-    public RolesController(IGymRolesService gymRolesService, RoleManager<GymIdentityRoleEntity> roleManager)
-    {
-        _gymRolesService = gymRolesService;
-        _roleManager = roleManager;
-    }
+	public async Task<IActionResult> Index()
+	{
+		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
+		return View(roles);
+	}
 
-    public async Task<IActionResult> Index()
-    {
-        List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
-        return View(roles);
-    }
+	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
+	{
+		GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
+		return View(result);
+	}
 
-    public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
-    {
-        GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
-        return View(result);
-    }
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
+	{
+		if (!ModelState.IsValid)
+			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
-    {
-        if (!ModelState.IsValid)
-            return View("Index", await _gymRolesService.GetAllRolesAsync());
-        if (await _roleManager.RoleExistsAsync(newRole.RoleName))
-        {
-            ModelState.AddModelError("RoleName", "Role Already Exists");
-            return View("Index", await _gymRolesService.GetAllRolesAsync());
-        }
-        await _roleManager.CreateAsync(new GymIdentityRoleEntity()
-        {
-            Name = newRole.RoleName.Trim()
-        });
+		if (await _gymRolesService.IsRoleExistsAsync(newRole.RoleName))
+		{
+			ModelState.AddModelError("RoleName", "Role Already Exists");
+			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
+		}
 
-        return RedirectToAction(nameof(Index));
-    }
+		await _gymRolesService.CreateRoleAsync(newRole);
 
-    public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
-    {
-        GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(rolePermissions.RoleId.ToString());
+		return RedirectToAction(nameof(Index));
+	}
 
-        if (role is null)
-            return NotFound();
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
+	{
+		GymIdentityRoleEntity role = await _gymRolesService.GetGymRoleByIdAsync(rolePermissions.RoleId.ToString());
 
-        IList<Claim> roleClaims = await _roleManager.GetClaimsAsync(role);
+		if (role is null)
+			return NotFound();
 
-        foreach (Claim claim in roleClaims)
-            await _roleManager.RemoveClaimAsync(role, claim);
+		List<string> roleNewPermissions = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => c.Text).ToList();
 
-        List<Claim> roleNewClaims = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => new Claim(PermissionsConstants.Permission.ToString(), c.Text)).ToList();
-        foreach (Claim newClaim in roleNewClaims)
-            await _roleManager.AddClaimAsync(role, newClaim);
+		await _gymRolesService.UpdateGymRolePermissionsAsync(role, roleNewPermissions);
 
-        return RedirectToAction(nameof(Index));
-    }
+		return RedirectToAction(nameof(Index));
+	}
 }

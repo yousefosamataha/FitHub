@@ -2,11 +2,22 @@
 using gms.data.Models.Identity;
 
 namespace gms.service.Identity.GymRolesRepository;
+
 public interface IGymRolesService
 {
-	Task CreateRolesToBranch(int branchId);
+	Task<bool> IsRoleExistsAsync(string roleName);
+
+	Task CreateRolesToBranchAsync(int branchId);
+
+	Task<GymIdentityRoleEntity> GetGymRoleByIdAsync(string roleId);
+
 	Task<List<GymRoleDTO>> GetAllRolesAsync();
+
 	Task<GymRolePermissionsDTO> GetRolePermissionsByRoleIdAsync(int roleId);
+
 	Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO role);
-	Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role);
+
+	Task<GymIdentityRoleEntity> AddAllPermissionClaimsAsync(GymIdentityRoleEntity role);
+
+	Task<GymIdentityRoleEntity> UpdateGymRolePermissionsAsync(GymIdentityRoleEntity role, List<string> permissionsList);
 }
