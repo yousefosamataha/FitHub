@@ -33,6 +33,8 @@ public static class GymUserMapper
 			Image = $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}",
 			FirstName = entity.FirstName,
 			LastName = entity.LastName,
+			Email = entity.Email,
+			UserName = entity.UserName,
 			GenderId = entity.GenderId,
 			BirthDate = entity.BirthDate,
 			Address = entity.Address,

@@ -1,4 +1,4 @@
-﻿@model List<GymUserViewModel>;
+﻿@model List<GymUserDTO>;
 @{
 	ViewData["Title"] = localizer["staffslist"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
@@ -96,11 +96,11 @@
 							</tr>
 						</thead>
 						<tbody class="fw-semibold text-gray-700">
-							@foreach (GymUserViewModel item in Model)
+							@foreach (GymUserDTO item in Model)
 							{
 								<tr>
 									<td class="text-center">
-										@item.UserName
+										@item
 									</td>
 									<td class="text-center">
 										@item.Email
@@ -110,14 +110,14 @@
 									</td>
 									<td class="text-center">
 										<div class="d-flex justify-content-center flex-shrink-0">
-											<a asp-action="GymUserRoles" asp-route-userId="@item.UserId" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+											<a asp-action="GymUserRoles" asp-controller="GymUser" asp-route-userId="@item.Id" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
 												<i class="ki-solid ki-pencil fs-2"></i>
 											</a>
 										</div>
 									</td>
 								</tr>
 							}
-							
+
 						</tbody>
 					</table>
 				</div>

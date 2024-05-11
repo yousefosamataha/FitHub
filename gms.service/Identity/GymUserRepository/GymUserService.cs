@@ -1,7 +1,6 @@
 ﻿using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
 using gms.common.Models.SharedCat;
-using gms.common.ViewModels;
 using gms.data;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
@@ -29,29 +28,40 @@ public class GymUserService : IGymUserService
 		_context = context;
 	}
 
-	#region Roles
-	public async Task<List<GymUserViewModel>> GetAllUserByGymIdAsync()
+	public async Task<List<GymUserDTO>> GetAllGymUserByGymIdAsync(int gymId)
 	{
-		List<GymUserEntity> gymUsersEntities = await _userManager.Users.ToListAsync();
+		List<GymUserEntity> gymUsersEntities = await _userManager.Users.Where(u => u.GymBranch.GymId == gymId).ToListAsync();
 
-		List<GymUserViewModel> gymUsers = new();
+		List<GymUserDTO> gymUsers = new();
 
-		foreach (var user in gymUsersEntities)
+		foreach (GymUserEntity user in gymUsersEntities)
 		{
 			IList<string> roles = await _userManager.GetRolesAsync(user);
-			gymUsers.Add(new GymUserViewModel
-			{
-				Email = user.Email,
-				UserId = user.Id,
-				UserName = user.UserName,
-				Roles = string.Join(" , ", roles)
-			});
+			GymUserDTO gymUserDto = user.ToDTO();
+			gymUserDto.Roles = string.Join(" , ", roles);
 		}
 		return gymUsers;
 	}
+
+	public async Task<List<GymUserDTO>> GetAllGymBranchUsersByBranchIdAsync(int gymId, int branchId)
+	{
+		List<GymUserEntity> gymUsersEntities = await _userManager.Users.Where(u => u.GymBranch.GymId == gymId && u.GymBranch.Id == branchId).ToListAsync();
+
+		List<GymUserDTO> gymUsers = new();
+
+		foreach (GymUserEntity user in gymUsersEntities)
+		{
+			IList<string> roles = await _userManager.GetRolesAsync(user);
+			GymUserDTO gymUserDto = user.ToDTO();
+			gymUserDto.Roles = string.Join(" , ", roles);
+		}
+		return gymUsers;
+	}
+
 	public async Task<GymUserRolesDTO> GetUserRolesByUserIdAsync(int userId)
 	{
 		GymUserEntity user = await _userManager.FindByIdAsync(userId.ToString());
+
 		if (user is null)
 			return new GymUserRolesDTO();
 
@@ -70,15 +80,17 @@ public class GymUserService : IGymUserService
 		};
 		return gymuserRolesViewModel;
 	}
-	public async Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(GymUserRolesDTO gymUserRoles)
+
+	public async Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(UpdateGymUserRolesDTO gymUserRoles)
 	{
-		GymUserEntity user = await _userManager.FindByEmailAsync(gymUserRoles.Email);
+		GymUserEntity user = await _userManager.FindByEmailAsync(gymUserRoles.UserEmail);
 		if (user is null)
 			return new GymUserRolesDTO();
 
-		var userRoles = await _userManager.GetRolesAsync(user);
+		IList<string> userRoles = await _userManager.GetRolesAsync(user);
 
 		await _userManager.RemoveFromRolesAsync(user, userRoles);
+
 		await _userManager.AddToRolesAsync(user, gymUserRoles.Roles.Where(role => role.IsSelected).Select(role => role.Text));
 
 		List<GymIdentityRoleEntity> roles = await _roleManager.Roles.ToListAsync();
@@ -97,14 +109,13 @@ public class GymUserService : IGymUserService
 
 		return updatedGymUserRolesViewModel;
 	}
-	#endregion
 
 	public async Task<GymUserEntity> GetGymUserByEmail(string email)
 	{
-		var entity = await _context.Users
-								   .Include(u => u.GymBranch)
-								   .ThenInclude(gb => gb.Gym)
-								   .FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower().Trim(), email.ToLower().Trim()));
+		GymUserEntity? entity = await _context.Users
+											  .Include(u => u.GymBranch)
+											  .ThenInclude(gb => gb.Gym)
+											  .FirstOrDefaultAsync(u => string.Equals(u.Email.ToLower().Trim(), email.ToLower().Trim()));
 		return entity;
 	}
 
@@ -117,9 +128,10 @@ public class GymUserService : IGymUserService
 
 	public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity)
 	{
-		var result = await _userManager.CreateAsync(entity.ToEntity(), entity.Password);
+		IdentityResult result = await _userManager.CreateAsync(entity.ToEntity(), entity.Password);
 		GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}
+
 
 }

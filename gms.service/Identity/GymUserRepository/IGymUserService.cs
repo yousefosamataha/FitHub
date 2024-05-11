@@ -1,16 +1,18 @@
 ﻿using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
-using gms.common.ViewModels;
 using gms.data.Models.Identity;
 
 namespace gms.service.Identity.GymUserRepository;
+
 public interface IGymUserService
 {
-	Task<List<GymUserViewModel>> GetAllUserByGymIdAsync();
+	Task<List<GymUserDTO>> GetAllGymUserByGymIdAsync(int gymId);
+
+	Task<List<GymUserDTO>> GetAllGymBranchUsersByBranchIdAsync(int gymId, int branchId);
 
 	Task<GymUserRolesDTO> GetUserRolesByUserIdAsync(int userId);
 
-	Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(GymUserRolesDTO gymUserRoles);
+	Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(UpdateGymUserRolesDTO gymUserRoles);
 
 	Task<GymUserDTO> UpdateGymUser(GymUserEntity entity);
 
