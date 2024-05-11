@@ -1,6 +1,6 @@
 ﻿using gms.common.Enums;
 
-namespace gms.common.Constants;
+namespace gms.common.Permissions;
 
 public static class PermissionsConstants
 {
