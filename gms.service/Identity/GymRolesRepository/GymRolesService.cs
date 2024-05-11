@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.common.Models.Role;
+using gms.common.Models.Identity.Role;
 using gms.common.Models.SharedCat;
 using gms.data;
 using gms.data.Mapper.Identity;

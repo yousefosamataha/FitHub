@@ -1,6 +1,5 @@
-﻿using gms.common.Models.Identity;
-using gms.common.Models.IdentityCat;
-using gms.common.Models.Role;
+﻿using gms.common.Models.Identity.Role;
+using gms.common.Models.Identity.User;
 using gms.common.ViewModels;
 using gms.data.Models.Identity;
 

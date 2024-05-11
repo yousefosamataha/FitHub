@@ -1,6 +1,6 @@
 ﻿using gms.common.Enums;
 
-namespace gms.common.Models.Identity;
+namespace gms.common.Models.Identity.User;
 
 public sealed record GymUserDTO
 {
@@ -15,9 +15,9 @@ public sealed record GymUserDTO
 	public string? Address { get; init; }
 	public string? City { get; init; }
 	public string? State { get; init; }
-    public string? PhoneNumber { get; init; }
-    public string? Email { get; init; }
-    public string? Password { get; init; }
-    public StatusEnum? StatusId { get; init; }
+	public string? PhoneNumber { get; init; }
+	public string? Email { get; init; }
+	public string? Password { get; init; }
+	public StatusEnum? StatusId { get; init; }
 	public GymUserTypeEnum? GymUserTypeId { get; init; }
 }

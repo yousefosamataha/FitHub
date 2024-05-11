@@ -1,4 +1,4 @@
-﻿namespace gms.common.Models.Role;
+﻿namespace gms.common.Models.Identity.Role;
 
 public sealed record GymRoleDTO
 {

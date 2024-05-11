@@ -1,4 +1,4 @@
-﻿using gms.common.Models.Role;
+﻿using gms.common.Models.Identity.Role;
 using gms.data.Models.Identity;
 
 namespace gms.service.Identity.GymRolesRepository;
