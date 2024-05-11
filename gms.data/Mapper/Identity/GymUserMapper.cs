@@ -1,6 +1,5 @@
 ﻿using gms.common.Enums;
-using gms.common.Models.Identity;
-using gms.common.Models.IdentityCat;
+using gms.common.Models.Identity.User;
 using gms.data.Models.Identity;
 
 namespace gms.data.Mapper.Identity;
@@ -12,13 +11,13 @@ public static class GymUserMapper
 		{
 			BranchId = (int)source.BranchId,
 			Image = Convert.FromBase64String(source.Image),
-            ImageTypeId = (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.ImageType),
-            FirstName = source.FirstName,
+			ImageTypeId = (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.ImageType),
+			FirstName = source.FirstName,
 			LastName = source.LastName,
-            GenderId = (GenderEnum)source.GenderId,
-            BirthDate = (DateOnly)source.BirthDate,
-            Address = source.Address,
-            City = source.City,
+			GenderId = (GenderEnum)source.GenderId,
+			BirthDate = (DateOnly)source.BirthDate,
+			Address = source.Address,
+			City = source.City,
 			State = source.State,
 			StatusId = (StatusEnum)source.StatusId,
 			GymUserTypeId = source.GymUserTypeId
@@ -26,14 +25,16 @@ public static class GymUserMapper
 	}
 
 	public static GymUserDTO ToDTO(this GymUserEntity entity)
-    {
-        return new GymUserDTO()
-        {
+	{
+		return new GymUserDTO()
+		{
 			Id = entity.Id,
 			BranchId = entity.BranchId,
 			Image = $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}",
 			FirstName = entity.FirstName,
 			LastName = entity.LastName,
+			Email = entity.Email,
+			UserName = entity.UserName,
 			GenderId = entity.GenderId,
 			BirthDate = entity.BirthDate,
 			Address = entity.Address,
@@ -42,21 +43,21 @@ public static class GymUserMapper
 			StatusId = entity.StatusId,
 			GymUserTypeId = entity.GymUserTypeId
 		};
-    }
+	}
 
-    public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
-    {
-        return new GymUserClaimsDto()
-        {
-            UserId = entity.Id,
-            GymId = entity.GymBranch.GymId,
-            BranchId = entity.BranchId,
-            FirstName = entity.FirstName,
-            LastName = entity.LastName,
+	public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
+	{
+		return new GymUserClaimsDto()
+		{
+			UserId = entity.Id,
+			GymId = entity.GymBranch.GymId,
+			BranchId = entity.BranchId,
+			FirstName = entity.FirstName,
+			LastName = entity.LastName,
 			Email = entity.Email,
-            GenderId = entity.GenderId,
-            GymUserTypeId = entity.GymUserTypeId,
-            UserStatusId = entity.StatusId,
-        };
-    }
+			GenderId = entity.GenderId,
+			GymUserTypeId = entity.GymUserTypeId,
+			UserStatusId = entity.StatusId,
+		};
+	}
 }

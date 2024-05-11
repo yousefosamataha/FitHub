@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using gms.common.Models.Identity;
+using gms.common.Models.Identity.User;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.Identity.GymUserRepository;

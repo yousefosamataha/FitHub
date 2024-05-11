@@ -1,6 +1,6 @@
 ﻿using gms.common.Constants;
 using gms.common.Enums;
-using gms.common.Models.Role;
+using gms.common.Models.Identity.Role;
 using gms.common.Models.SharedCat;
 using gms.data;
 using gms.data.Mapper.Identity;
@@ -47,7 +47,12 @@ public class GymRolesService : IGymRolesService
 			return 0;
 	}
 
-	public async Task CreateRolesToBranch(int BranchId)
+	public async Task<bool> IsRoleExistsAsync(string roleName)
+	{
+		return await _roleManager.RoleExistsAsync(roleName);
+	}
+
+	public async Task CreateRolesToBranchAsync(int branchId)
 	{
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
 		{
@@ -55,7 +60,7 @@ public class GymRolesService : IGymRolesService
 			{
 				Name = role.ToString(),
 				NormalizedName = role.ToString().ToUpper(),
-				BranchId = BranchId,
+				BranchId = branchId,
 				IsDeleteable = false,
 				IsUpdateable = false
 			};
@@ -63,9 +68,14 @@ public class GymRolesService : IGymRolesService
 
 			if (string.Equals(role.ToString(), RolesEnum.GymOwner.ToString(), StringComparison.OrdinalIgnoreCase))
 			{
-				await AddAllPermissionClaims(newRole);
+				await AddAllPermissionClaimsAsync(newRole);
 			}
 		};
+	}
+
+	public async Task<GymIdentityRoleEntity> GetGymRoleByIdAsync(string roleId)
+	{
+		return await _roleManager.FindByIdAsync(roleId);
 	}
 
 	public async Task<List<GymRoleDTO>> GetAllRolesAsync()
@@ -97,12 +107,14 @@ public class GymRolesService : IGymRolesService
 			if (roleClaims.Any(c => string.Equals(c, claim.Text, StringComparison.OrdinalIgnoreCase)))
 				claim.IsSelected = true;
 		}
+
 		GymRolePermissionsDTO result = new()
 		{
 			RoleId = role.Id,
 			RoleName = role.Name,
 			Permissions = allClaims.ToList()
 		};
+
 		return result;
 	}
 
@@ -116,7 +128,7 @@ public class GymRolesService : IGymRolesService
 		return newIdentityRoleEntity.ToDTO();
 	}
 
-	public async Task<GymIdentityRoleEntity> AddAllPermissionClaims(GymIdentityRoleEntity role)
+	public async Task<GymIdentityRoleEntity> AddAllPermissionClaimsAsync(GymIdentityRoleEntity role)
 	{
 		IList<Claim> allRoleClaims = await _roleManager.GetClaimsAsync(role);
 
@@ -124,9 +136,30 @@ public class GymRolesService : IGymRolesService
 
 		foreach (string? permission in permissionList)
 		{
-			if (!allRoleClaims.Any(c => c.Type == PermissionsConstants.Permission && c.Value == permission))
+			if (!allRoleClaims.Any(c => string.Equals(c.Type, PermissionsConstants.Permission, StringComparison.OrdinalIgnoreCase) &&
+										string.Equals(c.Value, permission, StringComparison.OrdinalIgnoreCase))
+								  )
+			{
 				await _roleManager.AddClaimAsync(role, new Claim(PermissionsConstants.Permission, permission));
+			}
 		}
 		return role;
 	}
+
+	public async Task<GymIdentityRoleEntity> UpdateGymRolePermissionsAsync(GymIdentityRoleEntity role, List<string> permissionsList)
+	{
+		IList<Claim> allRoleClaims = await _roleManager.GetClaimsAsync(role);
+
+		foreach (Claim claim in allRoleClaims)
+			await _roleManager.RemoveClaimAsync(role, claim);
+
+		List<Claim> roleNewClaims = permissionsList.Select(c => new Claim(PermissionsConstants.Permission.ToString(), c)).ToList();
+
+		foreach (Claim newClaim in roleNewClaims)
+			await _roleManager.AddClaimAsync(role, newClaim);
+
+		return role;
+	}
+
+
 }
