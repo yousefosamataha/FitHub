@@ -3,7 +3,7 @@
 	ViewData["Title"] = localizer["staffslist"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
-<form asp-action="UpdateUserRoles" asp-controller="Superadmin" method="post">
+<form asp-action="UpdateUserRoles" asp-controller="GymUser" method="post">
 	<div class="card mt-4">
 		<div class="card-header">
 			<h2>@Model.UserName</h2>
