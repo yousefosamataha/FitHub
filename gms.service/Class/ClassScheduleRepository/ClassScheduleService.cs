@@ -36,4 +36,19 @@ public class ClassScheduleService : BaseRepository<ClassScheduleEntity>, IClassS
         var classEntity = await FindAsync(a => a.Id == id && a.BranchId == GetBranchId());
         return classEntity.ToDTO();
     }
+
+    public async Task<ClassDTO> UpdateClassAsync(UpdateClassDTO updateClassDto)
+    {
+        ClassScheduleEntity curentClassEntity = await FindAsync(a => a.Id == updateClassDto.Id);
+        ClassScheduleEntity updatedClassEntity = updateClassDto.ToUpdatedEntity(curentClassEntity);
+        await UpdateAsync(updatedClassEntity);
+        return updatedClassEntity.ToDTO();
+    }
+
+    public async Task<bool> DeleteClassAsync(int classId)
+    {
+        ClassScheduleEntity classEntity = await FindAsync(a => a.Id == classId && a.BranchId == GetBranchId());
+        await DeleteAsync(classEntity);
+        return true;
+    }
 }

@@ -8,4 +8,6 @@ public interface IClassScheduleService : IBaseRepository<ClassScheduleEntity>
     Task<List<ClassDTO>> GetClassesListAsync();
     Task<ClassDTO> CreateNewClassAsync(CreateClassDTO createClassDto);
     Task<ClassDTO> GetClassAsync(int id);
+    Task<ClassDTO> UpdateClassAsync(UpdateClassDTO updateClassDto);
+    Task<bool> DeleteClassAsync(int classId);
 }

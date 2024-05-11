@@ -60,13 +60,19 @@ public class ClassController : BaseController<ClassController>
         return PartialView("_EditClass", modal);
     }
 
-    //[HttpPost]
-    //public async Task<JsonResult> UpdateActivity(UpdateActivityVM updateActivityDTO)
-    //{
-    //    ActivityDTO updatedActivityDTO = await _activityService.UpdateActivityAsync(updateActivityDTO.Activity);
-    //    List<CreateMembershipActivityDTO> updateMembershipActivitiesListDTO = new();
-    //    return Json(new { Success = true, Message = "" });
-    //}
+    [HttpPost]
+    public async Task<JsonResult> UpdateClass(UpdateClassVM updateClassDTO)
+    {
+        ClassDTO updatedClassDTO = await _classScheduleService.UpdateClassAsync(updateClassDTO.Class);
+        return Json(new { Success = true, Message = "" });
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> DeleteClass(int id)
+    {
+        await _classScheduleService.DeleteClassAsync(id);
+        return Json(new { Success = true, Message = "" });
+    }
 
     public IActionResult ClassesSchedule()
 	{

@@ -315,6 +315,7 @@ var activitiesList = function () {
 
                                             var data = {};
                                             data.Class = {};
+                                            data.Class.Id = $('[name="Class.Id"]').val();
                                             data.Class.ClassName = $('[name="Class.ClassName"]').val();
                                             data.Class.GymLocationId = $('[name="Class.GymLocationId"]').val();
                                             data.Class.ClassFees = $('[name="Class.ClassFees"]').val();
@@ -322,18 +323,18 @@ var activitiesList = function () {
                                             data.Class.EndTime = $('[name="Class.EndTime"]').val();
                                             console.log(data);
 
-                                            //$.ajax({
-                                            //    url: '/Class/UpdateClass',
-                                            //    type: 'POST',
-                                            //    data: {
-                                            //        updateClassDTO: data
-                                            //    },
-                                            //    dataType: 'json',
-                                            //    success: function (response) {
-                                            //        console.log(response);
-                                            //        window.location.href = `/Activity/Index`;
-                                            //    }
-                                            //});
+                                            $.ajax({
+                                                url: '/Class/UpdateClass',
+                                                type: 'POST',
+                                                data: {
+                                                    updateClassDTO: data
+                                                },
+                                                dataType: 'json',
+                                                success: function (response) {
+                                                    console.log(response);
+                                                    window.location.href = `/Class/Index`;
+                                                }
+                                            });
                                         }
                                     });
                                 }
@@ -345,10 +346,10 @@ var activitiesList = function () {
         });
     }
 
-    // Delete Group
-    var deleteActivity = () => {
+    // Delete Class
+    var deleteClass = () => {
         // Select all delete buttons
-        const deleteButtons = table.querySelectorAll('.delete-activity-btn');
+        const deleteButtons = table.querySelectorAll('.delete-class-btn');
 
         deleteButtons.forEach(d => {
             d.addEventListener("click", function (e) {
@@ -356,7 +357,7 @@ var activitiesList = function () {
                 const parent = this.closest('tr');
 
                 $.ajax({
-                    url: '/Activity/DeleteActivity',
+                    url: '/Class/DeleteClass',
                     type: 'POST',
                     data: {
                         id: this.dataset.id
@@ -365,7 +366,7 @@ var activitiesList = function () {
                         // Remove current row
                         datatable.row($(parent)).remove().draw(false);
                         // globalClass.handleTooltip();
-                        toastr.success("Activity Deleted Successfully!");
+                        toastr.success("Class Deleted Successfully!");
                     },
                     error: function (xhr, status, error) {
                         console.error('Error:', error);
@@ -520,7 +521,7 @@ var activitiesList = function () {
             handleSearchDatatable();
             handleAddNewClass();
             editClass();
-            //deleteActivity();
+            deleteClass();
             //showActivityVideos();
             //handleAddNewActivityCategory();
         }

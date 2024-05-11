@@ -38,6 +38,7 @@ public static class ClassMapper
     {
         return new UpdateClassDTO()
         {
+            Id = source.Id,
             BranchId = source.BranchId,
             ClassName = source.ClassName,
             GymLocationId = source.GymLocationId,
@@ -47,11 +48,13 @@ public static class ClassMapper
         };
     }
 
-    //public static ActivityEntity ToUpdatedEntity(this UpdateActivityDTO source, ClassScheduleEntity entity)
-    //{
-    //    entity.Title = !string.IsNullOrWhiteSpace(source.Title) && !string.Equals(source.Title, entity.Title, StringComparison.OrdinalIgnoreCase) ? source.Title : entity.Title;
-    //    entity.BranchId = source.BranchId > default(int) && source.BranchId != entity.BranchId ? source.BranchId : entity.BranchId;
-    //    entity.ActivityCategoryId = source.ActivityCategoryId > default(int) && source.ActivityCategoryId != entity.ActivityCategoryId ? source.ActivityCategoryId : entity.ActivityCategoryId;
-    //    return entity;
-    //}
+    public static ClassScheduleEntity ToUpdatedEntity(this UpdateClassDTO source, ClassScheduleEntity entity)
+    {
+        entity.ClassName = !string.IsNullOrWhiteSpace(source.ClassName) && !string.Equals(source.ClassName, entity.ClassName, StringComparison.OrdinalIgnoreCase) ? source.ClassName : entity.ClassName;
+        entity.GymLocationId = source.GymLocationId > default(int) && source.GymLocationId != entity.GymLocationId ? source.GymLocationId : entity.GymLocationId;
+        entity.ClassFees = source.ClassFees > default(decimal) && source.ClassFees != entity.ClassFees ? source.ClassFees : entity.ClassFees;
+        entity.StartTime = source.StartTime;
+        entity.EndTime = source.EndTime;
+        return entity;
+    }
 }
