@@ -52,78 +52,86 @@ var activitiesList = function () {
         });
     }
 
-    // Add New Activity
-    var handleAddNewActivity = () => {
-        document.querySelector("#add_new_activity").addEventListener("click", () => {
+    // Add New Class
+    var handleAddNewClass = () => {
+        document.querySelector("#add_new_class").addEventListener("click", () => {
             // Select Modal Element And Set Title
             const modalEl = document.querySelector("#main_modal");
             jsonlocalizerData().then(data => {
-                modalEl.querySelector("h3").innerText = data["add_new_activity"];
+                modalEl.querySelector("h3").innerText = data["add_new_class"];
             });
 
             if (modalEl) {
                 modal = new bootstrap.Modal(modalEl);
                 $.ajax({
-                    url: '/Activity/AddNewActivity',
+                    url: '/Class/AddNewClass',
                     type: 'GET',
                     success: function (data) {
                         $(modalEl.querySelector(".modal-body")).empty().html(data);
                         modal.show();
 
-                        $('#Activity_ActivityCategoryId').select2({
+                        $('#Class_GymLocationId').select2({
                             minimumResultsForSearch: -1
                         });
 
-                        $('#select_memberships').select2({
-                            minimumResultsForSearch: -1
+                        $("#Class_StartTime").flatpickr({
+                            enableTime: true,
+                            noCalendar: true,
+                            time_24hr: false,
+                            dateFormat: "h:i K",
                         });
 
-                        $('#kt_docs_repeater_basic').repeater({
-                            initEmpty: false,
-
-                            defaultValues: {
-                                'text-input': 'foo'
-                            },
-
-                            show: function () {
-                                $(this).slideDown();
-                            },
-
-                            hide: function (deleteElement) {
-                                $(this).slideUp(deleteElement);
-                            }
+                        $("#Class_EndTime").flatpickr({
+                            enableTime: true,
+                            noCalendar: true,
+                            time_24hr: false,
+                            dateFormat: "h:i K",
                         });
 
-                        $('.add-new-activity-category-popover-btn').popover();
+                        //$('.add-new-activity-category-popover-btn').popover();
 
                         // Handle Form Validation
-                        const addNewActivityForm = document.getElementById('add_new_Activity_form');
-                        var addNewActivityValidator;
+                        const addNewClassForm = document.getElementById('add_new_class_form');
+                        var addNewClassValidator;
                         jsonlocalizerData().then(data => {
-                            addNewActivityValidator = FormValidation.formValidation(addNewActivityForm,
+                            addNewClassValidator = FormValidation.formValidation(addNewClassForm,
                                 {
                                     fields: {
-                                        'Activity.ActivityCategoryId': {
+                                        'Class.ClassName': {
                                             validators: {
                                                 notEmpty: {
                                                     message: data.thisfieldisrequired
                                                 }
                                             }
                                         },
-                                        'Activity.Title': {
+                                        'Class.GymLocationId': {
                                             validators: {
                                                 notEmpty: {
                                                     message: data.thisfieldisrequired
                                                 }
                                             }
                                         },
-                                        'SelectedMembershipIds': {
+                                        'Class.ClassFees': {
                                             validators: {
                                                 notEmpty: {
                                                     message: data.thisfieldisrequired
                                                 }
                                             }
                                         },
+                                        'Class.StartTime': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        },
+                                        'Class.EndTime': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        }
                                     },
                                     plugins: {
                                         trigger: new FormValidation.plugins.Trigger(),
@@ -138,38 +146,35 @@ var activitiesList = function () {
                         });
 
                         // Handle Form Submition
-                        const submitButton = document.getElementById('add_new_Activity_form_submit');
+                        const submitButton = document.getElementById('add_new_class_form_submit');
                         submitButton.addEventListener('click', function (e) {
                             // Prevent default button action
                             e.preventDefault();
 
                             // Validate form before submit
-                            if (addNewActivityValidator) {
-                                addNewActivityValidator.validate().then(function (status) {
+                            if (addNewClassValidator) {
+                                addNewClassValidator.validate().then(function (status) {
                                     if (status == 'Valid') {
                                         submitButton.setAttribute('data-kt-indicator', 'on');
                                         submitButton.disabled = true;
 
-                                        var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
-                                        var activityVideos = [];
-                                        textareas.forEach(e => e.value.length > 0 ? activityVideos.push(e.value) : true);
                                         var data = {};
-                                        data.Activity = {};
-                                        data.Activity.Title = $('[name="Activity.Title"]').val();
-                                        data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
-                                        data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
-                                        data.ActivityVideos = activityVideos;
+                                        data.Class = {};
+                                        data.Class.ClassName = $('[name="Class.ClassName"]').val();
+                                        data.Class.GymLocationId = $('[name="Class.GymLocationId"]').val();
+                                        data.Class.ClassFees = $('[name="Class.ClassFees"]').val();
+                                        data.Class.StartTime = $('[name="Class.StartTime"]').val();
+                                        data.Class.EndTime = $('[name="Class.EndTime"]').val();
 
                                         $.ajax({
-                                            url: '/Activity/AddNewActivity',
+                                            url: '/Class/AddNewClass',
                                             type: 'POST',
                                             data: {
-                                                activityModal: data
+                                                createClassModel: data.Class
                                             },
                                             dataType: 'json',
                                             success: function (response) {
-                                                console.log(response);
-                                                window.location.href = `/Activity/Index`;
+                                                window.location.href = `/Class/Index`;
                                             }
                                         });
                                     }
@@ -182,23 +187,23 @@ var activitiesList = function () {
         });
     }
 
-    // Edite Group
-    var editActivity = () => {
+    // Edite Class
+    var editClass = () => {
         // Select all delete buttons
-        const editButtons = table.querySelectorAll('.edit-activity-btn');
+        const editButtons = table.querySelectorAll('.edit-class-btn');
 
         editButtons.forEach(Button => {
             Button.addEventListener("click", function (e) {
                 // Select Modal Element And Set Title
                 const modalEl = document.querySelector("#main_modal");
                 jsonlocalizerData().then(data => {
-                    modalEl.querySelector("h3").innerText = data["edit_activity"];
+                    modalEl.querySelector("h3").innerText = data["edit_class"];
                 });
 
                 if (modalEl) {
                     const modal = new bootstrap.Modal(modalEl);
                     $.ajax({
-                        url: '/Activity/EditActivity',
+                        url: '/Class/EditClass',
                         type: 'Post',
                         data: {
                             id: this.dataset.id
@@ -207,70 +212,81 @@ var activitiesList = function () {
                             $(modalEl.querySelector(".modal-body")).empty().html(data);
                             modal.show();
 
-                            $('#Activity_ActivityCategoryId').select2({
+                            $('#Class_GymLocationId').select2({
                                 minimumResultsForSearch: -1
                             });
 
-                            $('#select_memberships').select2({
-                                minimumResultsForSearch: -1
+                            $("#Class_StartTime").flatpickr({
+                                enableTime: true,
+                                noCalendar: true,
+                                time_24hr: false,
+                                dateFormat: "h:i K",
                             });
 
-                            $('#kt_docs_repeater_basic').repeater({
-                                initEmpty: false,
-                                defaultValues: {
-                                    'text-input': ''
-                                },
-                                show: function () {
-                                    $(this).find('textarea').val('');
-                                    $(this).slideDown();
-                                },
-                                hide: function (deleteElement) {
-                                    $(this).slideUp(deleteElement);
-                                }
+                            $("#Class_EndTime").flatpickr({
+                                enableTime: true,
+                                noCalendar: true,
+                                time_24hr: false,
+                                dateFormat: "h:i K",
                             });
 
-                            $.ajax({
-                                url: '/Activity/GetActivityMembershipsById',
-                                type: 'GET',
-                                data: {
-                                    activityId: $('[name="Activity.Id"]').val()
-                                },
-                                dataType: 'json',
-                                success: function (response) {
-                                    var membershipIds = [];
-                                    response.data.forEach(m => membershipIds.push(m.membershipPlanId));
-                                    $('#select_memberships').val(membershipIds).trigger('change');
-                                }
-                            });
+                            //$.ajax({
+                            //    url: '/Activity/GetActivityMembershipsById',
+                            //    type: 'GET',
+                            //    data: {
+                            //        activityId: $('[name="Activity.Id"]').val()
+                            //    },
+                            //    dataType: 'json',
+                            //    success: function (response) {
+                            //        var membershipIds = [];
+                            //        response.data.forEach(m => membershipIds.push(m.membershipPlanId));
+                            //        $('#select_memberships').val(membershipIds).trigger('change');
+                            //    }
+                            //});
 
                             // Handle Form Validation
-                            const updateActivityForm = document.getElementById('update_Activity_form');
-                            var updateActivityValidator;
+
+                            const updateClassForm = document.getElementById('update_class_form');
+                            var updateClassValidator;
                             jsonlocalizerData().then(data => {
-                                updateActivityValidator = FormValidation.formValidation(updateActivityForm,
+                                updateClassValidator = FormValidation.formValidation(updateClassForm,
                                     {
                                         fields: {
-                                            'Activity.ActivityCategoryId': {
+                                            'Class.ClassName': {
                                                 validators: {
                                                     notEmpty: {
                                                         message: data.thisfieldisrequired
                                                     }
                                                 }
                                             },
-                                            'Activity.Title': {
+                                            'Class.GymLocationId': {
                                                 validators: {
                                                     notEmpty: {
                                                         message: data.thisfieldisrequired
                                                     }
                                                 }
                                             },
-                                            'SelectedMembershipIds': {
+                                            'Class.ClassFees': {
                                                 validators: {
                                                     notEmpty: {
                                                         message: data.thisfieldisrequired
                                                     }
                                                 }
                                             },
+                                            'Class.StartTime': {
+                                                validators: {
+                                                    notEmpty: {
+                                                        message: data.thisfieldisrequired
+                                                    }
+                                                }
+                                            },
+                                            'Class.EndTime': {
+                                                validators: {
+                                                    notEmpty: {
+                                                        message: data.thisfieldisrequired
+                                                    }
+                                                }
+                                            }
                                         },
                                         plugins: {
                                             trigger: new FormValidation.plugins.Trigger(),
@@ -285,42 +301,39 @@ var activitiesList = function () {
                             });
 
                             // Handle Form Submition
-                            const submitButton = document.getElementById('update_activity_form_submit');
+                            const submitButton = document.getElementById('update_class_form_submit');
                             submitButton.addEventListener('click', function (e) {
                                 // Prevent default button action
                                 e.preventDefault();
 
                                 // Validate form before submit
-                                if (updateActivityValidator) {
-                                    updateActivityValidator.validate().then(function (status) {
+                                if (updateClassValidator) {
+                                    updateClassValidator.validate().then(function (status) {
                                         if (status == 'Valid') {
                                             submitButton.setAttribute('data-kt-indicator', 'on');
                                             submitButton.disabled = true;
 
-                                            var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
-                                            var activityVideos = [];
-                                            textareas.forEach(e => activityVideos.push(e.value));
                                             var data = {};
-                                            data.Activity = {};
-                                            data.Activity.Id = $('[name="Activity.Id"]').val();
-                                            data.Activity.Title = $('[name="Activity.Title"]').val();
-                                            data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
-                                            data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
-                                            data.ActivityVideos = activityVideos;
+                                            data.Class = {};
+                                            data.Class.ClassName = $('[name="Class.ClassName"]').val();
+                                            data.Class.GymLocationId = $('[name="Class.GymLocationId"]').val();
+                                            data.Class.ClassFees = $('[name="Class.ClassFees"]').val();
+                                            data.Class.StartTime = $('[name="Class.StartTime"]').val();
+                                            data.Class.EndTime = $('[name="Class.EndTime"]').val();
                                             console.log(data);
 
-                                            $.ajax({
-                                                url: '/Activity/UpdateActivity',
-                                                type: 'POST',
-                                                data: {
-                                                    updateActivityDTO: data
-                                                },
-                                                dataType: 'json',
-                                                success: function (response) {
-                                                    console.log(response);
-                                                    window.location.href = `/Activity/Index`;
-                                                }
-                                            });
+                                            //$.ajax({
+                                            //    url: '/Class/UpdateClass',
+                                            //    type: 'POST',
+                                            //    data: {
+                                            //        updateClassDTO: data
+                                            //    },
+                                            //    dataType: 'json',
+                                            //    success: function (response) {
+                                            //        console.log(response);
+                                            //        window.location.href = `/Activity/Index`;
+                                            //    }
+                                            //});
                                         }
                                     });
                                 }
@@ -505,8 +518,8 @@ var activitiesList = function () {
 
             initDatatable();
             handleSearchDatatable();
-            //handleAddNewActivity();
-            //editActivity();
+            handleAddNewClass();
+            editClass();
             //deleteActivity();
             //showActivityVideos();
             //handleAddNewActivityCategory();

@@ -30,7 +30,7 @@ public static class ClassMapper
             ClassFees = source.ClassFees,
             StartTime = source.StartTime,
             EndTime = source.EndTime,
-            GymLocation = source.GymLocation.ToDTO()
+            GymLocation = source.GymLocation?.ToDTO()
         };
     }
 

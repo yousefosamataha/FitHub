@@ -22,4 +22,18 @@ public class ClassScheduleService : BaseRepository<ClassScheduleEntity>, IClassS
         List<ClassScheduleEntity> listOfClasses = await FindAllAsync(c => c.BranchId == GetBranchId(), ["GymLocation"]);
         return listOfClasses.Select(c => c.ToDTO()).ToList();
     }
+
+    public async Task<ClassDTO> CreateNewClassAsync(CreateClassDTO createClassDto)
+    {
+        ClassScheduleEntity classEntity = createClassDto.ToEntity();
+        classEntity.BranchId = GetBranchId();
+        await AddAsync(classEntity);
+        return classEntity.ToDTO();
+    }
+
+    public async Task<ClassDTO> GetClassAsync(int id)
+    {
+        var classEntity = await FindAsync(a => a.Id == id && a.BranchId == GetBranchId());
+        return classEntity.ToDTO();
+    }
 }

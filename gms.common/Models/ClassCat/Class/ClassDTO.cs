@@ -11,5 +11,5 @@ public record ClassDTO
     public decimal ClassFees { get; init; }
     public TimeOnly StartTime { get; init; }
     public TimeOnly EndTime { get; init; }
-    public GymLocationDTO GymLocation { get; init; }
+    public GymLocationDTO? GymLocation { get; init; }
 }

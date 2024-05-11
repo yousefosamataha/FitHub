@@ -72,9 +72,9 @@
                             <tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
                                 <th class="text-start min-w-150px">@localizer["class_name"]</th>
                                 @* <th class="text-start min-w-100px">@localizer["trainer_name"]</th> *@
-                                <th class="text-center min-w-100px">@localizer["start_time"]</th>
-                                <th class="text-center min-w-100px">@localizer["end_time"]</th>
-                                <th class="text-center min-w-100px">@localizer["location"]</th>
+                                <th class="text-start min-w-100px">@localizer["start_time"]</th>
+                                <th class="text-start min-w-100px">@localizer["end_time"]</th>
+                                <th class="text-start min-w-100px">@localizer["location"]</th>
                                 <th class="text-start min-w-100px">@localizer["booking_fees"]</th>
                                 <th class="text-center min-w-100px">@localizer["actions"]</th>
                             </tr>
@@ -84,16 +84,16 @@
                             {
                                 <tr>
                                     <td class="text-start" data-order="@c.ClassName">@c.ClassName</td>
-                                    <td class="text-center" data-order="@c.StartTime">@c.StartTime</td>
-                                    <td class="text-center" data-order="@c.EndTime">@c.EndTime</td>
-                                    <td class="text-center" data-order="">Class 1</td>
+                                    <td class="text-start" data-order="@c.StartTime">@c.StartTime</td>
+                                    <td class="text-start" data-order="@c.EndTime">@c.EndTime</td>
+                                    <td class="text-start" data-order="@c.GymLocation.Name">@c.GymLocation.Name</td>
                                     <td class="text-start" data-order="@c.ClassFees">@Model.BranchCurrencySymbol @c.ClassFees</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
                                                 <i class="ki-solid ki-trash fs-2"></i>
                                             </button>
                                         </div>
@@ -113,6 +113,7 @@
     <!--end::Content-->
 </div>
 <!--end::Content wrapper-->
+
 @section Scripts {
     <script type="module" src="~/assets/js/customJs/Class/ClassesList.js" asp-append-version="true"></script>
 }

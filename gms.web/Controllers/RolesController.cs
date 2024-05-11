@@ -47,7 +47,7 @@ public class RolesController : BaseController<RolesController>
 			Name = newRole.RoleName.Trim()
 		});
 
-		return RedirectToAction(nameof(GymRoles));
+		return RedirectToAction(nameof(Index));
 	}
 
 	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
@@ -66,6 +66,6 @@ public class RolesController : BaseController<RolesController>
 		foreach (Claim newClaim in roleNewClaims)
 			await _roleManager.AddClaimAsync(role, newClaim);
 
-		return RedirectToAction(nameof(GymRoles));
+		return RedirectToAction(nameof(Index));
 	}
 }

@@ -1,5 +1,7 @@
-﻿using gms.common.Models.GymCat.Branch;
+﻿using gms.common.Models.ClassCat.Class;
+using gms.common.Models.GymCat.Branch;
 using gms.common.ViewModels.Class;
+using gms.data.Mapper.Class;
 using gms.service.Class.ClassScheduleRepository;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymLocationRepository;
@@ -32,12 +34,41 @@ public class ClassController : BaseController<ClassController>
         return View(model);
 	}
 
-	public IActionResult AddNewClass()
+	public async Task<IActionResult> AddNewClass()
 	{
-		return View();
+        AddClassVM addClassModel = new AddClassVM();
+        addClassModel.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
+
+        return PartialView("_AddNewClass", addClassModel);
 	}
 
-	public IActionResult ClassesSchedule()
+    [HttpPost]
+    public async Task<JsonResult> AddNewClass(CreateClassDTO createClassModel)
+    {
+        ClassDTO createdClassDTO = await _classScheduleService.CreateNewClassAsync(createClassModel);
+
+        return Json(new { Success = true, Message = "" });
+    }
+
+    public async Task<IActionResult> EditClass(int id)
+    {
+        UpdateClassVM modal = new();
+        ClassDTO Class = await _classScheduleService.GetClassAsync(id);
+        modal.Class = Class.ToUpdateDTO();
+        modal.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
+
+        return PartialView("_EditClass", modal);
+    }
+
+    //[HttpPost]
+    //public async Task<JsonResult> UpdateActivity(UpdateActivityVM updateActivityDTO)
+    //{
+    //    ActivityDTO updatedActivityDTO = await _activityService.UpdateActivityAsync(updateActivityDTO.Activity);
+    //    List<CreateMembershipActivityDTO> updateMembershipActivitiesListDTO = new();
+    //    return Json(new { Success = true, Message = "" });
+    //}
+
+    public IActionResult ClassesSchedule()
 	{
 		return View();
 	}
