@@ -1,0 +1,68 @@
+﻿@using gms.common.Enums
+@using gms.common.Models.ClassCat.ClassScheduleDay
+@model List<ClassScheduleDayDTO>
+@{
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+    var model = Model.OrderBy(csd => csd.WeekDayId).ThenBy(csd => csd.ClassSchedule.StartTime).GroupBy(csd => csd.WeekDayId);
+    DayOfWeek currentDayOfWeek = DateTime.Now.DayOfWeek;
+}
+
+<!--begin::Dates-->
+<ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2" role="tablist">
+    @foreach (var day in Enum.GetValues(typeof(WeekDayEnum)))
+    {
+        DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day.ToString(), true);
+        <!--begin::Date-->
+        <li class="nav-item me-1" role="presentation">
+            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary @(Enum.GetName(typeof(DayOfWeek), currentDayOfWeek) == day.ToString() ? "active" : "")" data-bs-toggle="tab" href="#kt_schedule_day_@((byte)day)" aria-selected="true" role="tab">
+                <span class="opacity-50 fs-7 fw-semibold">@localizer[day.ToString().Substring(0, 2).ToLower()]</span>
+                <span class="fs-6 fw-bolder">@DateTime.Now.AddDays((int)dayOfWeek - (int)currentDayOfWeek).ToString("dd")</span>
+            </a>
+        </li>
+        <!--end::Date-->
+    }
+</ul>
+<!--end::Dates-->
+<!--begin::Tab Content-->
+<div class="tab-content">
+    @foreach (var day in model)
+    {
+        <!--begin::Day-->
+        <div id="kt_schedule_day_@((int)day.Key)" class="tab-pane fade @(Enum.GetName(typeof(DayOfWeek), currentDayOfWeek) == day.Key.ToString() ? "show active" : "")" role="tabpanel">
+        @foreach (var dayclass in day)
+        {
+            <!--begin::Time-->
+            <div class="d-flex flex-stack position-relative mt-6">
+                <!--begin::Bar-->
+                <div class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0"></div>
+                <!--end::Bar-->
+                <!--begin::Info-->
+                <div class="fw-semibold ms-5">
+                    <!--begin::Time-->
+                    <div class="fs-7 mb-1">
+                        @dayclass.ClassSchedule.StartTime - @dayclass.ClassSchedule.EndTime
+                        @* <span class="fs-7 text-muted text-uppercase">pm</span> *@
+                    </div>
+                    <!--end::Time-->
+                    <!--begin::Title-->
+                    <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">@dayclass.ClassSchedule.ClassName</a>
+                    <!--end::Title-->
+                    <!--begin::User-->
+                    <div class="fs-7 text-muted">
+                        Lead by
+                        <a href="#">Terry Robins</a>
+                    </div>
+                    <!--end::User-->
+                </div>
+                <!--end::Info-->
+                @* <!--begin::Action-->
+                <a href="#" class="btn btn-light bnt-active-light-primary btn-sm">View</a>
+                <!--end::Action--> *@
+            </div>
+            <!--end::Time-->
+        }
+        </div>
+        <!--end::Day-->
+    }
+</div>
+<!--end::Tab Content-->

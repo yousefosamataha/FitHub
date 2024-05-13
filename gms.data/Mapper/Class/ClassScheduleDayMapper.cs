@@ -20,7 +20,8 @@ public static class ClassScheduleDayMapper
         {
             Id = source.Id,
             ClassScheduleId = source.ClassScheduleId,
-            WeekDayId = source.WeekDayId
+            WeekDayId = source.WeekDayId,
+            ClassSchedule = source.ClassSchedule?.ToDTO(),
         };
     }
 }

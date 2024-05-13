@@ -1,6 +1,5 @@
 using gms.data;
 using gms.data.Models.Identity;
-using gms.data.Seeds;
 using gms.service.Activity.ActivityCategoryRepository;
 using gms.service.Activity.ActivityRepository;
 using gms.service.Activity.ActivityVideoRepository;
@@ -177,28 +176,28 @@ WebApplication? app = builder.Build();
 		pattern: "{controller=Home}/{action=Index}/{id?}"
 	);
 
-	using var scope = app.Services.CreateScope();
-	IServiceProvider services = scope.ServiceProvider;
-	ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-	ILogger logger = LoggerProvider.CreateLogger("app");
-	try
-	{
-		UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+	//using var scope = app.Services.CreateScope();
+	//IServiceProvider services = scope.ServiceProvider;
+	//ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+	//ILogger logger = LoggerProvider.CreateLogger("app");
+	//try
+	//{
+	//	UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
 
-		RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
+	//	RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
 
-		await Seeds.SeedBasicUserAsync(userManager);
+	//	await Seeds.SeedBasicUserAsync(userManager);
 
-		await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+	//	await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
 
-		logger.LogInformation("Data Seeded");
+	//	logger.LogInformation("Data Seeded");
 
-		logger.LogInformation("Application Started");
-	}
-	catch (Exception ex)
-	{
-		logger.LogWarning(ex, "An error Occured While Seeding Data");
-	}
+	//	logger.LogInformation("Application Started");
+	//}
+	//catch (Exception ex)
+	//{
+	//	logger.LogWarning(ex, "An error Occured While Seeding Data");
+	//}
 
 	app.Run();
 }

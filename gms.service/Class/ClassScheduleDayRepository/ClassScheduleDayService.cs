@@ -30,6 +30,12 @@ public class ClassScheduleDayService : BaseRepository<ClassScheduleDayEntity>, I
         return classScheduleDaysList.Select(ma => ma.ToDTO()).ToList();
     }
 
+    public async Task<List<ClassScheduleDayDTO>> GetClassScheduleDaysListAsync()
+    {
+        List<ClassScheduleDayEntity> classScheduleDaysList = await FindAllAsync(csd => csd.ClassSchedule.BranchId == GetBranchId(), ["ClassSchedule"]);
+        return classScheduleDaysList.Select(ma => ma.ToDTO()).ToList();
+    }
+
     public async Task<bool> UpdateClassScheduleDaysAsync(List<CreateClassScheduleDayDTO> updateClassScheduleDaysListDto, int classId)
     {
         List<ClassScheduleDayEntity> currentClassScheduleDaysList = await FindAllAsync(csd => csd.ClassScheduleId == classId);

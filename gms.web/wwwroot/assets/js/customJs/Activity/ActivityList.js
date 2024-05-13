@@ -169,7 +169,7 @@ var activitiesList = function () {
                                             dataType: 'json',
                                             success: function (response) {
                                                 console.log(response);
-                                                window.location.href = `/Activity/Index`;
+                                                window.location.href = `/Activity`;
                                             }
                                         });
                                     }
@@ -199,7 +199,7 @@ var activitiesList = function () {
                     const modal = new bootstrap.Modal(modalEl);
                     $.ajax({
                         url: '/Activity/EditActivity',
-                        type: 'Post',
+                        type: 'Get',
                         data: {
                             id: this.dataset.id
                         },
@@ -299,7 +299,7 @@ var activitiesList = function () {
 
                                             var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
                                             var activityVideos = [];
-                                            textareas.forEach(e => activityVideos.push(e.value));
+                                            textareas.forEach(e => e.value.length > 0 ? activityVideos.push(e.value) : true);
                                             var data = {};
                                             data.Activity = {};
                                             data.Activity.Id = $('[name="Activity.Id"]').val();
@@ -307,10 +307,9 @@ var activitiesList = function () {
                                             data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
                                             data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
                                             data.ActivityVideos = activityVideos;
-                                            console.log(data);
 
                                             $.ajax({
-                                                url: '/Activity/UpdateActivity',
+                                                url: '/Activity/EditActivity',
                                                 type: 'POST',
                                                 data: {
                                                     updateActivityDTO: data
@@ -318,7 +317,7 @@ var activitiesList = function () {
                                                 dataType: 'json',
                                                 success: function (response) {
                                                     console.log(response);
-                                                    window.location.href = `/Activity/Index`;
+                                                    window.location.href = `/Activity`;
                                                 }
                                             });
                                         }

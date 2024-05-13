@@ -534,6 +534,29 @@ var classesList = function () {
         });
     }
 
+    // View Classes Schedule
+    var viewClassesSchedule = () => {
+        document.querySelector("#view-classes-schedule").addEventListener("click", () => { 
+            const modalEl = document.querySelector("#main_modal");
+            // document.querySelector("#main_modal .modal-dialog").classList.add("mw-750px");
+            jsonlocalizerData().then(data => {
+                modalEl.querySelector("h3").innerText = data["classes_schedule"];
+            });
+
+            if (modalEl) {
+                modal = new bootstrap.Modal(modalEl);
+                $.ajax({
+                    url: '/Class/ClassesSchedule',
+                    type: 'GET',
+                    success: function (data) {
+                        $(modalEl.querySelector(".modal-body")).empty().html(data);
+                        modal.show();
+                    }
+                });
+            }
+        });
+    }
+
     // Public methods
     return {
         init: function () {
@@ -549,6 +572,7 @@ var classesList = function () {
             editClass();
             deleteClass();
             handleAddNewGymLocation();
+            viewClassesSchedule();
         }
     };
 }();

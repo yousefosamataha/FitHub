@@ -113,8 +113,10 @@ public class ClassController : BaseController<ClassController>
         return Json(new { Success = true, Message = "" });
     }
 
-    public IActionResult ClassesSchedule()
+    public async Task<IActionResult> ClassesSchedule()
 	{
-		return View();
+        List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
+
+        return PartialView("_ClassesSchedule", classScheduleDaysList);
 	}
 }

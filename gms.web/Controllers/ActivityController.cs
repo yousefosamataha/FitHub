@@ -81,7 +81,8 @@ public class ActivityController : BaseController<ActivityController>
 		return Json(new { Success = true, Message = "" });
 	}
 
-	[Authorize(ActivityPermissions.Edit)]
+    [HttpGet]
+    [Authorize(ActivityPermissions.Edit)]
 	public async Task<IActionResult> EditActivity(int id)
 	{
 		UpdateActivityVM modal = new();
@@ -100,7 +101,7 @@ public class ActivityController : BaseController<ActivityController>
 	}
 
 	[HttpPost]
-	public async Task<JsonResult> UpdateActivity(UpdateActivityVM updateActivityDTO)
+	public async Task<JsonResult> EditActivity(UpdateActivityVM updateActivityDTO)
 	{
 		ActivityDTO updatedActivityDTO = await _activityService.UpdateActivityAsync(updateActivityDTO.Activity);
 		List<CreateMembershipActivityDTO> updateMembershipActivitiesListDTO = new();
