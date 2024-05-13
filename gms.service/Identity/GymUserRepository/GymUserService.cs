@@ -128,7 +128,9 @@ public class GymUserService : IGymUserService
 
 	public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity)
 	{
-		IdentityResult result = await _userManager.CreateAsync(entity.ToEntity(), entity.Password);
+		GymUserEntity gymUserEntity = entity.ToEntity();
+		gymUserEntity.EmailConfirmed = true;
+		IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
 		GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}

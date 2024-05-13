@@ -5,6 +5,7 @@ using gms.service.Activity.ActivityCategoryRepository;
 using gms.service.Activity.ActivityRepository;
 using gms.service.Activity.ActivityVideoRepository;
 using gms.service.Activity.MembershipActivityRepository;
+using gms.service.Class.ClassScheduleDayRepository;
 using gms.service.Class.ClassScheduleRepository;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
@@ -135,6 +136,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddScoped(typeof(IClassScheduleService), typeof(ClassScheduleService));
 
 	builder.Services.AddScoped(typeof(IGymLocationService), typeof(GymLocationService));
+
+	builder.Services.AddScoped(typeof(IClassScheduleDayService), typeof(ClassScheduleDayService));
 }
 
 

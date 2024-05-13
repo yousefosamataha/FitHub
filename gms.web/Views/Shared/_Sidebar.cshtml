@@ -179,7 +179,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("Roles", "GymUser")">
+									<a class="menu-link" href="@Url.Action("Roles", "Roles")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -191,7 +191,7 @@
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("Permissions", "GymUser")">
+									<a class="menu-link" href="@Url.Action("Permissions", "Roles")">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
@@ -224,59 +224,22 @@
 					<!--end::Menu link-->
 				</div>
 				<!--end::Menu Item-->
-				<!--begin:Menu item-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<!--begin:Menu link-->
-					<span class="menu-link">
+				<!--begin::Menu Item-->
+				<div class="menu-item" side-menu-item="true">
+					<!--begin::Menu link-->
+					<a class="menu-link" asp-controller="Class" asp-action="Index">
+						<!--begin::icone-->
 						<span class="menu-icon">
 							<i class="ki-solid ki-calendar-2 fs-1"></i>
 						</span>
+						<!--begin::icon-->
+						<!--begin::Title-->
 						<span class="menu-title">@localizer["training_classes"]</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<!--end:Menu link-->
-					<!--begin:Menu sub-->
-					<div class="menu-sub menu-sub-accordion">
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("AddNewClass", "Class")">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["add_new_class"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Class" asp-action="Index">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["classes_list"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("ClassesSchedule", "Class")">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["classes_schedule"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-					</div>
-					<!--end:Menu sub-->
+						<!--end::Title-->
+					</a>
+					<!--end::Menu link-->
 				</div>
-				<!--end:Menu item-->
+				<!--end::Menu Item-->
 				<!--begin::Menu Item-->
 				<div class="menu-item" side-menu-item="true">
 					<!--begin::Menu link-->

@@ -48,16 +48,6 @@ public class HomeController : BaseController<HomeController>
         return View();
     }
 
-    public IActionResult Roles()
-    {
-        return View();
-    }
-
-    public IActionResult Permissions()
-    {
-        return View();
-    }
-
     public IActionResult Privacy()
     {
         return View();

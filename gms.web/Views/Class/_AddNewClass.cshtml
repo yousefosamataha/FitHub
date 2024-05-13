@@ -29,7 +29,23 @@
         <!--end::Input group--> *@
         <!--begin::Input group-->
         <div class="col mb-5 fv-row">
-            <label class="required form-label ms-2">@localizer["select_location"]</label>
+            <!--begin::Label-->
+            <label class="form-label d-flex align-items-center ms-2">
+                <span class="required">@localizer["select_location"]</span>
+                <span role="button" class="ms-1 @(!Model.GymLocations.Any() ? "pulse pulse-danger" : "") add-new-gym-location-popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="@localizer["to_add_new_location"] <span class='add-new-gym-location text-primary' role='button'>@localizer["click_here"]</span>" style="width: 15px;
+                    height: 15px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;">
+                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                    @if (!Model.GymLocations.Any())
+                    {
+                        <span class="pulse-ring" style="width: 30px;height: 30px;"></span>
+                    }
+                </span>
+            </label>
+            <!--end::Label-->
+            @* <label class="required form-label ms-2">@localizer["select_location"]</label> *@
             <!--begin::Select-->
             <select class="form-select" asp-for="@Model.Class.GymLocationId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                 <option></option>
@@ -45,6 +61,23 @@
         <div class="col mb-5 fv-row">
             <label class="required form-label ms-2">@localizer["booking_fees"]</label>
             <input type="number" class="form-control" asp-for="@Model.Class.ClassFees" placeholder="@localizer["enter"] @localizer["booking_fees"] @localizer["here"]" min="0" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="col mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["select_days"]</label>
+            <!--begin::Select-->
+            <select class="form-select" asp-for="@Model.WeekDayIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+                <option></option>
+                <option value="1">@localizer["sunday"]</option>
+                <option value="2">@localizer["monday"]</option>
+                <option value="3">@localizer["tuesday"]</option>
+                <option value="4">@localizer["wednesday"]</option>
+                <option value="5">@localizer["thursday"]</option>
+                <option value="6">@localizer["friday"]</option>
+                <option value="7">@localizer["saturday"]</option>
+            </select>
+            <!--end::Select-->
         </div>
         <!--end::Input group-->
         <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">

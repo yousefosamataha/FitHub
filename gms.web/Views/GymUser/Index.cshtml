@@ -2,6 +2,7 @@
 @{
 	ViewData["Title"] = localizer["staffslist"];
 	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+	var test = Model;
 }
 <!--begin::Content wrapper-->
 <div class="d-flex flex-column flex-column-fluid">
@@ -100,7 +101,7 @@
 							{
 								<tr>
 									<td class="text-center">
-										@item
+										@* @item *@
 									</td>
 									<td class="text-center">
 										@item.Email

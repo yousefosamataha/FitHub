@@ -61,4 +61,15 @@ public class RolesController : BaseController<RolesController>
 
 		return RedirectToAction(nameof(Index));
 	}
+
+
+	public IActionResult Roles()
+	{
+		return View();
+	}
+
+	public IActionResult Permissions()
+	{
+		return View();
+	}
 }

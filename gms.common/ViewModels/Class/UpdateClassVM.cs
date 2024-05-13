@@ -7,4 +7,5 @@ public class UpdateClassVM
 {
     public UpdateClassDTO Class { get; set; }
     public List<GymLocationDTO> GymLocations { get; set; }
+    public List<int> WeekDayIds { get; set; }
 }

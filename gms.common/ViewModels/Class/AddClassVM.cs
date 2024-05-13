@@ -7,4 +7,5 @@ public class AddClassVM
 {
     public CreateClassDTO Class { get; set; }
     public List<GymLocationDTO> GymLocations { get; set; }
+    public List<int> WeekDayIds { get; set; }
 }

@@ -2,7 +2,7 @@
 import { globalClass } from '../custom.js';
 
 // Class definition
-var activitiesList = function () {
+var classesList = function () {
     // Shared variables
     var modal;
     var table;
@@ -64,13 +64,17 @@ var activitiesList = function () {
             if (modalEl) {
                 modal = new bootstrap.Modal(modalEl);
                 $.ajax({
-                    url: '/Class/AddNewClass',
+                    url: '/Class/CreateNewClass',
                     type: 'GET',
                     success: function (data) {
                         $(modalEl.querySelector(".modal-body")).empty().html(data);
                         modal.show();
 
                         $('#Class_GymLocationId').select2({
+                            minimumResultsForSearch: -1
+                        });
+
+                        $('#WeekDayIds').select2({
                             minimumResultsForSearch: -1
                         });
 
@@ -88,7 +92,7 @@ var activitiesList = function () {
                             dateFormat: "h:i K",
                         });
 
-                        //$('.add-new-activity-category-popover-btn').popover();
+                        $('.add-new-gym-location-popover-btn').popover();
 
                         // Handle Form Validation
                         const addNewClassForm = document.getElementById('add_new_class_form');
@@ -112,6 +116,13 @@ var activitiesList = function () {
                                             }
                                         },
                                         'Class.ClassFees': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        },
+                                        'WeekDayIds': {
                                             validators: {
                                                 notEmpty: {
                                                     message: data.thisfieldisrequired
@@ -163,24 +174,32 @@ var activitiesList = function () {
                                         data.Class.ClassName = $('[name="Class.ClassName"]').val();
                                         data.Class.GymLocationId = $('[name="Class.GymLocationId"]').val();
                                         data.Class.ClassFees = $('[name="Class.ClassFees"]').val();
+                                        data.WeekDayIds = $('[name="WeekDayIds"]').val();
                                         data.Class.StartTime = $('[name="Class.StartTime"]').val();
                                         data.Class.EndTime = $('[name="Class.EndTime"]').val();
 
                                         $.ajax({
-                                            url: '/Class/AddNewClass',
+                                            url: '/Class/CreateNewClass',
                                             type: 'POST',
                                             data: {
-                                                createClassModel: data.Class
+                                                addClassModel: data
                                             },
                                             dataType: 'json',
                                             success: function (response) {
-                                                window.location.href = `/Class/Index`;
+                                                window.location.href = `/Class`;
                                             }
                                         });
                                     }
                                 });
                             }
                         });
+                    },
+                    error: function (xhr) {
+                        if (xhr.status == 403) {
+                            jsonlocalizerData().then(data => {
+                                toastr.error(data["you_do_not_have_permission_to_access_this_action"]);
+                            });
+                        }
                     }
                 });
             }
@@ -204,7 +223,7 @@ var activitiesList = function () {
                     const modal = new bootstrap.Modal(modalEl);
                     $.ajax({
                         url: '/Class/EditClass',
-                        type: 'Post',
+                        type: 'Get',
                         data: {
                             id: this.dataset.id
                         },
@@ -213,6 +232,10 @@ var activitiesList = function () {
                             modal.show();
 
                             $('#Class_GymLocationId').select2({
+                                minimumResultsForSearch: -1
+                            });
+
+                            $('#WeekDayIds').select2({
                                 minimumResultsForSearch: -1
                             });
 
@@ -230,22 +253,21 @@ var activitiesList = function () {
                                 dateFormat: "h:i K",
                             });
 
-                            //$.ajax({
-                            //    url: '/Activity/GetActivityMembershipsById',
-                            //    type: 'GET',
-                            //    data: {
-                            //        activityId: $('[name="Activity.Id"]').val()
-                            //    },
-                            //    dataType: 'json',
-                            //    success: function (response) {
-                            //        var membershipIds = [];
-                            //        response.data.forEach(m => membershipIds.push(m.membershipPlanId));
-                            //        $('#select_memberships').val(membershipIds).trigger('change');
-                            //    }
-                            //});
+                            $.ajax({
+                                url: '/Class/GetClassScheduleDaysById',
+                                type: 'GET',
+                                data: {
+                                    classId: $('[name="Class.Id"]').val()
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    var weekDayIds = [];
+                                    response.data.forEach(cd => weekDayIds.push(cd.weekDayId));
+                                    $('#WeekDayIds').val(weekDayIds).trigger('change');
+                                }
+                            });
 
                             // Handle Form Validation
-
                             const updateClassForm = document.getElementById('update_class_form');
                             var updateClassValidator;
                             jsonlocalizerData().then(data => {
@@ -267,6 +289,13 @@ var activitiesList = function () {
                                                 }
                                             },
                                             'Class.ClassFees': {
+                                                validators: {
+                                                    notEmpty: {
+                                                        message: data.thisfieldisrequired
+                                                    }
+                                                }
+                                            },
+                                            'WeekDayIds': {
                                                 validators: {
                                                     notEmpty: {
                                                         message: data.thisfieldisrequired
@@ -319,26 +348,32 @@ var activitiesList = function () {
                                             data.Class.ClassName = $('[name="Class.ClassName"]').val();
                                             data.Class.GymLocationId = $('[name="Class.GymLocationId"]').val();
                                             data.Class.ClassFees = $('[name="Class.ClassFees"]').val();
+                                            data.WeekDayIds = $('[name="WeekDayIds"]').val();
                                             data.Class.StartTime = $('[name="Class.StartTime"]').val();
                                             data.Class.EndTime = $('[name="Class.EndTime"]').val();
-                                            console.log(data);
 
                                             $.ajax({
-                                                url: '/Class/UpdateClass',
+                                                url: '/Class/EditClass',
                                                 type: 'POST',
                                                 data: {
-                                                    updateClassDTO: data
+                                                    updateClassModel: data
                                                 },
                                                 dataType: 'json',
                                                 success: function (response) {
-                                                    console.log(response);
-                                                    window.location.href = `/Class/Index`;
+                                                    window.location.href = `/Class`;
                                                 }
                                             });
                                         }
                                     });
                                 }
                             });
+                        },
+                        error: function (xhr) {
+                            if (xhr.status == 403) {
+                                jsonlocalizerData().then(data => {
+                                    toastr.error(data["you_do_not_have_permission_to_access_this_action"]);
+                                });
+                            }
                         }
                     });
                 }
@@ -365,48 +400,39 @@ var activitiesList = function () {
                     success: function (response) {
                         // Remove current row
                         datatable.row($(parent)).remove().draw(false);
-                        // globalClass.handleTooltip();
                         toastr.success("Class Deleted Successfully!");
                     },
-                    error: function (xhr, status, error) {
-                        console.error('Error:', error);
+                    error: function (xhr) {
+                        if (xhr.status == 403) {
+                            jsonlocalizerData().then(data => {
+                                toastr.error(data["you_do_not_have_permission_to_access_this_action"]);
+                            });
+                        }
                     }
                 });
             });
         });
     }
 
-    // Show Activity Videos
-    var showActivityVideos = () => {
-        // Select all delete buttons
-        const showButtons = table.querySelectorAll('.show-activity-videos-btn');
-
-        showButtons.forEach(s => {
-            s.addEventListener("click", function (e) {
-                window.location.href = `/Activity/ActivityVideos?activityId=${this.dataset.id}`;
-            });
-        });
-    }
-
-    // Add New Activity Category
-    var handleAddNewActivityCategory = () => {
-        $(document).on('click', '.add-new-activity-category', function () {
+    // Add New Gym Location
+    var handleAddNewGymLocation = () => {
+        $(document).on('click', '.add-new-gym-location', function () {
             const modalEl = document.querySelector("#main_modal");
-            var activityCategoryTable;
+            var gymLocationTable;
             document.querySelector("#main_modal .modal-dialog").classList.add("mw-750px");
             jsonlocalizerData().then(data => {
-                modalEl.querySelector("h3").innerText = data["add_new_activity_category"];
+                modalEl.querySelector("h3").innerText = data["add_new_location"];
             });
 
             $.ajax({
-                url: '/Activity/AddNewActivityCategory',
+                url: '/Gym/CreateNewGymLocation',
                 type: 'GET',
                 success: function (data) {
                     $(modalEl.querySelector(".modal-body")).empty().html(data);
                     $('.popover').remove();
 
                     // Init Datatable
-                    activityCategoryTable = $("#activity_Category_list").DataTable({
+                    gymLocationTable = $("#gym_location_list").DataTable({
                         language: {
                             url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
                         },
@@ -421,13 +447,13 @@ var activitiesList = function () {
                     });
 
                     // Handle Form Validation
-                    const addNewActivityCategoryForm = document.getElementById('add_new_activity_category_form');
-                    var addNewActivityCategoryValidator;
+                    const addNewGymLocationForm = document.getElementById('add_new_gym_location_form');
+                    var addNewGymLocationValidator;
                     jsonlocalizerData().then(data => {
-                        addNewActivityCategoryValidator = FormValidation.formValidation(addNewActivityCategoryForm,
+                        addNewGymLocationValidator = FormValidation.formValidation(addNewGymLocationForm,
                             {
                                 fields: {
-                                    'CreateActivityCategory.Name': {
+                                    'CreateGymLocation.Name': {
                                         validators: {
                                             notEmpty: {
                                                 message: data.thisfieldisrequired
@@ -448,22 +474,22 @@ var activitiesList = function () {
                     });
 
                     // Select all delete buttons
-                    const deleteButtons = document.querySelectorAll('.delete-activity-category-btn');
+                    const deleteButtons = document.querySelectorAll('.delete-gym-location-btn');
                     deleteButtons.forEach(d => {
                         d.addEventListener("click", function (e) {
                             // Select parent row
                             const parent = this.closest('tr');
 
                             $.ajax({
-                                url: '/Activity/DeleteActivityCategory',
+                                url: '/Gym/DeleteGymLocation',
                                 type: 'POST',
                                 data: {
                                     id: this.dataset.id
                                 },
                                 success: function (response) {
                                     // Remove current row
-                                    activityCategoryTable.row($(parent)).remove().draw(false);
-                                    toastr.success("Activity Category Deleted Successfully!");
+                                    gymLocationTable.row($(parent)).remove().draw(false);
+                                    toastr.success("Location Deleted Successfully!");
                                 },
                                 error: function (xhr, status, error) {
                                     console.error('Error:', error);
@@ -473,26 +499,26 @@ var activitiesList = function () {
                     });
 
                     // Handle Form Submition
-                    const submitButton = document.getElementById('add_new_Activity_category_form_submit');
+                    const submitButton = document.getElementById('add_new_gym_location_form_submit');
                     submitButton.addEventListener('click', function (e) {
                         // Prevent default button action
                         e.preventDefault();
 
                         // Validate form before submit
-                        if (addNewActivityCategoryValidator) {
-                            addNewActivityCategoryValidator.validate().then(function (status) {
+                        if (addNewGymLocationValidator) {
+                            addNewGymLocationValidator.validate().then(function (status) {
                                 if (status == 'Valid') {
                                     submitButton.setAttribute('data-kt-indicator', 'on');
                                     submitButton.disabled = true;
 
                                     var data = {};
-                                    data.Name = $('[name="CreateActivityCategory.Name"]').val();
+                                    data.Name = $('[name="CreateGymLocation.Name"]').val();
 
                                     $.ajax({
-                                        url: '/Activity/AddNewActivityCategory',
+                                        url: '/Gym/CreateNewGymLocation',
                                         type: 'POST',
                                         data: {
-                                            activityCategoryModal: data
+                                            gymLocationModal: data
                                         },
                                         dataType: 'json',
                                         success: function (response) {
@@ -522,13 +548,12 @@ var activitiesList = function () {
             handleAddNewClass();
             editClass();
             deleteClass();
-            //showActivityVideos();
-            //handleAddNewActivityCategory();
+            handleAddNewGymLocation();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    activitiesList.init();
+    classesList.init();
 });

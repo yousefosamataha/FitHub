@@ -188,7 +188,6 @@ var addNewMember = function () {
                         data.StatusId = $('[name="StatusId"]').val();
                         data.FirstName = $('[name="FirstName"]').val();
                         data.LastName = $('[name="LastName"]').val();
-                        data.MembershipDescription = $('[name="MembershipDescription"]').val();
                         data.BirthDate = $('[name="BirthDate"]').val();
                         data.GenderId = $('[name="GenderId"]').val();
                         data.PhoneNumber = $('[name="PhoneNumber"]').val();
@@ -197,6 +196,7 @@ var addNewMember = function () {
                         data.Address = $('[name="Address"]').val();
                         data.Email = $('[name="Email"]').val();
                         data.Password = $('[name="Password"]').val();
+                        console.log(data);
 
                         $.ajax({
                             url: '/GymUser/AddNewMember',

@@ -48,7 +48,6 @@ public class GymUserController : BaseController<GymUserController>
 	[HttpPost]
 	public async Task<IActionResult> AddNewMember(CreateGymUserDTO model)
 	{
-		GymUserEntity? currentUser = await GetCurrentUserData();
 		CreateGymUserDTO modelDTO = new()
 		{
 			BranchId = GetBranchId(),

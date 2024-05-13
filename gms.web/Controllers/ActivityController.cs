@@ -171,5 +171,4 @@ public class ActivityController : BaseController<ActivityController>
 		await _activityCategoryService.DeleteActivityCategoryAsync(id);
 		return Json(new { Success = true, Message = "" });
 	}
-
 }

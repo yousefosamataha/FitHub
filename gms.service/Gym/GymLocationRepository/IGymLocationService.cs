@@ -6,5 +6,7 @@ namespace gms.service.Gym.GymLocationRepository;
 
 public interface IGymLocationService : IBaseRepository<GymLocationEntity>
 {
+    Task<bool> CreateNewGymLocationAsync(CreateGymLocationDTO createGymLocationModal);
     Task<List<GymLocationDTO>> GetGymLocationsListAsync();
+    Task<bool> DeleteGymLocationAsync(int gymLocationId);
 }
