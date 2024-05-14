@@ -33,6 +33,7 @@ public class ActivityController : BaseController<ActivityController>
 		_activityVideoService = activityVideoService;
 	}
 
+	#region Activity
 	[Authorize(ActivityPermissions.View)]
 	public async Task<IActionResult> Index()
 	{
@@ -45,7 +46,7 @@ public class ActivityController : BaseController<ActivityController>
 	{
 		AddNewActivityVM modal = new();
 		modal.ActivityCategories = await _activityCategoryService.GetActivityCategoriesListAsync();
-		modal.Memberships = await _gymMembershipPlanService.GetMembershipPlansListAsync();
+		modal.Memberships = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
 
 		return PartialView("_AddNewActivity", modal);
 	}
@@ -88,7 +89,7 @@ public class ActivityController : BaseController<ActivityController>
 		UpdateActivityVM modal = new();
 		ActivityDTO activity = await _activityService.GetActivityAsync(id);
 		modal.ActivityCategories = await _activityCategoryService.GetActivityCategoriesListAsync();
-		modal.Memberships = await _gymMembershipPlanService.GetMembershipPlansListAsync();
+		modal.Memberships = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
 		modal.Activity = activity.ToUpdateDTO();
 		modal.ActivityVideos = new List<string>();
 		List<ActivityVideoDTO> ActivityVideosList = await _activityVideoService.GetActivityVideosListAsync(id);
@@ -144,6 +145,7 @@ public class ActivityController : BaseController<ActivityController>
 		await _activityService.DeleteActivityAsync(id);
 		return Json(new { Success = true, Message = "" });
 	}
+	#endregion
 
 	public async Task<IActionResult> ActivityVideos(int activityId)
 	{
@@ -151,6 +153,7 @@ public class ActivityController : BaseController<ActivityController>
 		return View(activityVideosList);
 	}
 
+	#region ActivityCategory
 	public async Task<IActionResult> AddNewActivityCategory()
 	{
 		ActivityCategoryVM modal = new();
@@ -172,4 +175,5 @@ public class ActivityController : BaseController<ActivityController>
 		await _activityCategoryService.DeleteActivityCategoryAsync(id);
 		return Json(new { Success = true, Message = "" });
 	}
+	#endregion
 }

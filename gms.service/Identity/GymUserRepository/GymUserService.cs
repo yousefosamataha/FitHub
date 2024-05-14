@@ -1,4 +1,5 @@
-﻿using gms.common.Models.Identity.Role;
+﻿using gms.common.Enums;
+using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
 using gms.common.Models.SharedCat;
 using gms.data;
@@ -13,10 +14,7 @@ public class GymUserService : IGymUserService
 {
 	private readonly UserManager<GymUserEntity> _userManager;
 	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
-	//private readonly IUserStore<GymUserEntity> _userStore;
-	//private readonly IUserEmailStore<GymUserEntity> _emailStore;
 	private readonly ApplicationDbContext _context;
-
 
 	public GymUserService(
 		UserManager<GymUserEntity> userManager,
@@ -126,14 +124,19 @@ public class GymUserService : IGymUserService
 		return entity.ToDTO();
 	}
 
-	public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity)
+
+    #region Member
+    public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity, int branchId)
 	{
 		GymUserEntity gymUserEntity = entity.ToEntity();
+		gymUserEntity.BranchId = branchId;
 		gymUserEntity.EmailConfirmed = true;
-		IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
-		GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
+		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
+        IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
+        await _userManager.AddToRoleAsync(gymUserEntity, RolesEnum.Member.ToString());
+        GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}
-
+    #endregion
 
 }

@@ -5,7 +5,7 @@
         BranchId = int.Parse(User.Claims.FirstOrDefault(c => c.Type.Equals("BranchId")).Value),
         FirstName = User.Claims.FirstOrDefault(c => c.Type.Equals("FirstName")).Value,
         LastName = User.Claims.FirstOrDefault(c => c.Type.Equals("LastName")).Value,
-        Email = User.Claims.FirstOrDefault(c => c.Type.Equals("Email")).Value,
+        Email = User.Claims.FirstOrDefault(c => c.Type.Equals("Email")).Value
     };
 }
 

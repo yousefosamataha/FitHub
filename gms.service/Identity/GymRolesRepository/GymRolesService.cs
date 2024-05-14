@@ -66,7 +66,7 @@ public class GymRolesService : IGymRolesService
 			};
 			await _roleManager.CreateAsync(newRole);
 
-			if (string.Equals(role.ToString(), RolesEnum.GymOwner.ToString(), StringComparison.OrdinalIgnoreCase))
+			if (string.Equals(role.ToString(), RolesEnum.Owner.ToString(), StringComparison.OrdinalIgnoreCase))
 			{
 				await AddAllPermissionClaimsAsync(newRole);
 			}
@@ -160,6 +160,4 @@ public class GymRolesService : IGymRolesService
 
 		return role;
 	}
-
-
 }

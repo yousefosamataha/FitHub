@@ -1,4 +1,4 @@
-﻿using gms.common.Models.MembershipCat;
+﻿using gms.common.Models.MembershipCat.MembershipPlan;
 using gms.data.Models.Membership;
 using gms.services.Base;
 
@@ -7,6 +7,7 @@ public interface IGymMembershipPlanService : IBaseRepository<GymMembershipPlanEn
 {
 	Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership);
 	Task<List<MembershipDTO>> GetMembershipPlansListAsync();
+	Task<List<MembershipDTO>> GetActiveMembershipPlansListAsync();
 	Task<MembershipDTO> GetMembershipAsync(int id,int branchId);
 	Task<MembershipDTO> UpdateGymMembershipPlanAsync(UpdateMembershipDTO membershipDTO);
 	Task<bool> DeleteMembershipAsync(int id, int branchId);

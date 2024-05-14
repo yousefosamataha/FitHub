@@ -89,6 +89,7 @@ public class HomeController : BaseController<HomeController>
     [HttpGet]
     public IActionResult GetJsonlocalizer(string culture)
     {
+        culture = culture is not null ? culture : "en-US";
         string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", $"{culture}.json");
         string jsonContent = System.IO.File.ReadAllText(filePath);
 		return Content(jsonContent, "application/json");

@@ -9,20 +9,20 @@ public static class GymUserMapper
 	{
 		return new GymUserEntity()
 		{
-			BranchId = (int)source.BranchId,
-			//Image = Convert.FromBase64String(source.Image),
-			//ImageTypeId = (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.ImageType),
-			FirstName = source.FirstName,
+			BranchId = source.BranchId,
+            Image = source.Image is not null ? Convert.FromBase64String(source.Image?.Split(";base64,")[1]) : new byte[0],
+            ImageTypeId = source.Image is not null ? (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.Image?.Split(";base64,")[0].Split("data:image/")[1]) : null,
+            FirstName = source.FirstName,
 			LastName = source.LastName,
-			GenderId = (GenderEnum)source.GenderId,
-			BirthDate = (DateOnly)source.BirthDate,
+			GenderId = source.GenderId,
+			BirthDate = source.BirthDate,
 			Address = source.Address,
 			City = source.City,
 			State = source.State,
-			StatusId = (StatusEnum)source.StatusId,
-			GymUserTypeId = source.GymUserTypeId,
+			PhoneNumber = source.PhoneNumber,
 			Email = source.Email,
-			UserName = source.Email
+			UserName = source.Email,
+			StatusId = source.StatusId
 		};
 	}
 
@@ -32,18 +32,18 @@ public static class GymUserMapper
 		{
 			Id = entity.Id,
 			BranchId = entity.BranchId,
-			Image = entity.Image is not null ? $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}" : null,
+			Image = entity.Image?.Length != 0 ? $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}" : null,
 			FirstName = entity.FirstName,
 			LastName = entity.LastName,
-			Email = entity.Email,
-			UserName = entity.UserName,
 			GenderId = entity.GenderId,
 			BirthDate = entity.BirthDate,
 			Address = entity.Address,
 			City = entity.City,
 			State = entity.State,
-			StatusId = entity.StatusId,
-			GymUserTypeId = entity.GymUserTypeId
+            PhoneNumber = entity.PhoneNumber,
+			Email = entity.Email,
+			Password = entity.PasswordHash,
+            StatusId = entity.StatusId
 		};
 	}
 

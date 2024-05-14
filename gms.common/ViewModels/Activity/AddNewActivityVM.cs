@@ -1,6 +1,6 @@
 ﻿using gms.common.Models.ActivityCat.Activity;
 using gms.common.Models.ActivityCat.ActivityCategory;
-using gms.common.Models.MembershipCat;
+using gms.common.Models.MembershipCat.MembershipPlan;
 
 namespace gms.common.ViewModels.Activity;
 

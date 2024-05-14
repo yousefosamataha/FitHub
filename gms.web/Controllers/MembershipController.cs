@@ -5,10 +5,10 @@ using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using gms.service.Membership.GymMembershipPlanRepository;
-using gms.common.Models.MembershipCat;
 using gms.data.Models.Identity;
 using gms.data.Mapper.Membership;
 using gms.common.Models.GymCat.Branch;
+using gms.common.Models.MembershipCat.MembershipPlan;
 
 namespace gms.web.Controllers;
 

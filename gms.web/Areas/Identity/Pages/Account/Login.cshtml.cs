@@ -126,7 +126,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 
                 ClaimsPrincipal userPrincipal = new(identity);
 
-                await _userManager.AddClaimsAsync(user, claims);
+                var result = await _userManager.AddClaimsAsync(user, claims);
 
                 return claims;
             }

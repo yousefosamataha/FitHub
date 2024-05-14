@@ -1,4 +1,4 @@
-﻿using gms.common.Models.MembershipCat;
+﻿using gms.common.Models.MembershipCat.MembershipPlan;
 using gms.data.Models.Membership;
 
 namespace gms.data.Mapper.Membership;
