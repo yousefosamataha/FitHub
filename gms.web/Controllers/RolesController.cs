@@ -41,6 +41,8 @@ public class RolesController : BaseController<RolesController>
 			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
 		}
 
+		await _gymRolesService.CreateRoleAsync(newRole);
+
 		return RedirectToAction(nameof(Index));
 	}
 
@@ -66,4 +68,8 @@ public class RolesController : BaseController<RolesController>
 		return View();
 	}
 
+	public IActionResult Permissions()
+	{
+		return View();
+	}
 }
