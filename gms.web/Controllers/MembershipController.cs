@@ -5,10 +5,10 @@ using gms.service.Shared.CountryRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using gms.service.Membership.GymMembershipPlanRepository;
-using gms.common.Models.MembershipCat;
 using gms.data.Models.Identity;
 using gms.data.Mapper.Membership;
 using gms.common.Models.GymCat.Branch;
+using gms.common.Models.MembershipCat.MembershipPlan;
 
 namespace gms.web.Controllers;
 
@@ -34,11 +34,10 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> Index()
 	{
-		List<MembershipDTO> membershipPlansList = await _gymMembershipPlanService.GetMembershipPlansListAsync();
-        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
         MembershipsListVM viewModel = new();
+        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 		viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
-		viewModel.MembershipsList = membershipPlansList;
+		viewModel.MembershipsList = await _gymMembershipPlanService.GetMembershipPlansListAsync();
 		return View(viewModel);
 	}
 
@@ -57,7 +56,7 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> EditMembership(int id)
 	{
-		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, GetBranchId());
+		var membership = await _gymMembershipPlanService.GetMembershipAsync(id);
 		return View(membership.ToUpdateDTO());
 	}
 

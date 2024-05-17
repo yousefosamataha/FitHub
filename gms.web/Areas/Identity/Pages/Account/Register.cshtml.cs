@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-	public class RegisterModel : PageModel
+    public class RegisterModel : PageModel
 	{
 		private readonly UserManager<GymUserEntity> _userManager;
 		private readonly SignInManager<GymUserEntity> _signInManager;
@@ -126,7 +126,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			BranchDTO CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
 			// (5) Create Branch Roles
-			await _gymRoleService.CreateRolesToBranch(CreatedBranch.Id);
+			await _gymRoleService.CreateRolesToBranchAsync(CreatedBranch.Id);
 
 			// (6) Create User
 			GymUserEntity user = CreateUser();
@@ -138,6 +138,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 			IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
 			GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
+            await _userManager.AddToRolesAsync(user, Enum.GetNames(typeof(RolesEnum)).ToList());
 
 			// (6)
 			//CreatedSystemSubscription.CreatedById = createdUser.Id;

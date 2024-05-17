@@ -3,7 +3,7 @@
 public enum ModulesEnum
 {
 	Gym,
-	GymClass,
+	Class,
 	Membership,
 	ActivityCategory,
 	Activity,
