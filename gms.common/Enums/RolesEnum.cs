@@ -2,8 +2,9 @@
 
 public enum RolesEnum : int
 {
-	GymOwner = 1,
-	SuperAdmin = 2,
-	Admin = 3,
-	Basic = 4
+	Owner = 1,
+	Admin = 2,
+    Trainer = 3,
+    Reception = 4,
+	Member = 5
 }

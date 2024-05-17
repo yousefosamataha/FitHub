@@ -169,7 +169,7 @@ var activitiesList = function () {
                                             dataType: 'json',
                                             success: function (response) {
                                                 console.log(response);
-                                                window.location.href = `/Activity/Index`;
+                                                window.location.href = `/Activity`;
                                             }
                                         });
                                     }
@@ -199,7 +199,7 @@ var activitiesList = function () {
                     const modal = new bootstrap.Modal(modalEl);
                     $.ajax({
                         url: '/Activity/EditActivity',
-                        type: 'Post',
+                        type: 'Get',
                         data: {
                             id: this.dataset.id
                         },
@@ -299,7 +299,7 @@ var activitiesList = function () {
 
                                             var textareas = document.querySelectorAll("#kt_docs_repeater_basic textarea");
                                             var activityVideos = [];
-                                            textareas.forEach(e => activityVideos.push(e.value));
+                                            textareas.forEach(e => e.value.length > 0 ? activityVideos.push(e.value) : true);
                                             var data = {};
                                             data.Activity = {};
                                             data.Activity.Id = $('[name="Activity.Id"]').val();
@@ -307,10 +307,9 @@ var activitiesList = function () {
                                             data.Activity.ActivityCategoryId = $('[name="Activity.ActivityCategoryId"]').val();
                                             data.MembershipIds = $('[name="SelectedMembershipIds"]').val();
                                             data.ActivityVideos = activityVideos;
-                                            console.log(data);
 
                                             $.ajax({
-                                                url: '/Activity/UpdateActivity',
+                                                url: '/Activity/EditActivity',
                                                 type: 'POST',
                                                 data: {
                                                     updateActivityDTO: data
@@ -318,7 +317,7 @@ var activitiesList = function () {
                                                 dataType: 'json',
                                                 success: function (response) {
                                                     console.log(response);
-                                                    window.location.href = `/Activity/Index`;
+                                                    window.location.href = `/Activity`;
                                                 }
                                             });
                                         }
@@ -374,10 +373,12 @@ var activitiesList = function () {
         });
     }
 
-    // ============
+    // Add New Activity Category
     var handleAddNewActivityCategory = () => {
         $(document).on('click', '.add-new-activity-category', function () {
             const modalEl = document.querySelector("#main_modal");
+            var activityCategoryTable;
+            document.querySelector("#main_modal .modal-dialog").classList.add("mw-750px");
             jsonlocalizerData().then(data => {
                 modalEl.querySelector("h3").innerText = data["add_new_activity_category"];
             });
@@ -388,6 +389,21 @@ var activitiesList = function () {
                 success: function (data) {
                     $(modalEl.querySelector(".modal-body")).empty().html(data);
                     $('.popover').remove();
+
+                    // Init Datatable
+                    activityCategoryTable = $("#activity_Category_list").DataTable({
+                        language: {
+                            url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
+                        },
+                        "info": true,
+                        'order': [],
+                        'pageLength': 4,
+                        'columnDefs': [
+                            { orderable: false, targets: 1 }
+                        ],
+                        "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
+                        "pagingType": "full_numbers"
+                    });
 
                     // Handle Form Validation
                     const addNewActivityCategoryForm = document.getElementById('add_new_activity_category_form');
@@ -431,9 +447,7 @@ var activitiesList = function () {
                                 },
                                 success: function (response) {
                                     // Remove current row
-                                    //datatable.row($(parent)).remove().draw(false);
-                                    $(parent).remove();
-                                    // globalClass.handleTooltip();
+                                    activityCategoryTable.row($(parent)).remove().draw(false);
                                     toastr.success("Activity Category Deleted Successfully!");
                                 },
                                 error: function (xhr, status, error) {

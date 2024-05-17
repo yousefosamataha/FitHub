@@ -2,6 +2,7 @@
 using gms.common.Models.ActivityCat.ActivityCategory;
 using gms.common.Models.ActivityCat.ActivityVideo;
 using gms.common.Models.ActivityCat.MembershipActivity;
+using gms.common.Permissions;
 using gms.common.ViewModels.Activity;
 using gms.data.Mapper.Activity;
 using gms.service.Activity.ActivityCategoryRepository;
@@ -32,24 +33,27 @@ public class ActivityController : BaseController<ActivityController>
 		_activityVideoService = activityVideoService;
 	}
 
+	#region Activity
+	[Authorize(ActivityPermissions.View)]
 	public async Task<IActionResult> Index()
 	{
-        List<ActivityDTO> listOfActivities = await _activityService.GetActivitiesListAsync();
-        return View(listOfActivities);
+		List<ActivityDTO> listOfActivities = await _activityService.GetActivitiesListAsync();
+		return View(listOfActivities);
 	}
 
+	[Authorize(ActivityPermissions.Create)]
 	public async Task<IActionResult> AddNewActivity()
-    {
-		AddNewActivityVM modal = new ();
+	{
+		AddNewActivityVM modal = new();
 		modal.ActivityCategories = await _activityCategoryService.GetActivityCategoriesListAsync();
-		modal.Memberships = await _gymMembershipPlanService.GetMembershipPlansListAsync();
+		modal.Memberships = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
 
 		return PartialView("_AddNewActivity", modal);
-    }
+	}
 
 	[HttpPost]
 	public async Task<JsonResult> AddNewActivity(AddNewActivityVM activityModal)
-    {
+	{
 		ActivityDTO createdActivityDTO = await _activityService.CreateNewActivityAsync(activityModal.Activity);
 		List<CreateActivityVideoDTO> ActivityVideosListDTO = new();
 		List<CreateMembershipActivityDTO> membershipActivitiesListDTO = new();
@@ -66,7 +70,8 @@ public class ActivityController : BaseController<ActivityController>
 		{
 			foreach (var av in activityModal.ActivityVideos)
 			{
-				ActivityVideosListDTO.Add(new CreateActivityVideoDTO() { 
+				ActivityVideosListDTO.Add(new CreateActivityVideoDTO()
+				{
 					ActivityId = createdActivityDTO.Id,
 					VideoPath = av
 				});
@@ -77,12 +82,14 @@ public class ActivityController : BaseController<ActivityController>
 		return Json(new { Success = true, Message = "" });
 	}
 
+    [HttpGet]
+    [Authorize(ActivityPermissions.Edit)]
 	public async Task<IActionResult> EditActivity(int id)
 	{
 		UpdateActivityVM modal = new();
 		ActivityDTO activity = await _activityService.GetActivityAsync(id);
 		modal.ActivityCategories = await _activityCategoryService.GetActivityCategoriesListAsync();
-		modal.Memberships = await _gymMembershipPlanService.GetMembershipPlansListAsync();
+		modal.Memberships = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
 		modal.Activity = activity.ToUpdateDTO();
 		modal.ActivityVideos = new List<string>();
 		List<ActivityVideoDTO> ActivityVideosList = await _activityVideoService.GetActivityVideosListAsync(id);
@@ -95,20 +102,20 @@ public class ActivityController : BaseController<ActivityController>
 	}
 
 	[HttpPost]
-	public async Task<JsonResult> UpdateActivity(UpdateActivityVM updateActivityDTO)
+	public async Task<JsonResult> EditActivity(UpdateActivityVM updateActivityDTO)
 	{
 		ActivityDTO updatedActivityDTO = await _activityService.UpdateActivityAsync(updateActivityDTO.Activity);
-        List<CreateMembershipActivityDTO> updateMembershipActivitiesListDTO = new();
-        List<CreateActivityVideoDTO> updateActivityVideosListDTO = new();
-        foreach (var MembershipId in updateActivityDTO.MembershipIds)
-        {
-            updateMembershipActivitiesListDTO.Add(new CreateMembershipActivityDTO()
-            {
-                ActivityId = updatedActivityDTO.Id,
-                MembershipPlanId = MembershipId
-            });
-        }
-        await _membershipActivityService.UpdateMembershipActivityAsync(updateMembershipActivitiesListDTO, updatedActivityDTO.Id);
+		List<CreateMembershipActivityDTO> updateMembershipActivitiesListDTO = new();
+		List<CreateActivityVideoDTO> updateActivityVideosListDTO = new();
+		foreach (var MembershipId in updateActivityDTO.MembershipIds)
+		{
+			updateMembershipActivitiesListDTO.Add(new CreateMembershipActivityDTO()
+			{
+				ActivityId = updatedActivityDTO.Id,
+				MembershipPlanId = MembershipId
+			});
+		}
+		await _membershipActivityService.UpdateMembershipActivityAsync(updateMembershipActivitiesListDTO, updatedActivityDTO.Id);
 		if (updateActivityDTO.ActivityVideos is not null)
 		{
 			foreach (var av in updateActivityDTO.ActivityVideos)
@@ -125,46 +132,48 @@ public class ActivityController : BaseController<ActivityController>
 	}
 
 	[HttpGet]
-    public async Task<IActionResult> GetActivityMembershipsById(int activityId)
-    {
-        List<MembershipActivityDTO> activityMembershipsList = await _membershipActivityService.GetActivityMembershipsListAsync(activityId);
+	public async Task<IActionResult> GetActivityMembershipsById(int activityId)
+	{
+		List<MembershipActivityDTO> activityMembershipsList = await _membershipActivityService.GetActivityMembershipsListAsync(activityId);
 
-        return Json(new { Success = true, Message = "", Data = activityMembershipsList });
-    }
+		return Json(new { Success = true, Message = "", Data = activityMembershipsList });
+	}
 
-    [HttpPost]
-    public async Task<JsonResult> DeleteActivity(int id)
-    {
-        await _activityService.DeleteActivityAsync(id);
-        return Json(new { Success = true, Message = "" });
-    }
+	[HttpPost]
+	public async Task<JsonResult> DeleteActivity(int id)
+	{
+		await _activityService.DeleteActivityAsync(id);
+		return Json(new { Success = true, Message = "" });
+	}
+	#endregion
 
-    public async Task<IActionResult> ActivityVideos(int activityId)
+	public async Task<IActionResult> ActivityVideos(int activityId)
 	{
 		List<ActivityVideoDTO> activityVideosList = await _activityVideoService.GetActivityVideosListAsync(activityId);
 		return View(activityVideosList);
 	}
 
-    public async Task<IActionResult> AddNewActivityCategory()
+	#region ActivityCategory
+	public async Task<IActionResult> AddNewActivityCategory()
 	{
-        ActivityCategoryVM modal = new();
+		ActivityCategoryVM modal = new();
 		modal.ActivityCategoryList = await _activityCategoryService.GetActivityCategoriesListAsync();
 
 		return PartialView("_AddNewActivityCategory", modal);
-    }
+	}
 
-    [HttpPost]
-    public async Task<JsonResult> AddNewActivityCategory(CreateActivityCategoryDTO activityCategoryModal)
-    {
-        await _activityCategoryService.CreateNewActivityCategoryAsync(activityCategoryModal);
-        return Json(new { Success = true, Message = "" });
-    }
+	[HttpPost]
+	public async Task<JsonResult> AddNewActivityCategory(CreateActivityCategoryDTO activityCategoryModal)
+	{
+		await _activityCategoryService.CreateNewActivityCategoryAsync(activityCategoryModal);
+		return Json(new { Success = true, Message = "" });
+	}
 
-    [HttpPost]
-    public async Task<JsonResult> DeleteActivityCategory(int id)
-    {
-        await _activityCategoryService.DeleteActivityCategoryAsync(id);
-        return Json(new { Success = true, Message = "" });
-    }
-
+	[HttpPost]
+	public async Task<JsonResult> DeleteActivityCategory(int id)
+	{
+		await _activityCategoryService.DeleteActivityCategoryAsync(id);
+		return Json(new { Success = true, Message = "" });
+	}
+	#endregion
 }

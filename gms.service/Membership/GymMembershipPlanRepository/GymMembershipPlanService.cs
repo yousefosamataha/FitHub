@@ -1,4 +1,5 @@
-﻿using gms.common.Models.MembershipCat;
+﻿using gms.common.Enums;
+using gms.common.Models.MembershipCat.MembershipPlan;
 using gms.data;
 using gms.data.Mapper.Gym;
 using gms.data.Mapper.Membership;
@@ -38,9 +39,15 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
         return listOfMembership.Select(mp => mp.ToDTO(branchData.Country.TimezoneOffset)).ToList();
 	}
 
-    public async Task<MembershipDTO> GetMembershipAsync(int id, int branchId)
+	public async Task<List<MembershipDTO>> GetActiveMembershipPlansListAsync()
+	{
+		List<GymMembershipPlanEntity> listOfMembership = await FindAllAsync(mp => mp.BranchId == GetBranchId() && mp.MembershipStatusId == StatusEnum.Active);
+		return listOfMembership.Select(mp => mp.ToDTO()).ToList();
+	}
+
+	public async Task<MembershipDTO> GetMembershipAsync(int id)
     {
-        var MembershipEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == branchId);
+        var MembershipEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
         return MembershipEntity.ToDTO();
     }
 
