@@ -45,9 +45,9 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
 		return listOfMembership.Select(mp => mp.ToDTO()).ToList();
 	}
 
-	public async Task<MembershipDTO> GetMembershipAsync(int id, int branchId)
+	public async Task<MembershipDTO> GetMembershipAsync(int id)
     {
-        var MembershipEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == branchId);
+        var MembershipEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
         return MembershipEntity.ToDTO();
     }
 

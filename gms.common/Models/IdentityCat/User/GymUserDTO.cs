@@ -1,4 +1,5 @@
 ﻿using gms.common.Enums;
+using gms.common.Models.MembershipCat.MemberMembership;
 
 namespace gms.common.Models.Identity.User;
 
@@ -21,4 +22,6 @@ public sealed record GymUserDTO
     public StatusEnum StatusId { get; init; }
     public GymUserTypeEnum? GymUserTypeId { get; set; }
     public string Roles { get; set; }
+
+    public MemberMembershipDTO GymMemberMembership { get; set; }
 }

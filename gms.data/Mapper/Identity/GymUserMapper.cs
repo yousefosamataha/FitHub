@@ -1,5 +1,6 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.Identity.User;
+using gms.data.Mapper.Membership;
 using gms.data.Models.Identity;
 
 namespace gms.data.Mapper.Identity;
@@ -43,8 +44,9 @@ public static class GymUserMapper
             PhoneNumber = entity.PhoneNumber,
 			Email = entity.Email,
 			Password = entity.PasswordHash,
-            StatusId = entity.StatusId
-		};
+            StatusId = entity.StatusId,
+            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.JoiningDate).FirstOrDefault().ToDTO()
+        };
 	}
 
 	public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
@@ -54,7 +56,7 @@ public static class GymUserMapper
 			UserId = entity.Id,
 			GymId = entity.GymBranch.GymId,
 			BranchId = entity.BranchId,
-			FirstName = entity.FirstName,
+            FirstName = entity.FirstName,
 			LastName = entity.LastName,
 			Email = entity.Email,
 			GenderId = entity.GenderId,

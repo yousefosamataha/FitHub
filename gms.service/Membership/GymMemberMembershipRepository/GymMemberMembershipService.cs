@@ -1,4 +1,7 @@
-﻿using gms.data;
+﻿using gms.common.Enums;
+using gms.common.Models.MembershipCat.MemberMembership;
+using gms.data;
+using gms.data.Mapper.Membership;
 using gms.data.Models.Membership;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
@@ -15,4 +18,13 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId)
+    {
+        GymMemberMembershipEntity newMemberMembershipEntity = memberMembershipDto.ToEntity();
+        newMemberMembershipEntity.MemberId = memberId;
+        newMemberMembershipEntity.MemberShipStatusId = StatusEnum.InActive;
+        newMemberMembershipEntity.PaymentStatusId = StatusEnum.NotPaid;
+        await AddAsync(newMemberMembershipEntity);
+        return newMemberMembershipEntity.ToDTO();
+    }
 }

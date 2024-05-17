@@ -32,8 +32,8 @@ public class MembershipActivityService : BaseRepository<MembershipActivityEntity
 
     public async Task<bool> UpdateMembershipActivityAsync(List<CreateMembershipActivityDTO> updateMembershipActivitiesListDto, int activityId)
     {
-        List<MembershipActivityEntity> curentMembershipActivitiesList = await FindAllAsync(ma => ma.ActivityId == activityId);
-		_context.MembershipActivities.RemoveRange(curentMembershipActivitiesList);
+        List<MembershipActivityEntity> currentMembershipActivitiesList = await FindAllAsync(ma => ma.ActivityId == activityId);
+		_context.MembershipActivities.RemoveRange(currentMembershipActivitiesList);
         await _context.SaveChangesAsync();
         List<MembershipActivityEntity> newMembershipActivitiesList = updateMembershipActivitiesListDto.Select(ma => ma.ToEntity()).ToList();
 		await AddRangeAsync(newMembershipActivitiesList);

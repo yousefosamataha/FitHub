@@ -16,6 +16,7 @@ public class GymRolesService : IGymRolesService
 	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
+
 	public GymRolesService(RoleManager<GymIdentityRoleEntity> roleManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 	{
 		_roleManager = roleManager;

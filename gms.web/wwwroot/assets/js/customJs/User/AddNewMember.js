@@ -290,9 +290,7 @@ var addNewMember = function () {
                                 model: data
                             },
                             success: function (response) {
-                                //toastr.success("Membership Added successfully!");
-                                //toastr.success("تمت إضافة العضوية بنجاح!");
-                                //window.location.href = `/Membership/MembershipsList`;
+                                window.location.href = `/GymUser/Memberslist`;
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);

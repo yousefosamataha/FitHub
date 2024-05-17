@@ -5,6 +5,7 @@ using gms.common.Models.SharedCat;
 using gms.data;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -15,15 +16,42 @@ public class GymUserService : IGymUserService
 	private readonly UserManager<GymUserEntity> _userManager;
 	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
 	private readonly ApplicationDbContext _context;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 
 	public GymUserService(
 		UserManager<GymUserEntity> userManager,
 		RoleManager<GymIdentityRoleEntity> roleManager,
-		ApplicationDbContext context)
+		ApplicationDbContext context,
+		IHttpContextAccessor httpContextAccessor)
 	{
 		_userManager = userManager;
 		_roleManager = roleManager;
 		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+	}
+
+	public int GetUserId()
+	{
+		if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value, out int result))
+			return result;
+		else
+			return 0;
+	}
+
+	public int GetBranchId()
+	{
+		if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
+			return result;
+		else
+			return 0;
+	}
+
+	public int GetGymId()
+	{
+		if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
+			return result;
+		else
+			return 0;
 	}
 
 	public async Task<List<GymUserDTO>> GetAllGymUserByGymIdAsync(int gymId)
@@ -126,17 +154,28 @@ public class GymUserService : IGymUserService
 
 
     #region Member
-    public async Task<GymUserDTO> AddGymUserMemberAsync(CreateGymUserDTO entity, int branchId)
+    public async Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
 	{
 		GymUserEntity gymUserEntity = entity.ToEntity();
 		gymUserEntity.BranchId = branchId;
 		gymUserEntity.EmailConfirmed = true;
 		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
+		gymUserEntity.StatusId = StatusEnum.InActive;
         IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
         await _userManager.AddToRoleAsync(gymUserEntity, RolesEnum.Member.ToString());
         GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}
-    #endregion
+
+	public async Task<List<GymUserDTO>> GetGymMemberUsersListAsync()
+	{
+		List<GymUserEntity> listOfMembers = await _context.Users
+											  .Include(u => u.GymMemberMemberships)
+											  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
+
+		return listOfMembers.Select(u => u.ToDTO()).ToList();
+	}
+
+	#endregion
 
 }

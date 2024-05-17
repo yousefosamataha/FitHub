@@ -122,12 +122,31 @@ var globalClass = function () {
         document.querySelectorAll(".tooltip").forEach(e => e.remove());
     }
 
+    // [8] Handle User Data
+    var handleUserData = () => {
+        $.ajax({
+            url: '/GymUser/GetCurrentUserData',
+            type: 'GET',
+            data: {
+                email: $("#user_email").val()
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.data.image != null) {
+                    $("#user_menu_wrapper_image span").css('background-image', `url('${response.data.image}')`);
+                    $("#user_account_menu_image span").css('background-image', `url('${response.data.image}')`);
+                }
+            }
+        });
+    }
+
     return {
         init: function () {
             activeSideMenuTab();
             sidebarMinimizeClick();
             activeSidebarMinimize();
             signOut();
+            handleUserData();
         },
         checkLanguage: function (cname) {
             return getCookie(cname);

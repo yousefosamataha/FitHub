@@ -56,7 +56,7 @@ public class MembershipController : BaseController<MembershipController>
 
 	public async Task<IActionResult> EditMembership(int id)
 	{
-		var membership = await _gymMembershipPlanService.GetMembershipAsync(id, GetBranchId());
+		var membership = await _gymMembershipPlanService.GetMembershipAsync(id);
 		return View(membership.ToUpdateDTO());
 	}
 

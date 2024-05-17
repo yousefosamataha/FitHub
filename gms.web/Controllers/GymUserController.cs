@@ -1,9 +1,13 @@
-﻿using gms.common.Models.Identity.Role;
+﻿using gms.common.Models.GymCat.GymMemberGroup;
+using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
 using gms.common.ViewModels.GymUser;
+using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymGroupRepository;
+using gms.service.Gym.GymMemberGroupRepository;
 using gms.service.Identity.GymUserRepository;
+using gms.service.Membership.GymMemberMembershipRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,12 +22,17 @@ public class GymUserController : BaseController<GymUserController>
 	private readonly UserManager<GymUserEntity> _userManager;
     private readonly IGymMembershipPlanService _gymMembershipPlanService;
     private readonly IGymGroupService _gymGroupService;
-    public GymUserController(IGymUserService gymUserService, UserManager<GymUserEntity> userManager, IGymMembershipPlanService gymMembershipPlanService, IGymGroupService gymGroupService)
+    private readonly IGymMemberGroupService _gymMemberGroupService;
+    private readonly IGymMemberMembershipService _gymMemberMembershipService;
+
+    public GymUserController(IGymUserService gymUserService, UserManager<GymUserEntity> userManager, IGymMembershipPlanService gymMembershipPlanService, IGymGroupService gymGroupService, IGymMemberGroupService gymMemberGroupService, IGymMemberMembershipService gymMemberMembershipService)
     {
         _gymUserService = gymUserService;
         _userManager = userManager;
         _gymMembershipPlanService = gymMembershipPlanService;
         _gymGroupService = gymGroupService;
+        _gymMemberGroupService = gymMemberGroupService;
+        _gymMemberMembershipService = gymMemberMembershipService;
     }
 
     public async Task<IActionResult> Index()
@@ -46,8 +55,20 @@ public class GymUserController : BaseController<GymUserController>
 		return RedirectToAction(nameof(Index));
 	}
 
-	#region Member
-	public async Task<IActionResult> CreateNewMember()
+    [HttpGet]
+    public async Task<JsonResult> GetCurrentUserData(string email)
+    {
+        GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(email);
+        return Json(new { Success = true, Message = "", Data = userEntity.ToDTO() });
+    }
+
+    public IActionResult UserProfile()
+    {
+        return View();
+    }
+
+    #region Member
+    public async Task<IActionResult> CreateNewMember()
 	{
         AddNewMemberVM model = new ();
 		model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
@@ -57,16 +78,28 @@ public class GymUserController : BaseController<GymUserController>
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> CreateNewMember(AddNewMemberVM model)
+	public async Task<JsonResult> CreateNewMember(AddNewMemberVM model)
 	{
-        GymUserDTO createdMemberDto = await _gymUserService.AddGymUserMemberAsync(model.CreateMemberDTO, GetBranchId());
+        GymUserDTO createdMemberDto = await _gymUserService.CreateNewGymMemberUserAsync(model.CreateMemberDTO, GetBranchId());
+        List<CreateGymMemberGroupDTO> GymMemberGroupsListDTO = new();
+        foreach (var id in model.SelectedGroupIds)
+        {
+            GymMemberGroupsListDTO.Add(new CreateGymMemberGroupDTO()
+            {
+                GymMemberUserId = createdMemberDto.Id,
+                GymGroupId = id
+            });
+        }
+        await _gymMemberGroupService.CreateNewGymMemberGroupAsync(GymMemberGroupsListDTO);
+        await _gymMemberMembershipService.CreateNewMemberMembershipAsync(model.MemberMembershipDTO, createdMemberDto.Id);
 
-		return RedirectToAction("Memberslist");
+        return Json(new { Success = true, Message = "" });
 	}
 
-	public IActionResult Memberslist()
+	public async Task<IActionResult> MembersList()
 	{
-		return View();
+		List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
+		return View(membersList);
 	}
 	#endregion
 }
