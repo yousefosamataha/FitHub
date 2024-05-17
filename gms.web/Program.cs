@@ -1,16 +1,20 @@
 using gms.data;
 using gms.data.Models.Identity;
-using gms.data.Seeds;
 using gms.service.Activity.ActivityCategoryRepository;
 using gms.service.Activity.ActivityRepository;
 using gms.service.Activity.ActivityVideoRepository;
 using gms.service.Activity.MembershipActivityRepository;
+using gms.service.Class.ClassScheduleDayRepository;
+using gms.service.Class.ClassScheduleRepository;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymGroupRepository;
+using gms.service.Gym.GymLocationRepository;
+using gms.service.Gym.GymMemberGroupRepository;
 using gms.service.Gym.GymRepository;
 using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
+using gms.service.Membership.GymMemberMembershipRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
@@ -96,10 +100,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	});
 
-	//builder.Services.AddScoped(typeof(IUserStore<GymUserEntity>));
-
-	//builder.Services.AddScoped(typeof(IUserEmailStore<GymUserEntity>));
-
 	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
@@ -129,6 +129,16 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddScoped(typeof(IActivityVideoService), typeof(ActivityVideoService));
 
 	builder.Services.AddScoped(typeof(IGymRolesService), typeof(GymRolesService));
+
+	builder.Services.AddScoped(typeof(IClassScheduleService), typeof(ClassScheduleService));
+
+	builder.Services.AddScoped(typeof(IGymLocationService), typeof(GymLocationService));
+
+	builder.Services.AddScoped(typeof(IClassScheduleDayService), typeof(ClassScheduleDayService));
+
+	builder.Services.AddScoped(typeof(IGymMemberGroupService), typeof(GymMemberGroupService));
+
+	builder.Services.AddScoped(typeof(IGymMemberMembershipService), typeof(GymMemberMembershipService));
 }
 
 
@@ -168,28 +178,28 @@ WebApplication? app = builder.Build();
 		pattern: "{controller=Home}/{action=Index}/{id?}"
 	);
 
-	using var scope = app.Services.CreateScope();
-	IServiceProvider services = scope.ServiceProvider;
-	ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-	ILogger logger = LoggerProvider.CreateLogger("app");
-	try
-	{
-		UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
+	//using var scope = app.Services.CreateScope();
+	//IServiceProvider services = scope.ServiceProvider;
+	//ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
+	//ILogger logger = LoggerProvider.CreateLogger("app");
+	//try
+	//{
+	//	UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
 
-		RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
+	//	RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
 
-		await Seeds.SeedBasicUserAsync(userManager);
+	//	await Seeds.SeedBasicUserAsync(userManager);
 
-		await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
+	//	await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
 
-		logger.LogInformation("Data Seeded");
+	//	logger.LogInformation("Data Seeded");
 
-		logger.LogInformation("Application Started");
-	}
-	catch (Exception ex)
-	{
-		logger.LogWarning(ex, "An error Occured While Seeding Data");
-	}
+	//	logger.LogInformation("Application Started");
+	//}
+	//catch (Exception ex)
+	//{
+	//	logger.LogWarning(ex, "An error Occured While Seeding Data");
+	//}
 
 	app.Run();
 }

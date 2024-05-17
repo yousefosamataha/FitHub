@@ -169,8 +169,8 @@
             <!--begin::User menu-->
             <div class="app-navbar-item ms-2 ms-lg-7 me-lg-7 me-3" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-30px symbol-lg-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
-                    <img src="~/assets/media/avatars/300-2.jpg" alt="user" />
+                <div class="cursor-pointer symbol symbol-30px symbol-lg-35px" id="user_menu_wrapper_image" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")">
+                    <span class="symbol-label symbol-label-blank"></span>
                 </div>
                 <!--begin::User account menu-->
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
@@ -179,8 +179,8 @@
                     <div class="menu-item px-3">
                         <div class="menu-content d-flex align-items-center px-3">
                             <!--begin::Avatar-->
-                            <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="~/assets/media/avatars/300-2.jpg" />
+                            <div class="symbol symbol-50px me-5" id="user_account_menu_image">
+                                <span class="symbol-label symbol-label-blank"></span>
                             </div>
                             <!--end::Avatar-->
                             <!--begin::Username-->
@@ -200,7 +200,7 @@
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="../../demo39/dist/account/overview.html" class="menu-link px-5">
+                        <a class="menu-link px-5" asp-controller="GymUser" asp-action="UserProfile">
                             <span class="menu-title">@localizer["my_profile"]</span>
                         </a>
                     </div>

@@ -1,10 +1,14 @@
-﻿using gms.common.Enums;
-using gms.common.Models.IdentityCat;
-using gms.common.Models.Role;
-using gms.common.ViewModels;
+﻿using gms.common.Models.GymCat.GymMemberGroup;
+using gms.common.Models.Identity.Role;
+using gms.common.Models.Identity.User;
 using gms.common.ViewModels.GymUser;
+using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
+using gms.service.Gym.GymGroupRepository;
+using gms.service.Gym.GymMemberGroupRepository;
 using gms.service.Identity.GymUserRepository;
+using gms.service.Membership.GymMemberMembershipRepository;
+using gms.service.Membership.GymMembershipPlanRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,21 +18,29 @@ namespace gms.web.Controllers;
 [Authorize]
 public class GymUserController : BaseController<GymUserController>
 {
-    private readonly IGymUserService _gymUserService;
-    private readonly UserManager<GymUserEntity> _userManager;
-    public GymUserController(IGymUserService gymUserService, UserManager<GymUserEntity> userManager)
+	private readonly IGymUserService _gymUserService;
+	private readonly UserManager<GymUserEntity> _userManager;
+    private readonly IGymMembershipPlanService _gymMembershipPlanService;
+    private readonly IGymGroupService _gymGroupService;
+    private readonly IGymMemberGroupService _gymMemberGroupService;
+    private readonly IGymMemberMembershipService _gymMemberMembershipService;
+
+    public GymUserController(IGymUserService gymUserService, UserManager<GymUserEntity> userManager, IGymMembershipPlanService gymMembershipPlanService, IGymGroupService gymGroupService, IGymMemberGroupService gymMemberGroupService, IGymMemberMembershipService gymMemberMembershipService)
     {
         _gymUserService = gymUserService;
         _userManager = userManager;
+        _gymMembershipPlanService = gymMembershipPlanService;
+        _gymGroupService = gymGroupService;
+        _gymMemberGroupService = gymMemberGroupService;
+        _gymMemberMembershipService = gymMemberMembershipService;
     }
 
-    #region Roles
-    public async Task<IActionResult> GymUsers()
+    public async Task<IActionResult> Index()
 	{
-		List<GymUserViewModel> users = await _gymUserService.GetAllUserByGymIdAsync();
+		List<GymUserDTO> users = await _gymUserService.GetAllGymBranchUsersByBranchIdAsync(GetGymId(), GetBranchId());
 		return View(users);
-
 	}
+
 	public async Task<IActionResult> GymUserRoles(int userId)
 	{
 		GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
@@ -37,54 +49,57 @@ public class GymUserController : BaseController<GymUserController>
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> UpdateUserRoles(GymUserRolesDTO userRoles)
+	public async Task<IActionResult> UpdateUserRoles(UpdateGymUserRolesDTO userRoles)
 	{
 		GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
-		return RedirectToAction(nameof(GymUsers));
+		return RedirectToAction(nameof(Index));
 	}
-    #endregion
 
-    public IActionResult AddNewMember()
+    [HttpGet]
+    public async Task<JsonResult> GetCurrentUserData(string email)
+    {
+        GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(email);
+        return Json(new { Success = true, Message = "", Data = userEntity.ToDTO() });
+    }
+
+    public IActionResult UserProfile()
     {
         return View();
     }
+
+    #region Member
+    public async Task<IActionResult> CreateNewMember()
+	{
+        AddNewMemberVM model = new ();
+		model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
+		model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+
+        return View(model);
+	}
 
 	[HttpPost]
-    public async Task<IActionResult> AddNewMember(GymUserVM model)
-    {
-        var currentUser = await GetCurrentUserData();
-        var modelDTO = new CreateGymUserDTO()
+	public async Task<JsonResult> CreateNewMember(AddNewMemberVM model)
+	{
+        GymUserDTO createdMemberDto = await _gymUserService.CreateNewGymMemberUserAsync(model.CreateMemberDTO, GetBranchId());
+        List<CreateGymMemberGroupDTO> GymMemberGroupsListDTO = new();
+        foreach (var id in model.SelectedGroupIds)
         {
-            BranchId = currentUser.BranchId,
-            Image = model.Image?.Split(";base64,")[1],
-            ImageType = model.Image?.Split(";base64,")[0].Split("data:image/")[1],
-            FirstName = model.FirstName,
-            LastName = model.LastName,
-            GenderId = model.GenderId,
-            BirthDate = model.BirthDate,
-            Address = model.Address,
-            City = model.City,
-            State = model.State,
-            PhoneNumber = model.PhoneNumber,
-            Email = model.Email,
-            Password = model.Password,
-            StatusId = model.StatusId,
-            GymUserTypeId = GymUserTypeEnum.Member
-        };
-        var result = await _gymUserService.AddGymUserMemberAsync(modelDTO);
-        return View();
-    }
+            GymMemberGroupsListDTO.Add(new CreateGymMemberGroupDTO()
+            {
+                GymMemberUserId = createdMemberDto.Id,
+                GymGroupId = id
+            });
+        }
+        await _gymMemberGroupService.CreateNewGymMemberGroupAsync(GymMemberGroupsListDTO);
+        await _gymMemberMembershipService.CreateNewMemberMembershipAsync(model.MemberMembershipDTO, createdMemberDto.Id);
 
-    public IActionResult Memberslist()
-    {
-        return View();
-    }
+        return Json(new { Success = true, Message = "" });
+	}
 
-    private async Task<GymUserEntity> GetCurrentUserData()
-    {
-        System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-        var currentUserData = await _userManager.GetUserAsync(currentUser);
-        var allUserData = await _gymUserService.GetGymUserByEmail(currentUserData.Email);
-        return allUserData;
-    }
+	public async Task<IActionResult> MembersList()
+	{
+		List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
+		return View(membersList);
+	}
+	#endregion
 }

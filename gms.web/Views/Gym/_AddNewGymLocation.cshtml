@@ -1,0 +1,56 @@
+﻿@using gms.common.ViewModels.Gym
+@model GymLocationVM
+@{
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Form-->
+<form id="add_new_gym_location_form" class="form d-flex flex-column flex-lg-row">
+    <!--begin::Wrapper-->
+    <div class="w-100 row" style="align-items: flex-end;">
+        <!--begin::Input group-->
+        <div class="col-8 mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["location_name"]</label>
+            <input type="text" class="form-control" asp-for="@Model.CreateGymLocation.Name" placeholder="@localizer["enter"] @localizer["location_name"] @localizer["here"]" />
+        </div>
+        <div class="col-4 mb-7">
+            <!--begin::Button-->
+            <button type="submit" id="add_new_gym_location_form_submit" class="btn btn-primary">
+                <span class="indicator-label">@localizer["save"]</span>
+                <span class="indicator-progress">
+                    @localizer["please_wait"]...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+            <!--end::Button-->
+        </div>
+        <!--end::Input group-->
+    </div>
+    <!--end::Wrapper-->
+</form>
+<!--end::Form-->
+<!--begin::Table-->
+<table class="table align-middle table-row-dashed fs-6" id="gym_location_list">
+    <thead>
+        <tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
+            <th class="text-start min-w-150px">@localizer["location_name"]</th>
+            <th class="text-center min-w-100px">@localizer["actions"]</th>
+        </tr>
+    </thead>
+    <tbody class="fw-semibold text-gray-700">
+        @foreach (var a in Model.GymLocationList)
+        {
+            <tr>
+                <td class="text-start" data-order="@a.Name">@a.Name</td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-center flex-shrink-0">
+                        <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-gym-location-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
+                            <i class="ki-solid ki-trash fs-2"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!--end::Table-->
