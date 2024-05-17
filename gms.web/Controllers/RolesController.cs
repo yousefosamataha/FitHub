@@ -41,7 +41,7 @@ public class RolesController : BaseController<RolesController>
 			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
 		}
 
-		return RedirectToAction(nameof(GymRoles));
+		return RedirectToAction(nameof(Index));
 	}
 
 	[HttpPost]
@@ -66,6 +66,4 @@ public class RolesController : BaseController<RolesController>
 		return View();
 	}
 
-		return RedirectToAction(nameof(GymRoles));
-	}
 }
