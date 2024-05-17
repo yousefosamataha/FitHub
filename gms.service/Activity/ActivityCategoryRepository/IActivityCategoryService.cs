@@ -1,12 +1,16 @@
-﻿using gms.common.Models.ActivityCat.ActivityCategory;
+﻿using FluentResults;
+using gms.common.Models.ActivityCat.ActivityCategory;
 using gms.data.Models.Activity;
 using gms.services.Base;
 
 namespace gms.service.Activity.ActivityCategoryRepository;
 public interface IActivityCategoryService : IBaseRepository<ActivityCategoryEntity>
 {
-    Task<bool> CreateNewActivityCategoryAsync(CreateActivityCategoryDTO createActivityCategoryModal);
-    Task<List<ActivityCategoryDTO>> GetActivityCategoriesListAsync();
-    Task<bool> DeleteActivityCategoryAsync(int activityCategoryId);
-    Task<ActivityCategoryDTO> GetByIdAsync(int id);
+	Task<Result> CreateNewActivityCategoryAsync(CreateActivityCategoryDTO createActivityCategoryModal);
+
+	Task<Result<List<ActivityCategoryDTO>>> GetActivityCategoriesListAsync();
+
+	Task<Result> DeleteActivityCategoryAsync(int activityCategoryId);
+
+	Task<Result<ActivityCategoryDTO>> GetByIdAsync(int id);
 }
