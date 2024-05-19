@@ -1,3 +1,4 @@
+using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.service.Activity.ActivityCategoryRepository;
@@ -54,23 +55,20 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 		options.SlidingExpiration = true;
 	});
 
-	//builder.Services.AddAuthentication(options =>
-	//{
-	//    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-	//    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-	//}).AddCookie(IdentityConstants.ApplicationScheme, options =>
-	//{
-	//    options.LoginPath = "/Identity/Account/Login";
-	//    options.LogoutPath = "/Identity/Account/Logout";
-	//    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-	//    options.SlidingExpiration = true;
-	//});
-
 	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 	{
 		options.ValidationInterval = TimeSpan.Zero;
 	});
 
+    builder.Services.AddDistributedMemoryCache(); // This is required to store session data in memory.
+    
+	builder.Services.AddSession(options =>
+    {
+        options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
+        options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
+        options.Cookie.IsEssential = true; // Mark the session cookie as essential.
+    });
+    
 	builder.Services.AddControllersWithViews();
 
 	builder.Services.AddLocalization();
@@ -171,7 +169,9 @@ WebApplication? app = builder.Build();
 	app.UseAuthentication();
 	app.UseAuthorization();
 
-	app.MapRazorPages();
+    app.UseSession();
+
+    app.MapRazorPages();
 
 	app.MapControllerRoute(
 		name: "default",
