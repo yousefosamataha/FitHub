@@ -27,14 +27,23 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Serilog;
 using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
 	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+	Log.Logger = new LoggerConfiguration()
+					.ReadFrom.Configuration(builder.Configuration)
+					.Enrich.FromLogContext()
+					.WriteTo.Console()
+					.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+					.CreateLogger();
 
-	builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+	builder.Host.UseSerilog();
+
+    builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
@@ -142,7 +151,9 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 WebApplication? app = builder.Build();
 {
-	if (app.Environment.IsDevelopment())
+    app.UseSerilogRequestLogging();
+
+    if (app.Environment.IsDevelopment())
 	{
 		app.UseMigrationsEndPoint();
 	}
