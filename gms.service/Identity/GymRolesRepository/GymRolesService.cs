@@ -53,14 +53,15 @@ public class GymRolesService : IGymRolesService
 		return await _roleManager.RoleExistsAsync(roleName);
 	}
 
-	public async Task CreateRolesToBranchAsync(int branchId)
+	public async Task CreateRolesForBranchAsync(int branchId)
 	{
 		foreach (var role in Enum.GetValues(typeof(RolesEnum)))
 		{
-			GymIdentityRoleEntity newRole = new()
+			string roleName = $"{branchId}_{role}";
+            GymIdentityRoleEntity newRole = new()
 			{
-				Name = role.ToString(),
-				NormalizedName = role.ToString().ToUpper(),
+				Name = roleName,
+				NormalizedName = roleName.ToUpper(),
 				BranchId = branchId,
 				IsDeleteable = false,
 				IsUpdateable = false

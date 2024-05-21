@@ -152,7 +152,7 @@
                         </div>
                         <!--end::Export-->
                         <!--begin::Add Member-->
-                        <a href="@Url.Action("AddNewMember", "Home")" class="btn btn-primary">
+                        <a class="btn btn-primary d-flex align-items-center" asp-controller="GymUser" asp-action="CreateNewMember">
                             <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_member"]
                         </a>
                         <!--end::Add Member-->
@@ -224,7 +224,7 @@
                                         <!--end::Badges-->
                                     </td>
                                     <td class="text-start">
-                                        <span class="fw-bold"></span>
+                                        <span class="fw-bold">@member.GymMemberMembership.Membership.MembershipName</span>
                                     </td>
                                     <td class="text-center" data-order="@member.GymMemberMembership.JoiningDate.ToString("dd/MM/yyyy")">
                                         <span class="fw-bold">@member.GymMemberMembership.JoiningDate.ToString("dd/MM/yyyy")</span>
@@ -239,10 +239,10 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </a>
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
                                                 <i class="ki-solid ki-trash fs-2"></i>
                                             </a>
                                         </div>
@@ -263,5 +263,5 @@
 </div>
 <!--end::Content wrapper-->
 @section Scripts {
-    <script type="module" src="~/assets/js/customJs/MembersList.js"></script>
+    <script type="module" src="~/assets/js/customJs/MembersList.js" asp-append-version="true"></script>
 }
