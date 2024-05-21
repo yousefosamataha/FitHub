@@ -23,7 +23,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
     {
         GymBranchEntity newBranchEntity = newBranch.ToEntity();
         await AddAsync(newBranchEntity);
-        Logger.LogInformation($"Branch {newBranchEntity.BranchName} new Added Successfully");
+        Logger.LogInformation("Branch {BranchName} new Added Successfully", newBranchEntity.BranchName);
         return newBranchEntity.ToDTO();
     }
 
