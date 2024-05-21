@@ -6,9 +6,9 @@ using gms.services.Base;
 namespace gms.service.Activity.ActivityRepository;
 public interface IActivityService : IBaseRepository<ActivityEntity>
 {
-	Task<Result<ActivityDTO>> CreateNewActivityAsync(CreateActivityDTO createActivityDto);
-	Task<Result<List<ActivityDTO>>> GetActivitiesListAsync();
-	Task<Result<ActivityDTO>> GetActivityAsync(int id);
-	Task<Result<ActivityDTO>> UpdateActivityAsync(UpdateActivityDTO updateActivityDto);
-	Task<Result> DeleteActivityAsync(int activityId);
+	Task<ActivityDTO> CreateNewActivityAsync(CreateActivityDTO createActivityDto);
+	Task<List<ActivityDTO>> GetActivitiesListAsync();
+	Task<ActivityDTO> GetActivityAsync(int id);
+	Task<ActivityDTO> UpdateActivityAsync(UpdateActivityDTO updateActivityDto);
+	Task<bool> DeleteActivityAsync(int activityId);
 }
