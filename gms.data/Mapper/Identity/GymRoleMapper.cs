@@ -22,7 +22,7 @@ public static class GymRoleMapper
 		return new GymRoleDTO()
 		{
 			RoleId = source.Id,
-			RoleName = source.Name.Split("_")[1],
+			RoleName = source.Name.Split("_")[1]
 		};
 	}
 }
