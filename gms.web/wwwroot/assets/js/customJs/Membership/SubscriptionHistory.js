@@ -2,7 +2,7 @@
 import { globalClass } from '../custom.js';
 
 // Class definition
-var membershipPayment = function () {
+var subscriptionHistory = function () {
     // Shared variables
     var table;
     var datatable;
@@ -29,7 +29,7 @@ var membershipPayment = function () {
             'order': [],
             'pageLength': 10,
             'columnDefs': [
-                { orderable: false, targets: [7, 8] },
+                { orderable: false, targets: 7 },
             ],
             "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
             "pagingType": "full_numbers"
@@ -53,7 +53,7 @@ var membershipPayment = function () {
 
     return {
         init: function () {
-            table = document.querySelector('#membership_payment');
+            table = document.querySelector('#subscription_history');
 
             if (!table) {
                 return;
@@ -67,5 +67,5 @@ var membershipPayment = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    membershipPayment.init();
+    subscriptionHistory.init();
 });

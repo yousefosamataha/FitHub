@@ -45,7 +45,7 @@ public static class GymUserMapper
 			Email = entity.Email,
 			Password = entity.PasswordHash,
             StatusId = entity.StatusId,
-            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.JoiningDate).FirstOrDefault().ToDTO()
+            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.JoiningDate).FirstOrDefault()?.ToDTO()
         };
 	}
 

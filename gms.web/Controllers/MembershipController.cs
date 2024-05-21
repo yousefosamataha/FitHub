@@ -87,4 +87,13 @@ public class MembershipController : BaseController<MembershipController>
         viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
         return View(viewModel);
     }
+
+    public async Task<IActionResult> SubscriptionHistory()
+    {
+        MembershipPaymentVM viewModel = new();
+        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+        viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
+        viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
+        return View(viewModel);
+    }
 }
