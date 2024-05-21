@@ -73,7 +73,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 		options.ValidationInterval = TimeSpan.Zero;
 	});
 
-    builder.Services.AddDistributedMemoryCache(); // This is required to store session data in memory.
+    builder.Services.AddDistributedMemoryCache();
     
 	builder.Services.AddSession(options =>
     {
@@ -115,41 +115,41 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-	builder.Services.AddScoped(typeof(IGymService), typeof(GymService));
+	builder.Services.AddScoped<IGymService, GymService>();
 
-	builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService));
+	builder.Services.AddScoped<IGymBranchService, GymBranchService>();
 
-	builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService));
+	builder.Services.AddScoped<ISystemSubscriptionService, SystemSubscriptionService>();
 
-	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
+	builder.Services.AddScoped<ICountryService, CountryService>();
 
-	builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
+	builder.Services.AddScoped<IGymGeneralSettingService, GymGeneralSettingService>();
 
-	builder.Services.AddScoped(typeof(IGymMembershipPlanService), typeof(GymMembershipPlanService));
+	builder.Services.AddScoped<IGymMembershipPlanService, GymMembershipPlanService>();
 
-	builder.Services.AddScoped(typeof(IGymGroupService), typeof(GymGroupService));
+	builder.Services.AddScoped<IGymGroupService, GymGroupService>();
 
-	builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
+	builder.Services.AddScoped<IGymUserService, GymUserService>();
 
-	builder.Services.AddScoped(typeof(IActivityService), typeof(ActivityService));
+	builder.Services.AddScoped<IActivityService, ActivityService>();
 
-	builder.Services.AddScoped(typeof(IActivityCategoryService), typeof(ActivityCategoryService));
+	builder.Services.AddScoped<IActivityCategoryService, ActivityCategoryService>();
 
-	builder.Services.AddScoped(typeof(IMembershipActivityService), typeof(MembershipActivityService));
+	builder.Services.AddScoped<IMembershipActivityService, MembershipActivityService>();
 
-	builder.Services.AddScoped(typeof(IActivityVideoService), typeof(ActivityVideoService));
+	builder.Services.AddScoped<IActivityVideoService, ActivityVideoService>();
 
-	builder.Services.AddScoped(typeof(IGymRolesService), typeof(GymRolesService));
+	builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 
-	builder.Services.AddScoped(typeof(IClassScheduleService), typeof(ClassScheduleService));
+	builder.Services.AddScoped<IClassScheduleService, ClassScheduleService>();
 
-	builder.Services.AddScoped(typeof(IGymLocationService), typeof(GymLocationService));
+	builder.Services.AddScoped<IGymLocationService, GymLocationService>();
 
-	builder.Services.AddScoped(typeof(IClassScheduleDayService), typeof(ClassScheduleDayService));
+	builder.Services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
 
-	builder.Services.AddScoped(typeof(IGymMemberGroupService), typeof(GymMemberGroupService));
+	builder.Services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
 
-	builder.Services.AddScoped(typeof(IGymMemberMembershipService), typeof(GymMemberMembershipService));
+	builder.Services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
 }
 
 
