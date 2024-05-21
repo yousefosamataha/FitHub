@@ -1,3 +1,4 @@
+using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.service.Activity.ActivityCategoryRepository;
@@ -26,14 +27,27 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Serilog;
 using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
 	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+	Log.Logger = new LoggerConfiguration()
+					.ReadFrom.Configuration(builder.Configuration)
+					.Enrich.FromLogContext()
+					.WriteTo.Console()
+					.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+					.CreateLogger();
 
-	builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+	builder.Host.UseSerilog();
+
+    builder.Services.AddDbContextPool<ApplicationDbContext>(options => 
+	{
+		options.UseSqlServer(connectionString);
+        options.UseLazyLoadingProxies();
+    });
 
 	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
@@ -54,23 +68,20 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 		options.SlidingExpiration = true;
 	});
 
-	//builder.Services.AddAuthentication(options =>
-	//{
-	//    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-	//    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-	//}).AddCookie(IdentityConstants.ApplicationScheme, options =>
-	//{
-	//    options.LoginPath = "/Identity/Account/Login";
-	//    options.LogoutPath = "/Identity/Account/Logout";
-	//    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-	//    options.SlidingExpiration = true;
-	//});
-
 	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 	{
 		options.ValidationInterval = TimeSpan.Zero;
 	});
 
+    builder.Services.AddDistributedMemoryCache();
+    
+	builder.Services.AddSession(options =>
+    {
+        options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
+        options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
+        options.Cookie.IsEssential = true; // Mark the session cookie as essential.
+    });
+    
 	builder.Services.AddControllersWithViews();
 
 	builder.Services.AddLocalization();
@@ -104,47 +115,49 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-	builder.Services.AddScoped(typeof(IGymService), typeof(GymService));
+	builder.Services.AddScoped<IGymService, GymService>();
 
-	builder.Services.AddScoped(typeof(IGymBranchService), typeof(GymBranchService));
+	builder.Services.AddScoped<IGymBranchService, GymBranchService>();
 
-	builder.Services.AddScoped(typeof(ISystemSubscriptionService), typeof(SystemSubscriptionService));
+	builder.Services.AddScoped<ISystemSubscriptionService, SystemSubscriptionService>();
 
-	builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
+	builder.Services.AddScoped<ICountryService, CountryService>();
 
-	builder.Services.AddScoped(typeof(IGymGeneralSettingService), typeof(GymGeneralSettingService));
+	builder.Services.AddScoped<IGymGeneralSettingService, GymGeneralSettingService>();
 
-	builder.Services.AddScoped(typeof(IGymMembershipPlanService), typeof(GymMembershipPlanService));
+	builder.Services.AddScoped<IGymMembershipPlanService, GymMembershipPlanService>();
 
-	builder.Services.AddScoped(typeof(IGymGroupService), typeof(GymGroupService));
+	builder.Services.AddScoped<IGymGroupService, GymGroupService>();
 
-	builder.Services.AddScoped(typeof(IGymUserService), typeof(GymUserService));
+	builder.Services.AddScoped<IGymUserService, GymUserService>();
 
-	builder.Services.AddScoped(typeof(IActivityService), typeof(ActivityService));
+	builder.Services.AddScoped<IActivityService, ActivityService>();
 
-	builder.Services.AddScoped(typeof(IActivityCategoryService), typeof(ActivityCategoryService));
+	builder.Services.AddScoped<IActivityCategoryService, ActivityCategoryService>();
 
-	builder.Services.AddScoped(typeof(IMembershipActivityService), typeof(MembershipActivityService));
+	builder.Services.AddScoped<IMembershipActivityService, MembershipActivityService>();
 
-	builder.Services.AddScoped(typeof(IActivityVideoService), typeof(ActivityVideoService));
+	builder.Services.AddScoped<IActivityVideoService, ActivityVideoService>();
 
-	builder.Services.AddScoped(typeof(IGymRolesService), typeof(GymRolesService));
+	builder.Services.AddScoped<IGymRolesService, GymRolesService>();
 
-	builder.Services.AddScoped(typeof(IClassScheduleService), typeof(ClassScheduleService));
+	builder.Services.AddScoped<IClassScheduleService, ClassScheduleService>();
 
-	builder.Services.AddScoped(typeof(IGymLocationService), typeof(GymLocationService));
+	builder.Services.AddScoped<IGymLocationService, GymLocationService>();
 
-	builder.Services.AddScoped(typeof(IClassScheduleDayService), typeof(ClassScheduleDayService));
+	builder.Services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
 
-	builder.Services.AddScoped(typeof(IGymMemberGroupService), typeof(GymMemberGroupService));
+	builder.Services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
 
-	builder.Services.AddScoped(typeof(IGymMemberMembershipService), typeof(GymMemberMembershipService));
+	builder.Services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
 }
 
 
 WebApplication? app = builder.Build();
 {
-	if (app.Environment.IsDevelopment())
+    app.UseSerilogRequestLogging();
+
+    if (app.Environment.IsDevelopment())
 	{
 		app.UseMigrationsEndPoint();
 	}
@@ -171,7 +184,9 @@ WebApplication? app = builder.Build();
 	app.UseAuthentication();
 	app.UseAuthorization();
 
-	app.MapRazorPages();
+    app.UseSession();
+
+    app.MapRazorPages();
 
 	app.MapControllerRoute(
 		name: "default",

@@ -115,10 +115,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     #region Event
     public DbSet<GymEventReservationEntity> GymEventReservations { get; set; }
     #endregion
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseLazyLoadingProxies();
-    //}
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
