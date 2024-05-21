@@ -134,6 +134,8 @@ namespace gms.web.Areas.Identity.Pages.Account
 			user.BranchId = CreatedBranch.Id;
 			user.GymUserTypeId = GymUserTypeEnum.Owner;
 			user.StatusId = StatusEnum.Active;
+			user.Image = new byte[0];
+			user.ImageTypeId = null;
 			await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
 			await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 			IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
