@@ -7,7 +7,7 @@ public interface IGymRolesService
 {
 	Task<bool> IsRoleExistsAsync(string roleName);
 
-	Task CreateRolesToBranchAsync(int branchId);
+	Task CreateRolesForBranchAsync(int branchId);
 
 	Task<GymIdentityRoleEntity> GetGymRoleByIdAsync(string roleId);
 

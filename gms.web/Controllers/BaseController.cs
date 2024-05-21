@@ -60,6 +60,15 @@ public class BaseController<T> : Controller where T : BaseController<T>
             return 0;
     }
 
+    public string GetUserEmail()
+    {
+        string result = httpContextAccessor.HttpContext.User.FindFirst("Email")?.Value;
+        if (!result.IsNullOrEmpty())
+            return result;
+        else
+            return "";
+    }
+
     public async Task<GymUserEntity> GetCurrentUserData()
     {
         System.Security.Claims.ClaimsPrincipal currentUser = this.User;
