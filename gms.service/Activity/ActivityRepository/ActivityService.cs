@@ -19,48 +19,38 @@ public class ActivityService : BaseRepository<ActivityEntity>, IActivityService
 		_httpContextAccessor = httpContextAccessor;
 	}
 
-	public async Task<Result<ActivityDTO>> CreateNewActivityAsync(CreateActivityDTO createActivityDto)
+	public async Task<ActivityDTO> CreateNewActivityAsync(CreateActivityDTO createActivityDto)
 	{
 		ActivityEntity createActivity = createActivityDto.ToEntity();
 		createActivity.BranchId = GetBranchId();
 		await AddAsync(createActivity);
-		return Result.Ok(createActivity.ToDTO());
+		return createActivity.ToDTO();
 	}
 
-	public async Task<Result<List<ActivityDTO>>> GetActivitiesListAsync()
+	public async Task<List<ActivityDTO>> GetActivitiesListAsync()
 	{
 		List<ActivityEntity> listOfActivities = await FindAllAsync(a => a.BranchId == GetBranchId(), ["ActivityCategory"]);
-		if (listOfActivities is null || !listOfActivities.Any())
-		{
-			return Result.Fail(new Error(""));
-		}
-		return Result.Ok(listOfActivities.Select(a => a.ToDTO()).ToList());
+		return listOfActivities.Select(a => a.ToDTO()).ToList();
 	}
 
-	public async Task<Result<ActivityDTO>> GetActivityAsync(int id)
+	public async Task<ActivityDTO> GetActivityAsync(int id)
 	{
 		ActivityEntity activityEntity = await FindAsync(a => a.Id == id && a.BranchId == GetBranchId());
+		return activityEntity.ToDTO();
+    }
 
-		if (activityEntity is null)
-		{
-			return Result.Fail(new Error(""));
-		}
-
-		return Result.Ok(activityEntity.ToDTO());
-	}
-
-	public async Task<Result<ActivityDTO>> UpdateActivityAsync(UpdateActivityDTO updateActivityDto)
+	public async Task<ActivityDTO> UpdateActivityAsync(UpdateActivityDTO updateActivityDto)
 	{
 		ActivityEntity curentActivityEntity = await FindAsync(a => a.Id == updateActivityDto.Id);
 		ActivityEntity updatedActivityEntity = updateActivityDto.ToUpdatedEntity(curentActivityEntity);
 		await UpdateAsync(updatedActivityEntity);
-		return Result.Ok(updatedActivityEntity.ToDTO());
-	}
+		return updatedActivityEntity.ToDTO();
+    }
 
-	public async Task<Result> DeleteActivityAsync(int activityId)
+	public async Task<bool> DeleteActivityAsync(int activityId)
 	{
 		ActivityEntity activityEntity = await FindAsync(a => a.Id == activityId && a.BranchId == GetBranchId());
 		await DeleteAsync(activityEntity);
-		return Result.Ok();
+		return true;
 	}
 }
