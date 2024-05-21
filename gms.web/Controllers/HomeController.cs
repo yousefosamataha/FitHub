@@ -35,6 +35,8 @@ public class HomeController : BaseController<HomeController>
         var currentUserData =  await _userManager.GetUserAsync(currentUser);
         var test =  GetUserId();
 
+        logger.LogInformation("Application Started Successfully From Index of Home");
+
         return View(currentUserData);
 	}
 

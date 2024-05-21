@@ -5,6 +5,7 @@ using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymBranchRepository;
 public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchService
@@ -22,6 +23,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
     {
         GymBranchEntity newBranchEntity = newBranch.ToEntity();
         await AddAsync(newBranchEntity);
+        Logger.LogInformation($"Branch {newBranchEntity.BranchName} new Added Successfully");
         return newBranchEntity.ToDTO();
     }
 

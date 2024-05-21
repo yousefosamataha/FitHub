@@ -3,6 +3,8 @@ using gms.data;
 using gms.data.Models.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace gms.services.Base;
@@ -11,10 +13,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    protected ILogger<BaseRepository<T>> Logger;
     public BaseRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
+        Logger = _httpContextAccessor.HttpContext.RequestServices.GetRequiredService<ILogger<BaseRepository<T>>>();
     }
 
     public T GetById(int id) => _context.Set<T>().Find(id);
