@@ -31,22 +31,10 @@ public class HomeController : BaseController<HomeController>
 
 	public async Task<IActionResult> Index()
 	{
-        System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-        var currentUserData =  await _userManager.GetUserAsync(currentUser);
-        var test =  GetUserId();
+        GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(GetUserEmail());
 
-        return View(currentUserData);
+        return View(userEntity);
 	}
-
-    public IActionResult AddNewStaff()
-    {
-        return View();
-    }
-
-    public IActionResult StaffsList()
-    {
-        return View();
-    }
 
     public IActionResult Privacy()
     {

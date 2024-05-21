@@ -9,6 +9,7 @@ using gms.data.Models.Identity;
 using gms.data.Mapper.Membership;
 using gms.common.Models.GymCat.Branch;
 using gms.common.Models.MembershipCat.MembershipPlan;
+using gms.service.Membership.GymMemberMembershipRepository;
 
 namespace gms.web.Controllers;
 
@@ -19,20 +20,23 @@ public class MembershipController : BaseController<MembershipController>
 	private readonly IGymBranchService _gymBranchService;
 	private readonly ICountryService _countryService;
 	private readonly IGymMembershipPlanService _gymMembershipPlanService;
+	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 
-	public MembershipController(
-		IGymService gymService,
-		IGymBranchService gymBranchService,
-		ICountryService countryService,
-		IGymMembershipPlanService gymMembershipPlanService)
-	{
-		_gymService = gymService;
-		_gymBranchService = gymBranchService;
-		_countryService = countryService;
-		_gymMembershipPlanService = gymMembershipPlanService;
-	}
+    public MembershipController(
+        IGymService gymService,
+        IGymBranchService gymBranchService,
+        ICountryService countryService,
+        IGymMembershipPlanService gymMembershipPlanService,
+        IGymMemberMembershipService gymMemberMembershipService)
+    {
+        _gymService = gymService;
+        _gymBranchService = gymBranchService;
+        _countryService = countryService;
+        _gymMembershipPlanService = gymMembershipPlanService;
+        _gymMemberMembershipService = gymMemberMembershipService;
+    }
 
-	public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index()
 	{
         MembershipsListVM viewModel = new();
         BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
@@ -73,4 +77,14 @@ public class MembershipController : BaseController<MembershipController>
 		await _gymMembershipPlanService.DeleteMembershipAsync(id, branchId);
 		return Json(new { Success = true, Message = "" });
 	}
+
+
+    public async Task<IActionResult> MembershipPayment()
+    {
+        MembershipPaymentVM viewModel = new();
+        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+        viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
+        viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
+        return View(viewModel);
+    }
 }

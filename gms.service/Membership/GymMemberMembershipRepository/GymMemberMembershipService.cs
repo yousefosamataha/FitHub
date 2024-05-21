@@ -18,6 +18,12 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<List<MemberMembershipDTO>> GetGymMemberMembershipListAsync()
+    {
+        List<GymMemberMembershipEntity> MemberMembershipList = await FindAllAsync(gmm => gmm.GymMemberUser.BranchId == GetBranchId(), ["GymMemberUser", "GymMembershipPlan", "MembershipPaymentHistories"]);
+        return MemberMembershipList.Select(gmm => gmm.ToDTO()).ToList();
+    }
+
     public async Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId)
     {
         GymMemberMembershipEntity newMemberMembershipEntity = memberMembershipDto.ToEntity();

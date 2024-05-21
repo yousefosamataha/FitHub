@@ -101,5 +101,17 @@ public class GymUserController : BaseController<GymUserController>
 		List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
 		return View(membersList);
 	}
-	#endregion
+    #endregion
+
+
+
+    public IActionResult AddNewStaff()
+    {
+        return View();
+    }
+
+    public IActionResult StaffsList()
+    {
+        return View();
+    }
 }
