@@ -43,7 +43,11 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Host.UseSerilog();
 
-    builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+    builder.Services.AddDbContextPool<ApplicationDbContext>(options => 
+	{
+		options.UseSqlServer(connectionString);
+        options.UseLazyLoadingProxies();
+    });
 
 	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
