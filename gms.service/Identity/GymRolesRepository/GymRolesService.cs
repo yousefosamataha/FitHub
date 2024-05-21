@@ -122,10 +122,7 @@ public class GymRolesService : IGymRolesService
 
 	public async Task<GymRoleDTO> CreateRoleAsync(CreateGymRoleDTO newRole)
 	{
-		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity();
-		newIdentityRoleEntity.BranchId = GetBranchId();
-		newIdentityRoleEntity.IsDeleteable = true;
-		newIdentityRoleEntity.IsUpdateable = true;
+		GymIdentityRoleEntity newIdentityRoleEntity = newRole.ToEntity(GetBranchId());
 		await _roleManager.CreateAsync(newIdentityRoleEntity);
 		return newIdentityRoleEntity.ToDTO();
 	}
