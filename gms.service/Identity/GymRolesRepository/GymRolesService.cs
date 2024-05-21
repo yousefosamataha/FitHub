@@ -82,11 +82,7 @@ public class GymRolesService : IGymRolesService
 
 	public async Task<List<GymRoleDTO>> GetAllRolesAsync()
 	{
-		List<GymRoleDTO> roles = await _roleManager.Roles.Where(r => r.BranchId == GetBranchId()).Select(r => new GymRoleDTO()
-		{
-			RoleId = r.Id,
-			RoleName = r.Name
-		}).ToListAsync();
+		List<GymRoleDTO> roles = await _roleManager.Roles.Where(r => r.BranchId == GetBranchId()).Select(r => r.ToDTO()).ToListAsync();
 		return roles;
 	}
 
