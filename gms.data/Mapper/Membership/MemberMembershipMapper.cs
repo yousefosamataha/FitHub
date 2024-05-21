@@ -28,7 +28,10 @@ public static class MemberMembershipMapper
 			MemberShipStatusId = entity.MemberShipStatusId,
 			PaymentStatusId = entity.PaymentStatusId,
 			JoiningDate = entity.JoiningDate,
-			ExpiringDate = entity.ExpiringDate
+			ExpiringDate = entity.ExpiringDate,
+			PaidAmount = entity.MembershipPaymentHistories is not null ? entity.MembershipPaymentHistories.Sum(mph => mph.PaidAmount) : 0,
+            MemberName = entity.GymMemberUser?.FirstName + ' ' + entity.GymMemberUser?.LastName,
+			Membership = entity.GymMembershipPlan?.ToDTO()
 		};
 	}
 

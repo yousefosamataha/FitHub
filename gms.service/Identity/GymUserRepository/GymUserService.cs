@@ -171,6 +171,7 @@ public class GymUserService : IGymUserService
 	{
 		List<GymUserEntity> listOfMembers = await _context.Users
 											  .Include(u => u.GymMemberMemberships)
+											  .ThenInclude(gmm => gmm.GymMembershipPlan)
 											  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
 
 		return listOfMembers.Select(u => u.ToDTO()).ToList();
