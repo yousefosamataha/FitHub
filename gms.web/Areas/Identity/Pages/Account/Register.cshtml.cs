@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
@@ -138,7 +139,15 @@ namespace gms.web.Areas.Identity.Pages.Account
 			await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 			IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
 			GymUserEntity createdUser = await _gymUserService.GetGymUserByEmail(Input.Email);
-            await _userManager.AddToRolesAsync(user, Enum.GetNames(typeof(RolesEnum)).ToList());
+
+			List<string> rolesList = new();
+
+			foreach (var role in Enum.GetValues(typeof(RolesEnum)))
+			{
+				rolesList.Add($"{CreatedBranch.Id}_{role}");
+			}
+
+            await _userManager.AddToRolesAsync(user, rolesList);
 
 			// (6)
 			//CreatedSystemSubscription.CreatedById = createdUser.Id;
