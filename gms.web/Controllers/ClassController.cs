@@ -33,90 +33,144 @@ public class ClassController : BaseController<ClassController>
 	[Authorize(ClassPermissions.View)]
 	public async Task<IActionResult> Index()
 	{
-        ClassesListVM model = new ();
-        BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
-        model.ClassesList = await _classScheduleService.GetClassesListAsync();
-        model.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
-        return View(model);
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}", 
+                                  new object[] {nameof(ClassController), nameof(Index), DateTime.Now.ToString()});
+            ClassesListVM model = new();
+            BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+
+            model.ClassesList = await _classScheduleService.GetClassesListAsync();
+            
+            model.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
+            
+            return View(model);
+        }
 	}
 
 	[Authorize(ClassPermissions.Create)]
 	public async Task<IActionResult> CreateNewClass()
 	{
-        AddClassVM addClassModel = new AddClassVM();
-        addClassModel.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}", 
+                                  new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
 
-        return PartialView("_AddNewClass", addClassModel);
+            AddClassVM addClassModel = new AddClassVM();
+
+            addClassModel.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
+
+            return PartialView("_AddNewClass", addClassModel);
+        }
+            
 	}
 
     [HttpPost]
     public async Task<JsonResult> CreateNewClass(AddClassVM addClassModel)
     {
-        ClassDTO createdClassDTO = await _classScheduleService.CreateNewClassAsync(addClassModel.Class);
-        List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
-        foreach (var dayId in addClassModel.WeekDayIds)
-        {
-            classScheduleDaysListDTO.Add(new CreateClassScheduleDayDTO()
-            {
-                ClassScheduleId = createdClassDTO.Id,
-                WeekDayId = (WeekDayEnum)dayId
-            });
-        } 
-        await _classScheduleDayService.CreateNewClassScheduleDaysAsync(classScheduleDaysListDTO);
 
-        return Json(new { Success = true, Message = "" });
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}", 
+                                   new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
+            ClassDTO createdClassDTO = await _classScheduleService.CreateNewClassAsync(addClassModel.Class);
+            List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
+            foreach (var dayId in addClassModel.WeekDayIds)
+            {
+                classScheduleDaysListDTO.Add(new CreateClassScheduleDayDTO()
+                {
+                    ClassScheduleId = createdClassDTO.Id,
+                    WeekDayId = (WeekDayEnum)dayId
+                });
+            }
+            await _classScheduleDayService.CreateNewClassScheduleDaysAsync(classScheduleDaysListDTO);
+
+            return Json(new { Success = true, Message = "" });
+        }
+        
     }
 
 	[HttpGet]
 	[Authorize(ClassPermissions.Edit)]
 	public async Task<IActionResult> EditClass(int id)
     {
-        UpdateClassVM modal = new();
-        ClassDTO Class = await _classScheduleService.GetClassAsync(id);
-        modal.Class = Class.ToUpdateDTO();
-        modal.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}", new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
+            UpdateClassVM modal = new();
+            ClassDTO Class = await _classScheduleService.GetClassAsync(id);
+            modal.Class = Class.ToUpdateDTO();
+            modal.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
 
-        return PartialView("_EditClass", modal);
+            return PartialView("_EditClass", modal);
+        }
     }
 
     [HttpPost]
     public async Task<JsonResult> EditClass(UpdateClassVM updateClassModel)
     {
-        ClassDTO updatedClassDTO = await _classScheduleService.UpdateClassAsync(updateClassModel.Class);
-        List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
-        foreach (var dayId in updateClassModel.WeekDayIds)
+        using (logger.BeginScope(GetScopesInformation()))
         {
-            classScheduleDaysListDTO.Add(new CreateClassScheduleDayDTO()
-            {
-                ClassScheduleId = updatedClassDTO.Id,
-                WeekDayId = (WeekDayEnum)dayId
-            });
-        }
-        await _classScheduleDayService.UpdateClassScheduleDaysAsync(classScheduleDaysListDTO, updatedClassDTO.Id);
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
+                                   new object[] { nameof(ClassController), nameof(EditClass), DateTime.Now.ToString()});
 
-        return Json(new { Success = true, Message = "" });
+            ClassDTO updatedClassDTO = await _classScheduleService.UpdateClassAsync(updateClassModel.Class);
+            List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
+            foreach (var dayId in updateClassModel.WeekDayIds)
+            {
+                classScheduleDaysListDTO.Add(new CreateClassScheduleDayDTO()
+                {
+                    ClassScheduleId = updatedClassDTO.Id,
+                    WeekDayId = (WeekDayEnum)dayId
+                });
+            }
+            await _classScheduleDayService.UpdateClassScheduleDaysAsync(classScheduleDaysListDTO, updatedClassDTO.Id);
+
+            return Json(new { Success = true, Message = "" });
+        }
+            
     }
 
     [HttpGet]
     public async Task<IActionResult> GetClassScheduleDaysById(int classId)
     {
-        List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync(classId);
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
+                                  new object[] { nameof(ClassController), nameof(GetClassScheduleDaysById), DateTime.Now.ToString() });
 
-        return Json(new { Success = true, Message = "", Data = classScheduleDaysList });
+            List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync(classId);
+
+            return Json(new { Success = true, Message = "", Data = classScheduleDaysList });
+        }
+            
     }
 
     [HttpPost]
 	[Authorize(ClassPermissions.Delete)]
 	public async Task<JsonResult> DeleteClass(int id)
     {
-        await _classScheduleService.DeleteClassAsync(id);
-        return Json(new { Success = true, Message = "" });
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
+                                   new object[] { nameof(ClassController), nameof(DeleteClass), DateTime.Now.ToString() });
+            await _classScheduleService.DeleteClassAsync(id);
+            return Json(new { Success = true, Message = "" });
+        }
+            
     }
 
     public async Task<IActionResult> ClassesSchedule()
 	{
-        List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
+                                   new object[] { nameof(ClassController), nameof(DeleteClass), DateTime.Now.ToString() });
 
-        return PartialView("_ClassesSchedule", classScheduleDaysList);
+            List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
+
+            return PartialView("_ClassesSchedule", classScheduleDaysList);
+        }
+            
 	}
 }

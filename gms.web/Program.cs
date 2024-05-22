@@ -33,8 +33,6 @@ using System.Globalization;
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
 	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-	
-	builder.Logging.ClearProviders();
 
     Serilog.ILogger logger = new LoggerConfiguration()
 								.ReadFrom.Configuration(builder.Configuration)
@@ -44,15 +42,12 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 								.CreateLogger();
 
 
-	builder.Logging.AddSerilog(logger);
+    builder.Host.UseSerilog();
 
-    //Log.Logger = new LoggerConfiguration()
-				//	.ReadFrom.Configuration(builder.Configuration)
-				//	.Enrich.FromLogContext()
-				//	.WriteTo.Console()
-				//	.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
-				//	.CreateLogger();
-	//builder.Host.UseSerilog();
+    builder.Logging.ClearProviders();
+    builder.Logging.AddSerilog(logger);
+
+    
 
     builder.Services.AddDbContextPool<ApplicationDbContext>(options => 
 	{
