@@ -1,6 +1,7 @@
 using gms.web.Extensions.Database;
 using gms.web.Extensions.Identity;
 using gms.web.Extensions.Localization;
+using gms.web.Extensions.MiddlewareExtensions;
 using gms.web.Extensions.Services;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -51,34 +52,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 WebApplication? app = builder.Build();
 {
-    app.UseSerilogRequestLogging();
-
-    if (app.Environment.IsDevelopment())
-	{
-		app.UseMigrationsEndPoint();
-	}
-	else
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
-
-	app.UseHttpsRedirection();
-
-	app.UseStaticFiles();
-
-	app.UseRouting();
-
-	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
-
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
-
-	app.UseAuthentication();
-	app.UseAuthorization();
+	app.ConfigureCustomMiddleware(app.Environment);
 
     app.UseSession();
 
