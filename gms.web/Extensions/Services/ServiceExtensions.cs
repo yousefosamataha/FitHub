@@ -13,6 +13,7 @@ using gms.service.Gym.GymRepository;
 using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
 using gms.service.Membership.GymMemberMembershipRepository;
+using gms.service.Membership.GymMembershipPaymentHistoryRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
@@ -43,5 +44,6 @@ public static class ServiceExtensions
         services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
         services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
         services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
+        services.AddScoped<IGymMembershipPaymentHistoryService, GymMembershipPaymentHistoryService>();
     }
 }
