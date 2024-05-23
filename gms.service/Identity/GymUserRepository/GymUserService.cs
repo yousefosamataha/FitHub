@@ -162,7 +162,7 @@ public class GymUserService : IGymUserService
 		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
 		gymUserEntity.StatusId = StatusEnum.InActive;
         IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
-        await _userManager.AddToRoleAsync(gymUserEntity, RolesEnum.Member.ToString());
+        await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RolesEnum.Member}");
         GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}
@@ -171,6 +171,7 @@ public class GymUserService : IGymUserService
 	{
 		List<GymUserEntity> listOfMembers = await _context.Users
 											  .Include(u => u.GymMemberMemberships)
+											  .ThenInclude(gmm => gmm.GymMembershipPlan)
 											  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
 
 		return listOfMembers.Select(u => u.ToDTO()).ToList();

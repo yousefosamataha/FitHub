@@ -31,7 +31,7 @@
         <!--end::Header Logo-->
         <!--begin::Navbar-->
         <div class="app-navbar flex-grow-1 justify-content-end" id="kt_app_header_navbar">
-            <!--begin::Shop Cart-->
+            @* <!--begin::Shop Cart-->
             <div class="app-navbar-item">
                 <!--begin::Menu wrapper-->
                 <div class="btn btn-icon btn-custom btn-color-gray-800 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" data-bs-toggle="tooltip" title="@localizer["cart"]" data-bs-placement="bottom" data-bs-custom-class="tooltip-inverse">
@@ -40,8 +40,8 @@
                 </div>
                 <!--end::Menu wrapper-->
             </div>
-            <!--end::Shop Cart-->
-            <!--begin::Chat-->
+            <!--end::Shop Cart--> *@
+           @*  <!--begin::Chat-->
             <div class="app-navbar-item ms-2">
                 <!--begin::Menu wrapper-->
                 <div class="btn btn-icon btn-custom btn-color-gray-800 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle" data-bs-toggle="tooltip" title="@localizer["messages"]" data-bs-placement="bottom" data-bs-custom-class="tooltip-inverse">
@@ -50,12 +50,12 @@
                 </div>
                 <!--end::Menu wrapper-->
             </div>
-            <!--end::Chat-->
+            <!--end::Chat--> *@
             <!--begin::Notifications-->
             <div class="app-navbar-item ms-2">
                 <!--begin::Menu wrapper-->
                 <!--begin::Menu Icon-->
-                <div class="btn btn-icon btn-custom btn-color-gray-800 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="@(IsRTL ? "bottom-start" : "bottom-end")" data-bs-toggle="tooltip" title="@localizer["notifications"]" data-bs-placement="bottom" data-bs-custom-class="tooltip-inverse">
+                <div class="btn btn-icon btn-custom btn-color-gray-800 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px position-relative" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="@(IsRTL ? "bottom-start" : "bottom-end")" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["notifications"]" data-bs-placement="bottom" data-bs-custom-class="tooltip-inverse">
                     <i class="ki-solid ki-notification-on fs-1"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge badge-circle badge-primary w-15px h-15px ms-n4 mt-3">5</span>
                 </div>

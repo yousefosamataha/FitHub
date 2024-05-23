@@ -4,7 +4,7 @@ public enum StatusEnum : byte
 {
     Active = 1,
     InActive = 2,
-    Suspend = 3,
+    Suspended = 3,
     Cancelled = 4,
     Expired = 5,
     NotPaid = 6,

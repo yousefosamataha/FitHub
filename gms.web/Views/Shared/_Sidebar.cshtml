@@ -270,7 +270,7 @@
 					<!--begin:Menu sub-->
 					<div class="menu-sub menu-sub-accordion">
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+						<div class="menu-item">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Index", "Home")">
 								<span class="menu-bullet">
@@ -282,7 +282,7 @@
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+						<div class="menu-item" onclick="sideMenuTabClick(this, event)">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 								<span class="menu-bullet">
@@ -311,7 +311,7 @@
 					<!--begin:Menu sub-->
 					<div class="menu-sub menu-sub-accordion">
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+						<div class="menu-item">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Index", "Home")">
 								<span class="menu-bullet">
@@ -326,7 +326,7 @@
 					<!--end:Menu sub-->
 				</div>
 				<!--end:Menu item-->
-				<!--begin::Menu Item-->
+				@* <!--begin::Menu Item-->
 				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
 					<!--begin::Menu link-->
 					<a class="menu-link" href="@Url.Action("Index", "Home")">
@@ -341,7 +341,7 @@
 					</a>
 					<!--end::Menu link-->
 				</div>
-				<!--end::Menu Item-->
+				<!--end::Menu Item--> *@
 				<!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
@@ -356,7 +356,7 @@
 					<!--begin:Menu sub-->
 					<div class="menu-sub menu-sub-accordion">
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="1">
+						<div class="menu-item">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Index", "Home")">
 								<span class="menu-bullet">
@@ -368,7 +368,7 @@
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+						<div class="menu-item">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 								<span class="menu-bullet">
@@ -380,25 +380,25 @@
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+							<a class="menu-link" asp-controller="Membership" asp-action="MembershipPayment">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Membership Payment</span>
+								<span class="menu-title">@localizer["membership_payment"]</span>
 							</a>
 							<!--end:Menu link-->
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="2">
+						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+							<a class="menu-link" asp-controller="Membership" asp-action="SubscriptionHistory">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Subscription History</span>
+								<span class="menu-title">@localizer["subscription_history"]</span>
 							</a>
 							<!--end:Menu link-->
 						</div>
@@ -407,7 +407,7 @@
 					<!--end:Menu sub-->
 				</div>
 				<!--end:Menu item-->
-				<!--begin:Menu item-->
+				@* <!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
 					<span class="menu-link">
@@ -447,8 +447,8 @@
 					</div>
 					<!--end:Menu sub-->
 				</div>
-				<!--end:Menu item-->
-				<!--begin:Menu item-->
+				<!--end:Menu item--> *@
+				@* <!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
 					<span class="menu-link">
@@ -488,8 +488,8 @@
 					</div>
 					<!--end:Menu sub-->
 				</div>
-				<!--end:Menu item-->
-				<!--begin:Menu item-->
+				<!--end:Menu item--> *@
+				@* <!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
 					<span class="menu-link">
@@ -529,7 +529,7 @@
 					</div>
 					<!--end:Menu sub-->
 				</div>
-				<!--end:Menu item-->
+				<!--end:Menu item--> *@
 				<!--begin::Menu Item-->
 				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
 					<!--begin::Menu link-->
