@@ -1,190 +1,58 @@
-using gms.data;
-using gms.data.Models.Identity;
-using gms.service.Activity.ActivityCategoryRepository;
-using gms.service.Activity.ActivityRepository;
-using gms.service.Activity.ActivityVideoRepository;
-using gms.service.Activity.MembershipActivityRepository;
-using gms.service.Class.ClassScheduleDayRepository;
-using gms.service.Class.ClassScheduleRepository;
-using gms.service.Gym.GymBranchRepository;
-using gms.service.Gym.GymGeneralSettingsRepository;
-using gms.service.Gym.GymGroupRepository;
-using gms.service.Gym.GymLocationRepository;
-using gms.service.Gym.GymMemberGroupRepository;
-using gms.service.Gym.GymRepository;
-using gms.service.Identity.GymRolesRepository;
-using gms.service.Identity.GymUserRepository;
-using gms.service.Membership.GymMemberMembershipRepository;
-using gms.service.Membership.GymMembershipPaymentHistoryRepository;
-using gms.service.Membership.GymMembershipPlanRepository;
-using gms.service.Shared.CountryRepository;
-using gms.service.Subscription.SystemSubscriptionRepository;
-using gms.services.Base;
+using gms.web.Extensions.Database;
+using gms.web.Extensions.Identity;
+using gms.web.Extensions.Localization;
+using gms.web.Extensions.MiddlewareExtensions;
+using gms.web.Extensions.Services;
 using gms.web.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using Serilog;
-using System.Globalization;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-	string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    Serilog.ILogger logger = new LoggerConfiguration()
+								.ReadFrom.Configuration(builder.Configuration)
+								.Enrich.FromLogContext()
+								.WriteTo.Console()
+								.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+								.CreateLogger();
 
-	Log.Logger = new LoggerConfiguration()
-					.ReadFrom.Configuration(builder.Configuration)
-					.Enrich.FromLogContext()
-					.WriteTo.Console()
-					.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
-					.CreateLogger();
 
-	builder.Host.UseSerilog();
+    builder.Host.UseSerilog();
 
-    builder.Services.AddDbContextPool<ApplicationDbContext>(options => 
-	{
-		options.UseSqlServer(connectionString);
-        options.UseLazyLoadingProxies();
-    });
+    builder.Logging.ClearProviders();
+    builder.Logging.AddSerilog(logger);
+
+	// Add services
+	builder.Services.AddDatabaseConfiguration(builder.Configuration);
+	
+	builder.Services.AddCustomServices();
+	
+	builder.Services.AddLocalizationConfiguration();
+
+	builder.Services.AddIdentityConfiguration();
 
 	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-
 	builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-	builder.Services.AddIdentity<GymUserEntity, GymIdentityRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
-					.AddEntityFrameworkStores<ApplicationDbContext>()
-					.AddDefaultUI();
-
-
-	builder.Services.ConfigureApplicationCookie(options =>
-	{
-		options.LoginPath = "/Identity/Account/Login";
-		options.LogoutPath = "/Identity/Account/Logout";
-		options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-		options.SlidingExpiration = true;
-	});
-
-	builder.Services.Configure<SecurityStampValidatorOptions>(options =>
-	{
-		options.ValidationInterval = TimeSpan.Zero;
-	});
-
-    builder.Services.AddDistributedMemoryCache();
-    
+	builder.Services.AddDistributedMemoryCache();
 	builder.Services.AddSession(options =>
-    {
-        options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
-        options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
-        options.Cookie.IsEssential = true; // Mark the session cookie as essential.
-    });
-    
+	{
+		options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
+		options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
+		options.Cookie.IsEssential = true; // Mark the session cookie as essential.
+	});
+
 	builder.Services.AddControllersWithViews();
 
-	builder.Services.AddLocalization();
-
-	builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-
-	builder.Services.AddMvc()
-					.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-					.AddDataAnnotationsLocalization(options =>
-					{
-						options.DataAnnotationLocalizerProvider = (type, factory) =>
-							factory.Create(typeof(JsonStringLocalizerFactory));
-					});
-
-	builder.Services.Configure<RequestLocalizationOptions>(options =>
-	{
-		CultureInfo[]? supportedLanguages = new[]
-		{
-			new CultureInfo(CulturesInfoStrings.English),
-			new CultureInfo(CulturesInfoStrings.Arabic),
-			new CultureInfo(CulturesInfoStrings.French)
-		};
-
-		options.DefaultRequestCulture = new RequestCulture(culture: supportedLanguages[0], uiCulture: supportedLanguages[0]);
-		options.SupportedCultures = supportedLanguages;
-		options.SupportedUICultures = supportedLanguages;
-
-	});
-
 	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-	builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
-	builder.Services.AddScoped<IGymService, GymService>();
-
-	builder.Services.AddScoped<IGymBranchService, GymBranchService>();
-
-	builder.Services.AddScoped<ISystemSubscriptionService, SystemSubscriptionService>();
-
-	builder.Services.AddScoped<ICountryService, CountryService>();
-
-	builder.Services.AddScoped<IGymGeneralSettingService, GymGeneralSettingService>();
-
-	builder.Services.AddScoped<IGymMembershipPlanService, GymMembershipPlanService>();
-
-	builder.Services.AddScoped<IGymGroupService, GymGroupService>();
-
-	builder.Services.AddScoped<IGymUserService, GymUserService>();
-
-	builder.Services.AddScoped<IActivityService, ActivityService>();
-
-	builder.Services.AddScoped<IActivityCategoryService, ActivityCategoryService>();
-
-	builder.Services.AddScoped<IMembershipActivityService, MembershipActivityService>();
-
-	builder.Services.AddScoped<IActivityVideoService, ActivityVideoService>();
-
-	builder.Services.AddScoped<IGymRolesService, GymRolesService>();
-
-	builder.Services.AddScoped<IClassScheduleService, ClassScheduleService>();
-
-	builder.Services.AddScoped<IGymLocationService, GymLocationService>();
-
-	builder.Services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
-
-	builder.Services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
-
-	builder.Services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
-
-	builder.Services.AddScoped<IGymMembershipPaymentHistoryService, GymMembershipPaymentHistoryService>();
 }
 
 
 WebApplication? app = builder.Build();
 {
-    app.UseSerilogRequestLogging();
-
-    if (app.Environment.IsDevelopment())
-	{
-		app.UseMigrationsEndPoint();
-	}
-	else
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
-
-	app.UseHttpsRedirection();
-
-	app.UseStaticFiles();
-
-	app.UseRouting();
-
-	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
-
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
-
-	app.UseAuthentication();
-	app.UseAuthorization();
+	app.ConfigureCustomMiddleware(app.Environment);
 
     app.UseSession();
 
@@ -194,29 +62,6 @@ WebApplication? app = builder.Build();
 		name: "default",
 		pattern: "{controller=Home}/{action=Index}/{id?}"
 	);
-
-	//using var scope = app.Services.CreateScope();
-	//IServiceProvider services = scope.ServiceProvider;
-	//ILoggerProvider LoggerProvider = services.GetRequiredService<ILoggerProvider>();
-	//ILogger logger = LoggerProvider.CreateLogger("app");
-	//try
-	//{
-	//	UserManager<GymUserEntity> userManager = services.GetRequiredService<UserManager<GymUserEntity>>();
-
-	//	RoleManager<GymIdentityRoleEntity> roleManager = services.GetRequiredService<RoleManager<GymIdentityRoleEntity>>();
-
-	//	await Seeds.SeedBasicUserAsync(userManager);
-
-	//	await Seeds.SeedSuperAdminUserAsync(userManager, roleManager);
-
-	//	logger.LogInformation("Data Seeded");
-
-	//	logger.LogInformation("Application Started");
-	//}
-	//catch (Exception ex)
-	//{
-	//	logger.LogWarning(ex, "An error Occured While Seeding Data");
-	//}
 
 	app.Run();
 }
