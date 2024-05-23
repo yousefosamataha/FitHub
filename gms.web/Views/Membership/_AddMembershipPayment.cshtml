@@ -1,0 +1,35 @@
+﻿@using gms.common.ViewModels.Membership
+@model AddMembershipPaymentVM
+@{
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Form-->
+<form id="add_membership_payment_form" class="form d-flex flex-column flex-lg-row">
+    <input type="hidden" asp-for="@Model.MemberMembershipId" />
+    <!--begin::Wrapper-->
+    <div class="w-100">
+        <!--begin::Input group-->
+        <div class="mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["payment_amount"]</label>
+            <input type="number" asp-for="@Model.Amount" class="form-control" placeholder="@localizer["enter"] @localizer["payment_amount"] @localizer["here"]" value="@Model.DueAmount.ToString(CultureInfo.InvariantCulture)" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+        </div>
+        <!--end::Input group-->
+        <div class="d-flex justify-content-end px-5">
+            <!--begin::Reset Button-->
+            <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+            <!--end::Reset Button-->
+            <!--begin::Button-->
+            <button type="submit" id="add_membership_payment_form_submit" class="btn btn-primary">
+                <span class="indicator-label">@localizer["save"]</span>
+                <span class="indicator-progress">
+                    @localizer["please_wait"]...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+            <!--end::Button-->
+        </div>
+    </div>
+    <!--end::Wrapper-->
+</form>
+<!--end::Form-->

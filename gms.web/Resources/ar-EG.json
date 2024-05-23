@@ -54,6 +54,7 @@
   "you_do_not_have_permission_to_access_this_action": "ليس لديك إذن للوصول إلى هذا الإجراء!",
   "please_enter_valid_password": "الرجاء إدخال كلمة مرور صالحة!",
   "hi": "أهلاً،",
+  "The_amount_must_not_be_less_than_or_equal_to": "لا يجب ان يقل المبلغ عن أو يساوي",
   "---badge_status---": "------------------------------------------",
   "status": "الحالة",
   "all": "الكل",
@@ -211,8 +212,9 @@
   "embedded_link": "الرابط المضمن",
   "---finances/membership_payment---": "------------------",
   "paid_amount": "المبلغ المدفوع",
-  "due_amount": "المبلغ مستحق",
+  "due_amount": "المبلغ المستحق",
   "payment_status": "حالة السداد",
   "add_payment": "إضافة دفع",
-  "show_invoice": "عرض الفاتورة"
+  "show_invoice": "عرض الفاتورة",
+  "payment_amount": "مبلغ الدفع"
 }

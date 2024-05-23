@@ -56,7 +56,7 @@
                         <!--end::Export buttons-->
                     </div>
                     <!--end::Card title-->
-                    <!--begin::Card toolbar-->
+                    @* <!--begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Add Member-->
                         <a class="btn btn-primary d-flex align-items-center" asp-controller="GymUser" asp-action="CreateNewMember">
@@ -64,7 +64,7 @@
                         </a>
                         <!--end::Add Member-->
                     </div>
-                    <!--end::Card toolbar-->
+                    <!--end::Card toolbar--> *@
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
@@ -106,12 +106,6 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            @* <button type="button" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-2 show-activity-videos-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["pay"]" data-bs-custom-class="tooltip-inverse" data-id="@mm.Id">
-                                                <i class="fa-solid fa-dollar-sign fs-3"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-info btn-sm me-2 show-activity-videos-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["show_invoice"]" data-bs-custom-class="tooltip-inverse" data-id="@mm.Id">
-                                                <i class="ki-solid ki-eye fs-2"></i>
-                                            </button> *@
                                             <button class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </button>
@@ -126,14 +120,14 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-info fw-semibold w-200px py-3" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">
+                                                    <a class="menu-link px-3 add-payment-btn" data-price="@mm.Membership.MembershipAmount" data-piad-amount="@mm.PaidAmount" data-due-amount="@(mm.Membership.MembershipAmount - mm.PaidAmount)" data-signup-fee="@mm.Membership.SignupFee" data-id="@mm.Id">
                                                         @localizer["add_payment"]
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">
+                                                    <a class="menu-link px-3">
                                                         @localizer["show_invoice"]
                                                     </a>
                                                 </div>

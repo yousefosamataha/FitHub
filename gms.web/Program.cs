@@ -1,4 +1,3 @@
-using Autofac.Core;
 using gms.data;
 using gms.data.Models.Identity;
 using gms.service.Activity.ActivityCategoryRepository;
@@ -16,6 +15,7 @@ using gms.service.Gym.GymRepository;
 using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
 using gms.service.Membership.GymMemberMembershipRepository;
+using gms.service.Membership.GymMembershipPaymentHistoryRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
@@ -150,6 +150,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
 
 	builder.Services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
+
+	builder.Services.AddScoped<IGymMembershipPaymentHistoryService, GymMembershipPaymentHistoryService>();
 }
 
 
