@@ -35,4 +35,12 @@ public static class MemberMembershipMapper
 		};
 	}
 
+    public static GymMemberMembershipEntity ToUpdatedEntity(this UpdateMemberMembershipDTO source, GymMemberMembershipEntity entity)
+    {
+        entity.GymMembershipPlanId = source.GymMembershipPlanId > default(int) && source.GymMembershipPlanId != entity.GymMembershipPlanId ? source.GymMembershipPlanId : entity.GymMembershipPlanId;
+        entity.MemberShipStatusId = source.MemberShipStatusId;
+        entity.PaymentStatusId = source.PaymentStatusId;
+    
+        return entity;
+    }
 }

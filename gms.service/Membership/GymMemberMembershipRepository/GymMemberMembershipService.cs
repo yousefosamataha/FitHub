@@ -5,6 +5,7 @@ using gms.data.Mapper.Membership;
 using gms.data.Models.Membership;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace gms.service.Membership.GymMemberMembershipRepository;
 public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEntity>, IGymMemberMembershipService
@@ -32,5 +33,13 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
         newMemberMembershipEntity.PaymentStatusId = StatusEnum.NotPaid;
         await AddAsync(newMemberMembershipEntity);
         return newMemberMembershipEntity.ToDTO();
+    }
+
+    public async Task<MemberMembershipDTO> UpdateMemberMembershipAsync(UpdateMemberMembershipDTO updateMemberMembershipDto)
+    {
+        GymMemberMembershipEntity currentMembershipMembershipEntity = await _context.GymMemberMemberships.FirstOrDefaultAsync(mm => mm.Id == updateMemberMembershipDto.Id);
+        GymMemberMembershipEntity updatedMembershipMembershipEntity = updateMemberMembershipDto.ToUpdatedEntity(currentMembershipMembershipEntity);
+        await UpdateAsync(updatedMembershipMembershipEntity);
+        return updatedMembershipMembershipEntity.ToDTO();
     }
 }
