@@ -7,4 +7,5 @@ public interface IGymMemberMembershipService : IBaseRepository<GymMemberMembersh
 {
     Task<List<MemberMembershipDTO>> GetGymMemberMembershipListAsync();
     Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId);
+    Task<MemberMembershipDTO> UpdateMemberMembershipAsync(UpdateMemberMembershipDTO updateMemberMembershipDto);
 }

@@ -51434,7 +51434,7 @@ code:not([class*=language-]) {
         background-color: transparent;
     }
 
-.badge-light-warning, .badge-light-suspend {
+.badge-light-warning, .badge-light-suspended {
     color: var(--bs-warning);
     background-color: var(--bs-warning-light);
 }

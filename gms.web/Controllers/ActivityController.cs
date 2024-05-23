@@ -158,7 +158,7 @@ public class ActivityController : BaseController<ActivityController>
 	{
 		ActivityCategoryVM modal = new();
 
-		modal.ActivityCategoryList = (await _activityCategoryService.GetActivityCategoriesListAsync()).Value;
+		modal.ActivityCategoryList = await _activityCategoryService.GetActivityCategoriesListAsync();
 
 		return PartialView("_AddNewActivityCategory", modal);
 	}

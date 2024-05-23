@@ -76,4 +76,14 @@ public class BaseController<T> : Controller where T : BaseController<T>
         var allUserData = await gymUserService.GetGymUserByEmail(currentUserData.Email);
         return allUserData;
     }
+
+    public Dictionary<string, object> GetScopesInformation()
+    {
+        Dictionary<string, object> scopeInfo = new();
+        scopeInfo.Add("MachineName", Environment.MachineName);
+        scopeInfo.Add("Environment", "Development");
+        scopeInfo.Add("AppName", "Logging Scopes");
+
+        return scopeInfo;
+    }
 }
