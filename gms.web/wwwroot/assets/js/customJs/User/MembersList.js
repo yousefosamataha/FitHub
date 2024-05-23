@@ -1,8 +1,8 @@
 ﻿"use strict";
-import { globalClass } from './custom.js';
+import { globalClass } from '../custom.js';
 
 // Class definition
-var MembersList = function () {
+var membersList = function () {
     // Shared variables
     var table;
     var datatable;
@@ -11,31 +11,23 @@ var MembersList = function () {
     var joiningMinDate, joiningMaxDate, expiringMinDate, expiringMaxDate;
     var currentLanguage = globalClass.checkLanguage(".AspNetCore.Culture").split("=").slice(-1)[0];
     var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
+    const hostName = window.location.origin;
+    var jsonlocalizerData = () => {
+        return $.ajax({
+            url: '/Home/GetJsonlocalizer',
+            type: 'GET',
+            data: { culture: currentLanguage },
+            dataType: 'json'
+        });
+    }
 
     // Init Datatable
     var initDatatable = function () {
-        //// Set date data order
-        //const tableRows = table.querySelectorAll('tbody tr');
-
-        //tableRows.forEach(row => {
-        //    const dateRow = row.querySelectorAll('td');
-        //    // const realDate = moment(dateRow[5].innerHTML, "DD MMM YYYY, LT").format(); // select date from 4th column in table
-        //    const realDate = moment(dateRow[4].innerHTML).format("DD/MMM/YYYY");
-        //    dateRow[4].setAttribute('data-order', realDate);
-        //});
-
         // Init datatable
         datatable = $(table).DataTable({
             language: {
-                url: `assets/plugins/localization/datatable-${datatableLanguage}.json`,
+                url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
             },
-            //responsive: true,
-            //responsive: {
-            //    details: {
-            //        type: "column",
-            //        target: -1
-            //    }
-            //},
             "info": true,
             'order': [],
             'pageLength': 10,
@@ -48,7 +40,6 @@ var MembersList = function () {
 
         // Re-init functions on datatable re-draws
         datatable.on('draw', function () {
-            handleDeleteRows();
         });
     }
 
@@ -206,64 +197,6 @@ var MembersList = function () {
         });
     }
 
-    // Delet Rows
-    var handleDeleteRows = () => {
-        // Select all delete buttons
-        const deleteButtons = table.querySelectorAll('[data-kt-ecommerce-membership-list-filter="delete_row"]');
-
-        deleteButtons.forEach(d => {
-            // Delete button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get category name
-                const productName = parent.querySelector('[data-kt-ecommerce-membership-list-filter="product_name"]').innerText;
-
-                // SweetAlert2 pop up
-                Swal.fire({
-                    text: "Are you sure you want to delete " + productName + "?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            text: "You have deleted " + productName + "!.",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        }).then(function () {
-                            // Remove current row
-                            datatable.row($(parent)).remove().draw();
-                        });
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: productName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                    }
-                });
-            })
-        });
-    }
-
     return {
         init: function () {
             table = document.querySelector('#members-list');
@@ -276,7 +209,6 @@ var MembersList = function () {
             handleSearchDatatable();
             handleTableFilter();
             initFlatpickr();
-            handleDeleteRows();
             exportButtons();
         }
     };
@@ -284,5 +216,5 @@ var MembersList = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    MembersList.init();
+    membersList.init();
 });

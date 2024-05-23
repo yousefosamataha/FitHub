@@ -54,6 +54,7 @@
   "you_do_not_have_permission_to_access_this_action": "You Don’t Have Permission To Access This Action!",
   "please_enter_valid_password": "Please Enter Valid Password!",
   "hi": "Hi,",
+  "The_amount_must_not_be_less_than_or_equal_to": "The amount must not be less than or equal to",
   "---badge_status---": "------------------------------------------",
   "status": "Status",
   "all": "All",
@@ -214,5 +215,6 @@
   "due_amount": "Due Amount",
   "payment_status": "Payment Status",
   "add_payment": "Add Payment",
-  "show_invoice": "Show Invoice"
+  "show_invoice": "Show Invoice",
+  "payment_amount": "Payment Amount"
 }

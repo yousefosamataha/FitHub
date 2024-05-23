@@ -1,4 +1,7 @@
-﻿using gms.data;
+﻿using gms.common.Enums;
+using gms.common.Models.MembershipCat.MembershipPaymentHistory;
+using gms.data;
+using gms.data.Mapper.Membership;
 using gms.data.Models.Membership;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
@@ -15,4 +18,12 @@ public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPa
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<MembershipPaymentHistoryDTO> CreateNewMembershipPaymentAsync(CreateMembershipPaymentHistoryDTO membershipPaymentDto)
+    {
+        GymMembershipPaymentHistoryEntity newMembershipPaymentEntity = membershipPaymentDto.ToEntity();
+        newMembershipPaymentEntity.PaymentMethodId = PaymentMethodEnum.Cash;
+        newMembershipPaymentEntity.PaidDate = DateTime.UtcNow;
+        var result = await AddAsync(newMembershipPaymentEntity);
+        return newMembershipPaymentEntity.ToDTO();
+    }
 }

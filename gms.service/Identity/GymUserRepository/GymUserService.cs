@@ -162,7 +162,7 @@ public class GymUserService : IGymUserService
 		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
 		gymUserEntity.StatusId = StatusEnum.InActive;
         IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
-        await _userManager.AddToRoleAsync(gymUserEntity, RolesEnum.Member.ToString());
+        await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RolesEnum.Member}");
         GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
 	}
