@@ -39,7 +39,9 @@ public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPa
         {
             Id = membershipPaymentDto.GymMemberMembershipId,
             MemberShipStatusId = StatusEnum.Active,
-            PaymentStatusId = StatusEnum.FullyPaid
+            PaymentStatusId = StatusEnum.FullyPaid,
+            JoiningDate = currentMembershipMembershipEntity.JoiningDate,
+            ExpiringDate = currentMembershipMembershipEntity.ExpiringDate
         };
         await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateMembershipMembership);
 

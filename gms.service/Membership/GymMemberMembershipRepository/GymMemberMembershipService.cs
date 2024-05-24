@@ -25,6 +25,12 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
         return MemberMembershipList.Select(gmm => gmm.ToDTO()).ToList();
     }
 
+    public async Task<MemberMembershipDTO> GetGymMemberMembershipByIdAsync(int memberMembershipId)
+    {
+        GymMemberMembershipEntity MemberMembership = await FindAsync(gmm => gmm.GymMemberUser.BranchId == GetBranchId() && gmm.Id == memberMembershipId, ["GymMemberUser", "GymMembershipPlan", "MembershipPaymentHistories"]);
+        return MemberMembership.ToDTO();
+    }
+
     public async Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId)
     {
         GymMemberMembershipEntity newMemberMembershipEntity = memberMembershipDto.ToEntity();

@@ -145,7 +145,16 @@ public class GymUserService : IGymUserService
 		return entity;
 	}
 
-	public async Task<GymUserDTO> UpdateGymUser(GymUserEntity entity)
+    public async Task<GymUserEntity> GetGymUserByIdAsync(int userId)
+    {
+        GymUserEntity? entity = await _context.Users
+                                              .Include(u => u.GymBranch)
+                                              .ThenInclude(gb => gb.Gym)
+                                              .FirstOrDefaultAsync(u => u.Id == userId);
+        return entity;
+    }
+
+    public async Task<GymUserDTO> UpdateGymUser(GymUserEntity entity)
 	{
 		_context.Users.Update(entity);
 		await _context.SaveChangesAsync();

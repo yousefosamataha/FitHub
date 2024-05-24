@@ -68,6 +68,12 @@ public class GymUserController : BaseController<GymUserController>
     }
 
     #region Member
+    public async Task<IActionResult> MembersList()
+    {
+        List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
+        return View(membersList);
+    }
+
     public async Task<IActionResult> CreateNewMember()
 	{
         AddNewMemberVM model = new ();
@@ -96,11 +102,16 @@ public class GymUserController : BaseController<GymUserController>
         return Json(new { Success = true, Message = "" });
 	}
 
-	public async Task<IActionResult> MembersList()
-	{
-		List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
-		return View(membersList);
-	}
+    public async Task<IActionResult> EditMember(int id)
+    {
+        UpdateMemberVM model = new();
+        GymUserEntity gymUserEntity = await _gymUserService.GetGymUserByIdAsync(id);
+        model.MemberDTO = gymUserEntity.ToDTO();
+        model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
+        model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+
+        return View(model);
+    }
     #endregion
 
 

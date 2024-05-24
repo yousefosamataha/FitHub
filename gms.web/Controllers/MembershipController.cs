@@ -12,6 +12,8 @@ using gms.common.Models.MembershipCat.MembershipPlan;
 using gms.service.Membership.GymMemberMembershipRepository;
 using gms.common.Models.MembershipCat.MembershipPaymentHistory;
 using gms.service.Membership.GymMembershipPaymentHistoryRepository;
+using gms.common.Enums;
+using gms.service.Identity.GymUserRepository;
 
 namespace gms.web.Controllers;
 
@@ -24,6 +26,7 @@ public class MembershipController : BaseController<MembershipController>
 	private readonly IGymMembershipPlanService _gymMembershipPlanService;
 	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 	private readonly IGymMembershipPaymentHistoryService _gymMembershipPaymentHistoryService;
+	private readonly IGymUserService _gymUserService;
 
     public MembershipController(
         IGymService gymService,
@@ -31,7 +34,8 @@ public class MembershipController : BaseController<MembershipController>
         ICountryService countryService,
         IGymMembershipPlanService gymMembershipPlanService,
         IGymMemberMembershipService gymMemberMembershipService,
-        IGymMembershipPaymentHistoryService gymMembershipPaymentHistoryService)
+        IGymMembershipPaymentHistoryService gymMembershipPaymentHistoryService,
+        IGymUserService gymUserService)
     {
         _gymService = gymService;
         _gymBranchService = gymBranchService;
@@ -39,8 +43,10 @@ public class MembershipController : BaseController<MembershipController>
         _gymMembershipPlanService = gymMembershipPlanService;
         _gymMemberMembershipService = gymMemberMembershipService;
         _gymMembershipPaymentHistoryService = gymMembershipPaymentHistoryService;
+        _gymUserService = gymUserService;
     }
 
+    #region Membership
     public async Task<IActionResult> Index()
 	{
         MembershipsListVM viewModel = new();
@@ -82,8 +88,9 @@ public class MembershipController : BaseController<MembershipController>
 		await _gymMembershipPlanService.DeleteMembershipAsync(id, branchId);
 		return Json(new { Success = true, Message = "" });
 	}
+    #endregion
 
-
+    #region Membership Payment
     public async Task<IActionResult> MembershipPayment()
     {
         MembershipPaymentVM viewModel = new();
@@ -94,7 +101,7 @@ public class MembershipController : BaseController<MembershipController>
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddMembershipPayment(AddMembershipPaymentVM model)
+    public IActionResult AddMembershipPayment(AddMembershipPaymentVM model)
     {
         return PartialView("_AddMembershipPayment", model);
     }
@@ -106,6 +113,48 @@ public class MembershipController : BaseController<MembershipController>
         return Json(new { Success = true, Message = "" });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> EditMemberMembership(int memberMembershipId)
+    {
+        EditMemberMembershipVM model = new ();
+        model.MemberMembershipDTO = await _gymMemberMembershipService.GetGymMemberMembershipByIdAsync(memberMembershipId);
+        model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
+
+        return PartialView("_EditMemberMembership", model);
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> EditMemberMembership(EditMemberMembershipVM updateModel)
+    {
+        decimal dueAmount = updateModel.MembershipAmount - updateModel.PaidAmount;
+        if(dueAmount > 0 && updateModel.PaidAmount != 0) {
+            updateModel.UpdateMemberMembershipDTO.MemberShipStatusId = StatusEnum.Suspended;
+            updateModel.UpdateMemberMembershipDTO.PaymentStatusId = StatusEnum.PartiallyPaid;
+            await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
+            GymUserEntity currentUserEntity = await _gymUserService.GetGymUserByIdAsync(updateModel.MemberMembershipDTO.MemberId);
+            currentUserEntity.StatusId = StatusEnum.InActive;
+            await _gymUserService.UpdateGymUser(currentUserEntity);
+        }
+        else if(dueAmount < 0 && updateModel.PaidAmount != 0) {
+            updateModel.UpdateMemberMembershipDTO.MemberShipStatusId = StatusEnum.Active;
+            updateModel.UpdateMemberMembershipDTO.PaymentStatusId = StatusEnum.OverPaid;
+            await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
+        }
+        else if (dueAmount == 0 && updateModel.PaidAmount != 0)
+        {
+            updateModel.UpdateMemberMembershipDTO.MemberShipStatusId = StatusEnum.Active;
+            updateModel.UpdateMemberMembershipDTO.PaymentStatusId = StatusEnum.FullyPaid;
+            await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
+        }
+        else {
+            await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
+        }
+        return Json(new { Success = true, Message = "" });
+    }
+    #endregion
+
+
+    #region Subscription History
     public async Task<IActionResult> SubscriptionHistory()
     {
         MembershipPaymentVM viewModel = new();
@@ -114,4 +163,5 @@ public class MembershipController : BaseController<MembershipController>
         viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
         return View(viewModel);
     }
+    #endregion
 }

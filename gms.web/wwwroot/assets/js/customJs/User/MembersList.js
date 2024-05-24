@@ -30,7 +30,7 @@ var membersList = function () {
             },
             "info": true,
             'order': [],
-            'pageLength': 10,
+            'pageLength': 6,
             'columnDefs': [
                 { orderable: false, targets: [0, 2, 3, 7, 8] },
             ],
@@ -197,6 +197,15 @@ var membersList = function () {
         });
     }
 
+    // Edite Membership
+    var editMember = () => {
+        document.querySelectorAll(".edit-member-btn").forEach(e => {
+            e.addEventListener("click", function () {
+                window.location.href = `/GymUser/EditMember?id=${e.dataset.id}`;
+            });
+        });
+    }
+
     return {
         init: function () {
             table = document.querySelector('#members-list');
@@ -210,6 +219,7 @@ var membersList = function () {
             handleTableFilter();
             initFlatpickr();
             exportButtons();
+            editMember();
         }
     };
 }();
