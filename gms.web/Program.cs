@@ -5,7 +5,6 @@ using gms.web.Extensions.Identity;
 using gms.web.Extensions.Localization;
 using gms.web.Extensions.Services;
 using gms.web.Filters;
-using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
 
@@ -60,18 +59,17 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 WebApplication? app = builder.Build();
 {
-	app.ConfigureCustomMiddleware(app.Environment);
 
 	app.UseSession();
 
-    app.MapRazorPages();
+	app.MapRazorPages();
 
-    app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
+	app.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Index}/{id?}"
+	);
 
-    app.Run();
+	app.Run();
 }
 
 
