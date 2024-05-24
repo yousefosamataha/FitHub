@@ -10,6 +10,7 @@ public class UpdateMemberVM
 {
     public GymUserDTO MemberDTO { get; set; }
     public UpdateGymUserDTO UpdateMemberDTO { get; set; }
+    public MemberMembershipDTO MemberMembershipDTO { get; set; }
     public UpdateMemberMembershipDTO UpdateMemberMembershipDTO { get; set; }
     public List<GymGroupDTO> GymGroupsListDTO { get; set; }
     public List<MembershipDTO> MembershipsListDTO { get; set; }
