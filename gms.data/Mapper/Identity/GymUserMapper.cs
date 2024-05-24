@@ -49,7 +49,7 @@ public static class GymUserMapper
         };
 	}
 
-	public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
+    public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
 	{
 		return new GymUserClaimsDto()
 		{

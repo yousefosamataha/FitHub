@@ -1,7 +1,7 @@
 ﻿@using gms.common.ViewModels.GymUser
-@model AddNewMemberVM
+@model UpdateMemberVM
 @{
-    ViewData["Title"] = localizer["add_new_member"];
+    ViewData["Title"] = localizer["edit_member"];
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
@@ -18,7 +18,7 @@
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        @localizer["add_new_member"]
+                        @localizer["edit_member"]
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
@@ -60,7 +60,7 @@
                             <!--begin::Image input-->
                             <div class="image-input image-input-empty image-input-outline symbol-label-blank mb-3" id="kt_image_input_control" data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-150px h-150px"></div>
+                                <div class="image-input-wrapper w-150px h-150px" style="background-image: url('@Model.MemberDTO.Image') !important"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
@@ -68,7 +68,7 @@
                                     <i class="ki-outline ki-pencil fs-7"></i>
                                     <!--end::Icon-->
                                     <!--begin::Inputs-->
-                                    <input type="file" asp-for="@Model.CreateMemberDTO.Image" accept=".png, .jpg, .jpeg" />
+                                    <input type="file" asp-for="@Model.MemberDTO.Image" accept=".png, .jpg, .jpeg" />
                                     <input type="hidden" name="Image_remove" />
                                     <!--end::Inputs-->
                                 </label>
@@ -111,7 +111,7 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
-                            <select class="form-select mb-2" asp-for="@Model.CreateMemberDTO.StatusId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                            <select class="form-select mb-2" asp-for="@Model.MemberDTO.StatusId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                 <option></option>
                                 <option value="1" selected="selected">@localizer["active"]</option>
                                 <option value="2">@localizer["inactive"]</option>
@@ -140,13 +140,13 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["first_name"]</label>
-                                    <input type="text" asp-for="@Model.CreateMemberDTO.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.MemberDTO.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col mb-5 fv-row">
                                     <label class="required form-label ms-2">@localizer["last_name"]</label>
-                                    <input type="text" asp-for="@Model.CreateMemberDTO.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.MemberDTO.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -154,14 +154,14 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                    <input class="form-control" asp-for="@Model.CreateMemberDTO.BirthDate" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                    <input class="form-control" asp-for="@Model.MemberDTO.BirthDate" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col fv-row">
                                     <label class="required form-label ms-2">@localizer["gender"]</label>
                                     <!--begin::Select Status-->
-                                    <select class="form-select" asp-for="@Model.CreateMemberDTO.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                    <select class="form-select" asp-for="@Model.MemberDTO.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                         <option></option>
                                         <option value="1">@localizer["male"]</option>
                                         <option value="2">@localizer["female"]</option>
@@ -189,13 +189,13 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5">
                                     <label class="form-label ms-2">@localizer["city"]</label>
-                                    <input type="text" class="form-control" asp-for="@Model.CreateMemberDTO.City" placeholder="@localizer["enter"] @localizer["city"] @localizer["here"]" />
+                                    <input type="text" class="form-control" asp-for="@Model.MemberDTO.City" placeholder="@localizer["enter"] @localizer["city"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col mb-5">
                                     <label class="form-label ms-2">@localizer["state"]</label>
-                                    <input type="text" class="form-control" asp-for="@Model.CreateMemberDTO.State" placeholder="@localizer["enter"] @localizer["state"] @localizer["here"]" />
+                                    <input type="text" class="form-control" asp-for="@Model.MemberDTO.State" placeholder="@localizer["enter"] @localizer["state"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -203,13 +203,13 @@
                                 <!--begin::Input group-->
                                 <div class="mb-5 mb-sm-0 mb-md-0 mb-lg-0">
                                     <label class="form-label ms-2">@localizer["address"]</label>
-                                    <input type="text" asp-for="@Model.CreateMemberDTO.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.MemberDTO.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col">
                                     <label class="form-label ms-2">@localizer["mobile_number"]</label>
-                                    <input type="text" asp-for="@Model.CreateMemberDTO.PhoneNumber" class="form-control" placeholder="@localizer["enter"] @localizer["mobile_number"] @localizer["here"]" />
+                                    <input type="text" asp-for="@Model.MemberDTO.PhoneNumber" class="form-control" placeholder="@localizer["enter"] @localizer["mobile_number"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -231,7 +231,7 @@
                             <!--begin::Input group-->
                             <div class="col mb-5 fv-row">
                                 <label class="required form-label ms-2">@localizer["email"]</label>
-                                <input type="email" asp-for="@Model.CreateMemberDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+                                <input type="email" asp-for="@Model.MemberDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -240,7 +240,7 @@
                                 <div class="mb-1">
                                     <label class="required form-label ms-2">@localizer["password"]</label>
                                     <div class="position-relative mb-3">
-                                        <input class="form-control" type="password" asp-for="@Model.CreateMemberDTO.Password" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" autocomplete="off" />
+                                        <input class="form-control" type="password" asp-for="@Model.MemberDTO.Password" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" autocomplete="off" />
                                         <!--begin::Visibility toggle-->
                                         <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
                                             <i class="ki-solid ki-eye-slash fs-1"></i>
@@ -278,7 +278,6 @@
                             <!--begin::Input group-->
                             <div class="fv-row mb-5">
                                 <label class="required form-label ms-2">@localizer["select_groups"]</label>
-                                @* <input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_group_name"]" id="select_groups" name="SelectedGroups" /> *@
                                 <!--begin::Select Status-->
                                 <select class="form-select" asp-for="@Model.SelectedGroupIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
                                     <option></option>
@@ -295,7 +294,7 @@
                                 <div class="col mb-5 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["membership"]</label>
                                     <!--begin::Select Status-->
-                                    <select class="form-select" asp-for="@Model.MemberMembershipDTO.GymMembershipPlanId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                    <select class="form-select" asp-for="@Model.UpdateMemberMembershipDTO.GymMembershipPlanId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                         <option></option>
                                         @foreach (var membership in Model.MembershipsListDTO)
                                         {
@@ -309,13 +308,13 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-5 mb-md-5 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["valid_from"]</label>
-                                    <input class="form-control" asp-for="@Model.MemberMembershipDTO.JoiningDate" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" disabled />
+                                    <input class="form-control" asp-for="@Model.UpdateMemberMembershipDTO.JoiningDate" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" disabled />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col fv-row">
                                     <label class="form-label ms-2">@localizer["to"]</label>
-                                    <input class="form-control" asp-for="@Model.MemberMembershipDTO.ExpiringDate" placeholder="@localizer["expiring_date"]" disabled />
+                                    <input class="form-control" asp-for="@Model.UpdateMemberMembershipDTO.ExpiringDate" placeholder="@localizer["expiring_date"]" disabled />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -349,5 +348,5 @@
 <!--end::Content wrapper-->
 
 @section Scripts {
-    <script src="~/assets/js/customJs/User/AddNewMember.js" asp-append-version="true"></script>
+    <script src="~/assets/js/customJs/User/EditMember.js" asp-append-version="true"></script>
 }

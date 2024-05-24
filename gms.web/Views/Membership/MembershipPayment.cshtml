@@ -1,7 +1,7 @@
 ﻿@using gms.common.ViewModels.Membership
 @model MembershipPaymentVM
 @{
-    ViewData["Title"] = localizer["membership_payment"];
+    ViewData["Title"] = localizer["subscriptions_payment"];
     bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
@@ -18,7 +18,7 @@
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        @localizer["membership_payment"]
+                        @localizer["subscriptions_payment"]
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
@@ -78,9 +78,9 @@
                                 <th class="text-start min-w-50px">@localizer["price"]</th>
                                 <th class="text-start min-w-50px">@localizer["paid_amount"]</th>
                                 <th class="text-start min-w-50px">@localizer["due_amount"]</th>
+                                <th class="text-center min-w-50px">@localizer["payment_status"]</th>
                                 <th class="text-center min-w-50px">@localizer["joining_date"]</th>
                                 <th class="text-center min-w-50px">@localizer["expiring_date"]</th>
-                                <th class="text-center min-w-50px">@localizer["payment_status"]</th>
                                 <th class="text-center min-w-100px">@localizer["actions"]</th>
                             </tr>
                         </thead>
@@ -93,6 +93,11 @@
                                     <td class="text-start" data-order="@mm.Membership.MembershipAmount">@mm.Membership.MembershipAmount @Model.BranchCurrencySymbol</td>
                                     <td class="text-start" data-order="@mm.PaidAmount">@mm.PaidAmount @Model.BranchCurrencySymbol</td>
                                     <td class="text-start" data-order="@(mm.Membership.MembershipAmount - mm.PaidAmount)">@(mm.Membership.MembershipAmount - mm.PaidAmount) @Model.BranchCurrencySymbol</td>
+                                    <td class="text-center">
+                                        <!--begin::Badges-->
+                                        <div class="badge badge-light-@(mm.PaymentStatusId.ToString().ToLower())">@(localizer[mm.PaymentStatusId.ToString().ToLower()])</div>
+                                        <!--end::Badges-->
+                                    </td>
                                     <td class="text-center" data-order="@mm.JoiningDate.ToString("dd/MM/yyyy")">
                                         <span class="fw-bold">@mm.JoiningDate.ToString("dd/MM/yyyy")</span>
                                     </td>
@@ -100,13 +105,8 @@
                                         <span class="fw-bold">@mm.ExpiringDate.ToString("dd/MM/yyyy")</span>
                                     </td>
                                     <td class="text-center">
-                                        <!--begin::Badges-->
-                                        <div class="badge badge-light-@(mm.PaymentStatusId.ToString().ToLower())">@(localizer[mm.PaymentStatusId.ToString().ToLower()])</div>
-                                        <!--end::Badges-->
-                                    </td>
-                                    <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+                                            <button class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-member-membership-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@mm.Id">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
                                             </button>
                                             <button class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">

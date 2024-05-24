@@ -51418,7 +51418,7 @@ code:not([class*=language-]) {
         background-color: transparent;
     }
 
-.badge-light-info, .badge-light-partiallypaid {
+.badge-light-info, .badge-light-overpaid {
     color: var(--bs-info);
     background-color: var(--bs-info-light);
 }
@@ -51434,7 +51434,7 @@ code:not([class*=language-]) {
         background-color: transparent;
     }
 
-.badge-light-warning, .badge-light-suspended {
+.badge-light-warning, .badge-light-suspended, .badge-light-partiallypaid {
     color: var(--bs-warning);
     background-color: var(--bs-warning-light);
 }
