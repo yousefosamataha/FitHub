@@ -11,7 +11,7 @@ public static class GymUserMapper
 		return new GymUserEntity()
 		{
 			BranchId = source.BranchId,
-            //Image = source.Image is not null ? Convert.FromBase64String(source.Image?.Split(";base64,")[1]) : new byte[0],
+            Image = source.Image is not null ? Convert.FromBase64String(source.Image?.Split(";base64,")[1]) : new byte[0],
             ImageTypeId = source.Image is not null ? (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.Image?.Split(";base64,")[0].Split("data:image/")[1]) : null,
             FirstName = source.FirstName,
 			LastName = source.LastName,
@@ -33,7 +33,7 @@ public static class GymUserMapper
 		{
 			Id = entity.Id,
 			BranchId = entity.BranchId,
-			//Image = entity.Image?.Length != 0 ? $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}" : null,
+			Image = entity.Image?.Length != 0 ? $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}" : null,
 			FirstName = entity.FirstName,
 			LastName = entity.LastName,
 			GenderId = entity.GenderId,
@@ -45,11 +45,11 @@ public static class GymUserMapper
 			Email = entity.Email,
 			Password = entity.PasswordHash,
             StatusId = entity.StatusId,
-            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.JoiningDate).FirstOrDefault().ToDTO()
+            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.JoiningDate).FirstOrDefault()?.ToDTO()
         };
 	}
 
-	public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
+    public static GymUserClaimsDto ToClaimsDTO(this GymUserEntity entity)
 	{
 		return new GymUserClaimsDto()
 		{

@@ -60,7 +60,7 @@
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Filter-->
                         <div>
-                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-toggle="tooltip" title="@localizer["filter"]" data-bs-custom-class="tooltip-inverse">
+                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["filter"]" data-bs-custom-class="tooltip-inverse">
                                 <i class="ki-solid ki-filter fs-2"></i>
                             </button>
                             <!--begin::Filter Menu-->
@@ -106,9 +106,10 @@
                                         <label class="form-label fs-6 fw-semibold ms-2">@localizer["membership_status"]:</label>
                                         <select class="form-select" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]" members-list-filter="status">
                                             <option></option>
-                                            <option value="@localizer["activated"].Value">@localizer["activated"]</option>
-                                            <option value="@localizer["expired"].Value">@localizer["expired"]</option>
+                                            <option value="@localizer["active"].Value">@localizer["active"]</option>
+                                            <option value="@localizer["inactive"].Value">@localizer["inactive"]</option>
                                             <option value="@localizer["suspended"].Value">@localizer["suspended"]</option>
+                                            <option value="@localizer["expired"].Value">@localizer["expired"]</option>
                                             <option value="@localizer["cancelled"].Value">@localizer["cancelled"]</option>
                                         </select>
                                     </div>
@@ -127,7 +128,7 @@
                         <!--end::Filter-->
                         <!--begin::Export-->
                         <div>
-                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-toggle="tooltip" title="@localizer["export"]" data-bs-custom-class="tooltip-inverse">
+                            <button type="button" class="btn btn-icon btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-@(IsRTL ? "start" : "end")" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["export"]" data-bs-custom-class="tooltip-inverse">
                                 <i class="fa-solid fa-download fs-3"></i>
                             </button>
                             <!--begin::Export Menu-->
@@ -239,12 +240,12 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-member-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@member.Id">
                                                 <i class="ki-solid ki-pencil fs-2"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-light-danger btn-sm" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-member-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@member.Id">
                                                 <i class="ki-solid ki-trash fs-2"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -262,6 +263,7 @@
     <!--end::Content-->
 </div>
 <!--end::Content wrapper-->
+
 @section Scripts {
-    <script type="module" src="~/assets/js/customJs/MembersList.js" asp-append-version="true"></script>
+    <script type="module" src="~/assets/js/customJs/User/MembersList.js" asp-append-version="true"></script>
 }
