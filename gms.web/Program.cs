@@ -1,16 +1,17 @@
 using gms.service.Background;
 using gms.web.Extensions.Database;
+using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
 using gms.web.Extensions.Localization;
-using gms.web.Extensions.MiddlewareExtensions;
 using gms.web.Extensions.Services;
 using gms.web.Filters;
+using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-    Serilog.ILogger logger = new LoggerConfiguration()
+	Serilog.ILogger logger = new LoggerConfiguration()
 								.ReadFrom.Configuration(builder.Configuration)
 								.Enrich.FromLogContext()
 								.WriteTo.Console()
@@ -18,16 +19,20 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 								.CreateLogger();
 
 
-    builder.Host.UseSerilog();
+	builder.Host.UseSerilog();
 
-    builder.Logging.ClearProviders();
-    builder.Logging.AddSerilog(logger);
+	builder.Logging.ClearProviders();
+	builder.Logging.AddSerilog(logger);
+
+
+	// Add Hangfire services
+	builder.Services.AddHangFireConfiguration(builder.Configuration);
 
 	// Add services
 	builder.Services.AddDatabaseConfiguration(builder.Configuration);
-	
+
 	builder.Services.AddCustomServices();
-	
+
 	builder.Services.AddLocalizationConfiguration();
 
 	builder.Services.AddIdentityConfiguration();
@@ -85,6 +90,8 @@ WebApplication? app = builder.Build();
 	app.UseAuthorization();
 
 	app.UseSession();
+
+	app.UseHangfireDashboard("/hangfire");
 
 	app.MapRazorPages();
 
