@@ -1,4 +1,3 @@
-using gms.service.Background;
 using gms.web.Extensions.Database;
 using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
@@ -8,40 +7,46 @@ using gms.web.Filters;
 using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
+using Serilog.Extensions.Hosting;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-	Serilog.ILogger logger = new LoggerConfiguration()
-								.ReadFrom.Configuration(builder.Configuration)
-								.Enrich.FromLogContext()
-								.WriteTo.Console()
-								.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
-								.CreateLogger();
-
-
-	builder.Host.UseSerilog();
-
 	builder.Logging.ClearProviders();
-	builder.Logging.AddSerilog(logger);
+
+	Log.Logger = new LoggerConfiguration()
+					.ReadFrom.Configuration(builder.Configuration)
+					.Enrich.FromLogContext()
+					.WriteTo.Console()
+					.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+					.CreateLogger();
 
 
-	// Add Hangfire services
+
+	builder.Host.UseSerilog(Log.Logger);
+
+
+	// Add Hangfire
 	builder.Services.AddHangFireConfiguration(builder.Configuration);
 
-	// Add services
+	// Add Database
 	builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
+	// Add Services
 	builder.Services.AddCustomServices();
 
+	// Add Localization
 	builder.Services.AddLocalizationConfiguration();
 
+	// Add Identity
 	builder.Services.AddIdentityConfiguration();
 
+	// Add Permission Policy
 	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 	builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+	// Add Sessions
 	builder.Services.AddDistributedMemoryCache();
 	builder.Services.AddSession(options =>
 	{
@@ -54,7 +59,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-	builder.Services.AddHostedService<MembershipExpirationCheckService>();
+	builder.Services.AddSingleton<DiagnosticContext>();
 }
 
 
