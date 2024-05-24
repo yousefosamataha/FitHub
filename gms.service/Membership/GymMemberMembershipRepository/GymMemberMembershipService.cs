@@ -25,27 +25,35 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
 		return MemberMembershipList.Select(gmm => gmm.ToDTO()).ToList();
 	}
 
-    public async Task<MemberMembershipDTO> GetGymMemberMembershipByIdAsync(int memberMembershipId)
-    {
-        GymMemberMembershipEntity MemberMembership = await FindAsync(gmm => gmm.GymMemberUser.BranchId == GetBranchId() && gmm.Id == memberMembershipId, ["GymMemberUser", "GymMembershipPlan", "MembershipPaymentHistories"]);
-        return MemberMembership.ToDTO();
-    }
+	public async Task<MemberMembershipDTO> GetGymMemberMembershipByIdAsync(int memberMembershipId)
+	{
+		GymMemberMembershipEntity MemberMembership = await FindAsync(gmm => gmm.GymMemberUser.BranchId == GetBranchId() && gmm.Id == memberMembershipId, ["GymMemberUser", "GymMembershipPlan", "MembershipPaymentHistories"]);
+		return MemberMembership.ToDTO();
+	}
 
-    public async Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId)
-    {
-        GymMemberMembershipEntity newMemberMembershipEntity = memberMembershipDto.ToEntity();
-        newMemberMembershipEntity.MemberId = memberId;
-        newMemberMembershipEntity.MemberShipStatusId = StatusEnum.InActive;
-        newMemberMembershipEntity.PaymentStatusId = StatusEnum.NotPaid;
-        await AddAsync(newMemberMembershipEntity);
-        return newMemberMembershipEntity.ToDTO();
-    }
+	public async Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId)
+	{
+		GymMemberMembershipEntity newMemberMembershipEntity = memberMembershipDto.ToEntity();
+		newMemberMembershipEntity.MemberId = memberId;
+		newMemberMembershipEntity.MemberShipStatusId = StatusEnum.InActive;
+		newMemberMembershipEntity.PaymentStatusId = StatusEnum.NotPaid;
+		await AddAsync(newMemberMembershipEntity);
+		return newMemberMembershipEntity.ToDTO();
+	}
 
-    public async Task<MemberMembershipDTO> UpdateMemberMembershipAsync(UpdateMemberMembershipDTO updateMemberMembershipDto)
-    {
-        GymMemberMembershipEntity currentMembershipMembershipEntity = await _context.GymMemberMemberships.FirstOrDefaultAsync(mm => mm.Id == updateMemberMembershipDto.Id);
-        GymMemberMembershipEntity updatedMembershipMembershipEntity = updateMemberMembershipDto.ToUpdatedEntity(currentMembershipMembershipEntity);
-        await UpdateAsync(updatedMembershipMembershipEntity);
-        return updatedMembershipMembershipEntity.ToDTO();
-    }
+	public async Task<MemberMembershipDTO> UpdateMemberMembershipAsync(UpdateMemberMembershipDTO updateMemberMembershipDto)
+	{
+		GymMemberMembershipEntity currentMembershipMembershipEntity = await _context.GymMemberMemberships.FirstOrDefaultAsync(mm => mm.Id == updateMemberMembershipDto.Id);
+		GymMemberMembershipEntity updatedMembershipMembershipEntity = updateMemberMembershipDto.ToUpdatedEntity(currentMembershipMembershipEntity);
+		await UpdateAsync(updatedMembershipMembershipEntity);
+		return updatedMembershipMembershipEntity.ToDTO();
+	}
+
+	public async Task<List<GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync(int reminderDays)
+	{
+		List<GymMemberMembershipEntity> result = await _context.GymMemberMemberships
+															   .Where(m => m.ExpiringDate <= DateTime.UtcNow.AddDays(reminderDays) && m.ExpiringDate > DateTime.UtcNow)
+															   .ToListAsync();
+		return result;
+	}
 }

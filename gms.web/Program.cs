@@ -5,6 +5,7 @@ using gms.web.Extensions.Identity;
 using gms.web.Extensions.Localization;
 using gms.web.Extensions.Services;
 using gms.web.Filters;
+using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
 
@@ -60,7 +61,38 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 WebApplication? app = builder.Build();
 {
 
+	app.UseSerilogRequestLogging();
+
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseMigrationsEndPoint();
+	}
+	else
+	{
+		app.UseExceptionHandler("/Home/Error");
+		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+		app.UseHsts();
+	}
+
+	app.UseHttpsRedirection();
+
+	app.UseStaticFiles();
+
+	app.UseRouting();
+
+	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+
+	app.UseRequestLocalization(new RequestLocalizationOptions()
+		.SetDefaultCulture(supportedCultures[0])
+		.AddSupportedCultures(supportedCultures)
+		.AddSupportedUICultures(supportedCultures));
+
+	app.UseAuthentication();
+	app.UseAuthorization();
+
 	app.UseSession();
+
+	app.UseHangfireDashboard("/hangfire");
 
 	app.MapRazorPages();
 
