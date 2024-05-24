@@ -9,21 +9,26 @@ using Microsoft.EntityFrameworkCore;
 namespace gms.service.Gym.GymGeneralSettingsRepository;
 public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>, IGymGeneralSettingService
 {
-    private readonly ApplicationDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ApplicationDbContext _context;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public GymGeneralSettingService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-    }
+	public GymGeneralSettingService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+	}
 
-    public async Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting)
-    {
-        GymGeneralSettingEntity newGeneralSettingEntity = newGeneralSetting.ToEntity();
-        await AddAsync(newGeneralSettingEntity);
-        return newGeneralSettingEntity.ToDTO();
-    }
+	public async Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting)
+	{
+		GymGeneralSettingEntity newGeneralSettingEntity = newGeneralSetting.ToEntity();
+		await AddAsync(newGeneralSettingEntity);
+		return newGeneralSettingEntity.ToDTO();
+	}
+
+	//public async Task<GeneralSettingDTO> GetGymGeneralSettingAsync()
+	//{
+	//	GymGeneralSettingEntity gymGeneralSettingEntity = await _context.GymGeneralSettings.FirstOrDefaultAsync(gg => gg.)
+	//}
 
 	public async Task<GeneralSettingDTO> UpdateGymGeneralSettingAsync(GeneralSettingDTO updateGeneralSettingDTO)
 	{

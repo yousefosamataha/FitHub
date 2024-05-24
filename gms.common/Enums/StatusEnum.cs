@@ -9,5 +9,6 @@ public enum StatusEnum : byte
     Expired = 5,
     NotPaid = 6,
     PartiallyPaid = 7,
-    FullyPaid = 8
+    FullyPaid = 8,
+    OverPaid = 9
 }

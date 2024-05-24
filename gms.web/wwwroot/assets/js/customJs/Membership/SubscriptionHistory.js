@@ -27,7 +27,7 @@ var subscriptionHistory = function () {
             },
             "info": true,
             'order': [],
-            'pageLength': 10,
+            'pageLength': 6,
             'columnDefs': [
                 { orderable: false, targets: 7 },
             ],

@@ -40,6 +40,8 @@ public static class MemberMembershipMapper
         entity.GymMembershipPlanId = source.GymMembershipPlanId > default(int) && source.GymMembershipPlanId != entity.GymMembershipPlanId ? source.GymMembershipPlanId : entity.GymMembershipPlanId;
         entity.MemberShipStatusId = source.MemberShipStatusId;
         entity.PaymentStatusId = source.PaymentStatusId;
+        entity.JoiningDate = source.JoiningDate;
+        entity.ExpiringDate = source.ExpiringDate;
     
         return entity;
     }
