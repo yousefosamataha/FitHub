@@ -1,0 +1,62 @@
+﻿@using gms.common.ViewModels.Membership
+@model EditMemberMembershipVM
+@{
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Form-->
+<form id="edit_member_membership_form" class="form d-flex flex-column flex-lg-row">
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.Id" />
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.MemberId" />
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.PaidAmount" />
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.MemberShipStatusId" />
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.PaymentStatusId" />
+    <input type="hidden" asp-for="@Model.MemberMembershipDTO.Membership.MembershipAmount" />
+    <!--begin::Wrapper-->
+    <div class="w-100">
+        <!--begin::Input group-->
+        <div class="col mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["membership"]</label>
+            <!--begin::Select Status-->
+            <select class="form-select" asp-for="@Model.MemberMembershipDTO.GymMembershipPlanId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                <option></option>
+                @foreach (var membership in Model.MembershipsListDTO)
+                {
+                    <option value="@membership.Id" data-duration="@membership.MembershipDuration" data-duration-type="@membership.MembershipDurationTypeId.ToString()" data-membership-amount="@membership.MembershipAmount">@membership.MembershipName</option>
+                }
+            </select>
+            <!--end::Select Status-->
+        </div>
+        <!--end::Input group-->
+        <div class="row row-cols-2">
+            <!--begin::Input group-->
+            <div class="col mb-5 fv-row">
+                <label class="required form-label ms-2">@localizer["valid_from"]</label>
+                <input class="form-control" asp-for="@Model.MemberMembershipDTO.JoiningDate" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" disabled />
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="col mb-5 fv-row">
+                <label class="form-label ms-2">@localizer["to"]</label>
+                <input class="form-control" asp-for="@Model.MemberMembershipDTO.ExpiringDate" placeholder="@localizer["expiring_date"]" disabled />
+            </div>
+            <!--end::Input group-->
+        </div>
+        <div class="d-flex justify-content-end px-5">
+            <!--begin::Reset Button-->
+            <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+            <!--end::Reset Button-->
+            <!--begin::Button-->
+            <button type="submit" id="edit_member_membership_form_submit" class="btn btn-primary">
+                <span class="indicator-label">@localizer["save"]</span>
+                <span class="indicator-progress">
+                    @localizer["please_wait"]...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+            <!--end::Button-->
+        </div>
+    </div>
+    <!--end::Wrapper-->
+</form>
+<!--end::Form-->
