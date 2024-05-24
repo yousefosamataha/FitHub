@@ -1,14 +1,17 @@
+using gms.service.Background;
 using gms.web.Extensions.Database;
+using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
 using gms.web.Extensions.Localization;
 using gms.web.Extensions.Services;
 using gms.web.Filters;
+using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-    Serilog.ILogger logger = new LoggerConfiguration()
+	Serilog.ILogger logger = new LoggerConfiguration()
 								.ReadFrom.Configuration(builder.Configuration)
 								.Enrich.FromLogContext()
 								.WriteTo.Console()
@@ -16,16 +19,20 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 								.CreateLogger();
 
 
-    builder.Host.UseSerilog();
+	builder.Host.UseSerilog();
 
-    builder.Logging.ClearProviders();
-    builder.Logging.AddSerilog(logger);
+	builder.Logging.ClearProviders();
+	builder.Logging.AddSerilog(logger);
+
+
+	// Add Hangfire services
+	builder.Services.AddHangFireConfiguration(builder.Configuration);
 
 	// Add services
 	builder.Services.AddDatabaseConfiguration(builder.Configuration);
-	
+
 	builder.Services.AddCustomServices();
-	
+
 	builder.Services.AddLocalizationConfiguration();
 
 	builder.Services.AddIdentityConfiguration();
@@ -46,50 +53,55 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddControllersWithViews();
 
 	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+	builder.Services.AddHostedService<MembershipExpirationCheckService>();
 }
 
 
 WebApplication? app = builder.Build();
 {
-    app.UseSerilogRequestLogging();
 
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseMigrationsEndPoint();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
+	app.UseSerilogRequestLogging();
 
-    app.UseHttpsRedirection();
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseMigrationsEndPoint();
+	}
+	else
+	{
+		app.UseExceptionHandler("/Home/Error");
+		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+		app.UseHsts();
+	}
 
-    app.UseStaticFiles();
+	app.UseHttpsRedirection();
 
-    app.UseRouting();
+	app.UseStaticFiles();
 
-    string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+	app.UseRouting();
 
-    app.UseRequestLocalization(new RequestLocalizationOptions()
-        .SetDefaultCulture(supportedCultures[0])
-        .AddSupportedCultures(supportedCultures)
-        .AddSupportedUICultures(supportedCultures));
+	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-    app.UseAuthentication();
-    app.UseAuthorization();
+	app.UseRequestLocalization(new RequestLocalizationOptions()
+		.SetDefaultCulture(supportedCultures[0])
+		.AddSupportedCultures(supportedCultures)
+		.AddSupportedUICultures(supportedCultures));
 
-    app.UseSession();
+	app.UseAuthentication();
+	app.UseAuthorization();
 
-    app.MapRazorPages();
+	app.UseSession();
 
-    app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
+	app.UseHangfireDashboard("/hangfire");
 
-    app.Run();
+	app.MapRazorPages();
+
+	app.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Index}/{id?}"
+	);
+
+	app.Run();
 }
 
 
