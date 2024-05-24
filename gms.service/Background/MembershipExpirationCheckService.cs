@@ -1,9 +1,9 @@
-﻿using gms.data.Models.Gym;
-using gms.data;
+﻿using gms.data;
+using gms.data.Models.Gym;
+using gms.data.Models.Membership;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using gms.data.Models.Membership;
 
 namespace gms.service.Background;
 public class MembershipExpirationCheckService : BackgroundService
