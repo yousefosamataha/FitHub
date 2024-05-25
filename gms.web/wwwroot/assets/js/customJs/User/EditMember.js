@@ -3,7 +3,7 @@
 // Class definition
 var editMember = function () {
     // Shared variables
-    const addNewMemberForm = document.getElementById('edit_member_form');
+    const editMemberForm = document.getElementById('edit_member_form');
     var currentLanguage = getCookie(".AspNetCore.Culture").split("=").slice(-1)[0];
     var flatpickrOptions = currentLanguage === "ar-EG" ? {
         months: {
@@ -59,45 +59,45 @@ var editMember = function () {
 
     // Validation
     jsonlocalizerData().then(data => {
-        validator = FormValidation.formValidation(addNewMemberForm,
+        validator = FormValidation.formValidation(editMemberForm,
             {
                 fields: {
-                    'CreateMemberDTO.FirstName': {
+                    'MemberDTO.FirstName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.LastName': {
+                    'MemberDTO.LastName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.BirthDate': {
+                    'MemberDTO.BirthDate': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.GenderId': {
+                    'MemberDTO.GenderId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.Email': {
+                    'MemberDTO.Email': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.Password': {
+                    'MemberDTO.Password': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
@@ -119,14 +119,14 @@ var editMember = function () {
                             }
                         }
                     },
-                    'MemberMembershipDTO.GymMembershipPlanId': {
+                    'MemberDTO.GymMemberMembership.GymMembershipPlanId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'MemberMembershipDTO.JoiningDate': {
+                    'MemberDTO.GymMemberMembership.JoiningDate': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
@@ -152,10 +152,10 @@ var editMember = function () {
     });
 
     // Init BirthDate And Joining Date Flatpickr
-    var initFlatpickr = () => {
-        const birthDateElement = document.querySelector('#CreateMemberDTO_BirthDate');
-        const joiningDateElement = document.querySelector('#MemberMembershipDTO_JoiningDate');
-        const expiringDateElement = document.querySelector('#MemberMembershipDTO_ExpiringDate');
+    var initFlatpickr = () =>    {
+        const birthDateElement = document.querySelector('#MemberDTO_BirthDate');
+        const joiningDateElement = document.querySelector('#MemberDTO_GymMemberMembership_JoiningDate');
+        const expiringDateElement = document.querySelector('#MemberDTO_GymMemberMembership_ExpiringDate');
 
         $(birthDateElement).flatpickr({
             locale: flatpickrOptions,
@@ -163,7 +163,7 @@ var editMember = function () {
             altFormat: "d/m/Y",
         });
 
-        joiningDateFlatpickr = $(joiningDateElement).flatpickr({
+        $(joiningDateElement).flatpickr({
             locale: flatpickrOptions,
             dateFormat: "Y-m-d",
             altFormat: "d/m/Y",
@@ -179,7 +179,7 @@ var editMember = function () {
     // Member Status Handler
     const handleMemberStatus = () => {
         const target = document.getElementById('member_tatus');
-        const select = document.getElementById('CreateMemberDTO_StatusId');
+        const select = document.getElementById('MemberDTO_StatusId');
         const statusClasses = ['bg-success', 'bg-danger'];
 
         $(select).on('change', function (e) {
@@ -201,20 +201,24 @@ var editMember = function () {
     }
 
     // Membership Change Handler
-    $("#MemberMembershipDTO_GymMembershipPlanId").on('select2:select', function (e) {
+    $("#MemberDTO_GymMemberMembership_GymMembershipPlanId").on('select2:select', function (e) {
         var selectedData = e.params.data;
         durationType = $(selectedData.element).data("durationType");
         duration = $(selectedData.element).data("duration");
 
-        $("#MemberMembershipDTO_JoiningDate").removeAttr('disabled');
-        if ($("#MemberMembershipDTO_JoiningDate").val().length > 0) {
-            $("#MemberMembershipDTO_JoiningDate").change();
+        $("#MemberDTO_GymMemberMembership_JoiningDate").removeAttr('disabled');
+        if ($("#MemberDTO_GymMemberMembership_JoiningDate").val().length > 0) {
+            $("#MemberDTO_GymMemberMembership_JoiningDate").change();
         }
     });
 
-    $("#MemberMembershipDTO_JoiningDate").on('change', function (e) {
+    $("#MemberDTO_GymMemberMembership_JoiningDate").on('change', function (e) {
         let selectedDate = new Date(e.target.value);
         let expiringDate;
+        if (durationType == undefined || duration == undefined) {
+            durationType = $("#MemberDTO_GymMemberMembership_GymMembershipPlanId")[0].selectedOptions[0].dataset.durationType;
+            duration = +$("#MemberDTO_GymMemberMembership_GymMembershipPlanId")[0].selectedOptions[0].dataset.duration;
+        }
         switch (durationType) {
             case "Year":
                 expiringDate = selectedDate.setFullYear(selectedDate.getFullYear() + duration);
@@ -227,12 +231,12 @@ var editMember = function () {
                 break;
         }
         expiringDate = new Date(expiringDate);
-        $("#MemberMembershipDTO_ExpiringDate").val(expiringDate.toISOString().split('T')[0]);
+        $("#MemberDTO_GymMemberMembership_ExpiringDate").val(expiringDate.toISOString().split('T')[0]);
     });
 
     // Convert To Base64
     var convertToBase64 = () => {
-        document.getElementById('CreateMemberDTO_Image').addEventListener('change', function (event) {
+        document.getElementById('MemberDTO_Image').addEventListener('change', function (event) {
             var file = event.target.files[0];
             var reader = new FileReader();
             reader.onload = function (event) {
@@ -250,7 +254,7 @@ var editMember = function () {
 
     // Add New Membership Form Submition
     const formSubmition = () => {
-        const submitButton = document.getElementById('add_new_member_form_submit');
+        const submitButton = document.getElementById('edit_member_form_submit');
         submitButton.addEventListener('click', function (e) {
             // Prevent default button action
             e.preventDefault();
@@ -263,39 +267,39 @@ var editMember = function () {
                         submitButton.disabled = true;
 
                         var data = {};
-                        data.CreateMemberDTO = {};
-                        data.MemberMembershipDTO = {};
-                        data.CreateMemberDTO.Image = base64Image;
-                        data.CreateMemberDTO.StatusId = $('[name="CreateMemberDTO.StatusId"]').val();
-                        data.CreateMemberDTO.FirstName = $('[name="CreateMemberDTO.FirstName"]').val();
-                        data.CreateMemberDTO.LastName = $('[name="CreateMemberDTO.LastName"]').val();
-                        data.CreateMemberDTO.BirthDate = $('[name="CreateMemberDTO.BirthDate"]').val();
-                        data.CreateMemberDTO.GenderId = $('[name="CreateMemberDTO.GenderId"]').val();
-                        data.CreateMemberDTO.City = $('[name="CreateMemberDTO.City"]').val();
-                        data.CreateMemberDTO.State = $('[name="CreateMemberDTO.State"]').val();
-                        data.CreateMemberDTO.Address = $('[name="CreateMemberDTO.Address"]').val();
-                        data.CreateMemberDTO.PhoneNumber = $('[name="CreateMemberDTO.PhoneNumber"]').val();
-                        data.CreateMemberDTO.Email = $('[name="CreateMemberDTO.Email"]').val();
-                        data.CreateMemberDTO.Password = $('[name="CreateMemberDTO.Password"]').val();
+                        data.MemberDTO = {};
+                        data.UpdateMemberMembershipDTO = {};
+                        data.MemberDTO.Image = base64Image;
+                        data.MemberDTO.StatusId = $('[name="MemberDTO.StatusId"]').val();
+                        data.MemberDTO.FirstName = $('[name="MemberDTO.FirstName"]').val();
+                        data.MemberDTO.LastName = $('[name="MemberDTO.LastName"]').val();
+                        data.MemberDTO.BirthDate = $('[name="MemberDTO.BirthDate"]').val();
+                        data.MemberDTO.GenderId = $('[name="MemberDTO.GenderId"]').val();
+                        data.MemberDTO.City = $('[name="MemberDTO.City"]').val();
+                        data.MemberDTO.State = $('[name="MemberDTO.State"]').val();
+                        data.MemberDTO.Address = $('[name="MemberDTO.Address"]').val();
+                        data.MemberDTO.PhoneNumber = $('[name="MemberDTO.PhoneNumber"]').val();
+                        data.MemberDTO.Email = $('[name="MemberDTO.Email"]').val();
+                        data.MemberDTO.Password = $('[name="MemberDTO.Password"]').val();
                         data.SelectedGroupIds = $('[name="SelectedGroupIds"]').val();
-                        data.MemberMembershipDTO.GymMembershipPlanId = $('[name="MemberMembershipDTO.GymMembershipPlanId"]').val();
-                        data.MemberMembershipDTO.JoiningDate = $('[name="MemberMembershipDTO.JoiningDate"]').val();
-                        data.MemberMembershipDTO.ExpiringDate = $('[name="MemberMembershipDTO.ExpiringDate"]').val();
+                        data.UpdateMemberMembershipDTO.GymMembershipPlanId = $('[name="UpdateMemberMembershipDTO.GymMembershipPlanId"]').val();
+                        data.UpdateMemberMembershipDTO.JoiningDate = $('[name="UpdateMemberMembershipDTO.JoiningDate"]').val();
+                        data.UpdateMemberMembershipDTO.ExpiringDate = $('[name="UpdateMemberMembershipDTO.ExpiringDate"]').val();
                         console.log(data);
 
-                        $.ajax({
-                            url: '/GymUser/CreateNewMember',
-                            type: 'POST',
-                            data: {
-                                model: data
-                            },
-                            success: function (response) {
-                                window.location.href = `/GymUser/Memberslist`;
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Error:', error);
-                            }
-                        });
+                        //$.ajax({
+                        //    url: '/GymUser/CreateNewMember',
+                        //    type: 'POST',
+                        //    data: {
+                        //        model: data
+                        //    },
+                        //    success: function (response) {
+                        //        window.location.href = `/GymUser/Memberslist`;
+                        //    },
+                        //    error: function (xhr, status, error) {
+                        //        console.error('Error:', error);
+                        //    }
+                        //});
                     }
                 });
             }
@@ -311,7 +315,10 @@ var editMember = function () {
             initFlatpickr();
             handleMemberStatus();
             convertToBase64();
-            formSubmition();
+            // formSubmition();
+
+            // 
+            $('#MemberDTO_StatusId').change();
         }
     };
 }();
