@@ -6,6 +6,7 @@ using gms.data.Models.Membership;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace gms.service.Membership.GymMemberMembershipRepository;
 public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEntity>, IGymMemberMembershipService
@@ -49,11 +50,12 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
 		return updatedMembershipMembershipEntity.ToDTO();
 	}
 
-	public async Task<List<GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync(int reminderDays)
+
+	#region Background Job
+	public IQueryable<IGrouping<int, GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync()
 	{
-		List<GymMemberMembershipEntity> result = await _context.GymMemberMemberships
-															   .Where(m => m.ExpiringDate <= DateTime.UtcNow.AddDays(reminderDays) && m.ExpiringDate > DateTime.UtcNow)
-															   .ToListAsync();
+		var result = _context.GymMemberMemberships.GroupBy(gmm => gmm.GymMemberUser.BranchId);
 		return result;
 	}
+	#endregion
 }

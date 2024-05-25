@@ -9,5 +9,5 @@ public interface IGymMemberMembershipService : IBaseRepository<GymMemberMembersh
 	Task<MemberMembershipDTO> GetGymMemberMembershipByIdAsync(int memberMembershipId);
 	Task<MemberMembershipDTO> CreateNewMemberMembershipAsync(CreateMemberMembershipDTO memberMembershipDto, int memberId);
 	Task<MemberMembershipDTO> UpdateMemberMembershipAsync(UpdateMemberMembershipDTO updateMemberMembershipDto);
-	Task<List<GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync(int reminderDays);
+	IQueryable<IGrouping<int, GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync();
 }
