@@ -171,6 +171,7 @@ public class GymUserService : IGymUserService
 		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
 		gymUserEntity.StatusId = StatusEnum.InActive;
         IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
+        IdentityResult result2 = await _userManager.UpdateAsync(gymUserEntity);
         await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RolesEnum.Member}");
         GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 		return createdUser.ToDTO();
@@ -186,6 +187,19 @@ public class GymUserService : IGymUserService
 		return listOfMembers.Select(u => u.ToDTO()).ToList();
 	}
 
-	#endregion
+    public async Task<GymUserDTO> UpdateGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
+    {
+        GymUserEntity gymUserEntity = entity.ToEntity();
+        gymUserEntity.BranchId = branchId;
+        gymUserEntity.EmailConfirmed = true;
+        gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
+        gymUserEntity.StatusId = StatusEnum.InActive;
+        IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
+        IdentityResult result2 = await _userManager.UpdateAsync(gymUserEntity);
+        await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RolesEnum.Member}");
+        GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
+        return createdUser.ToDTO();
+    }
+    #endregion
 
 }
