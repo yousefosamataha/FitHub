@@ -1,6 +1,8 @@
-﻿using gms.data;
+﻿using gms.common.Models.GymCat.Branch;
+using gms.data;
 using gms.data.Models.Gym;
 using gms.data.Models.Membership;
+using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymNotificationRepository;
 using gms.service.Membership.GymMemberMembershipRepository;
@@ -15,6 +17,7 @@ public class MembershipExpirationJob
 	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 	private readonly IGymNotificationService _gymNotificationService;
 	private readonly IGymGeneralSettingService _gymGeneralSettingService;
+	private readonly IGymBranchService _gymBranchService;
 	public MembershipExpirationJob
 	(
 		ApplicationDbContext context,
@@ -22,35 +25,43 @@ public class MembershipExpirationJob
 		IGymMemberMembershipService gymMemberMembershipService,
 		IGymNotificationService gymNotificationService,
 		IGymGeneralSettingService gymGeneralSettingService
-	)
+,
+		IGymBranchService gymBranchService)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
 		_gymMemberMembershipService = gymMemberMembershipService;
 		_gymNotificationService = gymNotificationService;
 		_gymGeneralSettingService = gymGeneralSettingService;
+		_gymBranchService = gymBranchService;
 	}
 
 	public async Task CheckExpiringMembershipsAsync()
 	{
-		List<GymMemberMembershipEntity> upcomingExpirations = await _gymMemberMembershipService.GetNeedToReminderMemberShipListByReminderDaysAsync(3);
+		var upcomingExpirations = _gymMemberMembershipService.GetNeedToReminderMemberShipListByReminderDaysAsync();
 
-		foreach (GymMemberMembershipEntity membership in upcomingExpirations)
+		foreach (var branchMemberMembershipGroup in upcomingExpirations)
 		{
-			GymNotificationEntity notification = new()
-			{
-				BranchId = membership.GymMembershipPlan.BranchId,
-				GymSenderUserId = 1,
-				GymReceiverUserId = membership.MemberId,
-				NotificationTitle = "Membership Expiration Reminder",
-				NotificationMessageBody = string.Format("Your membership will expire on {ExpiringDate} Please renew it in time.", membership.ExpiringDate.ToString("dd/MM/yyyy")),
-				IsReaded = false,
-				SendDate = DateTime.UtcNow
-			};
-			//await _gymNotificationService.add
-			_context.GymNotifications.Add(notification);
-		}
+			BranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
 
-		await _context.SaveChangesAsync();
+            foreach (GymMemberMembershipEntity gymMemberMembership in branchMemberMembershipGroup)
+            {
+                if (gymMemberMembership.ExpiringDate.AddDays(-BranchData.GeneralSetting.ReminderDays).Date == DateTime.UtcNow.Date)
+                {
+					GymNotificationEntity notification = new()
+					{
+						BranchId = BranchData.Id,
+						GymSenderUserId = _gymBranchService.GetUserId(),
+						GymReceiverUserId = gymMemberMembership.MemberId,
+						NotificationTitle = "Membership Expiration Reminder",
+						NotificationMessageBody = string.Format(BranchData.GeneralSetting.ReminderMessage, $"{gymMemberMembership.GymMemberUser.FirstName} {gymMemberMembership.GymMemberUser.LastName}", gymMemberMembership.GymMembershipPlan.MembershipName, gymMemberMembership.ExpiringDate.ToString("dd/MM/yyyy")),
+						IsReaded = false,
+						SendDate = DateTime.UtcNow
+					};
+					_context.GymNotifications.Add(notification);
+					await _context.SaveChangesAsync();
+				}
+			}
+        }
 	}
 }

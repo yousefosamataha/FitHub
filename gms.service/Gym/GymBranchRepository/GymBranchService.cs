@@ -27,7 +27,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
 
 	public async Task<BranchDTO> GetBranchByIdAsync(int branchId)
 	{
-		GymBranchEntity branchEntity = await FindAsync(gb => gb.Id == branchId, ["Country"]);
+		GymBranchEntity branchEntity = await FindAsync(gb => gb.Id == branchId, ["Country", "GeneralSetting"]);
 		return branchEntity.ToDTO();
 	}
 
