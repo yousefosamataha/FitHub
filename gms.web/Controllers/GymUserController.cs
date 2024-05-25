@@ -20,109 +20,173 @@ public class GymUserController : BaseController<GymUserController>
 {
 	private readonly IGymUserService _gymUserService;
 	private readonly UserManager<GymUserEntity> _userManager;
-    private readonly IGymMembershipPlanService _gymMembershipPlanService;
-    private readonly IGymGroupService _gymGroupService;
-    private readonly IGymMemberGroupService _gymMemberGroupService;
-    private readonly IGymMemberMembershipService _gymMemberMembershipService;
+	private readonly IGymMembershipPlanService _gymMembershipPlanService;
+	private readonly IGymGroupService _gymGroupService;
+	private readonly IGymMemberGroupService _gymMemberGroupService;
+	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 
-    public GymUserController(IGymUserService gymUserService, UserManager<GymUserEntity> userManager, IGymMembershipPlanService gymMembershipPlanService, IGymGroupService gymGroupService, IGymMemberGroupService gymMemberGroupService, IGymMemberMembershipService gymMemberMembershipService)
-    {
-        _gymUserService = gymUserService;
-        _userManager = userManager;
-        _gymMembershipPlanService = gymMembershipPlanService;
-        _gymGroupService = gymGroupService;
-        _gymMemberGroupService = gymMemberGroupService;
-        _gymMemberMembershipService = gymMemberMembershipService;
-    }
-
-    public async Task<IActionResult> Index()
+	public GymUserController
+	(
+		IGymUserService gymUserService,
+		UserManager<GymUserEntity> userManager,
+		IGymMembershipPlanService gymMembershipPlanService,
+		IGymGroupService gymGroupService,
+		IGymMemberGroupService gymMemberGroupService,
+		IGymMemberMembershipService gymMemberMembershipService
+	)
 	{
-		List<GymUserDTO> users = await _gymUserService.GetAllGymBranchUsersByBranchIdAsync(GetGymId(), GetBranchId());
-		return View(users);
+		_gymUserService = gymUserService;
+		_userManager = userManager;
+		_gymMembershipPlanService = gymMembershipPlanService;
+		_gymGroupService = gymGroupService;
+		_gymMemberGroupService = gymMemberGroupService;
+		_gymMemberMembershipService = gymMemberMembershipService;
+	}
+
+	public async Task<IActionResult> Index()
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
+
+			List<GymUserDTO> users = await _gymUserService.GetAllGymBranchUsersByBranchIdAsync(GetGymId(), GetBranchId());
+			return View(users);
+		}
+
 	}
 
 	public async Task<IActionResult> GymUserRoles(int userId)
 	{
-		GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
-		return View(user);
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(GymUserRoles), "HttpGet", DateTime.Now.ToString() });
+
+			GymUserRolesDTO user = await _gymUserService.GetUserRolesByUserIdAsync(userId);
+			return View(user);
+		}
+
 	}
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public async Task<IActionResult> UpdateUserRoles(UpdateGymUserRolesDTO userRoles)
 	{
-		GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
-		return RedirectToAction(nameof(Index));
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(UpdateUserRoles), "HttpPost", DateTime.Now.ToString() });
+
+			GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
+			return RedirectToAction(nameof(Index));
+		}
+
 	}
 
-    [HttpGet]
-    public async Task<JsonResult> GetCurrentUserData(string email)
-    {
-        GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(email);
-        return Json(new { Success = true, Message = "", Data = userEntity.ToDTO() });
-    }
-
-    public IActionResult UserProfile()
-    {
-        return View();
-    }
-
-    #region Member
-    public async Task<IActionResult> MembersList()
-    {
-        List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
-        return View(membersList);
-    }
-
-    public async Task<IActionResult> CreateNewMember()
+	[HttpGet]
+	public async Task<JsonResult> GetCurrentUserData(string email)
 	{
-        AddNewMemberVM model = new ();
-		model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
-		model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(GetCurrentUserData), "HttpGet", DateTime.Now.ToString() });
 
-        return View(model);
+			GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(email);
+			return Json(new { Success = true, Message = "", Data = userEntity.ToDTO() });
+		}
+
+	}
+
+	public IActionResult UserProfile()
+	{
+		return View();
+	}
+
+	#region Member
+	public async Task<IActionResult> MembersList()
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(MembersList), "HttpGet", DateTime.Now.ToString() });
+
+			List<GymUserDTO> membersList = await _gymUserService.GetGymMemberUsersListAsync();
+			return View(membersList);
+		}
+
+	}
+
+	public async Task<IActionResult> CreateNewMember()
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(CreateNewMember), "HttpGet", DateTime.Now.ToString() });
+
+			AddNewMemberVM model = new();
+			model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
+			model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+
+			return View(model);
+		}
+
 	}
 
 	[HttpPost]
 	public async Task<JsonResult> CreateNewMember(AddNewMemberVM model)
 	{
-        GymUserDTO createdMemberDto = await _gymUserService.CreateNewGymMemberUserAsync(model.CreateMemberDTO, GetBranchId());
-        List<CreateGymMemberGroupDTO> GymMemberGroupsListDTO = new();
-        foreach (var id in model.SelectedGroupIds)
-        {
-            GymMemberGroupsListDTO.Add(new CreateGymMemberGroupDTO()
-            {
-                GymMemberUserId = createdMemberDto.Id,
-                GymGroupId = id
-            });
-        }
-        await _gymMemberGroupService.CreateNewGymMemberGroupAsync(GymMemberGroupsListDTO);
-        await _gymMemberMembershipService.CreateNewMemberMembershipAsync(model.MemberMembershipDTO, createdMemberDto.Id);
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(CreateNewMember), "HttpPost", DateTime.Now.ToString() });
 
-        return Json(new { Success = true, Message = "" });
+			GymUserDTO createdMemberDto = await _gymUserService.CreateNewGymMemberUserAsync(model.CreateMemberDTO, GetBranchId());
+
+			List<CreateGymMemberGroupDTO> GymMemberGroupsListDTO = new();
+
+			foreach (var id in model.SelectedGroupIds)
+			{
+				GymMemberGroupsListDTO.Add(new CreateGymMemberGroupDTO()
+				{
+					GymMemberUserId = createdMemberDto.Id,
+					GymGroupId = id
+				});
+			}
+			await _gymMemberGroupService.CreateNewGymMemberGroupAsync(GymMemberGroupsListDTO);
+			await _gymMemberMembershipService.CreateNewMemberMembershipAsync(model.MemberMembershipDTO, createdMemberDto.Id);
+
+			return Json(new { Success = true, Message = "" });
+		}
+
 	}
 
-    public async Task<IActionResult> EditMember(int id)
-    {
-        UpdateMemberVM model = new();
-        GymUserEntity gymUserEntity = await _gymUserService.GetGymUserByIdAsync(id);
-        model.MemberDTO = gymUserEntity.ToDTO();
-        model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
-        model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+	public async Task<IActionResult> EditMember(int id)
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserController), nameof(EditMember), "HttpGet", DateTime.Now.ToString() });
 
-        return View(model);
-    }
-    #endregion
+			UpdateMemberVM model = new();
+			GymUserEntity gymUserEntity = await _gymUserService.GetGymUserByIdAsync(id);
+			model.MemberDTO = gymUserEntity.ToDTO();
+			model.MembershipsListDTO = await _gymMembershipPlanService.GetActiveMembershipPlansListAsync();
+			model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
 
+			return View(model);
+		}
 
+	}
+	#endregion
 
-    public IActionResult AddNewStaff()
-    {
-        return View();
-    }
+	public IActionResult AddNewStaff()
+	{
+		return View();
+	}
 
-    public IActionResult StaffsList()
-    {
-        return View();
-    }
+	public IActionResult StaffsList()
+	{
+		return View();
+	}
 }
