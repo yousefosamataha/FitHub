@@ -154,7 +154,7 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                    <input class="form-control" asp-for="@(Model.MemberDTO.BirthDate.ToDateTime(TimeOnly.MinValue))" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                    <input class="form-control" asp-for="@Model.MemberDTO.BirthDate" value="@Model.MemberDTO.BirthDate.ToString("yyyy-MM-dd")" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->

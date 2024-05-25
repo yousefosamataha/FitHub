@@ -115,7 +115,7 @@ public class GymUserController : BaseController<GymUserController>
     #endregion
 
 
-
+    #region Staff
     public IActionResult AddNewStaff()
     {
         return View();
@@ -125,4 +125,5 @@ public class GymUserController : BaseController<GymUserController>
     {
         return View();
     }
+    #endregion
 }
