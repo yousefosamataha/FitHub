@@ -11,12 +11,11 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-	//protected ILogger<BaseRepository<T>> Logger;
+
 	public BaseRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
-		//Logger = _httpContextAccessor.HttpContext.RequestServices.GetRequiredService<ILogger<BaseRepository<T>>>();
 	}
 
 	public T GetById(int id) => _context.Set<T>().Find(id);
@@ -355,5 +354,17 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 			return result;
 		else
 			return 0;
+	}
+
+	public Dictionary<string, object> GetScopesInformation()
+	{
+		Dictionary<string, object> scopeInfo = new();
+		scopeInfo.Add("MachineName", Environment.MachineName);
+		scopeInfo.Add("Environment", "Development");
+		scopeInfo.Add("AppName", "Logging Scopes");
+		scopeInfo.Add("GymId", GetGymId());
+		scopeInfo.Add("BranchId", GetBranchId());
+		scopeInfo.Add("UserId", GetUserId());
+		return scopeInfo;
 	}
 }
