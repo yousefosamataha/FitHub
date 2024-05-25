@@ -23,50 +23,87 @@ public class RolesController : BaseController<RolesController>
 	}
 	public async Task<IActionResult> Index()
 	{
-		List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
-		return View(roles);
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
+
+			List<GymRoleDTO> roles = await _gymRolesService.GetAllRolesAsync();
+			return View(roles);
+		}
+
 	}
+
 	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
 	{
-		GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
-		return View(result);
+
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(GymRolePermissionsByRoleId), "HttpGet", DateTime.Now.ToString() });
+
+			GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
+			return View(result);
+		}
+
 	}
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
 	{
-		if (!ModelState.IsValid)
-			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
-		if (await _roleManager.RoleExistsAsync(newRole.RoleName))
+		using (logger.BeginScope(GetScopesInformation()))
 		{
-			ModelState.AddModelError("RoleName", "Role Already Exists");
-			return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
-		}
-		await _roleManager.CreateAsync(new GymIdentityRoleEntity()
-		{
-			Name = newRole.RoleName.Trim()
-		});
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(AddGymRole), "HttpPost", DateTime.Now.ToString() });
 
-		return RedirectToAction(nameof(Index));
+			if (!ModelState.IsValid)
+				return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
+
+			if (await _gymRolesService.IsRoleExistsAsync(newRole.RoleName))
+			{
+				ModelState.AddModelError("RoleName", "Role Already Exists");
+				return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
+			}
+
+			await _gymRolesService.CreateRoleAsync(newRole);
+
+			return RedirectToAction(nameof(Index));
+		}
+
 	}
 
+	[HttpPost]
+	[ValidateAntiForgeryToken]
 	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
 	{
-		GymIdentityRoleEntity role = await _roleManager.FindByIdAsync(rolePermissions.RoleId.ToString());
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(UpdateRolePermissions), "HttpPost", DateTime.Now.ToString() });
 
-		if (role is null)
-			return NotFound();
+			GymIdentityRoleEntity role = await _gymRolesService.GetGymRoleByIdAsync(rolePermissions.RoleId.ToString());
 
-		IList<Claim> roleClaims = await _roleManager.GetClaimsAsync(role);
+			if (role is null)
+				return NotFound();
 
-		foreach (Claim claim in roleClaims)
-			await _roleManager.RemoveClaimAsync(role, claim);
+			List<string> roleNewPermissions = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => c.Text).ToList();
 
-		List<Claim> roleNewClaims = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => new Claim(PermissionsConstants.Permission.ToString(), c.Text)).ToList();
-		foreach (Claim newClaim in roleNewClaims)
-			await _roleManager.AddClaimAsync(role, newClaim);
+			await _gymRolesService.UpdateGymRolePermissionsAsync(role, roleNewPermissions);
 
-		return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index));
+		}
+
+	}
+
+
+	public IActionResult Roles()
+	{
+		return View();
+	}
+
+	public IActionResult Permissions()
+	{
+		return View();
 	}
 }
