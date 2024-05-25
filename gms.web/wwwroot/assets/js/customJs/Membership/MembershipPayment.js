@@ -215,6 +215,10 @@ var membershipPayment = function () {
                             $("#MemberMembershipDTO_JoiningDate").on('change', function (e) {
                                 let selectedDate = new Date(e.target.value);
                                 let expiringDate;
+                                if (durationType == undefined || duration == undefined) {
+                                    durationType = $("#MemberMembershipDTO_GymMembershipPlanId")[0].selectedOptions[0].dataset.durationType;
+                                    duration = +$("#MemberMembershipDTO_GymMembershipPlanId")[0].selectedOptions[0].dataset.duration;
+                                }
                                 switch (durationType) {
                                     case "Year":
                                         expiringDate = selectedDate.setFullYear(selectedDate.getFullYear() + duration);

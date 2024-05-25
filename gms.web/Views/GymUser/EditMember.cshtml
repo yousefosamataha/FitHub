@@ -41,7 +41,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
             <!--begin::Form-->
-            <form id="add_new_member_form" autocomplete="off" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+            <form id="edit_member_form" autocomplete="off" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
                     <!--begin::Image-->
@@ -154,7 +154,7 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                    <input class="form-control" asp-for="@Model.MemberDTO.BirthDate" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                    <input class="form-control" asp-for="@(Model.MemberDTO.BirthDate.ToDateTime(TimeOnly.MinValue))" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -294,7 +294,7 @@
                                 <div class="col mb-5 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["membership"]</label>
                                     <!--begin::Select Status-->
-                                    <select class="form-select" asp-for="@Model.UpdateMemberMembershipDTO.GymMembershipPlanId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                    <select class="form-select" asp-for="@Model.MemberDTO.GymMemberMembership.GymMembershipPlanId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
                                         <option></option>
                                         @foreach (var membership in Model.MembershipsListDTO)
                                         {
@@ -308,13 +308,13 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-5 mb-md-5 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["valid_from"]</label>
-                                    <input class="form-control" asp-for="@Model.UpdateMemberMembershipDTO.JoiningDate" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" disabled />
+                                    <input class="form-control" asp-for="@Model.MemberDTO.GymMemberMembership.JoiningDate" placeholder="@localizer["enter"] @localizer["joining_date"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="col fv-row">
                                     <label class="form-label ms-2">@localizer["to"]</label>
-                                    <input class="form-control" asp-for="@Model.UpdateMemberMembershipDTO.ExpiringDate" placeholder="@localizer["expiring_date"]" disabled />
+                                    <input class="form-control" asp-for="@Model.MemberDTO.GymMemberMembership.ExpiringDate" placeholder="@localizer["expiring_date"]" disabled />
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -327,7 +327,7 @@
                         <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
                         <!--end::Reset Button-->
                         <!--begin::Button-->
-                        <button type="submit" id="add_new_member_form_submit" class="btn btn-primary">
+                        <button type="submit" id="edit_member_form_submit" class="btn btn-primary">
                             <span class="indicator-label">@localizer["save"]</span>
                             <span class="indicator-progress">
                                 @localizer["please_wait"]...
