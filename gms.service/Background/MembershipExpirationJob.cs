@@ -44,7 +44,7 @@ public class MembershipExpirationJob
 	{
 		List<IGrouping<int, GymMemberMembershipEntity>> upcomingExpirations = await _gymMemberMembershipService.GetNeedToReminderMemberShipListAsync();
 
-		foreach (var branchMemberMembershipGroup in upcomingExpirations)
+		foreach (IGrouping<int, GymMemberMembershipEntity> branchMemberMembershipGroup in upcomingExpirations)
 		{
 			BranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
 
