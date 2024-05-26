@@ -7,6 +7,8 @@ using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace gms.service.Membership.GymMemberMembershipRepository;
 public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEntity>, IGymMemberMembershipService
@@ -84,16 +86,14 @@ public class GymMemberMembershipService : BaseRepository<GymMemberMembershipEnti
 		
 	}
 
-	public async Task<List<GymMemberMembershipEntity>> GetNeedToReminderMemberShipListByReminderDaysAsync(int reminderDays)
+	public async Task<List<IGrouping<int, GymMemberMembershipEntity>>> GetNeedToReminderMemberShipListAsync()
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
 		{
 			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-								  new object[] { nameof(GymMemberMembershipService), nameof(GetNeedToReminderMemberShipListByReminderDaysAsync), DateTime.Now.ToString() });
+								  new object[] { nameof(GymMemberMembershipService), nameof(GetNeedToReminderMemberShipListAsync), DateTime.Now.ToString() });
 
-			List<GymMemberMembershipEntity> result = await _context.GymMemberMemberships
-																   .Where(m => m.ExpiringDate <= DateTime.UtcNow.AddDays(reminderDays) && m.ExpiringDate > DateTime.UtcNow)
-																   .ToListAsync();
+			List<IGrouping<int, GymMemberMembershipEntity>> result = await _context.GymMemberMemberships.GroupBy(gmm => gmm.GymMemberUser.BranchId).ToListAsync();
 			return result;
 		}
 		

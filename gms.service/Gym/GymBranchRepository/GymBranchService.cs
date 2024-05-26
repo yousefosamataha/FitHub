@@ -46,7 +46,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
 			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
 								  new object[] { nameof(GymBranchService), nameof(GetBranchByIdAsync), DateTime.Now.ToString() });
 
-			GymBranchEntity branchEntity = await FindAsync(gb => gb.Id == branchId, ["Country"]);
+			GymBranchEntity branchEntity = await FindAsync(gb => gb.Id == branchId, ["Country", "GeneralSetting"]);
 			return branchEntity.ToDTO();
 		}
 		

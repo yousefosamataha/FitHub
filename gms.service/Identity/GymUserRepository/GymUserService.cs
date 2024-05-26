@@ -42,7 +42,6 @@ public class GymUserService : IGymUserService
 		else
 			return 0;
 	}
-
 	public int GetBranchId()
 	{
 		if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("BranchId")?.Value, out int result))
@@ -50,7 +49,6 @@ public class GymUserService : IGymUserService
 		else
 			return 0;
 	}
-
 	public int GetGymId()
 	{
 		if (int.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("GymId")?.Value, out int result))
@@ -58,6 +56,7 @@ public class GymUserService : IGymUserService
 		else
 			return 0;
 	}
+
 	public Dictionary<string, object> GetScopesInformation()
 	{
 		Dictionary<string, object> scopeInfo = new();
@@ -225,7 +224,6 @@ public class GymUserService : IGymUserService
 		
 	}
 
-
     #region Member
     public async Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
 	{
@@ -244,9 +242,7 @@ public class GymUserService : IGymUserService
 			GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
 			return createdUser.ToDTO();
 		}
-		
 	}
-
 	public async Task<List<GymUserDTO>> GetGymMemberUsersListAsync()
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
@@ -255,15 +251,32 @@ public class GymUserService : IGymUserService
 								  new object[] { nameof(GymUserService), nameof(GetGymMemberUsersListAsync), DateTime.Now.ToString() });
 
 			List<GymUserEntity> listOfMembers = await _context.Users
-									  .Include(u => u.GymMemberMemberships)
-									  .ThenInclude(gmm => gmm.GymMembershipPlan)
-									  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
+															  .Include(u => u.GymMemberMemberships)
+															  .ThenInclude(gmm => gmm.GymMembershipPlan)
+															  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
 
 			return listOfMembers.Select(u => u.ToDTO()).ToList();
 		}
+	}
+	public async Task<GymUserDTO> UpdateGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(UpdateGymMemberUserAsync), DateTime.Now.ToString() });
+
+			GymUserEntity gymUserEntity = entity.ToEntity();
+			gymUserEntity.BranchId = branchId;
+			gymUserEntity.EmailConfirmed = true;
+			gymUserEntity.GymUserTypeId = GymUserTypeEnum.Member;
+			gymUserEntity.StatusId = StatusEnum.InActive;
+			IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
+			IdentityResult result2 = await _userManager.UpdateAsync(gymUserEntity);
+			await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RolesEnum.Member}");
+			GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
+			return createdUser.ToDTO();
+		}
 		
 	}
-
 	#endregion
-
 }
