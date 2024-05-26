@@ -4,17 +4,24 @@ using gms.data.Mapper.Class;
 using gms.data.Models.Class;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Class.ClassScheduleDayRepository;
 public class ClassScheduleDayService : BaseRepository<ClassScheduleDayEntity>, IClassScheduleDayService
 {
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-
-	public ClassScheduleDayService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+	private readonly ILogger<ClassScheduleDayService> _logger;
+	public ClassScheduleDayService
+	(
+		ApplicationDbContext context, 
+		IHttpContextAccessor httpContextAccessor, 
+		ILogger<ClassScheduleDayService> logger
+	) : base(context, httpContextAccessor)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
 	}
 
 	public async Task<bool> CreateNewClassScheduleDaysAsync(List<CreateClassScheduleDayDTO> classScheduleDaysListDto)

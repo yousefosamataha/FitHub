@@ -1,10 +1,10 @@
-﻿using FluentResults;
-using gms.common.Models.ActivityCat.Activity;
+﻿using gms.common.Models.ActivityCat.Activity;
 using gms.data;
 using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System.Linq.Dynamic.Core;
 
 namespace gms.service.Activity.ActivityRepository;
@@ -12,11 +12,12 @@ public class ActivityService : BaseRepository<ActivityEntity>, IActivityService
 {
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-
-	public ActivityService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+	private readonly ILogger<ActivityService> _logger;
+	public ActivityService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ActivityService> logger) : base(context, httpContextAccessor)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
 	}
 
 	public async Task<ActivityDTO> CreateNewActivityAsync(CreateActivityDTO createActivityDto)

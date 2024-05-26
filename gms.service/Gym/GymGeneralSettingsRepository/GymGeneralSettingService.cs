@@ -5,17 +5,24 @@ using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymGeneralSettingsRepository;
 public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>, IGymGeneralSettingService
 {
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-
-	public GymGeneralSettingService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+	private readonly ILogger<GymGeneralSettingService> _logger;
+	public GymGeneralSettingService
+	(
+		ApplicationDbContext context,
+		IHttpContextAccessor httpContextAccessor,
+		ILogger<GymGeneralSettingService> logger
+	) : base(context, httpContextAccessor)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
 	}
 
 	public async Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting)

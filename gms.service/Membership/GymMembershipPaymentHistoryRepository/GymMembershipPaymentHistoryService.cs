@@ -10,6 +10,7 @@ using gms.service.Membership.GymMemberMembershipRepository;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Membership.GymMembershipPaymentHistoryRepository;
 public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPaymentHistoryEntity>, IGymMembershipPaymentHistoryService
@@ -18,16 +19,24 @@ public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPa
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IGymUserService _gymUserService;
     private readonly IGymMemberMembershipService _gymMemberMembershipService;
+	private readonly ILogger<GymMembershipPaymentHistoryService> _logger;
+	public GymMembershipPaymentHistoryService
+    (
+        ApplicationDbContext context, 
+        IHttpContextAccessor httpContextAccessor,
+        IGymUserService gymUserService, 
+        IGymMemberMembershipService gymMemberMembershipService, 
+        ILogger<GymMembershipPaymentHistoryService> logger
+    ) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+		_gymUserService = gymUserService;
+		_gymMemberMembershipService = gymMemberMembershipService;
+		_logger = logger;
+	}
 
-    public GymMembershipPaymentHistoryService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IGymUserService gymUserService, IGymMemberMembershipService gymMemberMembershipService) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-        _gymUserService = gymUserService;
-        _gymMemberMembershipService = gymMemberMembershipService;
-    }
-
-    public async Task<MembershipPaymentHistoryDTO> CreateNewMembershipPaymentAsync(CreateMembershipPaymentHistoryDTO membershipPaymentDto)
+	public async Task<MembershipPaymentHistoryDTO> CreateNewMembershipPaymentAsync(CreateMembershipPaymentHistoryDTO membershipPaymentDto)
     {
         GymMembershipPaymentHistoryEntity newMembershipPaymentEntity = membershipPaymentDto.ToEntity();
         newMembershipPaymentEntity.PaymentMethodId = PaymentMethodEnum.Cash;

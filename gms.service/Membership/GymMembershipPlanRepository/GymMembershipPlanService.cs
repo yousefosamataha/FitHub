@@ -9,6 +9,7 @@ using gms.service.Gym.GymBranchRepository;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Membership.GymMembershipPlanRepository;
 public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>, IGymMembershipPlanService
@@ -16,15 +17,22 @@ public class GymMembershipPlanService : BaseRepository<GymMembershipPlanEntity>,
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IGymBranchService _gymBranchService;
+	private readonly ILogger<GymMembershipPlanService> _logger;
+	public GymMembershipPlanService
+	(
+		ApplicationDbContext context,
+		IHttpContextAccessor httpContextAccessor,
+		IGymBranchService gymBranchService, 
+		ILogger<GymMembershipPlanService> logger
+	) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+		_gymBranchService = gymBranchService;
+		_logger = logger;
+	}
 
-    public GymMembershipPlanService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IGymBranchService gymBranchService) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-        _gymBranchService = gymBranchService;
-    }
-
-    public async Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership)
+	public async Task<MembershipDTO> CreateGymMembershipPlanAsync(CreateMembershipDTO newMembership)
 	{
 		GymMembershipPlanEntity newMembershipEntity = newMembership.ToEntity();
         newMembershipEntity.BranchId = GetBranchId();

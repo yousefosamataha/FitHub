@@ -46,8 +46,8 @@ public class ActivityController : BaseController<ActivityController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								  new object[] { nameof(ActivityController), nameof(Index), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(ActivityController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 
 			List<ActivityDTO> listOfActivities = await _activityService.GetActivitiesListAsync();
 			return View(listOfActivities);
@@ -59,7 +59,7 @@ public class ActivityController : BaseController<ActivityController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction},  HttpMethod: {Method}, DateTime: {DateTime}",
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(ActivityController), nameof(AddNewActivity), "HttpGet", DateTime.Now.ToString() });
 
 			AddNewActivityVM modal = new();

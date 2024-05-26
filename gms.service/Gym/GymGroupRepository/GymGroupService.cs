@@ -6,6 +6,7 @@ using gms.service.Gym.GymBranchRepository;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymGroupRepository;
 
@@ -13,15 +14,22 @@ public class GymGroupService : BaseRepository<GymGroupEntity>, IGymGroupService
 {
     private readonly ApplicationDbContext _context;
     private readonly IGymBranchService _gymBranchService;
+	private readonly ILogger<GymGroupService> _logger;
+	public GymGroupService
+	(
+		ApplicationDbContext context, 
+		IHttpContextAccessor httpContextAccessor,
+		IGymBranchService gymBranchService, 
+		ILogger<GymGroupService> logger
+	) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_gymBranchService = gymBranchService;
+		_logger = logger;
+	}
 
-    public GymGroupService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IGymBranchService gymBranchService) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _gymBranchService = gymBranchService;
-    }
-
-    #region Gym Group Service
-    public async Task<GymGroupDTO> AddGymGroupAsync(CreateGymGroupDTO entity)
+	#region Gym Group Service
+	public async Task<GymGroupDTO> AddGymGroupAsync(CreateGymGroupDTO entity)
 	{
 		GymGroupEntity newGroupEntity = entity.ToEntity();
 		await AddAsync(newGroupEntity);

@@ -5,6 +5,7 @@ using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymNotificationRepository;
 using gms.service.Membership.GymMemberMembershipRepository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Background;
 
@@ -15,13 +16,15 @@ public class MembershipExpirationJob
 	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 	private readonly IGymNotificationService _gymNotificationService;
 	private readonly IGymGeneralSettingService _gymGeneralSettingService;
+	private readonly ILogger<MembershipExpirationJob> _logger;
 	public MembershipExpirationJob
 	(
 		ApplicationDbContext context,
 		IHttpContextAccessor httpContextAccessor,
 		IGymMemberMembershipService gymMemberMembershipService,
 		IGymNotificationService gymNotificationService,
-		IGymGeneralSettingService gymGeneralSettingService
+		IGymGeneralSettingService gymGeneralSettingService,
+		ILogger<MembershipExpirationJob> logger
 	)
 	{
 		_context = context;
@@ -29,6 +32,7 @@ public class MembershipExpirationJob
 		_gymMemberMembershipService = gymMemberMembershipService;
 		_gymNotificationService = gymNotificationService;
 		_gymGeneralSettingService = gymGeneralSettingService;
+		_logger = logger;
 	}
 
 	public async Task CheckExpiringMembershipsAsync()

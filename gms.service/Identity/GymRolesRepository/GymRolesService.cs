@@ -8,20 +8,28 @@ using gms.data.Models.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
 namespace gms.service.Identity.GymRolesRepository;
 public class GymRolesService : IGymRolesService
 {
-	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
 	private readonly ApplicationDbContext _context;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-
-	public GymRolesService(RoleManager<GymIdentityRoleEntity> roleManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+	private readonly RoleManager<GymIdentityRoleEntity> _roleManager;
+	private readonly ILogger<GymRolesService> _logger;
+	public GymRolesService
+	(
+		ApplicationDbContext context, 
+		IHttpContextAccessor httpContextAccessor, 
+		RoleManager<GymIdentityRoleEntity> roleManager,  
+		ILogger<GymRolesService> logger
+	)
 	{
-		_roleManager = roleManager;
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
+		_roleManager = roleManager;
+		_logger = logger;
 	}
 
 	public int GetUserId()

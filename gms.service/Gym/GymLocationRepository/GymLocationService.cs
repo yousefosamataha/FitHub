@@ -4,6 +4,7 @@ using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymLocationRepository;
 
@@ -11,14 +12,20 @@ public class GymLocationService : BaseRepository<GymLocationEntity>, IGymLocatio
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ILogger<GymLocationService> _logger;
+	public GymLocationService
+    (
+        ApplicationDbContext context, 
+        IHttpContextAccessor httpContextAccessor, 
+        ILogger<GymLocationService> logger
+    ) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
+	}
 
-    public GymLocationService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-    }
-
-    public async Task<bool> CreateNewGymLocationAsync(CreateGymLocationDTO createGymLocationModal)
+	public async Task<bool> CreateNewGymLocationAsync(CreateGymLocationDTO createGymLocationModal)
     {
         GymLocationEntity gymLocationEntity = createGymLocationModal.ToEntity();
         gymLocationEntity.BranchId = GetBranchId();

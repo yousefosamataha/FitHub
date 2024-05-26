@@ -4,18 +4,20 @@ using gms.data.Mapper.Activity;
 using gms.data.Models.Activity;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Activity.ActivityVideoRepository;
 public class ActivityVideoService : BaseRepository<ActivityVideoEntity>, IActivityVideoService
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public ActivityVideoService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-    }
+	private readonly ILogger<ActivityVideoService> _logger;
+	public ActivityVideoService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ActivityVideoService> logger) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
+	}
 
 	public async Task<bool> CreateNewActivityVideosAsync(List<CreateActivityVideoDTO> activityVideoListDto)
 	{
