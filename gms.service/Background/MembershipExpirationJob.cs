@@ -7,6 +7,7 @@ using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymNotificationRepository;
 using gms.service.Membership.GymMemberMembershipRepository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Background;
 
@@ -18,15 +19,17 @@ public class MembershipExpirationJob
 	private readonly IGymNotificationService _gymNotificationService;
 	private readonly IGymGeneralSettingService _gymGeneralSettingService;
 	private readonly IGymBranchService _gymBranchService;
+	private readonly ILogger<MembershipExpirationJob> _logger;
 	public MembershipExpirationJob
 	(
 		ApplicationDbContext context,
 		IHttpContextAccessor httpContextAccessor,
 		IGymMemberMembershipService gymMemberMembershipService,
 		IGymNotificationService gymNotificationService,
-		IGymGeneralSettingService gymGeneralSettingService
-,
-		IGymBranchService gymBranchService)
+		IGymGeneralSettingService gymGeneralSettingService,
+		IGymBranchService gymBranchService,
+		ILogger<MembershipExpirationJob> logger
+	)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
@@ -34,20 +37,21 @@ public class MembershipExpirationJob
 		_gymNotificationService = gymNotificationService;
 		_gymGeneralSettingService = gymGeneralSettingService;
 		_gymBranchService = gymBranchService;
+		_logger = logger;
 	}
 
 	public async Task CheckExpiringMembershipsAsync()
 	{
-		var upcomingExpirations = _gymMemberMembershipService.GetNeedToReminderMemberShipListByReminderDaysAsync();
+		List<IGrouping<int, GymMemberMembershipEntity>> upcomingExpirations = await _gymMemberMembershipService.GetNeedToReminderMemberShipListAsync();
 
-		foreach (var branchMemberMembershipGroup in upcomingExpirations)
+		foreach (IGrouping<int, GymMemberMembershipEntity> branchMemberMembershipGroup in upcomingExpirations)
 		{
 			BranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
 
-            foreach (GymMemberMembershipEntity gymMemberMembership in branchMemberMembershipGroup)
-            {
-                if (gymMemberMembership.ExpiringDate.AddDays(-BranchData.GeneralSetting.ReminderDays).Date == DateTime.UtcNow.Date)
-                {
+			foreach (GymMemberMembershipEntity gymMemberMembership in branchMemberMembershipGroup)
+			{
+				if (gymMemberMembership.ExpiringDate.AddDays(-BranchData.GeneralSetting.ReminderDays).Date == DateTime.UtcNow.Date)
+				{
 					GymNotificationEntity notification = new()
 					{
 						BranchId = BranchData.Id,
@@ -62,6 +66,6 @@ public class MembershipExpirationJob
 					await _context.SaveChangesAsync();
 				}
 			}
-        }
+		}
 	}
 }
