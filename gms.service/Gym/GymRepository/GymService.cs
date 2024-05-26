@@ -27,8 +27,15 @@ public class GymService : BaseRepository<GymEntity>, IGymService
 
 	public async Task<GymDTO> CreateGymAsync(CreateGymDTO newGym)
     {
-        GymEntity newGymEntity = newGym.ToEntity();
-        await AddAsync(newGymEntity);
-        return newGymEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymService), nameof(CreateGymAsync), DateTime.Now.ToString() });
+
+			GymEntity newGymEntity = newGym.ToEntity();
+			await AddAsync(newGymEntity);
+			return newGymEntity.ToDTO();
+		}
+		
     }
 }

@@ -106,7 +106,7 @@ public class ClassController : BaseController<ClassController>
 				new object[] { nameof(ClassController), nameof(CreateNewClass), "HttpGet", DateTime.Now.ToString() });
 
 			UpdateClassVM modal = new();
-			ClassDTO Class = await _classScheduleService.GetClassAsync(id);
+			ClassDTO Class = await _classScheduleService.GetClassByIdAsync(id);
 			modal.Class = Class.ToUpdateDTO();
 			modal.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
 

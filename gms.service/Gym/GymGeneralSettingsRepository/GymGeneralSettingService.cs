@@ -27,21 +27,30 @@ public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>,
 
 	public async Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting)
 	{
-		GymGeneralSettingEntity newGeneralSettingEntity = newGeneralSetting.ToEntity();
-		await AddAsync(newGeneralSettingEntity);
-		return newGeneralSettingEntity.ToDTO();
-	}
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGeneralSettingService), nameof(CreateGymGeneralSettingAsync), DateTime.Now.ToString() });
 
-	//public async Task<GeneralSettingDTO> GetGymGeneralSettingAsync()
-	//{
-	//	GymGeneralSettingEntity gymGeneralSettingEntity = await _context.GymGeneralSettings.FirstOrDefaultAsync(gg => gg.)
-	//}
+			GymGeneralSettingEntity newGeneralSettingEntity = newGeneralSetting.ToEntity();
+			await AddAsync(newGeneralSettingEntity);
+			return newGeneralSettingEntity.ToDTO();
+		}
+		
+	}
 
 	public async Task<GeneralSettingDTO> UpdateGymGeneralSettingAsync(GeneralSettingDTO updateGeneralSettingDTO)
 	{
-		GymGeneralSettingEntity currentGeneralSettingEntity = await _context.GymGeneralSettings.FirstOrDefaultAsync(gs => gs.Id == updateGeneralSettingDTO.Id);
-		GymGeneralSettingEntity updatedGeneralSettingEntity = updateGeneralSettingDTO.ToUpdatedEntity(currentGeneralSettingEntity);
-		await UpdateAsync(updatedGeneralSettingEntity);
-		return updatedGeneralSettingEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGeneralSettingService), nameof(UpdateGymGeneralSettingAsync), DateTime.Now.ToString() });
+
+			GymGeneralSettingEntity currentGeneralSettingEntity = await _context.GymGeneralSettings.FirstOrDefaultAsync(gs => gs.Id == updateGeneralSettingDTO.Id);
+			GymGeneralSettingEntity updatedGeneralSettingEntity = updateGeneralSettingDTO.ToUpdatedEntity(currentGeneralSettingEntity);
+			await UpdateAsync(updatedGeneralSettingEntity);
+			return updatedGeneralSettingEntity.ToDTO();
+		}
+		
 	}
 }

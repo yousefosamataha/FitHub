@@ -31,37 +31,72 @@ public class GymGroupService : BaseRepository<GymGroupEntity>, IGymGroupService
 	#region Gym Group Service
 	public async Task<GymGroupDTO> AddGymGroupAsync(CreateGymGroupDTO entity)
 	{
-		GymGroupEntity newGroupEntity = entity.ToEntity();
-		await AddAsync(newGroupEntity);
-		return newGroupEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGroupService), nameof(AddGymGroupAsync), DateTime.Now.ToString() });
+
+			GymGroupEntity newGroupEntity = entity.ToEntity();
+			await AddAsync(newGroupEntity);
+			return newGroupEntity.ToDTO();
+		}
+		
 	}
 
 	public async Task<List<GymGroupDTO>> GetGymGroupsListAsync()
 	{
-        GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == GetBranchId(), ["Country"]);
-        List<GymGroupEntity> listOfGroups = await FindAllAsync(gg => gg.BranchId == GetBranchId());
-		return listOfGroups.Select(gg => gg.ToDTO(branchData.Country.TimezoneOffset)).ToList();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGroupService), nameof(GetGymGroupsListAsync), DateTime.Now.ToString() });
+
+			GymBranchEntity branchData = await _gymBranchService.FindAsync(gb => gb.Id == GetBranchId(), ["Country"]);
+			List<GymGroupEntity> listOfGroups = await FindAllAsync(gg => gg.BranchId == GetBranchId());
+			return listOfGroups.Select(gg => gg.ToDTO(branchData.Country.TimezoneOffset)).ToList();
+		}
+		
 	}
 
-    public async Task<GymGroupDTO> GetGroupAsync(int id)
+    public async Task<GymGroupDTO> GetGroupByIdAsync(int id)
     {
-        var groupEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
-        return groupEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGroupService), nameof(GetGroupByIdAsync), DateTime.Now.ToString() });
+
+			GymGroupEntity? groupEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
+			return groupEntity.ToDTO();
+		}
+	
     }
 
 	public async Task<GymGroupDTO> UpdateGymGroupAsync(UpdateGroupDTO updateGroupDTO)
 	{
-		GymGroupEntity currentGroupEntity = await _context.GymGroups.FirstOrDefaultAsync(mp => mp.Id == updateGroupDTO.Id && mp.BranchId == GetBranchId());
-		GymGroupEntity updatedGroupEntity = updateGroupDTO.ToUpdatedEntity(currentGroupEntity);
-		await UpdateAsync(updatedGroupEntity);
-		return updatedGroupEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGroupService), nameof(UpdateGymGroupAsync), DateTime.Now.ToString() });
+
+			GymGroupEntity currentGroupEntity = await _context.GymGroups.FirstOrDefaultAsync(mp => mp.Id == updateGroupDTO.Id && mp.BranchId == GetBranchId());
+			GymGroupEntity updatedGroupEntity = updateGroupDTO.ToUpdatedEntity(currentGroupEntity);
+			await UpdateAsync(updatedGroupEntity);
+			return updatedGroupEntity.ToDTO();
+		}
+		
 	}
 
 	public async Task<bool> DeleteGroupAsync(int id)
     {
-        var GroupEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
-        await DeleteAsync(GroupEntity);
-        return true;
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymGroupService), nameof(DeleteGroupAsync), DateTime.Now.ToString() });
+
+			GymGroupEntity? GroupEntity = await FindAsync(mp => mp.Id == id && mp.BranchId == GetBranchId());
+			await DeleteAsync(GroupEntity);
+			return true;
+		}
+		
     }
     #endregion Gym Group Service
 }

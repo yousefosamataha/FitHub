@@ -21,23 +21,43 @@ public class ActivityVideoService : BaseRepository<ActivityVideoEntity>, IActivi
 
 	public async Task<bool> CreateNewActivityVideosAsync(List<CreateActivityVideoDTO> activityVideoListDto)
 	{
-		List<ActivityVideoEntity> createActivityVideoList = activityVideoListDto.Select(av => av.ToEntity()).ToList();
-		await AddRangeAsync(createActivityVideoList);
-		return true;
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(ActivityVideoService), nameof(CreateNewActivityVideosAsync), DateTime.Now.ToString() });
+
+			List<ActivityVideoEntity> createActivityVideoList = activityVideoListDto.Select(av => av.ToEntity()).ToList();
+			await AddRangeAsync(createActivityVideoList);
+			return true;
+		}
+		
 	}
 
 	public async Task<List<ActivityVideoDTO>> GetActivityVideosListAsync(int activityId)
 	{
-		List<ActivityVideoEntity> listOfActivityVideos = await FindAllAsync(av => av.ActivityId == activityId);
-		return listOfActivityVideos.Select(av => av.ToDTO()).ToList();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(ActivityVideoService), nameof(GetActivityVideosListAsync), DateTime.Now.ToString() });
+
+			List<ActivityVideoEntity> listOfActivityVideos = await FindAllAsync(av => av.ActivityId == activityId);
+			return listOfActivityVideos.Select(av => av.ToDTO()).ToList();
+		}
+		
 	}
 
 	public async Task<bool> UpdateActivityVideosAsync(List<CreateActivityVideoDTO> updateActivityVideosListDto, int activityId)
 	{
-		List<ActivityVideoEntity> currentActivityVideosList = await FindAllAsync(av => av.ActivityId == activityId);
-		await DeleteRangeAsync(currentActivityVideosList);
-		List<ActivityVideoEntity> newActivityVideosList = updateActivityVideosListDto.Select(av => av.ToEntity()).ToList();
-		await AddRangeAsync(newActivityVideosList);
-		return true;
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(ActivityVideoService), nameof(UpdateActivityVideosAsync), DateTime.Now.ToString() });
+
+			List<ActivityVideoEntity> currentActivityVideosList = await FindAllAsync(av => av.ActivityId == activityId);
+			await DeleteRangeAsync(currentActivityVideosList);
+			List<ActivityVideoEntity> newActivityVideosList = updateActivityVideosListDto.Select(av => av.ToEntity()).ToList();
+			await AddRangeAsync(newActivityVideosList);
+			return true;
+		}
 	}
 }
