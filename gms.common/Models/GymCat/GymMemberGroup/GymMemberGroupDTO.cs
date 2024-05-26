@@ -1,6 +1,6 @@
 ﻿namespace gms.common.Models.GymCat.GymMemberGroup;
 
-public class GymMemberGroupDTO
+public record GymMemberGroupDTO
 {
     public int Id { get; init; }
     public int GymMemberUserId { get; init; }

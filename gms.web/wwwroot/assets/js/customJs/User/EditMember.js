@@ -28,7 +28,7 @@ var editMember = function () {
     var joiningDateFlatpickr;
     var durationType;
     var duration;
-    var passwordMeter;
+    var selectedMembershipAmount;
     var base64Image;
     var validator;
     var jsonlocalizerData = () => {
@@ -87,28 +87,6 @@ var editMember = function () {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'MemberDTO.Email': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'MemberDTO.Password': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            },
-                            callback: {
-                                message: data["please_enter_valid_password"],
-                                callback: function (input) {
-                                    if (input.value.length > 0) {
-                                        return validatePassword();
-                                    }
-                                }
                             }
                         }
                     },
@@ -205,6 +183,7 @@ var editMember = function () {
         var selectedData = e.params.data;
         durationType = $(selectedData.element).data("durationType");
         duration = $(selectedData.element).data("duration");
+        selectedMembershipAmount = $(selectedData.element).data("membershipAmount");
 
         $("#MemberDTO_GymMemberMembership_JoiningDate").removeAttr('disabled');
         if ($("#MemberDTO_GymMemberMembership_JoiningDate").val().length > 0) {
@@ -247,25 +226,16 @@ var editMember = function () {
         });
     }
 
-    // Password input validation
-    var validatePassword = function () {
-        return (passwordMeter.score > 70);
-    }
-
     // Handle Input Image
-    //var handleInputImage = () => {
-    //    var imageInputElement = document.querySelector("#image_input_control");
-    //    var imageInput = new KTImageInput(imageInputElement);
-    //    base64Image = imageInput.src.split('url("')[1].split('")')[0];
-    //    //$("#image_input_control .btn[data-kt-image-input-action='remove']").show();
-    //    //$("#image_input_control .btn[data-kt-image-input-action='remove']").css("display", "flex");
-
-    //    $("#image_input_control .btn[data-kt-image-input-action='remove']").click(function () {
-    //        base64Image = null;
-    //    });
-    //    console.log(imageInput);
-    //    console.log(base64Image);
-    //};
+    var handleInputImage = () => {
+        var imageInputElement = document.querySelector("#image_input_control");
+        var imageInput = KTImageInput.getInstance(imageInputElement);
+        base64Image = imageInput.src != "none" ? imageInput.src.split('url("')[1].split('")')[0] : null;
+        $("#image_input_control .btn[data-kt-image-input-action='remove']").on("click", function () {
+            imageInput.src = "none";
+            base64Image = null;
+        });
+    };
 
     // Add New Membership Form Submition
     const formSubmition = () => {
@@ -282,39 +252,47 @@ var editMember = function () {
                         submitButton.disabled = true;
 
                         var data = {};
-                        data.MemberDTO = {};
+                        data.UpdateMemberDTO = {};
                         data.UpdateMemberMembershipDTO = {};
-                        data.MemberDTO.Image = base64Image;
-                        data.MemberDTO.StatusId = $('[name="MemberDTO.StatusId"]').val();
-                        data.MemberDTO.FirstName = $('[name="MemberDTO.FirstName"]').val();
-                        data.MemberDTO.LastName = $('[name="MemberDTO.LastName"]').val();
-                        data.MemberDTO.BirthDate = $('[name="MemberDTO.BirthDate"]').val();
-                        data.MemberDTO.GenderId = $('[name="MemberDTO.GenderId"]').val();
-                        data.MemberDTO.City = $('[name="MemberDTO.City"]').val();
-                        data.MemberDTO.State = $('[name="MemberDTO.State"]').val();
-                        data.MemberDTO.Address = $('[name="MemberDTO.Address"]').val();
-                        data.MemberDTO.PhoneNumber = $('[name="MemberDTO.PhoneNumber"]').val();
-                        data.MemberDTO.Email = $('[name="MemberDTO.Email"]').val();
-                        data.MemberDTO.Password = $('[name="MemberDTO.Password"]').val();
+                        data.MemberMembershipDTO = {};
+                        data.MemberMembershipDTO.Membership = {};
+                        data.UpdateMemberDTO.Image = base64Image;
+                        data.UpdateMemberDTO.StatusId = $('[name="MemberDTO.StatusId"]').val();
+                        data.UpdateMemberDTO.FirstName = $('[name="MemberDTO.FirstName"]').val();
+                        data.UpdateMemberDTO.LastName = $('[name="MemberDTO.LastName"]').val();
+                        data.UpdateMemberDTO.BirthDate = $('[name="MemberDTO.BirthDate"]').val();
+                        data.UpdateMemberDTO.GenderId = $('[name="MemberDTO.GenderId"]').val();
+                        data.UpdateMemberDTO.City = $('[name="MemberDTO.City"]').val();
+                        data.UpdateMemberDTO.State = $('[name="MemberDTO.State"]').val();
+                        data.UpdateMemberDTO.Address = $('[name="MemberDTO.Address"]').val();
+                        data.UpdateMemberDTO.PhoneNumber = $('[name="MemberDTO.PhoneNumber"]').val();
+                        data.UpdateMemberDTO.Email = $('[name="MemberDTO.Email"]').val();
                         data.SelectedGroupIds = $('[name="SelectedGroupIds"]').val();
-                        data.UpdateMemberMembershipDTO.GymMembershipPlanId = $('[name="UpdateMemberMembershipDTO.GymMembershipPlanId"]').val();
-                        data.UpdateMemberMembershipDTO.JoiningDate = $('[name="UpdateMemberMembershipDTO.JoiningDate"]').val();
-                        data.UpdateMemberMembershipDTO.ExpiringDate = $('[name="UpdateMemberMembershipDTO.ExpiringDate"]').val();
+                        data.UpdateMemberMembershipDTO.Id = $('[name="MemberDTO.GymMemberMembership.Id"]').val();
+                        data.UpdateMemberMembershipDTO.GymMembershipPlanId = $('[name="MemberDTO.GymMemberMembership.GymMembershipPlanId"]').val();
+                        data.UpdateMemberMembershipDTO.MemberId = $('[name="MemberDTO.GymMemberMembership.MemberId"]').val();
+                        data.UpdateMemberMembershipDTO.MemberShipStatusId = $('[name="MemberDTO.GymMemberMembership.MemberShipStatusId"]').val();
+                        data.UpdateMemberMembershipDTO.PaymentStatusId = $('[name="MemberDTO.GymMemberMembership.PaymentStatusId"]').val();
+                        data.UpdateMemberMembershipDTO.JoiningDate = $('[name="MemberDTO.GymMemberMembership.JoiningDate"]').val();
+                        data.UpdateMemberMembershipDTO.ExpiringDate = $('[name="MemberDTO.GymMemberMembership.ExpiringDate"]').val();
+                        // data.MemberMembershipDTO.Membership.MembershipAmount = $('[name="MemberDTO.GymMemberMembership.Membership.MembershipAmount"]').val();
+                        data.MemberMembershipDTO.Membership.MembershipAmount = selectedMembershipAmount != undefined ? selectedMembershipAmount : $('[name="MemberDTO.GymMemberMembership.Membership.MembershipAmount"]').val();
+                        data.MemberMembershipDTO.PaidAmount = $('[name="MemberDTO.GymMemberMembership.PaidAmount"]').val();
                         console.log(data);
 
-                        //$.ajax({
-                        //    url: '/GymUser/CreateNewMember',
-                        //    type: 'POST',
-                        //    data: {
-                        //        model: data
-                        //    },
-                        //    success: function (response) {
-                        //        window.location.href = `/GymUser/Memberslist`;
-                        //    },
-                        //    error: function (xhr, status, error) {
-                        //        console.error('Error:', error);
-                        //    }
-                        //});
+                        $.ajax({
+                            url: '/GymUser/EditMember',
+                            type: 'POST',
+                            data: {
+                                model: data
+                            },
+                            success: function (response) {
+                                window.location.href = `/GymUser/Memberslist`;
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
                     }
                 });
             }
@@ -323,17 +301,14 @@ var editMember = function () {
 
     return {
         init: function () {
-            passwordMeter = KTPasswordMeter.getInstance(document.querySelector('[data-kt-password-meter="true"]'));
-            passwordMeter.options.minLength = 10;
-
             // Handlers
             initFlatpickr();
             handleMemberStatus();
             convertToBase64();
-            // formSubmition();
-            // handleInputImage();
+            formSubmition();
+            handleInputImage();
 
-            // 
+            // Default Actions
             $('#MemberDTO_StatusId').change();
         }
     };

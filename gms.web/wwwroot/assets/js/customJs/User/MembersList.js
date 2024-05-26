@@ -197,7 +197,7 @@ var membersList = function () {
         });
     }
 
-    // Edite Membership
+    // Edite Member
     var editMember = () => {
         document.querySelectorAll(".edit-member-btn").forEach(e => {
             e.addEventListener("click", function () {

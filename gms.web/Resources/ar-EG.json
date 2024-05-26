@@ -178,6 +178,8 @@
   "staff_name": "اسم الموظف",
   "role": "الوظيفة",
   "staff_status": "حالة الموظف",
+  "---manage_users/manage_staffs/edit_staff---": "------------------",
+  "edit_staff": "تعديل الموظف",
   "---manage_users/settings/roles---": "------------------",
   "total_staffs_with_this_role": "إجمالي الموظفين الذين يقومون بهذا الوظيفة",
   "view_role": "عرض الوظيفة",

@@ -178,6 +178,8 @@
   "staff_name": "Staff Name",
   "role": "Role",
   "staff_status": "Staff Status",
+  "---manage_users/manage_staffs/edit_staff---": "------------------",
+  "edit_staff": "Edit Staff",
   "---manage_users/settings/roles---": "------------------",
   "total_staffs_with_this_role": "Total Staffs With This Role",
   "view_role": "View Role",

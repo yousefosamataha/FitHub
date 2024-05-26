@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 // Class definition
-var addNewMember = function () {
+var editStaff = function () {
     // Shared variables
-    const addNewMemberForm = document.getElementById('add_new_member_form');
+    const editStaffForm = document.getElementById('edit_staff_form');
     var currentLanguage = getCookie(".AspNetCore.Culture").split("=").slice(-1)[0];
     var flatpickrOptions = currentLanguage === "ar-EG" ? {
         months: {
@@ -24,11 +24,6 @@ var addNewMember = function () {
         hourAriaLabel: "ساعة",
         minuteAriaLabel: "دقيقة",
     } : currentLanguage === "fr-FR" ? "fr" : "en";
-    var birthDateFlatpickr;
-    var joiningDateFlatpickr;
-    var durationType;
-    var duration;
-    var passwordMeter;
     var base64Image;
     var validator;
     var jsonlocalizerData = () => {
@@ -59,56 +54,34 @@ var addNewMember = function () {
 
     // Validation
     jsonlocalizerData().then(data => {
-        validator = FormValidation.formValidation(addNewMemberForm,
+        validator = FormValidation.formValidation(editStaffForm,
             {
                 fields: {
-                    'CreateMemberDTO.FirstName': {
+                    'StaffDTO.FirstName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.LastName': {
+                    'StaffDTO.LastName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.BirthDate': {
+                    'StaffDTO.BirthDate': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
                     },
-                    'CreateMemberDTO.GenderId': {
+                    'StaffDTO.GenderId': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'CreateMemberDTO.Email': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
-                    'CreateMemberDTO.Password': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            },
-                            callback: {
-                                message: data["please_enter_valid_password"],
-                                callback: function (input) {
-                                    if (input.value.length > 0) {
-                                        return validatePassword();
-                                    }
-                                }
                             }
                         }
                     },
@@ -119,20 +92,13 @@ var addNewMember = function () {
                             }
                         }
                     },
-                    'MemberMembershipDTO.GymMembershipPlanId': {
+                    'RoleName': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
                             }
                         }
-                    },
-                    'MemberMembershipDTO.JoiningDate': {
-                        validators: {
-                            notEmpty: {
-                                message: data.thisfieldisrequired
-                            }
-                        }
-                    },
+                    }
                 },
 
                 plugins: {
@@ -151,35 +117,21 @@ var addNewMember = function () {
         );
     });
 
-    // Init BirthDate And Joining Date Flatpickr
+    // Init Birth Date Flatpickr
     var initFlatpickr = () => {
-        const birthDateElement = document.querySelector('#CreateMemberDTO_BirthDate');
-        const joiningDateElement = document.querySelector('#MemberMembershipDTO_JoiningDate');
-        const expiringDateElement = document.querySelector('#MemberMembershipDTO_ExpiringDate');
+        const birthDateElement = document.querySelector('#StaffDTO_BirthDate');
 
         $(birthDateElement).flatpickr({
             locale: flatpickrOptions,
             dateFormat: "Y-m-d",
             altFormat: "d/m/Y",
         });
-
-        joiningDateFlatpickr = $(joiningDateElement).flatpickr({
-            locale: flatpickrOptions,
-            dateFormat: "Y-m-d",
-            altFormat: "d/m/Y",
-        });
-
-        $(expiringDateElement).flatpickr({
-            locale: flatpickrOptions,
-            dateFormat: "Y-m-d",
-            altFormat: "d/m/Y",
-        });
     }
 
-    // Member Status Handler
-    const handleMemberStatus = () => {
-        const target = document.getElementById('member_status');
-        const select = document.getElementById('CreateMemberDTO_StatusId');
+    // Staff Status Handler
+    const handleStaffStatus = () => {
+        const target = document.getElementById('staff_status');
+        const select = document.getElementById('StaffDTO_StatusId');
         const statusClasses = ['bg-success', 'bg-danger'];
 
         $(select).on('change', function (e) {
@@ -200,39 +152,9 @@ var addNewMember = function () {
         });
     }
 
-    // Membership Change Handler
-    $("#MemberMembershipDTO_GymMembershipPlanId").on('select2:select', function (e) {
-        var selectedData = e.params.data;
-        durationType = $(selectedData.element).data("durationType");
-        duration = $(selectedData.element).data("duration");
-
-        $("#MemberMembershipDTO_JoiningDate").removeAttr('disabled');
-        if ($("#MemberMembershipDTO_JoiningDate").val().length > 0) {
-            $("#MemberMembershipDTO_JoiningDate").change();
-        }
-    });
-
-    $("#MemberMembershipDTO_JoiningDate").on('change', function (e) {
-        let selectedDate = new Date(e.target.value);
-        let expiringDate;
-        switch (durationType) {
-            case "Year":
-                expiringDate = selectedDate.setFullYear(selectedDate.getFullYear() + duration);
-                break;
-            case "Month":
-                expiringDate = selectedDate.setMonth(selectedDate.getMonth() + duration);
-                break;
-            case "Day":
-                expiringDate = selectedDate.setDate(selectedDate.getDate() + duration);
-                break;
-        }
-        expiringDate = new Date(expiringDate);
-        $("#MemberMembershipDTO_ExpiringDate").val(expiringDate.toISOString().split('T')[0]);
-    });
-
     // Convert To Base64
     var convertToBase64 = () => {
-        document.getElementById('CreateMemberDTO_Image').addEventListener('change', function (event) {
+        document.getElementById('StaffDTO_Image').addEventListener('change', function (event) {
             var file = event.target.files[0];
             var reader = new FileReader();
             reader.onload = function (event) {
@@ -243,14 +165,20 @@ var addNewMember = function () {
         });
     }
 
-    // Password input validation
-    var validatePassword = function () {
-        return (passwordMeter.score > 70);
-    }
+    // Handle Input Image
+    var handleInputImage = () => {
+        var imageInputElement = document.querySelector("#image_input_control");
+        var imageInput = KTImageInput.getInstance(imageInputElement);
+        base64Image = imageInput.src != "none" ? imageInput.src.split('url("')[1].split('")')[0] : null;
+        $("#image_input_control .btn[data-kt-image-input-action='remove']").on("click", function () {
+            imageInput.src = "none";
+            base64Image = null;
+        });
+    };
 
-    // Add New Membership Form Submition
+    // Edit Staff Form Submition
     const formSubmition = () => {
-        const submitButton = document.getElementById('add_new_member_form_submit');
+        const submitButton = document.getElementById('edit_staff_form_submit');
         submitButton.addEventListener('click', function (e) {
             // Prevent default button action
             e.preventDefault();
@@ -263,34 +191,29 @@ var addNewMember = function () {
                         submitButton.disabled = true;
 
                         var data = {};
-                        data.CreateMemberDTO = {};
-                        data.MemberMembershipDTO = {};
-                        data.CreateMemberDTO.Image = base64Image;
-                        data.CreateMemberDTO.StatusId = $('[name="CreateMemberDTO.StatusId"]').val();
-                        data.CreateMemberDTO.FirstName = $('[name="CreateMemberDTO.FirstName"]').val();
-                        data.CreateMemberDTO.LastName = $('[name="CreateMemberDTO.LastName"]').val();
-                        data.CreateMemberDTO.BirthDate = $('[name="CreateMemberDTO.BirthDate"]').val();
-                        data.CreateMemberDTO.GenderId = $('[name="CreateMemberDTO.GenderId"]').val();
-                        data.CreateMemberDTO.City = $('[name="CreateMemberDTO.City"]').val();
-                        data.CreateMemberDTO.State = $('[name="CreateMemberDTO.State"]').val();
-                        data.CreateMemberDTO.Address = $('[name="CreateMemberDTO.Address"]').val();
-                        data.CreateMemberDTO.PhoneNumber = $('[name="CreateMemberDTO.PhoneNumber"]').val();
-                        data.CreateMemberDTO.Email = $('[name="CreateMemberDTO.Email"]').val();
-                        data.CreateMemberDTO.Password = $('[name="CreateMemberDTO.Password"]').val();
+                        data.UpdateStaffDTO = {};
+                        data.UpdateStaffDTO.Image = base64Image;
+                        data.UpdateStaffDTO.StatusId = $('[name="StaffDTO.StatusId"]').val();
+                        data.UpdateStaffDTO.FirstName = $('[name="StaffDTO.FirstName"]').val();
+                        data.UpdateStaffDTO.LastName = $('[name="StaffDTO.LastName"]').val();
+                        data.UpdateStaffDTO.BirthDate = $('[name="StaffDTO.BirthDate"]').val();
+                        data.UpdateStaffDTO.GenderId = $('[name="StaffDTO.GenderId"]').val();
+                        data.UpdateStaffDTO.City = $('[name="StaffDTO.City"]').val();
+                        data.UpdateStaffDTO.State = $('[name="StaffDTO.State"]').val();
+                        data.UpdateStaffDTO.Address = $('[name="StaffDTO.Address"]').val();
+                        data.UpdateStaffDTO.PhoneNumber = $('[name="StaffDTO.PhoneNumber"]').val();
                         data.SelectedGroupIds = $('[name="SelectedGroupIds"]').val();
-                        data.MemberMembershipDTO.GymMembershipPlanId = $('[name="MemberMembershipDTO.GymMembershipPlanId"]').val();
-                        data.MemberMembershipDTO.JoiningDate = $('[name="MemberMembershipDTO.JoiningDate"]').val();
-                        data.MemberMembershipDTO.ExpiringDate = $('[name="MemberMembershipDTO.ExpiringDate"]').val();
+                        data.RoleName = $('[name="RoleName"]').val();
                         console.log(data);
 
                         $.ajax({
-                            url: '/GymUser/CreateNewMember',
+                            url: '/GymUser/EditStaff',
                             type: 'POST',
                             data: {
                                 model: data
                             },
                             success: function (response) {
-                                window.location.href = `/GymUser/Memberslist`;
+                                window.location.href = `/GymUser/Staffslist`;
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error:', error);
@@ -304,19 +227,20 @@ var addNewMember = function () {
 
     return {
         init: function () {
-            passwordMeter = KTPasswordMeter.getInstance(document.querySelector('[data-kt-password-meter="true"]'));
-            passwordMeter.options.minLength = 10;
-
             // Handlers
             initFlatpickr();
-            handleMemberStatus();
+            handleStaffStatus();
             convertToBase64();
-            formSubmition();
+            handleInputImage();
+            // formSubmition();
+
+            // Default Actions
+            $('#StaffDTO_StatusId').change();
         }
     };
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    addNewMember.init();
+    editStaff.init();
 });
