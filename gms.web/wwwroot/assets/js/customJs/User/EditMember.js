@@ -252,6 +252,21 @@ var editMember = function () {
         return (passwordMeter.score > 70);
     }
 
+    // Handle Input Image
+    //var handleInputImage = () => {
+    //    var imageInputElement = document.querySelector("#image_input_control");
+    //    var imageInput = new KTImageInput(imageInputElement);
+    //    base64Image = imageInput.src.split('url("')[1].split('")')[0];
+    //    //$("#image_input_control .btn[data-kt-image-input-action='remove']").show();
+    //    //$("#image_input_control .btn[data-kt-image-input-action='remove']").css("display", "flex");
+
+    //    $("#image_input_control .btn[data-kt-image-input-action='remove']").click(function () {
+    //        base64Image = null;
+    //    });
+    //    console.log(imageInput);
+    //    console.log(base64Image);
+    //};
+
     // Add New Membership Form Submition
     const formSubmition = () => {
         const submitButton = document.getElementById('edit_member_form_submit');
@@ -316,6 +331,7 @@ var editMember = function () {
             handleMemberStatus();
             convertToBase64();
             // formSubmition();
+            // handleInputImage();
 
             // 
             $('#MemberDTO_StatusId').change();

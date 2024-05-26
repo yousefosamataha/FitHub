@@ -58,9 +58,9 @@
                         <!--begin::Card body-->
                         <div class="card-body text-center pt-0">
                             <!--begin::Image input-->
-                            <div class="image-input image-input-empty image-input-outline symbol-label-blank mb-3" id="kt_image_input_control" data-kt-image-input="true">
+                            <div class="image-input @(Model.MemberDTO.Image is not null ? "" : "image-input-empty") image-input-outline symbol-label-blank mb-3" id="image_input_control" data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-150px h-150px" style="background-image: url('@Model.MemberDTO.Image') !important"></div>
+                                <div class="image-input-wrapper w-150px h-150px" style="@(Model.MemberDTO.Image is not null ? $"background-image: url('{Model.MemberDTO.Image}')" : "")"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
@@ -69,7 +69,7 @@
                                     <!--end::Icon-->
                                     <!--begin::Inputs-->
                                     <input type="file" asp-for="@Model.MemberDTO.Image" accept=".png, .jpg, .jpeg" />
-                                    <input type="hidden" name="Image_remove" />
+                                    <input type="hidden" name="MemberDTO.Image_remove" />
                                     <!--end::Inputs-->
                                 </label>
                                 <!--end::Label-->
@@ -154,7 +154,7 @@
                                 <!--begin::Input group-->
                                 <div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
                                     <label class="required form-label ms-2">@localizer["birthdate"]</label>
-                                    <input class="form-control" asp-for="@(Model.MemberDTO.BirthDate.ToDateTime(TimeOnly.MinValue))" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+                                    <input class="form-control" asp-for="@Model.MemberDTO.BirthDate" value="@Model.MemberDTO.BirthDate.ToString("yyyy-MM-dd")" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->

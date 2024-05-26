@@ -41,8 +41,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								  new object[] { nameof(ClassController), nameof(Index), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(ClassController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 			ClassesListVM model = new();
 			BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 
@@ -59,8 +59,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								  new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(ClassController), nameof(CreateNewClass), "HttpGet", DateTime.Now.ToString() });
 
 			AddClassVM addClassModel = new AddClassVM();
 
@@ -77,8 +77,8 @@ public class ClassController : BaseController<ClassController>
 
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								   new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								   new object[] { nameof(ClassController), nameof(CreateNewClass), "HttpPost", DateTime.Now.ToString() });
 			ClassDTO createdClassDTO = await _classScheduleService.CreateNewClassAsync(addClassModel.Class);
 			List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
 			foreach (var dayId in addClassModel.WeekDayIds)
@@ -102,9 +102,11 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}", new object[] { nameof(ClassController), nameof(CreateNewClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method},DateTime: {DateTime}", 
+				new object[] { nameof(ClassController), nameof(CreateNewClass), "HttpGet", DateTime.Now.ToString() });
+
 			UpdateClassVM modal = new();
-			ClassDTO Class = await _classScheduleService.GetClassAsync(id);
+			ClassDTO Class = await _classScheduleService.GetClassByIdAsync(id);
 			modal.Class = Class.ToUpdateDTO();
 			modal.GymLocations = await _gymLocationService.GetGymLocationsListAsync();
 
@@ -117,8 +119,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								   new object[] { nameof(ClassController), nameof(EditClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								   new object[] { nameof(ClassController), nameof(EditClass), "HttpPost", DateTime.Now.ToString() });
 
 			ClassDTO updatedClassDTO = await _classScheduleService.UpdateClassAsync(updateClassModel.Class);
 			List<CreateClassScheduleDayDTO> classScheduleDaysListDTO = new();
@@ -142,8 +144,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								  new object[] { nameof(ClassController), nameof(GetClassScheduleDaysById), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method},DateTime: {DateTime}",
+								  new object[] { nameof(ClassController), nameof(GetClassScheduleDaysById), "HttpGet", DateTime.Now.ToString() });
 
 			List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync(classId);
 
@@ -158,8 +160,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								   new object[] { nameof(ClassController), nameof(DeleteClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								   new object[] { nameof(ClassController), nameof(DeleteClass), "HttpPost", DateTime.Now.ToString() });
 			await _classScheduleService.DeleteClassAsync(id);
 			return Json(new { Success = true, Message = "" });
 		}
@@ -170,8 +172,8 @@ public class ClassController : BaseController<ClassController>
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, DateTime: {DateTime}",
-								   new object[] { nameof(ClassController), nameof(DeleteClass), DateTime.Now.ToString() });
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								   new object[] { nameof(ClassController), nameof(DeleteClass), "HttpGet", DateTime.Now.ToString() });
 
 			List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
 

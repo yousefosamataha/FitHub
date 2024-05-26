@@ -180,13 +180,16 @@ public class GymUserController : BaseController<GymUserController>
 	}
 	#endregion
 
-	public IActionResult AddNewStaff()
-	{
-		return View();
-	}
 
-	public IActionResult StaffsList()
-	{
-		return View();
-	}
+    #region Staff
+    public IActionResult AddNewStaff()
+    {
+        return View();
+    }
+
+    public IActionResult StaffsList()
+    {
+        return View();
+    }
+    #endregion
 }
