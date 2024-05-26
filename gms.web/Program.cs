@@ -1,3 +1,4 @@
+using gms.service.Background;
 using gms.web.Extensions.Database;
 using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
@@ -97,6 +98,8 @@ WebApplication? app = builder.Build();
 
 	app.UseSession();
 
+
+
 	app.UseHangfireDashboard("/hangfire");
 
 	app.MapRazorPages();
@@ -105,6 +108,10 @@ WebApplication? app = builder.Build();
 		name: "default",
 		pattern: "{controller=Home}/{action=Index}/{id?}"
 	);
+
+	RecurringJob.AddOrUpdate<MembershipExpirationJob>(
+	job => job.CheckExpiringMembershipsAsync(),
+	Cron.Daily);
 
 	app.Run();
 }

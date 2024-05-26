@@ -46,7 +46,7 @@ public class GymController : BaseController<GymController>
 
     public async Task<IActionResult> EditGroup(int id)
     {
-        var group = await _gymGroupService.GetGroupAsync(id);
+        var group = await _gymGroupService.GetGroupByIdAsync(id);
         return PartialView("_EditGroup", group.ToUpdateDTO());
     }
 
