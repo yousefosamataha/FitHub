@@ -38,26 +38,33 @@ public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPa
 
 	public async Task<MembershipPaymentHistoryDTO> CreateNewMembershipPaymentAsync(CreateMembershipPaymentHistoryDTO membershipPaymentDto)
     {
-        GymMembershipPaymentHistoryEntity newMembershipPaymentEntity = membershipPaymentDto.ToEntity();
-        newMembershipPaymentEntity.PaymentMethodId = PaymentMethodEnum.Cash;
-        newMembershipPaymentEntity.PaidDate = DateTime.UtcNow;
-        await AddAsync(newMembershipPaymentEntity);
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymMembershipPaymentHistoryService), nameof(CreateNewMembershipPaymentAsync), DateTime.Now.ToString() });
 
-        GymMemberMembershipEntity currentMembershipMembershipEntity = await _context.GymMemberMemberships.FirstOrDefaultAsync(mm => mm.Id == membershipPaymentDto.GymMemberMembershipId);
-        UpdateMemberMembershipDTO updateMembershipMembership = new()
-        {
-            Id = membershipPaymentDto.GymMemberMembershipId,
-            MemberShipStatusId = StatusEnum.Active,
-            PaymentStatusId = StatusEnum.FullyPaid,
-            JoiningDate = currentMembershipMembershipEntity.JoiningDate,
-            ExpiringDate = currentMembershipMembershipEntity.ExpiringDate
-        };
-        await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateMembershipMembership);
+			GymMembershipPaymentHistoryEntity newMembershipPaymentEntity = membershipPaymentDto.ToEntity();
+			newMembershipPaymentEntity.PaymentMethodId = PaymentMethodEnum.Cash;
+			newMembershipPaymentEntity.PaidDate = DateTime.UtcNow;
+			await AddAsync(newMembershipPaymentEntity);
 
-        GymUserEntity currentUserEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == currentMembershipMembershipEntity.MemberId);
-        currentUserEntity.StatusId = StatusEnum.Active;
-        await _gymUserService.UpdateGymUser(currentUserEntity);
+			GymMemberMembershipEntity currentMembershipMembershipEntity = await _context.GymMemberMemberships.FirstOrDefaultAsync(mm => mm.Id == membershipPaymentDto.GymMemberMembershipId);
+			UpdateMemberMembershipDTO updateMembershipMembership = new()
+			{
+				Id = membershipPaymentDto.GymMemberMembershipId,
+				MemberShipStatusId = StatusEnum.Active,
+				PaymentStatusId = StatusEnum.FullyPaid,
+				JoiningDate = currentMembershipMembershipEntity.JoiningDate,
+				ExpiringDate = currentMembershipMembershipEntity.ExpiringDate
+			};
+			await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateMembershipMembership);
 
-        return newMembershipPaymentEntity.ToDTO();
+			GymUserEntity currentUserEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == currentMembershipMembershipEntity.MemberId);
+			currentUserEntity.StatusId = StatusEnum.Active;
+			await _gymUserService.UpdateGymUser(currentUserEntity);
+
+			return newMembershipPaymentEntity.ToDTO();
+		}
+		
     }
 }
