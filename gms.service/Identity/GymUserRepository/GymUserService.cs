@@ -70,6 +70,7 @@ public class GymUserService : IGymUserService
 		scopeInfo.Add("UserId", GetUserId());
 		return scopeInfo;
 	}
+
 	public async Task<List<GymUserDTO>> GetAllGymUserByGymIdAsync(int gymId)
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
@@ -226,8 +227,22 @@ public class GymUserService : IGymUserService
 		
 	}
 
-    #region Member
-    public async Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
+	public async Task<bool> DeleteGymUserAsync(int id, int branchId)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(DeleteGymUserAsync), DateTime.Now.ToString() });
+
+			GymUserEntity currentUserEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.BranchId == branchId);
+			currentUserEntity.IsDeleted = true;
+			await _userManager.UpdateAsync(currentUserEntity);
+			return true;
+		}
+	}
+
+	#region Member
+	public async Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId)
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
 		{
@@ -245,6 +260,7 @@ public class GymUserService : IGymUserService
 			return createdUser.ToDTO();
 		}
 	}
+
 	public async Task<List<GymUserDTO>> GetGymMemberUsersListAsync()
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
@@ -257,83 +273,100 @@ public class GymUserService : IGymUserService
 															  .ThenInclude(gmm => gmm.GymMembershipPlan)
 															  .Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Member).ToListAsync();
 
-		return listOfMembers.Select(u => u.ToDTO()).ToList();
+			return listOfMembers.Select(u => u.ToDTO()).ToList();
+		}
 	}
 
     public async Task<GymUserDTO> UpdateGymMemberUserAsync(UpdateGymUserDTO entity)
     {
-        GymUserEntity currentUserData = await GetGymUserByEmail(entity.Email);
-        GymUserEntity gymUserEntity = entity.ToUpdatedEntity(currentUserData);
-		IdentityResult result = await _userManager.UpdateAsync(gymUserEntity);
-		return gymUserEntity.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(UpdateGymMemberUserAsync), DateTime.Now.ToString() });
+
+			GymUserEntity currentUserData = await GetGymUserByEmail(entity.Email);
+			GymUserEntity gymUserEntity = entity.ToUpdatedEntity(currentUserData);
+			IdentityResult result = await _userManager.UpdateAsync(gymUserEntity);
+			return gymUserEntity.ToDTO();
+		}
     }
 	#endregion
 
 	#region Staff
 	public async Task<GymUserDTO> CreateNewGymStaffUserAsync(CreateGymUserDTO entity, int branchId, string RoleName)
 	{
-		GymUserEntity gymUserEntity = entity.ToEntity();
-		gymUserEntity.BranchId = branchId;
-		gymUserEntity.EmailConfirmed = true;
-		gymUserEntity.GymUserTypeId = GymUserTypeEnum.Staff;
-		IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
-		await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RoleName}");
-		GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
-		return createdUser.ToDTO();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(CreateNewGymStaffUserAsync), DateTime.Now.ToString() });
+
+			GymUserEntity gymUserEntity = entity.ToEntity();
+			gymUserEntity.BranchId = branchId;
+			gymUserEntity.EmailConfirmed = true;
+			gymUserEntity.GymUserTypeId = GymUserTypeEnum.Staff;
+			IdentityResult result = await _userManager.CreateAsync(gymUserEntity, entity.Password);
+			await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RoleName}");
+			GymUserEntity createdUser = await GetGymUserByEmail(entity.Email);
+			return createdUser.ToDTO();
+		}
 	}
 
 	public async Task<List<GymUserDTO>> GetGymStaffUsersListAsync()
 	{
-		List<GymUserEntity> listOfStaffs = await _context.Users.Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Staff).ToListAsync();
-		List<GymUserDTO> listOfStaffsDto = new ();
-		foreach (var staff in listOfStaffs)
-        {
-			var staffRoles = await _userManager.GetRolesAsync(staff);
-			listOfStaffsDto.Add(new GymUserDTO()
-			{
-				Id = staff.Id,
-				BranchId = staff.BranchId,
-				Image = staff.Image?.Length != 0 ? $"data:image/{staff.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(staff.Image)}" : null,
-				FirstName = staff.FirstName,
-				LastName = staff.LastName,
-				GenderId = staff.GenderId,
-				BirthDate = staff.BirthDate,
-				Address = staff.Address,
-				City = staff.City,
-				State = staff.State,
-				PhoneNumber = staff.PhoneNumber,
-				Email = staff.Email,
-				Password = staff.PasswordHash,
-				StatusId = staff.StatusId,
-				RoleName = staffRoles?.FirstOrDefault()?.Split("_")[1],
-				GymMemberGroups = staff.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList()
-			});
-		}
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(GetGymStaffUsersListAsync), DateTime.Now.ToString() });
 
-        return listOfStaffsDto;
+			List<GymUserEntity> listOfStaffs = await _context.Users.Where(u => u.BranchId == GetBranchId() && u.GymUserTypeId == GymUserTypeEnum.Staff).ToListAsync();
+			List<GymUserDTO> listOfStaffsDto = new();
+			foreach (var staff in listOfStaffs)
+			{
+				var staffRoles = await _userManager.GetRolesAsync(staff);
+				listOfStaffsDto.Add(new GymUserDTO()
+				{
+					Id = staff.Id,
+					BranchId = staff.BranchId,
+					Image = staff.Image?.Length != 0 ? $"data:image/{staff.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(staff.Image)}" : null,
+					FirstName = staff.FirstName,
+					LastName = staff.LastName,
+					GenderId = staff.GenderId,
+					BirthDate = staff.BirthDate,
+					Address = staff.Address,
+					City = staff.City,
+					State = staff.State,
+					PhoneNumber = staff.PhoneNumber,
+					Email = staff.Email,
+					Password = staff.PasswordHash,
+					StatusId = staff.StatusId,
+					RoleName = staffRoles?.FirstOrDefault()?.Split("_")[1],
+					GymMemberGroups = staff.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList()
+				});
+			}
+
+			return listOfStaffsDto;
+		}
 	}
 
 	public async Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity, string RoleName)
 	{
-		GymUserEntity currentUserData = await GetGymUserByEmail(entity.Email);
-		GymUserEntity gymUserEntity = entity.ToUpdatedEntity(currentUserData);
-		IdentityResult result = await _userManager.UpdateAsync(gymUserEntity);
-
-		var roles = await _userManager.GetRolesAsync(gymUserEntity);
-		var removeRolesResult = await _userManager.RemoveFromRolesAsync(gymUserEntity, roles);
-		if (removeRolesResult.Succeeded)
+		using (_logger.BeginScope(GetScopesInformation()))
 		{
-			await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RoleName}");
-		}
-		return gymUserEntity.ToDTO();
-	}
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymUserService), nameof(UpdateGymStaffUserAsync), DateTime.Now.ToString() });
 
-	public async Task<bool> DeleteGymStaffUserAsync(int id, int branchId)
-	{
-		GymUserEntity currentUserEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.BranchId == branchId);
-		currentUserEntity.IsDeleted = true;
-		await _userManager.UpdateAsync(currentUserEntity);
-		return true;
+			GymUserEntity currentUserData = await GetGymUserByEmail(entity.Email);
+			GymUserEntity gymUserEntity = entity.ToUpdatedEntity(currentUserData);
+			IdentityResult result = await _userManager.UpdateAsync(gymUserEntity);
+
+			var roles = await _userManager.GetRolesAsync(gymUserEntity);
+			var removeRolesResult = await _userManager.RemoveFromRolesAsync(gymUserEntity, roles);
+			if (removeRolesResult.Succeeded)
+			{
+				await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RoleName}");
+			}
+			return gymUserEntity.ToDTO();
+		}
 	}
 	#endregion
 }

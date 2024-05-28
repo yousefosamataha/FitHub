@@ -206,6 +206,35 @@ var membersList = function () {
         });
     }
 
+    // Delete Member
+    var deleteMember = () => {
+        // Select all delete buttons
+        const deleteButtons = table.querySelectorAll('.delete-member-btn');
+
+        deleteButtons.forEach(d => {
+            d.addEventListener("click", function (e) {
+                // Select Parent Row
+                const parent = this.closest('tr');
+
+                $.ajax({
+                    url: '/GymUser/DeleteMember',
+                    type: 'POST',
+                    data: {
+                        id: this.dataset.id
+                    },
+                    success: function (response) {
+                        // Remove current row
+                        datatable.row($(parent)).remove().draw(false);
+                        toastr.success("Member Deleted Successfully!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    }
+
     return {
         init: function () {
             table = document.querySelector('#members-list');
@@ -220,6 +249,7 @@ var membersList = function () {
             initFlatpickr();
             exportButtons();
             editMember();
+            deleteMember();
         }
     };
 }();

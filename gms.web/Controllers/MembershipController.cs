@@ -92,7 +92,7 @@ public class MembershipController : BaseController<MembershipController>
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(MembershipController), nameof(EditMembership), "HttpGet", DateTime.Now.ToString() });
 
-			MembershipDTO? membership = await _gymMembershipPlanService.GetMembershipAsync(id);
+			MembershipDTO? membership = await _gymMembershipPlanService.GetMembershipByIdAsync(id);
 			return View(membership.ToUpdateDTO());
 		}
 
