@@ -124,7 +124,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			Input.GymBranchDTO.BranchName = BranchStrings.MainBranch;
 			Input.GymBranchDTO.IsMainBranch = true;
 			Input.GymBranchDTO.GeneralSettingId = CreatedGeneralSetting.Id;
-			BranchDTO CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
+			GymBranchDTO CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
 			// (5) Create Branch Roles
 			await _gymRoleService.CreateRolesForBranchAsync(CreatedBranch.Id);
