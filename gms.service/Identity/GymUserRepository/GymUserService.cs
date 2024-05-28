@@ -241,12 +241,27 @@ public class GymUserService : IGymUserService
         return listOfStaffsDto;
 	}
 
-	public async Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity)
+	public async Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity, string RoleName)
 	{
 		GymUserEntity currentUserData = await GetGymUserByEmail(entity.Email);
 		GymUserEntity gymUserEntity = entity.ToUpdatedEntity(currentUserData);
 		IdentityResult result = await _userManager.UpdateAsync(gymUserEntity);
+
+		var roles = await _userManager.GetRolesAsync(gymUserEntity);
+		var removeRolesResult = await _userManager.RemoveFromRolesAsync(gymUserEntity, roles);
+		if (removeRolesResult.Succeeded)
+		{
+			await _userManager.AddToRoleAsync(gymUserEntity, $"{GetBranchId()}_{RoleName}");
+		}
 		return gymUserEntity.ToDTO();
+	}
+
+	public async Task<bool> DeleteGymStaffUserAsync(int id, int branchId)
+	{
+		GymUserEntity currentUserEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.BranchId == branchId);
+		currentUserEntity.IsDeleted = true;
+		await _userManager.UpdateAsync(currentUserEntity);
+		return true;
 	}
 	#endregion
 }

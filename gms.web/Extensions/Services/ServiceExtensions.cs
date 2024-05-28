@@ -11,6 +11,8 @@ using gms.service.Gym.GymLocationRepository;
 using gms.service.Gym.GymMemberGroupRepository;
 using gms.service.Gym.GymNotificationRepository;
 using gms.service.Gym.GymRepository;
+using gms.service.Gym.GymSpecializationRepository;
+using gms.service.Gym.GymStaffSpecializationRepository;
 using gms.service.Gym.StaffGroupRepository;
 using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
@@ -70,5 +72,9 @@ public static class ServiceExtensions
 		services.AddScoped<IGymNotificationService, GymNotificationService>();
 
 		services.AddScoped<IGymStaffGroupService, GymStaffGroupService>();
+
+		services.AddScoped<IGymSpecializationService, GymSpecializationService>();
+
+		services.AddScoped<IGymStaffSpecializationService, GymStaffSpecializationService>();
 	}
 }

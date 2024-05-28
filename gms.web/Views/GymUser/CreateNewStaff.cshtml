@@ -190,8 +190,33 @@
 								<!--end::Input group-->
 								<!--begin::Input group-->
 								<div class="col fv-row">
-									<label class="required form-label ms-2">@localizer["select_specialization"]</label>
-									<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_specialization_name"]" id="select_specialization" name="SelectedSpecializations" />
+									@* <label class="required form-label ms-2">@localizer["select_specialization"]</label>
+									<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_specialization_name"]" id="select_specialization" name="SelectedSpecializations" /> *@
+									<!--begin::Label-->
+									<label class="form-label d-flex align-items-center ms-2">
+										<span class="required">@localizer["select_specialization"]</span>
+										<span role="button" class="ms-1 @(!Model.GymSpecializationsListDTO.Any() ? "pulse pulse-danger" : "") add-new-gym-location-popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="@localizer["to_add_new_specialization"] <span class='add-new-gym-specialization text-primary' role='button'>@localizer["click_here"]</span>" style="width: 15px;
+											height: 15px;
+											display: flex;
+											align-items: center;
+											justify-content: center;">
+											<i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+											@if (!Model.GymSpecializationsListDTO.Any())
+											{
+												<span class="pulse-ring" style="width: 30px;height: 30px;"></span>
+											}
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Select Status-->
+									<select class="form-select" asp-for="@Model.SelectedSpecializationIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+										<option></option>
+										@foreach (var specialization in Model.GymSpecializationsListDTO)
+										{
+											<option value="@specialization.Id">@specialization.Name</option>
+										}
+									</select>
+									<!--end::Select Status-->
 								</div>
 								<!--end::Input group-->
 							</div>

@@ -202,7 +202,9 @@ var editStaff = function () {
                         data.UpdateStaffDTO.State = $('[name="StaffDTO.State"]').val();
                         data.UpdateStaffDTO.Address = $('[name="StaffDTO.Address"]').val();
                         data.UpdateStaffDTO.PhoneNumber = $('[name="StaffDTO.PhoneNumber"]').val();
+                        data.UpdateStaffDTO.Email = $('[name="StaffDTO.Email"]').val();
                         data.SelectedGroupIds = $('[name="SelectedGroupIds"]').val();
+                        data.SelectedSpecializationIds = $('[name="SelectedSpecializationIds"]').val();
                         data.RoleName = $('[name="RoleName"]').val();
                         console.log(data);
 
@@ -232,7 +234,7 @@ var editStaff = function () {
             handleStaffStatus();
             convertToBase64();
             handleInputImage();
-            // formSubmition();
+            formSubmition();
 
             // Default Actions
             $('#StaffDTO_StatusId').change();

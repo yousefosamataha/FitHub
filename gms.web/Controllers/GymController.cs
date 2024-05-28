@@ -1,9 +1,11 @@
 ﻿using gms.common.Models.GymCat.GymGroup;
 using gms.common.Models.GymCat.GymLocation;
+using gms.common.Models.GymCat.GymSpecialization;
 using gms.common.ViewModels.Gym;
 using gms.data.Mapper.Gym;
 using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymLocationRepository;
+using gms.service.Gym.GymSpecializationRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
@@ -11,16 +13,18 @@ public class GymController : BaseController<GymController>
 {
 	private readonly IGymGroupService _gymGroupService;
 	private readonly IGymLocationService _gymLocationService;
+	private readonly IGymSpecializationService _gymSpecializationService;
 
-    public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService)
-    {
-        _gymGroupService = gymGroupService;
-        _gymLocationService = gymLocationService;
-    }
+	public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService, IGymSpecializationService gymSpecializationService)
+	{
+		_gymGroupService = gymGroupService;
+		_gymLocationService = gymLocationService;
+		_gymSpecializationService = gymSpecializationService;
+	}
 
 
-    #region Gym Group Cat
-    public IActionResult AddNewGroup()
+	#region Gym Group Cat
+	public IActionResult AddNewGroup()
     {
         return PartialView("_AddNewGroup");
     }
@@ -88,5 +92,30 @@ public class GymController : BaseController<GymController>
         await _gymLocationService.DeleteGymLocationAsync(id);
         return Json(new { Success = true, Message = "" });
     }
-    #endregion
+	#endregion
+
+	#region Gym Specialization
+	[HttpGet]
+	public async Task<IActionResult> CreateNewGymSpecialization()
+	{
+		GymSpecializationVM modal = new();
+		modal.GymSpecializationsList = await _gymSpecializationService.GetGymSpecializationsListAsync();
+
+		return PartialView("_AddNewGymSpecialization", modal);
+	}
+
+	[HttpPost]
+	public async Task<JsonResult> CreateNewGymSpecialization(CreateGymSpecializationDTO gymSpecializationModal)
+	{
+		await _gymSpecializationService.CreateNewGymSpecializationAsync(gymSpecializationModal);
+		return Json(new { Success = true, Message = "" });
+	}
+
+	[HttpPost]
+	public async Task<JsonResult> DeleteGymSpecialization(int id)
+	{
+		await _gymSpecializationService.DeleteGymSpecializationAsync(id);
+		return Json(new { Success = true, Message = "" });
+	}
+	#endregion
 }

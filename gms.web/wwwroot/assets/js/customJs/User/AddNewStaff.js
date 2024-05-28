@@ -24,9 +24,12 @@ var addNewStaff = function () {
         hourAriaLabel: "ساعة",
         minuteAriaLabel: "دقيقة",
     } : currentLanguage === "fr-FR" ? "fr" : "en";
+    var datatableLanguage = currentLanguage == "ar-EG" ? "ar" : currentLanguage == "fr-FR" ? "fr" : "en";
+    const hostName = window.location.origin;
     var passwordMeter;
     var base64Image;
     var validator;
+    var modal;
     var jsonlocalizerData = () => {
         return $.ajax({
             url: '/Home/GetJsonlocalizer',
@@ -80,6 +83,13 @@ var addNewStaff = function () {
                         }
                     },
                     'CreateStaffDTO.GenderId': {
+                        validators: {
+                            notEmpty: {
+                                message: data.thisfieldisrequired
+                            }
+                        }
+                    },
+                    'SelectedSpecializationIds': {
                         validators: {
                             notEmpty: {
                                 message: data.thisfieldisrequired
@@ -193,6 +203,132 @@ var addNewStaff = function () {
         return (passwordMeter.score > 70);
     }
 
+
+    // Add New Gym Specialization
+    var handleAddNewGymSpecialization = () => {
+        $(document).on('click', '.add-new-gym-specialization', function () {
+            const modalEl = document.querySelector("#main_modal");
+            var gymSpecializationTable;
+            document.querySelector("#main_modal .modal-dialog").classList.add("mw-750px");
+            jsonlocalizerData().then(data => {
+                modalEl.querySelector("h3").innerText = data["add_new_specialization"];
+            });
+
+            if (modalEl) {
+                modal = new bootstrap.Modal(modalEl);
+                $.ajax({
+                    url: '/Gym/CreateNewGymSpecialization',
+                    type: 'GET',
+                    success: function (data) {
+                        $(modalEl.querySelector(".modal-body")).empty().html(data);
+                        modal.show();
+                        $('.popover').remove();
+
+                        // Init Datatable
+                        gymSpecializationTable = $("#gym_specialization_list").DataTable({
+                            language: {
+                                url: `${hostName}/assets/plugins/localization/datatable-${datatableLanguage}.json`,
+                            },
+                            "info": true,
+                            'order': [],
+                            'pageLength': 4,
+                            'columnDefs': [
+                                { orderable: false, targets: 1 }
+                            ],
+                            "lengthMenu": [[-1, 5, 10, 50], ["All", 5, 10, 50]],
+                            "pagingType": "full_numbers"
+                        });
+
+                        // Handle Form Validation
+                        const addNewGymSpecializationForm = document.getElementById('add_new_gym_specialization_form');
+                        var addNewGymSpecializationValidator;
+                        jsonlocalizerData().then(data => {
+                            addNewGymSpecializationValidator = FormValidation.formValidation(addNewGymSpecializationForm,
+                                {
+                                    fields: {
+                                        'CreateGymSpecialization.Name': {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: data.thisfieldisrequired
+                                                }
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        trigger: new FormValidation.plugins.Trigger(),
+                                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                                            rowSelector: '.fv-row',
+                                            eleInvalidClass: '',
+                                            eleValidClass: ''
+                                        })
+                                    }
+                                }
+                            );
+                        });
+
+                        // Select all delete buttons
+                        const deleteButtons = document.querySelectorAll('.delete-gym-specialization-btn');
+                        deleteButtons.forEach(d => {
+                            d.addEventListener("click", function (e) {
+                                // Select parent row
+                                const parent = this.closest('tr');
+
+                                $.ajax({
+                                    url: '/Gym/DeleteGymSpecialization',
+                                    type: 'POST',
+                                    data: {
+                                        id: this.dataset.id
+                                    },
+                                    success: function (response) {
+                                        // Remove current row
+                                        gymSpecializationTable.row($(parent)).remove().draw(false);
+                                        toastr.success("Specialization Deleted Successfully!");
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('Error:', error);
+                                    }
+                                });
+                            });
+                        });
+
+                        // Handle Form Submition
+                        const submitButton = document.getElementById('add_new_gym_specialization_form_submit');
+                        submitButton.addEventListener('click', function (e) {
+                            // Prevent default button action
+                            e.preventDefault();
+
+                            // Validate form before submit
+                            if (addNewGymSpecializationValidator) {
+                                addNewGymSpecializationValidator.validate().then(function (status) {
+                                    if (status == 'Valid') {
+                                        submitButton.setAttribute('data-kt-indicator', 'on');
+                                        submitButton.disabled = true;
+
+                                        var data = {};
+                                        data.Name = $('[name="CreateGymSpecialization.Name"]').val();
+
+                                        $.ajax({
+                                            url: '/Gym/CreateNewGymSpecialization',
+                                            type: 'POST',
+                                            data: {
+                                                gymSpecializationModal: data
+                                            },
+                                            dataType: 'json',
+                                            success: function (response) {
+                                                modal.hide();
+                                                window.location.href = `/GymUser/CreateNewStaff`;
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
     // Add New Staff Form Submition
     const formSubmition = () => {
         const submitButton = document.getElementById('add_new_staff_form_submit');
@@ -222,6 +358,7 @@ var addNewStaff = function () {
                         data.CreateStaffDTO.Email = $('[name="CreateStaffDTO.Email"]').val();
                         data.CreateStaffDTO.Password = $('[name="CreateStaffDTO.Password"]').val();
                         data.SelectedGroupIds = $('[name="SelectedGroupIds"]').val();
+                        data.SelectedSpecializationIds = $('[name="SelectedSpecializationIds"]').val();
                         data.RoleName = $('[name="RoleName"]').val();
                         console.log(data);
 
@@ -253,6 +390,7 @@ var addNewStaff = function () {
             initFlatpickr();
             handleStaffStatus();
             convertToBase64();
+            handleAddNewGymSpecialization();
             formSubmition();
         }
     };

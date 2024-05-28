@@ -30,4 +30,7 @@ public interface IGymUserService
 	Task<GymUserDTO> CreateNewGymStaffUserAsync(CreateGymUserDTO entity, int branchId, string RoleName);
 
 	Task<List<GymUserDTO>> GetGymStaffUsersListAsync();
+
+	Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity, string RoleName);
+	Task<bool> DeleteGymStaffUserAsync(int id, int branchId);
 }

@@ -1,5 +1,7 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.GymCat.GymMemberGroup;
+using gms.common.Models.GymCat.GymStaffGroup;
+using gms.common.Models.GymCat.GymStaffSpecialization;
 using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
 using gms.common.ViewModels.GymUser;
@@ -7,6 +9,8 @@ using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
 using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymMemberGroupRepository;
+using gms.service.Gym.GymSpecializationRepository;
+using gms.service.Gym.GymStaffSpecializationRepository;
 using gms.service.Gym.StaffGroupRepository;
 using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
@@ -29,29 +33,35 @@ public class GymUserController : BaseController<GymUserController>
 	private readonly IGymStaffGroupService _gymStaffGroupService;
 	private readonly IGymMemberMembershipService _gymMemberMembershipService;
 	private readonly IGymRolesService _gymRolesService;
+	private readonly IGymSpecializationService _gymSpecializationService;
+	private readonly IGymStaffSpecializationService _gymStaffSpecializationService;
 
-	public GymUserController
-	(
-		IGymUserService gymUserService,
-		UserManager<GymUserEntity> userManager,
-		IGymMembershipPlanService gymMembershipPlanService,
-		IGymGroupService gymGroupService,
-		IGymMemberGroupService gymMemberGroupService,
-		IGymMemberMembershipService gymMemberMembershipService,
-		IGymRolesService gymRolesService,
-		IGymStaffGroupService gymStaffGroupService)
-	{
-		_gymUserService = gymUserService;
-		_userManager = userManager;
-		_gymMembershipPlanService = gymMembershipPlanService;
-		_gymGroupService = gymGroupService;
-		_gymMemberGroupService = gymMemberGroupService;
-		_gymMemberMembershipService = gymMemberMembershipService;
-		_gymRolesService = gymRolesService;
-		_gymStaffGroupService = gymStaffGroupService;
-	}
+    public GymUserController
+    (
+        IGymUserService gymUserService,
+        UserManager<GymUserEntity> userManager,
+        IGymMembershipPlanService gymMembershipPlanService,
+        IGymGroupService gymGroupService,
+        IGymMemberGroupService gymMemberGroupService,
+        IGymMemberMembershipService gymMemberMembershipService,
+        IGymRolesService gymRolesService,
+        IGymStaffGroupService gymStaffGroupService,
+        IGymSpecializationService gymSpecializationService,
+        IGymStaffSpecializationService gymStaffSpecializationService)
+    {
+        _gymUserService = gymUserService;
+        _userManager = userManager;
+        _gymMembershipPlanService = gymMembershipPlanService;
+        _gymGroupService = gymGroupService;
+        _gymMemberGroupService = gymMemberGroupService;
+        _gymMemberMembershipService = gymMemberMembershipService;
+        _gymRolesService = gymRolesService;
+        _gymStaffGroupService = gymStaffGroupService;
+        _gymSpecializationService = gymSpecializationService;
+        _gymStaffSpecializationService = gymStaffSpecializationService;
+    }
 
-	public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index()
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
@@ -271,6 +281,7 @@ public class GymUserController : BaseController<GymUserController>
 			AddNewStaffVM model = new();
 			model.Roles = await _gymRolesService.GetAllRolesAsync();
 			model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
+			model.GymSpecializationsListDTO = await _gymSpecializationService.GetGymSpecializationsListAsync();
 
 			return View(model);
 		}
@@ -286,18 +297,29 @@ public class GymUserController : BaseController<GymUserController>
 
 			GymUserDTO createdStaffDto = await _gymUserService.CreateNewGymStaffUserAsync(model.CreateStaffDTO, GetBranchId(), model.RoleName);
 
-			List<CreateGymMemberGroupDTO> GymStaffGroupsListDTO = new();
+			List<CreateGymStaffGroupDTO> GymStaffGroupsListDTO = new();
 			foreach (var id in model.SelectedGroupIds)
 			{
-				GymStaffGroupsListDTO.Add(new CreateGymMemberGroupDTO()
+				GymStaffGroupsListDTO.Add(new CreateGymStaffGroupDTO()
 				{
-					GymMemberUserId = createdStaffDto.Id,
+					GymStaffUserId = createdStaffDto.Id,
 					GymGroupId = id
 				});
 			}
-			await _gymMemberGroupService.CreateNewGymMemberGroupAsync(GymStaffGroupsListDTO);
+			await _gymStaffGroupService.CreateNewGymStaffGroupAsync(GymStaffGroupsListDTO);
 
-			return Json(new { Success = true, Message = "" });
+            List<CreateGymStaffSpecializationDTO> GymStaffSpecializationsListDTO = new();
+            foreach (var id in model.SelectedSpecializationIds)
+            {
+                GymStaffSpecializationsListDTO.Add(new CreateGymStaffSpecializationDTO()
+                {
+                    GymStaffId = createdStaffDto.Id,
+                    GymSpecializationId = id
+                });
+            }
+            await _gymStaffSpecializationService.CreateNewGymStaffSpecializationAsync(GymStaffSpecializationsListDTO);
+
+            return Json(new { Success = true, Message = "" });
 		}
 	}
 
@@ -313,42 +335,75 @@ public class GymUserController : BaseController<GymUserController>
 			model.StaffDTO = gymUserEntity.ToDTO();
 			model.Roles = await _gymRolesService.GetAllRolesAsync();
 			model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
-			var staffRoles = await _userManager.GetRolesAsync(gymUserEntity);
+            model.GymSpecializationsListDTO = await _gymSpecializationService.GetGymSpecializationsListAsync();
+
+            var staffRoles = await _userManager.GetRolesAsync(gymUserEntity);
 			model.RoleName = staffRoles.FirstOrDefault().Split("_")[1];
+
 			model.SelectedGroupIds = new List<int>();
-			foreach (var item in model.StaffDTO.GymMemberGroups)
+			foreach (var item in model.StaffDTO.GymStaffGroups)
 			{
 				model.SelectedGroupIds.Add(item.GymGroupId);
 			}
 
-			return View(model);
+            model.SelectedSpecializationIds = new List<int>();
+            foreach (var item in model.StaffDTO.GymStaffSpecializations)
+            {
+                model.SelectedSpecializationIds.Add(item.GymSpecializationId);
+            }
+
+            return View(model);
 		}
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> EditStaff(UpdateStaffVM model)
+	public async Task<JsonResult> EditStaff(UpdateStaffVM model)
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(GymUserController), nameof(EditStaff), "HttpPost", DateTime.Now.ToString() });
 
-			GymUserDTO updatedMemberDto = await _gymUserService.UpdateGymMemberUserAsync(model.UpdateStaffDTO);
-			//UpdateStaffVM model = new();
-			//GymUserEntity gymUserEntity = await _gymUserService.GetGymUserByIdAsync(id);
-			//model.StaffDTO = gymUserEntity.ToDTO();
-			//model.Roles = await _gymRolesService.GetAllRolesAsync();
-			//model.GymGroupsListDTO = await _gymGroupService.GetGymGroupsListAsync();
-			//var staffRoles = await _userManager.GetRolesAsync(gymUserEntity);
-			//model.RoleName = staffRoles.FirstOrDefault().Split("_")[1];
-			//model.SelectedGroupIds = new List<int>();
-			//foreach (var item in model.StaffDTO.GymMemberGroups)
-			//{
-			//	model.SelectedGroupIds.Add(item.GymGroupId);
-			//}
+			GymUserDTO updatedStaffDto = await _gymUserService.UpdateGymStaffUserAsync(model.UpdateStaffDTO, model.RoleName);
 
-			return View(model);
+			List<CreateGymStaffGroupDTO> GymStaffGroupsListDTO = new();
+			foreach (var id in model.SelectedGroupIds)
+			{
+				GymStaffGroupsListDTO.Add(new CreateGymStaffGroupDTO()
+				{
+					GymStaffUserId = updatedStaffDto.Id,
+					GymGroupId = id
+				});
+			}
+			await _gymStaffGroupService.UpdateGymStaffGroupAsync(GymStaffGroupsListDTO, updatedStaffDto.Id);
+
+			List<CreateGymStaffSpecializationDTO> GymStaffSpecializationsListDTO = new();
+			foreach (var id in model.SelectedSpecializationIds)
+			{
+				GymStaffSpecializationsListDTO.Add(new CreateGymStaffSpecializationDTO()
+				{
+					GymStaffId = updatedStaffDto.Id,
+					GymSpecializationId = id
+				});
+			}
+			await _gymStaffSpecializationService.UpdateGymStaffSpecializationAsync(GymStaffSpecializationsListDTO, updatedStaffDto.Id);
+
+			return Json(new { Success = true, Message = "" });
 		}
+	}
+
+	[HttpPost]
+	public async Task<JsonResult> DeleteStaff(int id)
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(MembershipController), nameof(DeleteStaff), "HttpDelete", DateTime.Now.ToString() });
+
+			await _gymUserService.DeleteGymStaffUserAsync(id, GetBranchId());
+			return Json(new { Success = true, Message = "" });
+		}
+
 	}
 	#endregion
 }

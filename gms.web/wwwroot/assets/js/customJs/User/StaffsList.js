@@ -94,6 +94,35 @@ var StaffsList = function () {
         });
     }
 
+    // Delete Staff
+    var deleteStaff = () => {
+        // Select all delete buttons
+        const deleteButtons = table.querySelectorAll('.delete-staff-btn');
+
+        deleteButtons.forEach(d => {
+            d.addEventListener("click", function (e) {
+                // Select Parent Row
+                const parent = this.closest('tr');
+
+                $.ajax({
+                    url: '/GymUser/DeleteStaff',
+                    type: 'POST',
+                    data: {
+                        id: this.dataset.id
+                    },
+                    success: function (response) {
+                        // Remove current row
+                        datatable.row($(parent)).remove().draw(false);
+                        toastr.success("Staff Deleted Successfully!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    }
+
     return {
         init: function () {
             table = document.querySelector('#staffs-list');
@@ -106,6 +135,7 @@ var StaffsList = function () {
             handleSearchDatatable();
             exportButtons();
             editStaff();
+            deleteStaff();
         }
     };
 }();

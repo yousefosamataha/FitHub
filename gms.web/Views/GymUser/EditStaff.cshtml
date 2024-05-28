@@ -42,6 +42,7 @@
 		<div id="kt_app_content_container" class="app-container container-fluid">
 			<!--begin::Form-->
 			<form id="edit_staff_form" autocomplete="off" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+				<input type="hidden" asp-for="@Model.StaffDTO.Email" />
 				<!--begin::Aside column-->
 				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
 					<!--begin::Image-->
@@ -191,7 +192,15 @@
 								<!--begin::Input group-->
 								<div class="col fv-row">
 									<label class="required form-label ms-2">@localizer["select_specialization"]</label>
-									<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_specialization_name"]" id="select_specialization" name="SelectedSpecializations" />
+									<!--begin::Select Status-->
+									<select class="form-select" asp-for="@Model.SelectedSpecializationIds" value="@Model.SelectedSpecializationIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+										<option></option>
+										@foreach (var specialization in Model.GymSpecializationsListDTO)
+										{
+											<option value="@specialization.Id">@specialization.Name</option>
+										}
+									</select>
+									<!--end::Select Status-->
 								</div>
 								<!--end::Input group-->
 							</div>
@@ -276,7 +285,7 @@
 						<button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
 						<!--end::Reset Button-->
 						<!--begin::Button-->
-						<button type="submit" id="edit_form_submit" class="btn btn-primary">
+						<button type="submit" id="edit_staff_form_submit" class="btn btn-primary">
 							<span class="indicator-label">@localizer["save"]</span>
 							<span class="indicator-progress">
 								@localizer["please_wait"]...

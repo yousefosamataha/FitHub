@@ -1,5 +1,7 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.GymCat.GymMemberGroup;
+using gms.common.Models.GymCat.GymStaffGroup;
+using gms.common.Models.GymCat.GymStaffSpecialization;
 using gms.common.Models.MembershipCat.MemberMembership;
 
 namespace gms.common.Models.Identity.User;
@@ -27,4 +29,6 @@ public sealed record GymUserDTO
 
     public MemberMembershipDTO GymMemberMembership { get; set; }
     public ICollection<GymMemberGroupDTO> GymMemberGroups { get; set; }
+    public ICollection<GymStaffGroupDTO> GymStaffGroups { get; set; }
+    public ICollection<GymStaffSpecializationDTO> GymStaffSpecializations { get; set; }
 }
