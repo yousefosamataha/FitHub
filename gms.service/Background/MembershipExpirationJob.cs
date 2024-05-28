@@ -46,7 +46,7 @@ public class MembershipExpirationJob
 
 		foreach (IGrouping<int, GymMemberMembershipEntity> branchMemberMembershipGroup in upcomingExpirations)
 		{
-			BranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
+			GymBranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
 
 			foreach (GymMemberMembershipEntity gymMemberMembership in branchMemberMembershipGroup)
 			{
@@ -58,7 +58,7 @@ public class MembershipExpirationJob
 						GymSenderUserId = _gymBranchService.GetUserId(),
 						GymReceiverUserId = gymMemberMembership.MemberId,
 						NotificationTitle = "Membership Expiration Reminder",
-						NotificationMessageBody = string.Format(BranchData.GeneralSetting.ReminderMessage, $"{gymMemberMembership.GymMemberUser.FirstName} {gymMemberMembership.GymMemberUser.LastName}", gymMemberMembership.GymMembershipPlan.MembershipName, gymMemberMembership.ExpiringDate.ToString("dd/MM/yyyy")),
+						NotificationMessageBody = string.Format(BranchData.GeneralSetting.ReminderMessage, $"{gymMemberMembership.GymMemberUser.FirstName} {gymMemberMembership.GymMemberUser.LastName}", gymMemberMembership.GymMembershipPlan.MembershipName, gymMemberMembership.ExpiringDate.ToString("dd/MM/yyyy HH:mm:ss")),
 						IsReaded = false,
 						SendDate = DateTime.UtcNow
 					};

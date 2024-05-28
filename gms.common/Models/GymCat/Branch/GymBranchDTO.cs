@@ -3,7 +3,7 @@ using gms.common.Models.Shared.Country;
 
 namespace gms.common.Models.GymCat.Branch;
 
-public record BranchDTO
+public record GymBranchDTO
 {
     public int Id { get; init; }
     public int GymId { get; set; }

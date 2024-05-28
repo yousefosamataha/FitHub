@@ -29,7 +29,6 @@
 	<ItemGroup>
 	  <Folder Include="Mapper\Event\" />
 	  <Folder Include="Mapper\Member\" />
-	  <Folder Include="Mapper\Workout\" />
 	  <Folder Include="Mapper\Staff\" />
 	  <Folder Include="Mapper\Nutrition\" />
 	</ItemGroup>
