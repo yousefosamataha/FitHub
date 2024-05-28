@@ -46,7 +46,7 @@ public class MembershipExpirationJob
 
 		foreach (IGrouping<int, GymMemberMembershipEntity> branchMemberMembershipGroup in upcomingExpirations)
 		{
-			BranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
+			GymBranchDTO BranchData = await _gymBranchService.GetBranchByIdAsync(branchMemberMembershipGroup.Key);
 
 			foreach (GymMemberMembershipEntity gymMemberMembership in branchMemberMembershipGroup)
 			{
