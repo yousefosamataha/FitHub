@@ -255,6 +255,20 @@ public class GymUserController : BaseController<GymUserController>
 		}
 
 	}
+
+	[HttpPost]
+	public async Task<JsonResult> DeleteMember(int id)
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(MembershipController), nameof(DeleteMember), "HttpDelete", DateTime.Now.ToString() });
+
+			await _gymUserService.DeleteGymUserAsync(id, GetBranchId());
+			return Json(new { Success = true, Message = "" });
+		}
+
+	}
 	#endregion
 
 	#region Staff
@@ -400,7 +414,7 @@ public class GymUserController : BaseController<GymUserController>
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(MembershipController), nameof(DeleteStaff), "HttpDelete", DateTime.Now.ToString() });
 
-			await _gymUserService.DeleteGymStaffUserAsync(id, GetBranchId());
+			await _gymUserService.DeleteGymUserAsync(id, GetBranchId());
 			return Json(new { Success = true, Message = "" });
 		}
 

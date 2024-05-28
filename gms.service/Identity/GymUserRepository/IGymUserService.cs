@@ -17,6 +17,8 @@ public interface IGymUserService
 
 	Task<GymUserDTO> UpdateGymUser(GymUserEntity entity);
 
+	Task<bool> DeleteGymUserAsync(int id, int branchId);
+
 	Task<GymUserEntity> GetGymUserByEmail(string email);
 
 	Task<GymUserEntity> GetGymUserByIdAsync(int userId);
@@ -32,5 +34,4 @@ public interface IGymUserService
 	Task<List<GymUserDTO>> GetGymStaffUsersListAsync();
 
 	Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity, string RoleName);
-	Task<bool> DeleteGymStaffUserAsync(int id, int branchId);
 }
