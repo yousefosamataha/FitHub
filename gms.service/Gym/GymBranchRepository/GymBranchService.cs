@@ -18,20 +18,20 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
 		_httpContextAccessor = httpContextAccessor;
 	}
 
-	public async Task<BranchDTO> CreateBranchAsync(CreateBranchDTO newBranch)
+	public async Task<GymBranchDTO> CreateBranchAsync(CreateBranchDTO newBranch)
 	{
 		GymBranchEntity newBranchEntity = newBranch.ToEntity();
 		await AddAsync(newBranchEntity);
 		return newBranchEntity.ToDTO();
 	}
 
-	public async Task<BranchDTO> GetBranchByIdAsync(int branchId)
+	public async Task<GymBranchDTO> GetBranchByIdAsync(int branchId)
 	{
 		GymBranchEntity branchEntity = await FindAsync(gb => gb.Id == branchId, ["Country", "GeneralSetting"]);
 		return branchEntity.ToDTO();
 	}
 
-	public async Task<BranchDTO> UpdateBranchAsync(BranchDTO updateBranchDTO)
+	public async Task<GymBranchDTO> UpdateBranchAsync(GymBranchDTO updateBranchDTO)
 	{
 		GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(ss => ss.Id == updateBranchDTO.Id);
 		GymBranchEntity updatedBranchEntity = updateBranchDTO.ToUpdatedEntity(currentBranchEntity);

@@ -22,9 +22,9 @@ public static class BranchMapper
         };
     }
 
-    public static BranchDTO ToDTO(this GymBranchEntity source)
+    public static GymBranchDTO ToDTO(this GymBranchEntity source)
     {
-        return new BranchDTO()
+        return new GymBranchDTO()
         {
             Id = source.Id,
             GymId = source.GymId,
@@ -41,7 +41,7 @@ public static class BranchMapper
 		};
     }
 
-	public static GymBranchEntity ToUpdatedEntity(this BranchDTO source, GymBranchEntity entity)
+	public static GymBranchEntity ToUpdatedEntity(this GymBranchDTO source, GymBranchEntity entity)
 	{
 		entity.BranchName = !string.IsNullOrWhiteSpace(source.BranchName) && !string.Equals(source.BranchName, entity.BranchName, StringComparison.OrdinalIgnoreCase) ? source.BranchName : entity.BranchName;
 		entity.Address = !string.IsNullOrWhiteSpace(source.Address) && !string.Equals(source.Address, entity.Address, StringComparison.OrdinalIgnoreCase) ? source.Address : entity.Address;

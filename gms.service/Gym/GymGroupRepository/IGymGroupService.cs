@@ -8,7 +8,7 @@ public interface IGymGroupService : IBaseRepository<GymGroupEntity>
 {
 	Task<GymGroupDTO> AddGymGroupAsync(CreateGymGroupDTO entity);
 	Task<List<GymGroupDTO>> GetGymGroupsListAsync();
-    Task<GymGroupDTO> GetGroupAsync(int id);
+    Task<GymGroupDTO> GetGroupByIdAsync(int id);
 	Task<GymGroupDTO> UpdateGymGroupAsync(UpdateGroupDTO updateGroupDTO);
 	Task<bool> DeleteGroupAsync(int id);
 }

@@ -4,6 +4,7 @@ using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymLocationRepository;
 
@@ -11,31 +12,58 @@ public class GymLocationService : BaseRepository<GymLocationEntity>, IGymLocatio
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ILogger<GymLocationService> _logger;
+	public GymLocationService
+    (
+        ApplicationDbContext context, 
+        IHttpContextAccessor httpContextAccessor, 
+        ILogger<GymLocationService> logger
+    ) : base(context, httpContextAccessor)
+	{
+		_context = context;
+		_httpContextAccessor = httpContextAccessor;
+		_logger = logger;
+	}
 
-    public GymLocationService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+	public async Task<bool> CreateNewGymLocationAsync(CreateGymLocationDTO createGymLocationModal)
     {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-    }
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymLocationService), nameof(CreateNewGymLocationAsync), DateTime.Now.ToString() });
 
-    public async Task<bool> CreateNewGymLocationAsync(CreateGymLocationDTO createGymLocationModal)
-    {
-        GymLocationEntity gymLocationEntity = createGymLocationModal.ToEntity();
-        gymLocationEntity.BranchId = GetBranchId();
-        await AddAsync(gymLocationEntity);
-        return true;
+			GymLocationEntity gymLocationEntity = createGymLocationModal.ToEntity();
+			gymLocationEntity.BranchId = GetBranchId();
+			await AddAsync(gymLocationEntity);
+			return true;
+		}
+		
     }
 
     public async Task<List<GymLocationDTO>> GetGymLocationsListAsync()
     {
-        List<GymLocationEntity> listOfGymLocations = await FindAllAsync(gl => gl.BranchId == GetBranchId());
-        return listOfGymLocations.Select(gl => gl.ToDTO()).ToList();
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymLocationService), nameof(GetGymLocationsListAsync), DateTime.Now.ToString() });
+
+			List<GymLocationEntity> listOfGymLocations = await FindAllAsync(gl => gl.BranchId == GetBranchId());
+			return listOfGymLocations.Select(gl => gl.ToDTO()).ToList();
+		}
+		
     }
 
     public async Task<bool> DeleteGymLocationAsync(int gymLocationId)
     {
-        GymLocationEntity gymLocationEntity = await FindAsync(gl => gl.Id == gymLocationId && gl.BranchId == GetBranchId());
-        await DeleteAsync(gymLocationEntity);
-        return true;
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymLocationService), nameof(DeleteGymLocationAsync), DateTime.Now.ToString() });
+
+			GymLocationEntity gymLocationEntity = await FindAsync(gl => gl.Id == gymLocationId && gl.BranchId == GetBranchId());
+			await DeleteAsync(gymLocationEntity);
+			return true;
+		}
+		
     }
 }

@@ -20,7 +20,14 @@ public class HomeController : BaseController<HomeController>
     private readonly UserManager<GymUserEntity> _userManager;
 	private readonly IGymUserService _gymUserService;
 
-	public HomeController(IGymService gymService, IGymBranchService gymBranchService, ICountryService countryService, UserManager<GymUserEntity> userManager, IGymUserService gymUserService)
+	public HomeController
+    (
+        IGymService gymService, 
+        IGymBranchService gymBranchService, 
+        ICountryService countryService, 
+        UserManager<GymUserEntity> userManager, 
+        IGymUserService gymUserService
+    )
 	{
 		_gymService = gymService;
 		_gymBranchService = gymBranchService;
@@ -31,9 +38,16 @@ public class HomeController : BaseController<HomeController>
 
 	public async Task<IActionResult> Index()
 	{
-        GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(GetUserEmail());
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                  new object[] { nameof(HomeController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 
-        return View(userEntity);
+			GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(GetUserEmail());
+
+			return View(userEntity);
+		}
+			
 	}
 
     public IActionResult Privacy()
@@ -48,38 +62,65 @@ public class HomeController : BaseController<HomeController>
 
 	public async Task<IActionResult> SignUp()
 	{
-		List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                  new object[] { nameof(HomeController), nameof(SignUp), "HttpGet", DateTime.Now.ToString() });
 
-        return View(List);
+			List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+
+			return View(List);
+		}
+			
 	}
 
     [HttpGet]
 	[AllowAnonymous]
     public async Task<List<CountryDTO>> GetCountriesList()
     {
-        List<CountryDTO> List = await _countryService.GetCountriesListAsync();
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(HomeController), nameof(GetCountriesList), "HttpGet", DateTime.Now.ToString() });
+			List<CountryDTO> List = await _countryService.GetCountriesListAsync();
 
-        return List;
+			return List;
+		}
+		
     }
 
     [HttpPost]
     public IActionResult SetLanguage(string culture, string redirecturl)
     {
-        Response.Cookies.Append
-        (
-            CookieRequestCultureProvider.DefaultCookieName,
-            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-            new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(7) }
-        );
-        return LocalRedirect(redirecturl);
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(HomeController), nameof(SetLanguage), "HttpPost", DateTime.Now.ToString() });
+
+			Response.Cookies.Append
+			(
+				CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+				new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(7) }
+			);
+			return LocalRedirect(redirecturl);
+		}
+		
     }
 
     [HttpGet]
     public IActionResult GetJsonlocalizer(string culture)
     {
-        culture = culture is not null ? culture : "en-US";
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", $"{culture}.json");
-        string jsonContent = System.IO.File.ReadAllText(filePath);
-		return Content(jsonContent, "application/json");
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(HomeController), nameof(GetJsonlocalizer), "HttpGet", DateTime.Now.ToString() });
+
+			culture = culture is not null ? culture : "en-US";
+			string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", $"{culture}.json");
+			string jsonContent = System.IO.File.ReadAllText(filePath);
+			return Content(jsonContent, "application/json");
+		}
+		
     }
 }

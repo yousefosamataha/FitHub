@@ -57,7 +57,7 @@ public class MembershipController : BaseController<MembershipController>
 								  new object[] { nameof(MembershipController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 
 			MembershipsListVM viewModel = new();
-			BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+			GymBranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 			viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
 			viewModel.MembershipsList = await _gymMembershipPlanService.GetMembershipPlansListAsync();
 			return View(viewModel);
@@ -136,7 +136,7 @@ public class MembershipController : BaseController<MembershipController>
 								  new object[] { nameof(MembershipController), nameof(MembershipPayment), "HttpGet", DateTime.Now.ToString() });
 
 			MembershipPaymentVM viewModel = new();
-			BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+			GymBranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 			viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
 			viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
 			return View(viewModel);
@@ -232,7 +232,7 @@ public class MembershipController : BaseController<MembershipController>
 								  new object[] { nameof(MembershipController), nameof(SubscriptionHistory), "HttpGet", DateTime.Now.ToString() });
 
 			MembershipPaymentVM viewModel = new();
-			BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+			GymBranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 			viewModel.BranchCurrencySymbol = branchData.Country.CurrencySymbol;
 			viewModel.MemberMembershipList = await _gymMemberMembershipService.GetGymMemberMembershipListAsync();
 			return View(viewModel);
