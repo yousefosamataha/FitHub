@@ -44,7 +44,7 @@ public class ClassController : BaseController<ClassController>
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(ClassController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 			ClassesListVM model = new();
-			BranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+			GymBranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 
 			model.ClassesList = await _classScheduleService.GetClassesListAsync();
 
