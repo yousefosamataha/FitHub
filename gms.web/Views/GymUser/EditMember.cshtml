@@ -42,6 +42,13 @@
         <div id="kt_app_content_container" class="app-container container-fluid">
             <!--begin::Form-->
             <form id="edit_member_form" autocomplete="off" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+                <input type="hidden" asp-for="@Model.MemberDTO.Email" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.Id" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.MemberId" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.MemberShipStatusId" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.PaymentStatusId" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.Membership.MembershipAmount" />
+                <input type="hidden" asp-for="@Model.MemberDTO.GymMemberMembership.PaidAmount" />
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
                     <!--begin::Image-->
@@ -60,7 +67,7 @@
                             <!--begin::Image input-->
                             <div class="image-input @(Model.MemberDTO.Image is not null ? "" : "image-input-empty") image-input-outline symbol-label-blank mb-3" id="image_input_control" data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-150px h-150px" style="@(Model.MemberDTO.Image is not null ? $"background-image: url('{Model.MemberDTO.Image}')" : "")"></div>
+                                <div class="image-input-wrapper w-150px h-150px" style="background-position: center;@(Model.MemberDTO.Image is not null ? $"background-image: url('{Model.MemberDTO.Image}')" : "")"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
@@ -217,53 +224,6 @@
                         <!--end::Card body-->
                     </div>
                     <!--end::Contact Information-->
-                    <!--begin::Login Information-->
-                    <div class="card card-flush">
-                        <!--begin::Card header-->
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h2>@localizer["login_info"]</h2>
-                            </div>
-                        </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Input group-->
-                            <div class="col mb-5 fv-row">
-                                <label class="required form-label ms-2">@localizer["email"]</label>
-                                <input type="email" asp-for="@Model.MemberDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="col fv-row" data-kt-password-meter="true">
-                                <!--begin::Wrapper-->
-                                <div class="mb-1">
-                                    <label class="required form-label ms-2">@localizer["password"]</label>
-                                    <div class="position-relative mb-3">
-                                        <input class="form-control" type="password" asp-for="@Model.MemberDTO.Password" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" autocomplete="off" />
-                                        <!--begin::Visibility toggle-->
-                                        <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                                            <i class="ki-solid ki-eye-slash fs-1"></i>
-                                            <i class="ki-solid ki-eye d-none fs-1"></i>
-                                        </span>
-                                        <!--end::Visibility toggle-->
-                                    </div>
-                                    <!--begin::Meter-->
-                                    <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
-                                    </div>
-                                    <!--end::Meter-->
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Input group-->
-                        </div>
-                        <!--end::Card header-->
-                    </div>
-                    <!--end::Login Information-->
                     <!--begin::More Information-->
                     <div class="card card-flush">
                         <!--begin::Card header-->
@@ -279,7 +239,7 @@
                             <div class="fv-row mb-5">
                                 <label class="required form-label ms-2">@localizer["select_groups"]</label>
                                 <!--begin::Select Status-->
-                                <select class="form-select" asp-for="@Model.SelectedGroupIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+                                <select class="form-select" asp-for="@Model.SelectedGroupIds" value="@Model.SelectedGroupIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
                                     <option></option>
                                     @foreach (var group in Model.GymGroupsListDTO)
                                     {
@@ -299,7 +259,7 @@
                                         @foreach (var membership in Model.MembershipsListDTO)
                                         {
 
-                                            <option value="@membership.Id" data-duration="@membership.MembershipDuration" data-duration-type="@membership.MembershipDurationTypeId.ToString()">@membership.MembershipName</option>
+                                            <option value="@membership.Id" data-duration="@membership.MembershipDuration" data-duration-type="@membership.MembershipDurationTypeId.ToString()" data-membership-amount="@membership.MembershipAmount">@membership.MembershipName</option>
                                         }
                                     </select>
                                     <!--end::Select Status-->

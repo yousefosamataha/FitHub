@@ -209,7 +209,10 @@ public class MembershipController : BaseController<MembershipController>
 				updateModel.UpdateMemberMembershipDTO.MemberShipStatusId = StatusEnum.Active;
 				updateModel.UpdateMemberMembershipDTO.PaymentStatusId = StatusEnum.FullyPaid;
 				await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
-			}
+                GymUserEntity currentUserEntity = await _gymUserService.GetGymUserByIdAsync(updateModel.MemberMembershipDTO.MemberId);
+                currentUserEntity.StatusId = StatusEnum.Active;
+                await _gymUserService.UpdateGymUser(currentUserEntity);
+            }
 			else
 			{
 				await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);

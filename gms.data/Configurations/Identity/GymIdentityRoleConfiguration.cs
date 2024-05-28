@@ -19,6 +19,9 @@ internal class GymIdentityRoleConfiguration : IEntityTypeConfiguration<GymIdenti
 			   .OnDelete(DeleteBehavior.Restrict);
 
 		builder.Property(gr => gr.IsDeleteable).IsRequired();
+
 		builder.Property(gr => gr.IsUpdateable).IsRequired();
+
+		builder.HasQueryFilter(gr => gr.IsDeleted == false);
 	}
 }
