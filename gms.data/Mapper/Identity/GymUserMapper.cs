@@ -1,6 +1,7 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.Identity.User;
 using gms.common.Models.IdentityCat.User;
+using gms.data.Mapper.Gym;
 using gms.data.Mapper.Membership;
 using gms.data.Models.Identity;
 
@@ -46,7 +47,10 @@ public static class GymUserMapper
 			Email = entity.Email,
 			Password = entity.PasswordHash,
             StatusId = entity.StatusId,
-            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.ExpiringDate).FirstOrDefault()?.ToDTO()
+            GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.ExpiringDate).FirstOrDefault()?.ToDTO(),
+            GymMemberGroups = entity.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList(),
+			GymStaffGroups = entity.GymStaffGroups?.Select(gsg => gsg.ToDTO()).ToList(),
+            GymStaffSpecializations = entity.GymStaffSpecializations?.Select(gss => gss.ToDTO()).ToList()
         };
 	}
 
@@ -68,8 +72,8 @@ public static class GymUserMapper
 
     public static GymUserEntity ToUpdatedEntity(this UpdateGymUserDTO source, GymUserEntity entity)
     {
-        entity.Image = source.Image is not null ? Convert.FromBase64String(source.Image?.Split(";base64,")[1]) : entity.Image?.Length != 0 ? entity.Image : new byte[0];
-        entity.ImageTypeId = source.Image is not null ? (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.Image?.Split(";base64,")[0].Split("data:image/")[1]) : entity.ImageTypeId is not null ? entity.ImageTypeId : null;
+        entity.Image = source.Image is not null ? Convert.FromBase64String(source.Image?.Split(";base64,")[1]) : new byte[0];
+        entity.ImageTypeId = source.Image is not null ? (ImageTypeEnum)Enum.Parse(typeof(ImageTypeEnum), source.Image?.Split(";base64,")[0].Split("data:image/")[1]) : null;
         entity.FirstName = !string.IsNullOrWhiteSpace(source.FirstName) && !string.Equals(source.FirstName, entity.FirstName, StringComparison.OrdinalIgnoreCase) ? source.FirstName : entity.FirstName;
         entity.LastName = !string.IsNullOrWhiteSpace(source.LastName) && !string.Equals(source.LastName, entity.LastName, StringComparison.OrdinalIgnoreCase) ? source.LastName : entity.LastName;
         entity.GenderId = source.GenderId;
@@ -80,7 +84,6 @@ public static class GymUserMapper
         entity.PhoneNumber = !string.IsNullOrWhiteSpace(source.PhoneNumber) && !string.Equals(source.PhoneNumber, entity.PhoneNumber, StringComparison.OrdinalIgnoreCase) ? source.PhoneNumber : entity.PhoneNumber;
         entity.Email = !string.IsNullOrWhiteSpace(source.Email) && !string.Equals(source.Email, entity.Email, StringComparison.OrdinalIgnoreCase) ? source.Email : entity.Email;
         entity.StatusId = source.StatusId;
-        entity.GymUserTypeId = source.GymUserTypeId;
 
         return entity;
     }

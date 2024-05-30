@@ -92,7 +92,7 @@ public class MembershipController : BaseController<MembershipController>
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(MembershipController), nameof(EditMembership), "HttpGet", DateTime.Now.ToString() });
 
-			MembershipDTO? membership = await _gymMembershipPlanService.GetMembershipAsync(id);
+			MembershipDTO? membership = await _gymMembershipPlanService.GetMembershipByIdAsync(id);
 			return View(membership.ToUpdateDTO());
 		}
 
@@ -209,7 +209,10 @@ public class MembershipController : BaseController<MembershipController>
 				updateModel.UpdateMemberMembershipDTO.MemberShipStatusId = StatusEnum.Active;
 				updateModel.UpdateMemberMembershipDTO.PaymentStatusId = StatusEnum.FullyPaid;
 				await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);
-			}
+                GymUserEntity currentUserEntity = await _gymUserService.GetGymUserByIdAsync(updateModel.MemberMembershipDTO.MemberId);
+                currentUserEntity.StatusId = StatusEnum.Active;
+                await _gymUserService.UpdateGymUser(currentUserEntity);
+            }
 			else
 			{
 				await _gymMemberMembershipService.UpdateMemberMembershipAsync(updateModel.UpdateMemberMembershipDTO);

@@ -8,6 +8,8 @@ public class GymIdentityRoleEntity : IdentityRole<int>
 
 	public virtual GymBranchEntity GymBranch { get; set; }
 
+	public bool IsDeleted { get; set; }
+
 	public bool IsDeleteable { get; set; }
 
 	public bool IsUpdateable { get; set; }
