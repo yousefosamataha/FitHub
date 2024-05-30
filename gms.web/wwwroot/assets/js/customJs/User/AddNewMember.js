@@ -178,7 +178,7 @@ var addNewMember = function () {
 
     // Member Status Handler
     const handleMemberStatus = () => {
-        const target = document.getElementById('member_tatus');
+        const target = document.getElementById('member_status');
         const select = document.getElementById('CreateMemberDTO_StatusId');
         const statusClasses = ['bg-success', 'bg-danger'];
 

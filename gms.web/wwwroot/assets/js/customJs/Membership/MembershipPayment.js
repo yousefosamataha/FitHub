@@ -321,7 +321,6 @@ var membershipPayment = function () {
         });
     }
 
-
     return {
         init: function () {
             table = document.querySelector('#membership_payment');

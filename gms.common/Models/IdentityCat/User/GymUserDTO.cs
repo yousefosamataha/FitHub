@@ -1,4 +1,7 @@
 ﻿using gms.common.Enums;
+using gms.common.Models.GymCat.GymMemberGroup;
+using gms.common.Models.GymCat.GymStaffGroup;
+using gms.common.Models.GymCat.GymStaffSpecialization;
 using gms.common.Models.MembershipCat.MemberMembership;
 
 namespace gms.common.Models.Identity.User;
@@ -22,6 +25,10 @@ public sealed record GymUserDTO
     public StatusEnum StatusId { get; init; }
     public GymUserTypeEnum? GymUserTypeId { get; set; }
     public string Roles { get; set; }
+    public string RoleName { get; set; }
 
     public MemberMembershipDTO GymMemberMembership { get; set; }
+    public ICollection<GymMemberGroupDTO> GymMemberGroups { get; set; }
+    public ICollection<GymStaffGroupDTO> GymStaffGroups { get; set; }
+    public ICollection<GymStaffSpecializationDTO> GymStaffSpecializations { get; set; }
 }

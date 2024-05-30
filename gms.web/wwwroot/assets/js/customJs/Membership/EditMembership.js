@@ -184,6 +184,9 @@ var editMembership = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     if (status == 'Valid') {
+                        submitButton.setAttribute('data-kt-indicator', 'on');
+                        submitButton.disabled = true;
+
                         var data = {};
                         data.Id = $('[name="Id"]').val();
                         data.MembershipStatusId = $('[name="MembershipStatusId"]').val();

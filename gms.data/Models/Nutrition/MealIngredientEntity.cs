@@ -18,6 +18,6 @@ public class MealIngredientEntity : BaseEntity
 	public decimal? FiberG { get; set; }
 	public decimal? SugarG { get; set; }
 
-    // Navigation properties
-    public virtual NutritionPlanMealEntity NutritionPlanMeal { get; set; }
+	// Navigation properties
+	public virtual NutritionPlanMealEntity NutritionPlanMeal { get; set; }
 }

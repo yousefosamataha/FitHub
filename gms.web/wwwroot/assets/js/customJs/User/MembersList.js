@@ -197,11 +197,40 @@ var membersList = function () {
         });
     }
 
-    // Edite Membership
+    // Edite Member
     var editMember = () => {
         document.querySelectorAll(".edit-member-btn").forEach(e => {
             e.addEventListener("click", function () {
                 window.location.href = `/GymUser/EditMember?id=${e.dataset.id}`;
+            });
+        });
+    }
+
+    // Delete Member
+    var deleteMember = () => {
+        // Select all delete buttons
+        const deleteButtons = table.querySelectorAll('.delete-member-btn');
+
+        deleteButtons.forEach(d => {
+            d.addEventListener("click", function (e) {
+                // Select Parent Row
+                const parent = this.closest('tr');
+
+                $.ajax({
+                    url: '/GymUser/DeleteMember',
+                    type: 'POST',
+                    data: {
+                        id: this.dataset.id
+                    },
+                    success: function (response) {
+                        // Remove current row
+                        datatable.row($(parent)).remove().draw(false);
+                        toastr.success("Member Deleted Successfully!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
             });
         });
     }
@@ -220,6 +249,7 @@ var membersList = function () {
             initFlatpickr();
             exportButtons();
             editMember();
+            deleteMember();
         }
     };
 }();

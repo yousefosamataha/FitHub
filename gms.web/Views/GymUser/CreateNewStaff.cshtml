@@ -1,0 +1,373 @@
+﻿@using gms.common.ViewModels.GymUser
+@model AddNewStaffVM
+@{
+	ViewData["Title"] = localizer["add_new_staff"];
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+	<!--begin::Toolbar-->
+	<div id="kt_app_toolbar" class="app-toolbar" style="padding-top: 10px;">
+		<!--begin::Toolbar container-->
+		<div id="kt_app_toolbar_container"
+			 class="app-container container-fluid d-flex align-items-stretch">
+			<!--begin::Toolbar wrapper-->
+			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100 px-5">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+						@localizer["add_new_staff"]
+					</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
+						<li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
+						<li class="breadcrumb-item text-gray-600">@localizer["manage_users"]</li>
+						<li class="breadcrumb-item text-gray-600">@localizer["manage_staffs"]</li>
+					</ol>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar wrapper-->
+		</div>
+		<!--end::Toolbar container-->
+	</div>
+	<!--end::Toolbar-->
+	<!--begin::Content-->
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<!--begin::Content container-->
+		<div id="kt_app_content_container" class="app-container container-fluid">
+			<!--begin::Form-->
+			<form id="add_new_staff_form" autocomplete="off" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+				<!--begin::Aside column-->
+				<div class="d-flex flex-column gap-7 gap-lg-10 w-100 min-w-300px w-lg-300px">
+					<!--begin::Image-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2>@localizer["image"]</h2>
+							</div>
+							<!--end::Card title-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body text-center pt-0">
+							<!--begin::Image input-->
+							<div class="image-input image-input-empty image-input-outline symbol-label-blank mb-3" data-kt-image-input="true">
+								<!--begin::Preview existing avatar-->
+								<div class="image-input-wrapper w-150px h-150px" style="background-position: center;"></div>
+								<!--end::Preview existing avatar-->
+								<!--begin::Label-->
+								<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+									<!--begin::Icon-->
+									<i class="ki-outline ki-pencil fs-7"></i>
+									<!--end::Icon-->
+									<!--begin::Inputs-->
+									<input type="file" asp-for="@Model.CreateStaffDTO.Image" accept=".png, .jpg, .jpeg" />
+									<input type="hidden" name="avatar_remove" />
+									<!--end::Inputs-->
+								</label>
+								<!--end::Label-->
+								<!--begin::Cancel-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+									<i class="ki-outline ki-cross fs-2"></i>
+								</span>
+								<!--end::Cancel-->
+								<!--begin::Remove-->
+								<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+									<i class="ki-outline ki-cross fs-2"></i>
+								</span>
+								<!--end::Remove-->
+							</div>
+							<!--end::Image input-->
+							<!--begin::Description-->
+							<div class="text-muted fs-7">@localizer["allowed_file_types"]</div>
+							<!--end::Description-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					<!--end::Image-->
+					<!--begin::Status-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<h2>@localizer["status"]</h2>
+							</div>
+							<!--end::Card title-->
+							<!--begin::Card toolbar-->
+							<div class="card-toolbar">
+								<div class="rounded-circle bg-success w-15px h-15px" id="staff_status"></div>
+							</div>
+							<!--begin::Card toolbar-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Select2-->
+							<select class="form-select mb-2" asp-for="@Model.CreateStaffDTO.StatusId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+								<option></option>
+								<option value="1" selected="selected">@localizer["active"]</option>
+								<option value="2">@localizer["inactive"]</option>
+							</select>
+							<!--end::Select2-->
+						</div>
+						<!--end::Card body-->
+					</div>
+					<!--end::Status-->
+				</div>
+				<!--end::Aside column-->
+				<!--begin::Main column-->
+				<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+					<!--begin::Personal Information-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>@localizer["personal_info"]</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="col mb-5 fv-row">
+									<label class="required form-label ms-2">@localizer["first_name"]</label>
+									<input type="text" asp-for="@Model.CreateStaffDTO.FirstName" class="form-control" placeholder="@localizer["enter"] @localizer["first_name"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col mb-5 fv-row">
+									<label class="required form-label ms-2">@localizer["last_name"]</label>
+									<input type="text" asp-for="@Model.CreateStaffDTO.LastName" class="form-control" placeholder="@localizer["enter"] @localizer["last_name"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+							</div>
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="col mb-5 fv-row">
+									<label class="required form-label ms-2">@localizer["birthdate"]</label>
+									<input class="form-control" asp-for="@Model.CreateStaffDTO.BirthDate" placeholder="@localizer["enter"] @localizer["birthdate"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col mb-5 fv-row">
+									<label class="required form-label ms-2">@localizer["gender"]</label>
+									<!--begin::Select Status-->
+									<select class="form-select" asp-for="@Model.CreateStaffDTO.GenderId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+										<option></option>
+										<option value="1">@localizer["male"]</option>
+										<option value="2">@localizer["female"]</option>
+									</select>
+									<!--end::Select Status-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="col mb-5 mb-sm-0 mb-md-0 mb-lg-0 fv-row">
+									<label class="required form-label ms-2">@localizer["assign_role"]</label>
+									<!--begin::Select Role-->
+									<select class="form-select" asp-for="@Model.RoleName" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+										<option></option>
+										@foreach (var role in Model.Roles)
+										{
+											@if (!role.RoleName.Contains("Member") && !role.RoleName.Contains("Owner"))
+											{
+												<option value="@role.RoleName">@role.RoleName</option>
+											}
+										}
+									</select>
+									<!--end::Select Role-->
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col fv-row">
+									@* <label class="required form-label ms-2">@localizer["select_specialization"]</label>
+									<input class="form-control d-flex align-items-center" placeholder="@localizer["search_by_specialization_name"]" id="select_specialization" name="SelectedSpecializations" /> *@
+									<!--begin::Label-->
+									<label class="form-label d-flex align-items-center ms-2">
+										<span class="required">@localizer["select_specialization"]</span>
+										<span role="button" class="ms-1 @(!Model.GymSpecializationsListDTO.Any() ? "pulse pulse-danger" : "") add-new-gym-location-popover-btn" data-bs-toggle="popover" data-bs-html="true" data-bs-content="@localizer["to_add_new_specialization"] <span class='add-new-gym-specialization text-primary' role='button'>@localizer["click_here"]</span>" style="width: 15px;
+											height: 15px;
+											display: flex;
+											align-items: center;
+											justify-content: center;">
+											<i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+											@if (!Model.GymSpecializationsListDTO.Any())
+											{
+												<span class="pulse-ring" style="width: 30px;height: 30px;"></span>
+											}
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Select Status-->
+									<select class="form-select" asp-for="@Model.SelectedSpecializationIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+										<option></option>
+										@foreach (var specialization in Model.GymSpecializationsListDTO)
+										{
+											<option value="@specialization.Id">@specialization.Name</option>
+										}
+									</select>
+									<!--end::Select Status-->
+								</div>
+								<!--end::Input group-->
+							</div>
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::Personal Information-->
+					<!--begin::Contact Information-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>@localizer["contact_info"]</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="col mb-5">
+									<label class="form-label ms-2">@localizer["city"]</label>
+									<input type="text" class="form-control" asp-for="@Model.CreateStaffDTO.City" placeholder="@localizer["enter"] @localizer["city"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col mb-5">
+									<label class="form-label ms-2">@localizer["state"]</label>
+									<input type="text" class="form-control" asp-for="@Model.CreateStaffDTO.State" placeholder="@localizer["enter"] @localizer["state"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+							</div>
+							<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+								<!--begin::Input group-->
+								<div class="mb-5 mb-sm-0 mb-md-0 mb-lg-0">
+									<label class="form-label ms-2">@localizer["address"]</label>
+									<input type="text" asp-for="@Model.CreateStaffDTO.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="col">
+									<label class="form-label ms-2">@localizer["mobile_number"]</label>
+									<input type="text" asp-for="@Model.CreateStaffDTO.PhoneNumber" class="form-control" placeholder="@localizer["enter"] @localizer["mobile_number"] @localizer["here"]" />
+								</div>
+								<!--end::Input group-->
+							</div>
+						</div>
+						<!--end::Card body-->
+					</div>
+					<!--end::Contact Information-->
+					<!--begin::Login Information-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>@localizer["login_info"]</h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Input group-->
+							<div class="col mb-5 fv-row">
+								<label class="required form-label ms-2">@localizer["email"]</label>
+								<input type="email" asp-for="@Model.CreateStaffDTO.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+							</div>
+							<!--end::Input group-->
+							<!--begin::Input group-->
+							<div class="col fv-row" data-kt-password-meter="true">
+								<!--begin::Wrapper-->
+								<div class="mb-1">
+									<label class="required form-label ms-2">@localizer["password"]</label>
+									<div class="position-relative mb-3">
+										<input class="form-control" type="password" asp-for="@Model.CreateStaffDTO.Password" placeholder="@localizer["enter"] @localizer["password"] @localizer["here"]" autocomplete="off" />
+										<!--begin::Visibility toggle-->
+										<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+											<i class="ki-solid ki-eye-slash fs-1"></i>
+											<i class="ki-solid ki-eye d-none fs-1"></i>
+										</span>
+										<!--end::Visibility toggle-->
+									</div>
+									<!--begin::Meter-->
+									<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+										<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+										<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+										<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+										<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+									</div>
+									<!--end::Meter-->
+								</div>
+								<!--end::Wrapper-->
+							</div>
+							<!--end::Input group-->
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::Login Information-->
+					<!--begin::More Information-->
+					<div class="card card-flush">
+						<!--begin::Card header-->
+						<div class="card-header">
+							<div class="card-title">
+								<h2>@localizer["more_info"] </h2>
+							</div>
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Input group-->
+							<div class="fv-row mb-5">
+								<label class="required form-label ms-2">@localizer["select_groups"]</label>
+								<!--begin::Select Status-->
+								<select class="form-select" asp-for="@Model.SelectedGroupIds" data-control="select2" data-close-on-select="false" data-placeholder="@localizer["select_an_option"]" data-allow-clear="false" multiple="multiple">
+									<option></option>
+									@foreach (var group in Model.GymGroupsListDTO)
+									{
+										<option value="@group.Id" data-kt-select2-user="@group.Image">@group.Name</option>
+									}
+								</select>
+								<!--end::Select Status-->
+							</div>
+							<!--end::Input group-->
+						</div>
+						<!--end::Card header-->
+					</div>
+					<!--end::More Information-->
+					<div class="d-flex justify-content-end px-5">
+						<!--begin::Reset Button-->
+						<button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+						<!--end::Reset Button-->
+						<!--begin::Button-->
+						<button type="submit" id="add_new_staff_form_submit" class="btn btn-primary">
+							<span class="indicator-label">@localizer["save"]</span>
+							<span class="indicator-progress">
+								@localizer["please_wait"]...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<!--end::Button-->
+					</div>
+				</div>
+				<!--end::Main column-->
+			</form>
+			<!--end::Form-->
+		</div>
+		<!--end::Content container-->
+	</div>
+	<!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+@section Scripts {
+	<script src="~/assets/js/customJs/User/AddNewStaff.js" asp-append-version="true"></script>
+}
