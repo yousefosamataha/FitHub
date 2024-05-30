@@ -8,6 +8,7 @@ public interface IGymGeneralSettingService : IBaseRepository<GymGeneralSettingEn
 	Task<GeneralSettingDTO> CreateGymGeneralSettingAsync(CreateGeneralSettingDTO newGeneralSetting);
 
 	Task<GeneralSettingDTO> UpdateGymGeneralSettingAsync(GeneralSettingDTO updateGeneralSettingDTO);
+	Task<GeneralSettingDTO> GetBranchGeneralSettingAsync();
 
 	//Task<GeneralSettingDTO> GetGymGeneralSettingAsync();
 }

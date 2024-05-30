@@ -13,7 +13,7 @@ public interface IGymUserService
 
 	Task<GymUserRolesDTO> GetUserRolesByUserIdAsync(int userId);
 
-	Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(UpdateGymUserRolesDTO gymUserRoles);
+	Task<GymUserRolesDTO> UpdateGymUserRolesAsync(UpdateGymUserRolesDTO gymUserRoles);
 
 	Task<GymUserDTO> UpdateGymUser(GymUserEntity entity);
 

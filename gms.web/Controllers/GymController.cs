@@ -1,8 +1,10 @@
-﻿using gms.common.Models.GymCat.GymGroup;
+﻿using gms.common.Models.GymCat.GymGeneralSetting;
+using gms.common.Models.GymCat.GymGroup;
 using gms.common.Models.GymCat.GymLocation;
 using gms.common.Models.GymCat.GymSpecialization;
 using gms.common.ViewModels.Gym;
 using gms.data.Mapper.Gym;
+using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymLocationRepository;
 using gms.service.Gym.GymSpecializationRepository;
@@ -14,12 +16,14 @@ public class GymController : BaseController<GymController>
 	private readonly IGymGroupService _gymGroupService;
 	private readonly IGymLocationService _gymLocationService;
 	private readonly IGymSpecializationService _gymSpecializationService;
+	private readonly IGymGeneralSettingService _gymGeneralSettingService;
 
-	public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService, IGymSpecializationService gymSpecializationService)
+	public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService, IGymSpecializationService gymSpecializationService, IGymGeneralSettingService gymGeneralSettingService)
 	{
 		_gymGroupService = gymGroupService;
 		_gymLocationService = gymLocationService;
 		_gymSpecializationService = gymSpecializationService;
+		_gymGeneralSettingService = gymGeneralSettingService;
 	}
 
 
@@ -116,6 +120,24 @@ public class GymController : BaseController<GymController>
 	{
 		await _gymSpecializationService.DeleteGymSpecializationAsync(id);
 		return Json(new { Success = true, Message = "" });
+	}
+	#endregion
+
+	#region Gym Branch General Setting
+	public async Task<IActionResult> Settings()
+	{
+		GymGeneralSettingVM model = new ();
+		model.GeneralSetting = await _gymGeneralSettingService.GetBranchGeneralSettingAsync();
+
+		return View(model);
+	}
+
+	[HttpPost]
+	public async Task<IActionResult> EditSettings(GymGeneralSettingVM updateGeneralSettingModel)
+	{
+		GeneralSettingDTO model = await _gymGeneralSettingService.UpdateGymGeneralSettingAsync(updateGeneralSettingModel.GeneralSetting);
+
+		return RedirectToAction(nameof(Settings));
 	}
 	#endregion
 }
