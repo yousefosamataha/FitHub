@@ -6,11 +6,11 @@ namespace gms.web.Controllers;
 [Authorize]
 public class SubscriptionController : BaseController<SubscriptionController>
 {
-    public SubscriptionController()
-    {
-        
-    }
-    public IActionResult Index()
+	public SubscriptionController()
+	{
+
+	}
+	public IActionResult Index()
 	{
 		return View();
 	}
