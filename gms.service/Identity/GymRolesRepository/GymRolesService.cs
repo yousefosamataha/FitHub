@@ -1,5 +1,6 @@
 ﻿using gms.common.Enums;
 using gms.common.Models.Identity.Role;
+using gms.common.Models.IdentityCat.Role;
 using gms.common.Models.SharedCat;
 using gms.common.Permissions;
 using gms.data;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Data;
 using System.Security.Claims;
 
 namespace gms.service.Identity.GymRolesRepository;
@@ -204,10 +206,29 @@ public class GymRolesService : IGymRolesService
 			}
 			return role;
 		}
-		
 	}
 
-	public async Task<GymIdentityRoleEntity> UpdateGymRolePermissionsAsync(GymIdentityRoleEntity role, List<string> permissionsList)
+    public async Task<bool> CreateRoleAndPermissionsAsync(CreateGymRoleDTO newRole, List<string> permissionsList)
+    {
+        using (_logger.BeginScope(GetScopesInformation()))
+        {
+            _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+                                  new object[] { nameof(GymRolesService), nameof(CreateRoleAndPermissionsAsync), DateTime.Now.ToString() });
+
+            GymIdentityRoleEntity newRoleEntity = newRole.ToEntity(GetBranchId());
+            newRoleEntity.BranchId = GetBranchId();
+            await _roleManager.CreateAsync(newRoleEntity);
+
+            List<Claim> roleNewClaims = permissionsList.Select(c => new Claim(PermissionsConstants.Permission.ToString(), c)).ToList();
+
+            foreach (Claim newClaim in roleNewClaims)
+                await _roleManager.AddClaimAsync(newRoleEntity, newClaim);
+
+            return true;
+        }
+    }
+
+    public async Task<GymIdentityRoleEntity> UpdateGymRolePermissionsAsync(GymIdentityRoleEntity role, List<string> permissionsList)
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
 		{
@@ -227,5 +248,35 @@ public class GymRolesService : IGymRolesService
 			return role;
 		}
 		
+	}
+
+	public async Task<GymRoleDTO> UpdateRoleAsync(UpdateGymRoleDTO updateRole)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymRolesService), nameof(UpdateRoleAsync), DateTime.Now.ToString() });
+
+			GymIdentityRoleEntity currentRoleEntity = await _roleManager.FindByIdAsync(updateRole.RoleId.ToString());
+			GymIdentityRoleEntity updatedRoleEntity = updateRole.ToUpdateEntity(currentRoleEntity);
+			await _roleManager.UpdateAsync(updatedRoleEntity);
+			return updatedRoleEntity.ToDTO();
+		}
+
+	}
+
+	public async Task<bool> DeleteRoleAsync(int roleId)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymRolesService), nameof(UpdateRoleAsync), DateTime.Now.ToString() });
+
+			GymIdentityRoleEntity currentRoleEntity = await _roleManager.FindByIdAsync(roleId.ToString());
+			currentRoleEntity.IsDeleted = true;
+			await _roleManager.UpdateAsync(currentRoleEntity);
+			return true;
+		}
+
 	}
 }

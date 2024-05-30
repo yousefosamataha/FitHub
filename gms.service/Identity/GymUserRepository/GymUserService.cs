@@ -145,12 +145,12 @@ public class GymUserService : IGymUserService
 		
 	}
 
-	public async Task<GymUserRolesDTO> UpdateGymUserRolesAsyn(UpdateGymUserRolesDTO gymUserRoles)
+	public async Task<GymUserRolesDTO> UpdateGymUserRolesAsync(UpdateGymUserRolesDTO gymUserRoles)
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
 		{
 			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-								  new object[] { nameof(GymUserService), nameof(UpdateGymUserRolesAsyn), DateTime.Now.ToString() });
+								  new object[] { nameof(GymUserService), nameof(UpdateGymUserRolesAsync), DateTime.Now.ToString() });
 
 			GymUserEntity user = await _userManager.FindByEmailAsync(gymUserRoles.UserEmail);
 			if (user is null)

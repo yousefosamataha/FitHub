@@ -33,7 +33,7 @@ public class GymBranchService : BaseRepository<GymBranchEntity>, IGymBranchServi
 
 	public async Task<GymBranchDTO> UpdateBranchAsync(GymBranchDTO updateBranchDTO)
 	{
-		GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(ss => ss.Id == updateBranchDTO.Id);
+		GymBranchEntity currentBranchEntity = await _context.GymBranches.FirstOrDefaultAsync(gb => gb.Id == updateBranchDTO.Id);
 		GymBranchEntity updatedBranchEntity = updateBranchDTO.ToUpdatedEntity(currentBranchEntity);
 		await UpdateAsync(updatedBranchEntity);
 		return updatedBranchEntity.ToDTO();

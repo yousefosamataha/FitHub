@@ -82,7 +82,7 @@ public static class GymUserMapper
         entity.City = !string.IsNullOrWhiteSpace(source.City) && !string.Equals(source.City, entity.City, StringComparison.OrdinalIgnoreCase) ? source.City : entity.City;
         entity.State = !string.IsNullOrWhiteSpace(source.State) && !string.Equals(source.State, entity.State, StringComparison.OrdinalIgnoreCase) ? source.State : entity.State;
         entity.PhoneNumber = !string.IsNullOrWhiteSpace(source.PhoneNumber) && !string.Equals(source.PhoneNumber, entity.PhoneNumber, StringComparison.OrdinalIgnoreCase) ? source.PhoneNumber : entity.PhoneNumber;
-        entity.Email = !string.IsNullOrWhiteSpace(source.Email) && !string.Equals(source.Email, entity.Email, StringComparison.OrdinalIgnoreCase) ? source.Email : entity.Email;
+        // entity.Email = !string.IsNullOrWhiteSpace(source.Email) && !string.Equals(source.Email, entity.Email, StringComparison.OrdinalIgnoreCase) ? source.Email : entity.Email;
         entity.StatusId = source.StatusId;
 
         return entity;

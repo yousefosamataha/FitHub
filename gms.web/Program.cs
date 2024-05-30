@@ -1,4 +1,3 @@
-using gms.service.Background;
 using gms.web.Extensions.Database;
 using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
@@ -109,9 +108,9 @@ WebApplication? app = builder.Build();
 		pattern: "{controller=Home}/{action=Index}/{id?}"
 	);
 
-	RecurringJob.AddOrUpdate<MembershipExpirationJob>(
-	job => job.CheckExpiringMembershipsAsync(),
-	Cron.Daily);
+	//RecurringJob.AddOrUpdate<MembershipExpirationJob>(
+	//job => job.CheckExpiringMembershipsAsync(),
+	//Cron.Minutely);
 
 	app.Run();
 }

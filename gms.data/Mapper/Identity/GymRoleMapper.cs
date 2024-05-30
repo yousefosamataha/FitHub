@@ -1,6 +1,6 @@
 ﻿using gms.common.Models.Identity.Role;
+using gms.common.Models.IdentityCat.Role;
 using gms.data.Models.Identity;
-using System.Data;
 
 
 namespace gms.data.Mapper.Identity;
@@ -25,4 +25,12 @@ public static class GymRoleMapper
 			RoleName = source.Name.Split("_")[1]
 		};
 	}
+
+    public static GymIdentityRoleEntity ToUpdateEntity(this UpdateGymRoleDTO source, GymIdentityRoleEntity entity)
+    {
+        entity.Name = source.RoleName;
+		entity.NormalizedName = source.RoleName.ToUpper();
+
+		return entity;
+    }
 }
