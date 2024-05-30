@@ -11,17 +11,18 @@ public static class HangFireExtensions
 									?? throw new InvalidOperationException("Connection string 'HangFire' not found.");
 
 		services.AddHangfire(config => config
-		.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-		.UseSimpleAssemblyNameTypeSerializer()
-		.UseRecommendedSerializerSettings()
-		.UseSqlServerStorage(connectionString, new SqlServerStorageOptions
-		{
-			CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-			SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-			QueuePollInterval = TimeSpan.Zero,
-			UseRecommendedIsolationLevel = true,
-			DisableGlobalLocks = true
-		}));
+				.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+				.UseSimpleAssemblyNameTypeSerializer()
+				.UseRecommendedSerializerSettings()
+				.UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+				{
+					CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+					SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+					QueuePollInterval = TimeSpan.Zero,
+					UseRecommendedIsolationLevel = true,
+					UsePageLocksOnDequeue = true,
+					DisableGlobalLocks = true
+				}));
 
 		services.AddHangfireServer();
 	}
