@@ -3,7 +3,6 @@ using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data;
 using gms.data.Mapper.Subscription;
 using gms.data.Models.Subscription;
-using gms.service.Membership.GymMembershipPlanRepository;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +11,8 @@ using Microsoft.Extensions.Logging;
 namespace gms.service.Subscription.SystemSubscriptionRepository;
 public class SystemSubscriptionService : BaseRepository<SystemSubscriptionEntity>, ISystemSubscriptionService
 {
-    private readonly ApplicationDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ApplicationDbContext _context;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 	private readonly ILogger<SystemSubscriptionService> _logger;
 	public SystemSubscriptionService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<SystemSubscriptionService> logger) : base(context, httpContextAccessor)
 	{
@@ -23,7 +22,7 @@ public class SystemSubscriptionService : BaseRepository<SystemSubscriptionEntity
 	}
 
 	public async Task<SystemSubscriptionDTO> CreateSystemSubscriptionAsync(CreateSystemSubscriptionDTO newSystemSubscription)
-    {
+	{
 		using (_logger.BeginScope(GetScopesInformation()))
 		{
 			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
@@ -66,8 +65,8 @@ public class SystemSubscriptionService : BaseRepository<SystemSubscriptionEntity
 			await AddAsync(systemSubscriptionEntity);
 			return systemSubscriptionEntity.ToDTO();
 		}
-		
-    }
+
+	}
 
 	public async Task<SystemSubscriptionDTO> UpdateSystemSubscriptionAsync(SystemSubscriptionDTO updateSystemSubscriptionDTO)
 	{
@@ -81,6 +80,6 @@ public class SystemSubscriptionService : BaseRepository<SystemSubscriptionEntity
 			await UpdateAsync(updatedSystemSubscriptionEntity);
 			return updatedSystemSubscriptionEntity.ToDTO();
 		}
-		
+
 	}
 }

@@ -5,6 +5,7 @@ using gms.common.Models.GymCat.GymGeneralSetting;
 using gms.common.Models.Shared.Country;
 using gms.common.Models.SubscriptionCat.SystemSubscription;
 using gms.data.Models.Identity;
+using gms.service.Background;
 using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymRepository;
@@ -12,16 +13,16 @@ using gms.service.Identity.GymRolesRepository;
 using gms.service.Identity.GymUserRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.CodeAnalysis.Operations;
 
 namespace gms.web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+	public class RegisterModel : PageModel
 	{
 		private readonly UserManager<GymUserEntity> _userManager;
 		private readonly SignInManager<GymUserEntity> _signInManager;
@@ -36,7 +37,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 		private readonly IGymUserService _gymUserService;
 		private readonly IGymRolesService _gymRoleService;
 		private readonly IGymGeneralSettingService _gymGeneralSettingService;
-
+		private readonly IBackgroundJobClient _backgroundJobClient;
 
 		public RegisterModel(
 			UserManager<GymUserEntity> userManager,
@@ -50,7 +51,8 @@ namespace gms.web.Areas.Identity.Pages.Account
 			ICountryService countryService,
 			IGymUserService gymUserService,
 			IGymRolesService gymRolesService,
-			IGymGeneralSettingService gymGeneralSettingService)
+			IGymGeneralSettingService gymGeneralSettingService,
+			IBackgroundJobClient backgroundJobClient)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
@@ -65,6 +67,7 @@ namespace gms.web.Areas.Identity.Pages.Account
 			_gymUserService = gymUserService;
 			_gymRoleService = gymRolesService;
 			_gymGeneralSettingService = gymGeneralSettingService;
+			_backgroundJobClient = backgroundJobClient;
 		}
 
 		[BindProperty]
@@ -114,22 +117,32 @@ namespace gms.web.Areas.Identity.Pages.Account
 			Input.SystemSubscriptionDTO.GymId = CreatedGym.Id;
 			SystemSubscriptionDTO CreatedSystemSubscription = await _systemSubscriptionService.CreateSystemSubscriptionAsync(Input.SystemSubscriptionDTO);
 
-			// (3) Create GeneralSetting
+
+			// (3) Add Background Job To Deactivate SystemSubscription
+			_backgroundJobClient.Schedule<SubscriptionDeactivationJob>
+			(
+				job => job.DeactivateSubscriptionAsync(CreatedSystemSubscription.Id),
+				CreatedSystemSubscription.SubscriptionEndTime
+			);
+
+
+
+			// (4) Create GeneralSetting
 			CreateGeneralSettingDTO GeneralSettingDTO = new();
 			GeneralSettingDTO.IsShared = true;
 			GeneralSettingDTO CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(GeneralSettingDTO);
 
-			// (4) Create Branch
+			// (5) Create Branch
 			Input.GymBranchDTO.GymId = CreatedGym.Id;
 			Input.GymBranchDTO.BranchName = BranchStrings.MainBranch;
 			Input.GymBranchDTO.IsMainBranch = true;
 			Input.GymBranchDTO.GeneralSettingId = CreatedGeneralSetting.Id;
 			GymBranchDTO CreatedBranch = await _gymBranchService.CreateBranchAsync(Input.GymBranchDTO);
 
-			// (5) Create Branch Roles
+			// (6) Create Branch Roles
 			await _gymRoleService.CreateRolesForBranchAsync(CreatedBranch.Id);
 
-			// (6) Create User
+			// (7) Create User
 			GymUserEntity user = CreateUser();
 			user.EmailConfirmed = true;
 			user.BranchId = CreatedBranch.Id;
@@ -149,9 +162,9 @@ namespace gms.web.Areas.Identity.Pages.Account
 				rolesList.Add($"{CreatedBranch.Id}_{role}");
 			}
 
-            await _userManager.AddToRolesAsync(user, rolesList);
+			await _userManager.AddToRolesAsync(user, rolesList);
 
-			// (6)
+			// (8)
 			//CreatedSystemSubscription.CreatedById = createdUser.Id;
 			//var updatedSystemSubscription = await _systemSubscriptionService.UpdateSystemSubscriptionAsync(CreatedSystemSubscription);
 			//CreatedGeneralSetting.CreatedById = createdUser.Id;
