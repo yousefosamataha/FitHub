@@ -1,5 +1,6 @@
 ﻿using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
+using gms.common.Models.IdentityCat.User;
 using gms.data.Models.Identity;
 
 namespace gms.service.Identity.GymUserRepository;
@@ -16,6 +17,8 @@ public interface IGymUserService
 
 	Task<GymUserDTO> UpdateGymUser(GymUserEntity entity);
 
+	Task<bool> DeleteGymUserAsync(int id, int branchId);
+
 	Task<GymUserEntity> GetGymUserByEmail(string email);
 
 	Task<GymUserEntity> GetGymUserByIdAsync(int userId);
@@ -23,4 +26,12 @@ public interface IGymUserService
     Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId);
 
 	Task<List<GymUserDTO>> GetGymMemberUsersListAsync();
+
+	Task<GymUserDTO> UpdateGymMemberUserAsync(UpdateGymUserDTO entity);
+
+	Task<GymUserDTO> CreateNewGymStaffUserAsync(CreateGymUserDTO entity, int branchId, string RoleName);
+
+	Task<List<GymUserDTO>> GetGymStaffUsersListAsync();
+
+	Task<GymUserDTO> UpdateGymStaffUserAsync(UpdateGymUserDTO entity, string RoleName);
 }

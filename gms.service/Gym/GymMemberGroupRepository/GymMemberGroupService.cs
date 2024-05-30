@@ -38,7 +38,6 @@ public class GymMemberGroupService : BaseRepository<GymMemberGroupEntity>, IGymM
 		
     }
 
-
     public async Task<List<GymMemberGroupDTO>> GetGymMemberGroupsListAsync(int memberId)
     {
 		using (_logger.BeginScope(GetScopesInformation()))
@@ -59,7 +58,7 @@ public class GymMemberGroupService : BaseRepository<GymMemberGroupEntity>, IGymM
 			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
 								  new object[] { nameof(GymMemberGroupService), nameof(UpdateGymMemberGroupAsync), DateTime.Now.ToString() });
 
-			List<GymMemberGroupEntity> currentGymMemberGroupsList = await FindAllAsync(mg => mg.GymMemberUserId == memberId);
+			List<GymMemberGroupEntity> currentGymMemberGroupsList = _context.GymMemberGroups.Where(mg => mg.GymMemberUserId == memberId).ToList();
 			_context.GymMemberGroups.RemoveRange(currentGymMemberGroupsList);
 			await _context.SaveChangesAsync();
 			List<GymMemberGroupEntity> newGymMemberGroupsList = updateGymMemberGroupsListDto.Select(mg => mg.ToEntity()).ToList();

@@ -56,6 +56,7 @@ public class ApplicationDbContext : IdentityDbContext<GymUserEntity, GymIdentity
     public DbSet<GymGroupEntity> GymGroups { get; set; }
     public DbSet<GymMemberGroupEntity> GymMemberGroups { get; set; }
     public DbSet<GymStaffGroupEntity> GymStaffGroups { get; set; }
+    public DbSet<GymStaffSpecializationEntity> GymStaffSpecializations { get; set; }
     public DbSet<GymLocationEntity> ClassLocations { get; set; }
     #endregion
 
