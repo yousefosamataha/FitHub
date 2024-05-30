@@ -4,6 +4,7 @@ using gms.common.Models.GymCat.GymStaffGroup;
 using gms.common.Models.GymCat.GymStaffSpecialization;
 using gms.common.Models.Identity.Role;
 using gms.common.Models.Identity.User;
+using gms.common.Models.IdentityCat.User;
 using gms.common.ViewModels.GymUser;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
@@ -88,7 +89,6 @@ public class GymUserController : BaseController<GymUserController>
 	}
 
 	[HttpPost]
-	[ValidateAntiForgeryToken]
 	public async Task<IActionResult> UpdateUserRoles(UpdateGymUserRolesDTO userRoles)
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -96,7 +96,7 @@ public class GymUserController : BaseController<GymUserController>
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
 								  new object[] { nameof(GymUserController), nameof(UpdateUserRoles), "HttpPost", DateTime.Now.ToString() });
 
-			GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsyn(userRoles);
+			GymUserRolesDTO user = await _gymUserService.UpdateGymUserRolesAsync(userRoles);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -116,9 +116,24 @@ public class GymUserController : BaseController<GymUserController>
 
 	}
 
-	public IActionResult UserProfile()
+	public async Task<IActionResult> UserProfile()
 	{
-		return View();
+		GymUserEntity userData = await _gymUserService.GetGymUserByIdAsync(GetUserId());
+		var userRoles = await _userManager.GetRolesAsync(userData);
+		GymUserDTO userDataDto = userData.ToDTO();
+		userDataDto.RoleName = userRoles?.FirstOrDefault()?.Split("_")[1];
+
+		return View(userDataDto);
+	}
+
+	[HttpPost]
+	public async Task<JsonResult> EditUserProfile(UpdateGymUserDTO updateUserDto)
+	{
+		GymUserEntity currentUserData = await _gymUserService.GetGymUserByIdAsync(GetUserId());
+		GymUserEntity updateEntity = updateUserDto.ToUpdatedEntity(currentUserData);
+		await _gymUserService.UpdateGymUser(updateEntity);
+
+		return Json(new { Success = true, Message = "" });
 	}
 
 	#region Member
@@ -352,7 +367,7 @@ public class GymUserController : BaseController<GymUserController>
             model.GymSpecializationsListDTO = await _gymSpecializationService.GetGymSpecializationsListAsync();
 
             var staffRoles = await _userManager.GetRolesAsync(gymUserEntity);
-			model.RoleName = staffRoles.FirstOrDefault().Split("_")[1];
+			model.RoleName = staffRoles?.FirstOrDefault()?.Split("_")[1];
 
 			model.SelectedGroupIds = new List<int>();
 			foreach (var item in model.StaffDTO.GymStaffGroups)

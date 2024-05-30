@@ -1,4 +1,7 @@
 ﻿using gms.common.Models.Identity.Role;
+using gms.common.Models.IdentityCat.Role;
+using gms.common.Models.SharedCat;
+using gms.common.Permissions;
 using gms.data.Models.Identity;
 using gms.service.Identity.GymRolesRepository;
 using Microsoft.AspNetCore.Authorization;
@@ -29,60 +32,84 @@ public class RolesController : BaseController<RolesController>
 
 	}
 
-	public async Task<IActionResult> GymRolePermissionsByRoleId(int roleId)
-	{
 
-		using (logger.BeginScope(GetScopesInformation()))
-		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
-								  new object[] { nameof(RolesController), nameof(GymRolePermissionsByRoleId), "HttpGet", DateTime.Now.ToString() });
-
-			GymRolePermissionsDTO result = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
-			return View(result);
-		}
-
-	}
-
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> AddGymRole(CreateGymRoleDTO newRole)
-	{
-		using (logger.BeginScope(GetScopesInformation()))
-		{
-			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
-								  new object[] { nameof(RolesController), nameof(AddGymRole), "HttpPost", DateTime.Now.ToString() });
-
-			if (!ModelState.IsValid)
-				return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
-
-			if (await _gymRolesService.IsRoleExistsAsync(newRole.RoleName))
+    [HttpGet]
+    public IActionResult AddRole()
+    {
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                  new object[] { nameof(RolesController), nameof(AddRole), "HttpPost", DateTime.Now.ToString() });
+			GymRolePermissionsDTO modal = new()
 			{
-				ModelState.AddModelError("RoleName", "Role Already Exists");
-				return View(nameof(Index), await _gymRolesService.GetAllRolesAsync());
-			}
+                Permissions = PermissionsConstants.GenerateAllPermissionsList().Select(c => new SelectItemDTO()
+                {
+                    Text = c,
+                    IsSelected = false
+                }).ToList()
+            };
 
-			await _gymRolesService.CreateRoleAsync(newRole);
+            return PartialView("_AddRole", modal);
+        }
+    }
+
+
+    [HttpPost]
+	public async Task<IActionResult> AddRole(GymRolePermissionsDTO newRolePermission)
+	{
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(AddRole), "HttpPost", DateTime.Now.ToString() });
+
+			CreateGymRoleDTO newRole = new()
+			{
+				RoleName = newRolePermission.RoleName
+			};
+            List<string> roleNewPermissions = newRolePermission.Permissions.Where(c => c.IsSelected).Select(c => c.Text).ToList();
+
+
+            await _gymRolesService.CreateRoleAndPermissionsAsync(newRole, roleNewPermissions);
 
 			return RedirectToAction(nameof(Index));
 		}
-
 	}
 
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> UpdateRolePermissions(GymRolePermissionsDTO rolePermissions)
+    [HttpGet]
+    public async Task<IActionResult> EditRole(int roleId)
+    {
+
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                  new object[] { nameof(RolesController), nameof(EditRole), "HttpGet", DateTime.Now.ToString() });
+
+            GymRolePermissionsDTO modal = await _gymRolesService.GetRolePermissionsByRoleIdAsync(roleId);
+            return PartialView("_EditRole", modal);
+        }
+
+    }
+
+    [HttpPost]
+	public async Task<IActionResult> EditRole(GymRolePermissionsDTO rolePermissions)
 	{
 		using (logger.BeginScope(GetScopesInformation()))
 		{
 			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
-								  new object[] { nameof(RolesController), nameof(UpdateRolePermissions), "HttpPost", DateTime.Now.ToString() });
+								  new object[] { nameof(RolesController), nameof(EditRole), "HttpPost", DateTime.Now.ToString() });
 
-			GymIdentityRoleEntity role = await _gymRolesService.GetGymRoleByIdAsync(rolePermissions.RoleId.ToString());
+            UpdateGymRoleDTO updateRoleDTO = new () {
+                RoleId = rolePermissions.RoleId,
+				RoleName = $"{GetBranchId()}_{rolePermissions.RoleName}"
+            };
+
+            GymRoleDTO UpdatedRole = await _gymRolesService.UpdateRoleAsync(updateRoleDTO);
+            GymIdentityRoleEntity role = await _gymRolesService.GetGymRoleByIdAsync(UpdatedRole.RoleId.ToString());
 
 			if (role is null)
 				return NotFound();
 
-			List<string> roleNewPermissions = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => c.Text).ToList();
+            List<string> roleNewPermissions = rolePermissions.Permissions.Where(c => c.IsSelected).Select(c => c.Text).ToList();
 
 			await _gymRolesService.UpdateGymRolePermissionsAsync(role, roleNewPermissions);
 
@@ -91,14 +118,23 @@ public class RolesController : BaseController<RolesController>
 
 	}
 
-
-	public IActionResult Roles()
+	[HttpPost]
+	public async Task<JsonResult> DeleteRole(int roleId)
 	{
-		return View();
-	}
+		using (logger.BeginScope(GetScopesInformation()))
+		{
+			logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+								  new object[] { nameof(RolesController), nameof(DeleteRole), "HttpPost", DateTime.Now.ToString() });
 
-	public IActionResult Permissions()
-	{
-		return View();
+			GymIdentityRoleEntity role = await _gymRolesService.GetGymRoleByIdAsync(roleId.ToString());
+			if (role.IsDeleteable)
+			{
+				await _gymRolesService.DeleteRoleAsync(roleId);
+				return Json(new { Success = true, Message = "" });
+			}
+
+			return Json(new { Success = false, Message = "" });
+		}
+
 	}
 }
