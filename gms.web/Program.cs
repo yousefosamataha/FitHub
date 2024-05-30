@@ -25,6 +25,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 	builder.Host.UseSerilog(Log.Logger);
 
+	//Add HttpContextAccessor
+	builder.Services.AddHttpContextAccessor();
 
 	// Add Hangfire
 	builder.Services.AddHangFireConfiguration(builder.Configuration);
@@ -57,8 +59,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	});
 
 	builder.Services.AddControllersWithViews();
-
-	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 	builder.Services.AddSingleton<DiagnosticContext>();
 }
@@ -98,8 +98,6 @@ WebApplication? app = builder.Build();
 
 	app.UseSession();
 
-
-
 	app.UseHangfireDashboard("/hangfire");
 
 	app.MapRazorPages();
@@ -111,7 +109,7 @@ WebApplication? app = builder.Build();
 
 	RecurringJob.AddOrUpdate<MembershipExpirationJob>(
 	job => job.CheckExpiringMembershipsAsync(),
-	Cron.Daily);
+	Cron.Minutely);
 
 	app.Run();
 }
