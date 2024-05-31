@@ -1,25 +1,105 @@
-﻿using gms.data;
+﻿using gms.common.Models.GymCat.GymNotification;
+using gms.data;
+using gms.data.Mapper.Gym;
 using gms.data.Models.Gym;
+using gms.service.Hubs;
 using gms.services.Base;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace gms.service.Gym.GymNotificationRepository;
+
 public class GymNotificationService : BaseRepository<GymNotificationEntity>, IGymNotificationService
 {
-    private readonly ApplicationDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ApplicationDbContext _context;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 	private readonly ILogger<GymNotificationService> _logger;
+	private readonly IHubContext<NotificationHub> _hubContext;
+
 	public GymNotificationService
 	(
 		ApplicationDbContext context,
 		IHttpContextAccessor httpContextAccessor,
-		ILogger<GymNotificationService> logger
+		ILogger<GymNotificationService> logger,
+		IHubContext<NotificationHub> hubContext
 	) : base(context, httpContextAccessor)
 	{
 		_context = context;
 		_httpContextAccessor = httpContextAccessor;
 		_logger = logger;
+		_hubContext = hubContext;
 	}
 
+	public async Task<GymNotificationDTO> CreateGymNotifiacationAsync(CreateGymNotificationDTO newGymNotification)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymNotificationService), nameof(CreateGymNotifiacationAsync), DateTime.Now.ToString() });
+
+			GymNotificationEntity newGymNotificationEntity = newGymNotification.ToEntity();
+
+			await AddAsync(newGymNotificationEntity);
+
+			return newGymNotificationEntity.ToDTO();
+		}
+
+	}
+
+	public async Task<List<GymNotificationDTO>> GetGymNotificationListForGymAsync()
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListForGymAsync), DateTime.Now.ToString() });
+
+
+			List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.GymBranch.GymId == GetGymId())).Select(gn => gn.ToDTO()).ToList();
+
+			return result;
+		}
+	}
+
+	public async Task<List<GymNotificationDTO>> GetGymNotificationListForBranchAsync()
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListForBranchAsync), DateTime.Now.ToString() });
+
+
+			List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.BranchId == GetBranchId())).Select(gn => gn.ToDTO()).ToList();
+
+			return result;
+		}
+	}
+
+	public async Task<List<GymNotificationDTO>> GetGymNotificationListByUserIdhAsync(int userId)
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdhAsync), DateTime.Now.ToString() });
+
+
+			List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.GymReceiverUserId == userId)).Select(gn => gn.ToDTO()).ToList();
+
+			return result;
+		}
+	}
+
+	public async Task<List<GymNotificationDTO>> GetGymNotificationListForLoggedinUserAsync()
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdhAsync), DateTime.Now.ToString() });
+
+
+			List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.GymReceiverUserId == GetUserId())).Select(gn => gn.ToDTO()).ToList();
+
+			return result;
+		}
+	}
 }

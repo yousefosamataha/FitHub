@@ -61,6 +61,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddControllersWithViews();
 
 	builder.Services.AddSingleton<DiagnosticContext>();
+
+	builder.Services.AddSignalR();
 }
 
 
