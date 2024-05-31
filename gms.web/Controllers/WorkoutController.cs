@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using gms.common.Models.WorkoutCat.WorkoutPlan;
+using gms.service.Workout.WorkoutPlanRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gms.web.Controllers;
@@ -6,12 +8,14 @@ namespace gms.web.Controllers;
 [Authorize]
 public class WorkoutController : BaseController<WorkoutController>
 {
-    public WorkoutController()
+    private readonly IWorkoutPlanService _workoutPlanService;
+    public WorkoutController(IWorkoutPlanService workoutPlanService)
     {
-        
+        _workoutPlanService = workoutPlanService;
     }
-    public IActionResult Index()
-	{
-		return View();
-	}
+    public async Task<IActionResult> Index()
+    {
+        List<WorkoutPlanDTO> workoutPlans = await _workoutPlanService.GetWorkoutPlanListForBranchAsync();
+        return View(workoutPlans);
+    }
 }
