@@ -31,12 +31,12 @@ public class GymNotificationService : BaseRepository<GymNotificationEntity>, IGy
         _hubContext = hubContext;
     }
 
-    public async Task<GymNotificationDTO> CreateGymNotifiacationAsync(CreateGymNotificationDTO newGymNotification)
+    public async Task<GymNotificationDTO> CreateGymNotificationAsync(CreateGymNotificationDTO newGymNotification)
     {
         using (_logger.BeginScope(GetScopesInformation()))
         {
             _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-                                  new object[] { nameof(GymNotificationService), nameof(CreateGymNotifiacationAsync), DateTime.Now.ToString() });
+                                  new object[] { nameof(GymNotificationService), nameof(CreateGymNotificationAsync), DateTime.Now.ToString() });
 
             GymNotificationEntity newGymNotificationEntity = newGymNotification.ToEntity();
 
@@ -121,12 +121,12 @@ public class GymNotificationService : BaseRepository<GymNotificationEntity>, IGy
         }
     }
 
-    public async Task<List<GymNotificationDTO>> GetGymNotificationListByUserIdhAsync(int userId)
+    public async Task<List<GymNotificationDTO>> GetGymNotificationListByUserIdAsync(int userId)
     {
         using (_logger.BeginScope(GetScopesInformation()))
         {
             _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-                                  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdhAsync), DateTime.Now.ToString() });
+                                  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdAsync), DateTime.Now.ToString() });
 
 
             List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.GymReceiverUserId == userId)).Select(gn => gn.ToDTO()).ToList();
@@ -140,7 +140,7 @@ public class GymNotificationService : BaseRepository<GymNotificationEntity>, IGy
         using (_logger.BeginScope(GetScopesInformation()))
         {
             _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-                                  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdhAsync), DateTime.Now.ToString() });
+                                  new object[] { nameof(GymNotificationService), nameof(GetGymNotificationListByUserIdAsync), DateTime.Now.ToString() });
 
 
             List<GymNotificationDTO> result = (await FindAllAsync(gn => gn.GymReceiverUserId == GetUserId())).Select(gn => gn.ToDTO()).ToList();

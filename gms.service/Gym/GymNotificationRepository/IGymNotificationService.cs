@@ -3,7 +3,7 @@
 namespace gms.service.Gym.GymNotificationRepository;
 public interface IGymNotificationService
 {
-    Task<GymNotificationDTO> CreateGymNotifiacationAsync(CreateGymNotificationDTO newGymNotification);
+    Task<GymNotificationDTO> CreateGymNotificationAsync(CreateGymNotificationDTO newGymNotification);
 
     Task<GymNotificationDTO> UpdateGymNotificationAsync(UpdateGymNotificationDTO updateGymNotificationDTO);
 
@@ -15,7 +15,7 @@ public interface IGymNotificationService
 
     Task<List<GymNotificationDTO>> GetGymNotificationListForBranchAsync();
 
-    Task<List<GymNotificationDTO>> GetGymNotificationListByUserIdhAsync(int userId);
+    Task<List<GymNotificationDTO>> GetGymNotificationListByUserIdAsync(int userId);
 
     Task<List<GymNotificationDTO>> GetGymNotificationListForLoggedinUserAsync();
 }
