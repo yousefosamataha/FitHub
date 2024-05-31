@@ -2,11 +2,13 @@
 
 public sealed record UpdateGymNotificationDTO
 {
-	public int GymReceiverUserId { get; init; }
+    public int Id { get; set; }
 
-	public required string NotificationTitle { get; init; }
+    public int GymReceiverUserId { get; init; }
 
-	public required string NotificationMessageBody { get; init; }
+    public required string NotificationTitle { get; init; }
 
-	public DateTime SendDate { get; init; }
+    public required string NotificationMessageBody { get; init; }
+
+    public DateTime SendDate { get; init; }
 }
