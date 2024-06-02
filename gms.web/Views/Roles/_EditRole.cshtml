@@ -1,0 +1,88 @@
+﻿@model GymRolePermissionsDTO
+
+<!--begin::Form-->
+<form id="edit_role_form" class="form" asp-controller="Roles" asp-action="EditRole" method="post">
+    <input type="hidden" asp-for="RoleId" />
+    <!--begin::Scroll-->
+    <div class="d-flex flex-column me-n7 pe-7" id="kt_modal_update_role_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_update_role_header" data-kt-scroll-wrappers="#kt_modal_update_role_scroll" data-kt-scroll-offset="300px">
+        <!--begin::Input group-->
+        <div class="fv-row mb-10">
+            <!--begin::Label-->
+            <label class="required form-label ms-2">@localizer["role_name"]</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="text" asp-for="@Model.RoleName" value="@Model.RoleName.Split("_")[1]" class="form-control" placeholder="@localizer["enter"] @localizer["role_name"] @localizer["here"]" />
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Permissions-->
+        <div>
+            <!--begin::Label-->
+            <label class="form-label ms-2">@localizer["role_permissions"]</label>
+            <!--end::Label-->
+            <!--begin::Table wrapper-->
+            <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table align-middle table-row-dashed fs-6 gy-5">
+                    <!--begin::Table body-->
+                    <tbody class="text-gray-600 fw-semibold">
+                        @{
+                            int counter = 0;
+                        }
+                        @foreach (var p in Model.Permissions.GroupBy(p => p.Text.Split(".")[1]))
+                        {
+                            <!--begin::Table row-->
+                            <tr>
+                                <!--begin::Label-->
+                                <td class="text-gray-800">@p.Key</td>
+                                <!--end::Label-->
+                                <!--begin::Input group-->
+                                <td>
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex justify-content-center">
+                                        @foreach (var item in Model.Permissions.Where(X => X.Text.Split(".")[1] == p.Key).ToList())
+                                        {
+                                            <!--begin::Checkbox-->
+                                            <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                <input type="hidden" asp-for="@Model.Permissions[counter].Text" />
+                                                <input class="form-check-input" type="checkbox" asp-for="@Model.Permissions[counter].IsSelected" />
+                                                <span class="form-check-label text-gray-600">@(localizer[item.Text.Split(".")[2].ToLower()])</span>
+                                            </label>
+                                            <!--end::Checkbox-->
+                                            counter++;
+                                        }
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </td>
+                                <!--end::Input group-->
+                            </tr>
+                            <!--end::Table row-->
+                        }
+                    </tbody>
+                    <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Table wrapper-->
+        </div>
+        <!--end::Permissions-->
+    </div>
+    <!--end::Scroll-->
+    <!--begin::Actions-->
+    <div class="d-flex pt-15 justify-content-end px-5">
+        <!--begin::Reset Button-->
+        <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+        <!--end::Reset Button-->
+        <!--begin::Button-->
+        <button type="submit" id="edit_form_submit" class="btn btn-primary">
+            <span class="indicator-label">@localizer["save"]</span>
+            <span class="indicator-progress">
+                @localizer["please_wait"]...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+        <!--end::Button-->
+    </div>
+    <!--end::Actions-->
+</form>
+<!--end::Form-->

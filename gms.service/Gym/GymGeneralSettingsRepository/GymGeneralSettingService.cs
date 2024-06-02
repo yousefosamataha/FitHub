@@ -51,6 +51,13 @@ public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>,
 			await UpdateAsync(updatedGeneralSettingEntity);
 			return updatedGeneralSettingEntity.ToDTO();
 		}
-		
+	}
+
+
+	public async Task<GeneralSettingDTO> GetBranchGeneralSettingAsync()
+	{
+		GymBranchEntity branchEntity = _context.GymBranches.Where(gb => gb.Id == GetBranchId()).FirstOrDefault();
+		GymGeneralSettingEntity generalSettingEntity = branchEntity.GeneralSetting;
+		return generalSettingEntity.ToDTO();
 	}
 }

@@ -1,4 +1,3 @@
-using gms.service.Background;
 using gms.web.Extensions.Database;
 using gms.web.Extensions.HangFire;
 using gms.web.Extensions.Identity;
@@ -25,6 +24,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog(Log.Logger);
 
+	//Add HttpContextAccessor
+	builder.Services.AddHttpContextAccessor();
 
     // Add Hangfire
     builder.Services.AddHangFireConfiguration(builder.Configuration);
@@ -61,7 +62,9 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddControllersWithViews();
 
-    builder.Services.AddSingleton<DiagnosticContext>();
+	builder.Services.AddSingleton<DiagnosticContext>();
+
+	builder.Services.AddSignalR();
 }
 
 
@@ -101,7 +104,7 @@ WebApplication? app = builder.Build();
 
 
 
-    app.UseHangfireDashboard("/hangfire");
+	app.UseHangfireDashboard("/hangfire");
 
     app.MapRazorPages();
 

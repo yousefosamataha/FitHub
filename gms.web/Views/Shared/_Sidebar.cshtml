@@ -164,46 +164,16 @@
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<span class="menu-link">
+							<a class="menu-link" asp-controller="Roles" asp-action="Index">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">@localizer["settings"]</span>
-								<span class="menu-arrow"></span>
-							</span>
+								<span class="menu-title">@localizer["roles"]</span>
+							</a>
 							<!--end:Menu link-->
-							<!--begin:Menu sub-->
-							<div class="menu-sub menu-sub-accordion">
-								<!--begin:Menu item-->
-								<div class="menu-item" side-menu-item="true">
-									<!--begin:Menu link-->
-									<a class="menu-link" asp-controller="Roles" asp-action="Index">
-										<span class="menu-bullet">
-											<span class="bullet bullet-dot"></span>
-										</span>
-										<span class="menu-title">@localizer["roles"]</span>
-									</a>
-									<!--end:Menu link-->
-								</div>
-								<!--end:Menu item-->
-								<!--begin:Menu item-->
-								<div class="menu-item" side-menu-item="true">
-									<!--begin:Menu link-->
-									<a class="menu-link" href="@Url.Action("Permissions", "Roles")">
-										<span class="menu-bullet">
-											<span class="bullet bullet-dot"></span>
-										</span>
-										<span class="menu-title">@localizer["permissions"]</span>
-									</a>
-									<!--end:Menu link-->
-								</div>
-								<!--end:Menu item-->
-							</div>
-							<!--end:Menu sub-->
 						</div>
-						<!--end:Menu item-->
 					</div>
 					<!--end:Menu sub-->
 				</div>
@@ -531,9 +501,9 @@
 				</div>
 				<!--end:Menu item--> *@
 				<!--begin::Menu Item-->
-				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
+				<div class="menu-item" side-menu-item="true">
 					<!--begin::Menu link-->
-					<a class="menu-link" href="@Url.Action("Index", "Home")">
+					<a class="menu-link" asp-controller="Gym" asp-action="Settings">
 						<!--begin::icone-->
 						<span class="menu-icon">
 							<i class="ki-solid ki-gear fs-1"></i>
