@@ -12,108 +12,109 @@ using Serilog.Extensions.Hosting;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 {
-	builder.Logging.ClearProviders();
+    builder.Logging.ClearProviders();
 
-	Log.Logger = new LoggerConfiguration()
-					.ReadFrom.Configuration(builder.Configuration)
-					.Enrich.FromLogContext()
-					.WriteTo.Console()
-					.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
-					.CreateLogger();
-
-
-
-	builder.Host.UseSerilog(Log.Logger);
+    Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Configuration)
+                    .Enrich.FromLogContext()
+                    .WriteTo.Console()
+                    .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
 
 
-	// Add Hangfire
-	builder.Services.AddHangFireConfiguration(builder.Configuration);
 
-	// Add Database
-	builder.Services.AddDatabaseConfiguration(builder.Configuration);
+    builder.Host.UseSerilog(Log.Logger);
 
-	// Add Services
-	builder.Services.AddCustomServices();
 
-	// Add Localization
-	builder.Services.AddLocalizationConfiguration();
+    // Add Hangfire
+    builder.Services.AddHangFireConfiguration(builder.Configuration);
 
-	// Add Identity
-	builder.Services.AddIdentityConfiguration();
+    // Add Database
+    builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
-	// Add Permission Policy
-	builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-	builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+    // Add Service To Run and Apply Migration Automtic
+    builder.Services.AddHostedService<MigrationHostedService>();
 
-	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    // Add Services
+    builder.Services.AddCustomServices();
 
-	// Add Sessions
-	builder.Services.AddDistributedMemoryCache();
-	builder.Services.AddSession(options =>
-	{
-		options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
-		options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
-		options.Cookie.IsEssential = true; // Mark the session cookie as essential.
-	});
+    // Add Localization
+    builder.Services.AddLocalizationConfiguration();
 
-	builder.Services.AddControllersWithViews();
+    // Add Identity
+    builder.Services.AddIdentityConfiguration();
 
-	builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    // Add Permission Policy
+    builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+    builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-	builder.Services.AddSingleton<DiagnosticContext>();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+    // Add Sessions
+    builder.Services.AddDistributedMemoryCache();
+    builder.Services.AddSession(options =>
+    {
+        options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout.
+        options.Cookie.HttpOnly = true; // Make the session cookie HTTP only.
+        options.Cookie.IsEssential = true; // Mark the session cookie as essential.
+    });
+
+    builder.Services.AddControllersWithViews();
+
+    builder.Services.AddSingleton<DiagnosticContext>();
 }
 
 
 WebApplication? app = builder.Build();
 {
 
-	app.UseSerilogRequestLogging();
+    app.UseSerilogRequestLogging();
 
-	if (app.Environment.IsDevelopment())
-	{
-		app.UseMigrationsEndPoint();
-	}
-	else
-	{
-		app.UseExceptionHandler("/Home/Error");
-		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-		app.UseHsts();
-	}
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMigrationsEndPoint();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-	app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-	app.UseStaticFiles();
+    app.UseStaticFiles();
 
-	app.UseRouting();
+    app.UseRouting();
 
-	string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
+    string[] supportedCultures = new[] { CulturesInfoStrings.English, CulturesInfoStrings.Arabic, CulturesInfoStrings.French };
 
-	app.UseRequestLocalization(new RequestLocalizationOptions()
-		.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures));
+    app.UseRequestLocalization(new RequestLocalizationOptions()
+        .SetDefaultCulture(supportedCultures[0])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures));
 
-	app.UseAuthentication();
-	app.UseAuthorization();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
-	app.UseSession();
+    app.UseSession();
 
 
 
-	app.UseHangfireDashboard("/hangfire");
+    app.UseHangfireDashboard("/hangfire");
 
-	app.MapRazorPages();
+    app.MapRazorPages();
 
-	app.MapControllerRoute(
-		name: "default",
-		pattern: "{controller=Home}/{action=Index}/{id?}"
-	);
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 
-	RecurringJob.AddOrUpdate<MembershipExpirationJob>(
-	job => job.CheckExpiringMembershipsAsync(),
-	Cron.Daily);
+    //RecurringJob.AddOrUpdate<MembershipExpirationJob>(
+    //job => job.CheckExpiringMembershipsAsync(),
+    //Cron.Daily);
 
-	app.Run();
+    app.Run();
 }
 
 
