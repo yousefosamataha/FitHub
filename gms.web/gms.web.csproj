@@ -53,7 +53,6 @@
 
   <ItemGroup>
     <Folder Include="Validations\" />
-    <Folder Include="Views\Workout\" />
     <Folder Include="Views\Subscription\" />
     <Folder Include="Views\Staff\" />
     <Folder Include="Views\Nutrition\" />
