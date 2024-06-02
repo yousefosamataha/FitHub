@@ -125,6 +125,7 @@
   "staffs_list": "Staffs List",
   "roles": "Roles",
   "permissions": "Permissions",
+  "branches": "Branches",
   "---views---": "------------------------------------------",
   "---memberships/membership_list---": "------------------",
   "search_by_membership_name": "Search By Membership Name",
@@ -256,5 +257,17 @@
   "---my_profile---": "------------------",
   "user": "User",
   "details": "Details",
-  "edit_profile": "Edit Profile"
+  "edit_profile": "Edit Profile",
+  "---branches---": "------------------",
+  "branches_list": "Branches List",
+  "add_new_branch": "Add New Branch",
+  "search_by_branch_name": "Search By Branch Name",
+  "branch_name": "Branch Name",
+  "main": "Main",
+  "select_a_country": "Select a Country",
+  "currency": "Currency",
+  "time_zone": "TimeZone",
+  "contact_email": "Contact Email",
+  "contact_number": "Contact Number",
+  "number": "Number"
 }

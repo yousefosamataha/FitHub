@@ -36,6 +36,7 @@ public static class BranchMapper
             IsMainBranch = source.IsMainBranch,
             GeneralSettingId = source.GeneralSettingId,
 			CreatedById = source.CreatedById,
+			CreatedAt = source.CreatedAt,
             Country = source.Country?.ToDTO(),
             GeneralSetting = source.GeneralSetting?.ToDTO()
 		};

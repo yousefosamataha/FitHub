@@ -1,14 +1,21 @@
-﻿using gms.common.Models.GymCat.GymGeneralSetting;
+﻿using gms.common.Models.GymCat.Branch;
+using gms.common.Models.GymCat.GymGeneralSetting;
 using gms.common.Models.GymCat.GymGroup;
 using gms.common.Models.GymCat.GymLocation;
 using gms.common.Models.GymCat.GymSpecialization;
 using gms.common.ViewModels.Gym;
 using gms.data.Mapper.Gym;
+using gms.data.Models.Identity;
+using gms.service.Gym.GymBranchRepository;
 using gms.service.Gym.GymGeneralSettingsRepository;
 using gms.service.Gym.GymGroupRepository;
 using gms.service.Gym.GymLocationRepository;
 using gms.service.Gym.GymSpecializationRepository;
+using gms.service.Identity.GymRolesRepository;
+using gms.service.Shared.CountryRepository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace gms.web.Controllers;
 public class GymController : BaseController<GymController>
@@ -17,17 +24,33 @@ public class GymController : BaseController<GymController>
 	private readonly IGymLocationService _gymLocationService;
 	private readonly IGymSpecializationService _gymSpecializationService;
 	private readonly IGymGeneralSettingService _gymGeneralSettingService;
+	private readonly IGymBranchService _gymBranchService;
+    private readonly ICountryService _countryService;
+    private readonly IGymRolesService _gymRoleService;
+    private readonly SignInManager<GymUserEntity> _signInManager;
+    private readonly UserManager<GymUserEntity> _userManager;
 
-	public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService, IGymSpecializationService gymSpecializationService, IGymGeneralSettingService gymGeneralSettingService)
+    public GymController(IGymGroupService gymGroupService, IGymLocationService gymLocationService, IGymSpecializationService gymSpecializationService, IGymGeneralSettingService gymGeneralSettingService, IGymBranchService gymBranchService, ICountryService countryService, IGymRolesService gymRoleService, UserManager<GymUserEntity> userManager, SignInManager<GymUserEntity> signInManager)
+    {
+        _gymGroupService = gymGroupService;
+        _gymLocationService = gymLocationService;
+        _gymSpecializationService = gymSpecializationService;
+        _gymGeneralSettingService = gymGeneralSettingService;
+        _gymBranchService = gymBranchService;
+        _countryService = countryService;
+        _gymRoleService = gymRoleService;
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
+
+
+    #region Gym Group Cat
+    public async Task<IActionResult> GroupsList()
 	{
-		_gymGroupService = gymGroupService;
-		_gymLocationService = gymLocationService;
-		_gymSpecializationService = gymSpecializationService;
-		_gymGeneralSettingService = gymGeneralSettingService;
+        List<GymGroupDTO> listOfGymGroups = await _gymGroupService.GetGymGroupsListAsync();
+		return View(listOfGymGroups);
 	}
 
-
-	#region Gym Group Cat
 	public IActionResult AddNewGroup()
     {
         return PartialView("_AddNewGroup");
@@ -44,12 +67,6 @@ public class GymController : BaseController<GymController>
 		};
 		var result = await _gymGroupService.AddGymGroupAsync(modelDTO);
 		return Json(result);
-	}
-
-	public async Task<IActionResult> GroupsList()
-	{
-        List<GymGroupDTO> listOfGymGroups = await _gymGroupService.GetGymGroupsListAsync();
-		return View(listOfGymGroups);
 	}
 
     public async Task<IActionResult> EditGroup(int id)
@@ -140,4 +157,79 @@ public class GymController : BaseController<GymController>
 		return RedirectToAction(nameof(Settings));
 	}
 	#endregion
+
+	#region Gym Branches
+	public async Task<IActionResult> BranchesList()
+	{
+		List<GymBranchDTO> branchesListDto = await _gymBranchService.GetGymBranchesListAsync();
+		return View(branchesListDto);
+	}
+
+    public async Task<IActionResult> AddNewBranch()
+    {
+        AddNewBranchVM gymBranchModel = new ();
+        gymBranchModel.CountriesList = await _countryService.GetCountriesListAsync();
+
+        return PartialView("_AddNewBranch", gymBranchModel);
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> AddNewBranch(CreateBranchDTO model)
+    {
+        GymBranchDTO branchData = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+        model.GymId = GetGymId();
+        model.IsMainBranch = false;
+
+        if (branchData.GeneralSetting.IsShared) 
+		{ 
+			model.GeneralSettingId = branchData.GeneralSettingId;
+			GymBranchDTO createdBranch = await _gymBranchService.CreateBranchAsync(model);
+
+            await _gymRoleService.CreateRolesForBranchAsync(createdBranch.Id);
+        }
+		else
+		{
+            CreateGeneralSettingDTO GeneralSettingDTO = new();
+            GeneralSettingDTO CreatedGeneralSetting = await _gymGeneralSettingService.CreateGymGeneralSettingAsync(GeneralSettingDTO);
+
+            model.GeneralSettingId = CreatedGeneralSetting.Id;
+            GymBranchDTO createdBranch = await _gymBranchService.CreateBranchAsync(model);
+
+            await _gymRoleService.CreateRolesForBranchAsync(createdBranch.Id);
+        }
+        return Json(new { Success = true, Message = "" });
+    }
+
+    public async Task<IActionResult> SelectGymBranch()
+    {
+        List<GymBranchDTO> branchesListDto = await _gymBranchService.GetGymBranchesListAsync();
+        return View(branchesListDto);
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> SelectGymBranch(int branchId)
+    {
+        var user = await _userManager.FindByIdAsync(GetUserId().ToString());
+        var claimType = "BranchId";
+
+        var oldClaim = (await _userManager.GetClaimsAsync(user)).FirstOrDefault(c => c.Type == claimType);
+
+        if (oldClaim != null)
+        {
+            var result = await _userManager.RemoveClaimAsync(user, oldClaim);
+            if (result.Succeeded)
+            {
+                var newClaim = new Claim(claimType, branchId.ToString());
+                var sddNewClaimResult = await _userManager.AddClaimAsync(user, newClaim);
+                if (sddNewClaimResult.Succeeded)
+                {
+                    await _userManager.UpdateSecurityStampAsync(user);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                }
+            }
+        }
+
+        return Json(new { Success = true, Message = "" });
+    }
+    #endregion
 }

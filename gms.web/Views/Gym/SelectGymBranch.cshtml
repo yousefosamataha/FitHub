@@ -1,0 +1,163 @@
+﻿@using gms.common.Models.GymCat.Branch
+@model List<GymBranchDTO>
+@{
+    Layout = null;
+    ViewData["Title"] = localizer["branches_list"];
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!DOCTYPE html>
+<html @(IsRTL ? "direction=rtl dir=rtl style=direction: rtl" : "lang=en")>
+<!--begin::Head-->
+<head>
+    <title>@ViewData["Title"] | FitHub</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="~/favicon.ico" />
+
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="app-blank bgi-size-cover bgi-attachment-fixed bgi-position-center">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root" id="kt_app_root">
+        <!--begin::Page bg image-->
+        <style>
+            body {
+                background-image: url('../../../assets/media/auth/bg10.jpeg');
+            }
+
+            [data-bs-theme="dark"] body {
+                background-image: url('../../../assets/media/auth/bg10-dark.jpeg');
+            }
+        </style>
+        <!--end::Page bg image-->
+        <!--begin::Authentication - Sign-in -->
+        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+            <!--begin::Aside-->
+            <div class="d-flex flex-lg-row-fluid d-none d-lg-flex d-xl-flex">
+                <!--begin::Content-->
+                <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+                    <!--begin::Image-->
+                    <img class="theme-light-show mx-auto mw-200 w-250px w-lg-400px mb-5" src="~/assets/Images/laptop_logo_dark.png" alt="" />
+                    <img class="theme-dark-show mx-auto mw-200 w-250px w-lg-400px mb-5" src="~/assets/Images/laptop_logo_light.png" alt="" />
+                    <!--end::Image-->
+                    <!--begin::Title-->
+                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
+                    <!--end::Title-->
+                    <!--begin::Text-->
+                    <div class="text-gray-600 fs-base text-center fw-semibold">
+                        In this kind of post,
+                        <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed
+                        <br />and provides some background information about
+                        <a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
+                        <br />work following this is a transcript of the interview.
+                    </div>
+                    <!--end::Text-->
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--begin::Aside-->
+            <!--begin::Body-->
+            <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end align-items-center p-12">
+                <!--begin::Wrapper-->
+                <div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10" style="height: fit-content;flex-grow: 1;">
+                    <!--begin::Content-->
+                    <div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px">
+                        <!--begin::Wrapper-->
+                        <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-10 pt-lg-10">
+                            <div class="app-header-logo d-flex align-self-start pb-10" id="kt_app_header_logo">
+                                <!--begin::Logo-->
+                                <a href="#" class="app-sidebar-logo">
+                                    @if (!IsRTL)
+                                    {
+                                        <img alt="Logo" src="~/assets/Images/logo_title_dark_ltr.png" class="h-30px h-lg-35px theme-light-show" />
+                                        <img alt="Logo" src="~/assets/Images/logo_title_light_ltr.png" class="h-30px h-lg-35px theme-dark-show" />
+                                    }
+                                    else
+                                    {
+                                        <img alt="Logo" src="~/assets/Images/logo_title_dark_rtl.png" class="h-30px h-lg-35px theme-light-show" />
+                                        <img alt="Logo" src="~/assets/Images/logo_title_light_rtl.png" class="h-30px h-lg-35px theme-dark-show" />
+                                    }
+                                </a>
+                                <!--end::Logo-->
+                            </div>
+                            <!--begin::Form-->
+                            <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" id="select_branch_form">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <!--begin::Select2-->
+                                    <div class="mb-5">
+                                        <label class="form-label ms-2">@localizer["select_branch"]</label>
+                                        <select id="SelectCountry" class="form-select" name="BranchId" data-control="select2" data-hide-search="true" data-placeholder="@localizer["select_an_option"]">
+                                            <option></option>
+                                            @foreach (var b in Model)
+                                            {
+                                                <option value="@b.Id">@b.BranchName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <!--end::Select2-->
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end px-5">
+                                        <button id="select_branch_form_submit" type="submit" class="btn btn-primary me-2 flex-shrink-0">Continue</button>
+                                        <!--end::Submit-->
+                                    </div>
+                                    <!--end::Actions-->
+                                </div>
+                                <!--begin::Body-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Authentication - Sign-in-->
+    </div>
+    <!--end::Root-->
+    <!--begin::Javascript-->
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+
+    <script>
+        // Handle Form Submition
+        const submitButton = document.getElementById('select_branch_form_submit');
+        submitButton.addEventListener('click', function (e) {
+            // Prevent default button action
+            e.preventDefault();
+
+            $.ajax({
+                url: '/Gym/SelectGymBranch',
+                type: 'POST',
+                data: {
+                    branchId: $('[name="BranchId"]').val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    window.location.href = `/Home/Index`;
+                }
+            });
+        });
+    </script>
+</body>
+<!--end::Body-->
+</html>

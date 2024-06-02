@@ -16,6 +16,7 @@ public record GymBranchDTO
     public bool IsMainBranch { get; init; }
     public int GeneralSettingId { get; init; }
 	public int? CreatedById { get; init; }
+	public DateTime CreatedAt { get; init; }
     public CountryDTO? Country { get; init; }
     public GeneralSettingDTO? GeneralSetting { get; init; }
 }

@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using gms.common.Enums;
 using gms.common.Models.Identity.User;
 using gms.data.Mapper.Identity;
 using gms.data.Models.Identity;
@@ -89,7 +90,11 @@ namespace gms.web.Areas.Identity.Pages.Account
                         await _signInManager.RefreshSignInAsync(user);
 
                         _logger.LogInformation("User logged in.");
-
+                        
+                        if(user.GymUserTypeId == GymUserTypeEnum.Owner)
+                        {
+                            return RedirectToAction( "SelectGymBranch", "Gym");
+                        } 
                         return LocalRedirect(returnUrl);
                     }
                 }
