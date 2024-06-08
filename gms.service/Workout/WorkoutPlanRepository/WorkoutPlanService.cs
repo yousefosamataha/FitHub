@@ -1,4 +1,5 @@
-﻿using gms.common.Models.WorkoutCat.WorkoutPlan;
+﻿using gms.common.Enums;
+using gms.common.Models.WorkoutCat.WorkoutPlan;
 using gms.data;
 using gms.data.Mapper.Workout;
 using gms.data.Models.Workout;
@@ -25,6 +26,19 @@ public class WorkoutPlanService : BaseRepository<WorkoutPlanEntity>, IWorkoutPla
         _logger = logger;
     }
 
+    public async Task<List<WorkoutPlanDTO>> GetWorkoutPlanListAsync()
+    {
+        using (_logger.BeginScope(GetScopesInformation()))
+        {
+            _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+                                  new object[] { nameof(WorkoutPlanService), nameof(GetWorkoutPlanListAsync), DateTime.Now.ToString() });
+
+            List<WorkoutPlanDTO> result = (await FindAllAsync(wp => wp.BranchId == GetBranchId())).Select(wp => wp.ToDTO()).ToList();
+
+            return result;
+        }
+    }
+
     public async Task<WorkoutPlanDTO> CreateWorkoutPlanAsync(CreateWorkoutPlanDTO newWorkoutPlan)
     {
         using (_logger.BeginScope(GetScopesInformation()))
@@ -33,8 +47,11 @@ public class WorkoutPlanService : BaseRepository<WorkoutPlanEntity>, IWorkoutPla
                                   new object[] { nameof(WorkoutPlanService), nameof(CreateWorkoutPlanAsync), DateTime.Now.ToString() });
 
             WorkoutPlanEntity newWorkoutPlanEntity = newWorkoutPlan.ToEntity();
+			newWorkoutPlanEntity.BranchId = GetBranchId();
+			newWorkoutPlanEntity.AssignedByGymStaffUserId = GetUserId();
+			newWorkoutPlanEntity.WorkoutPlanStatusId = StatusEnum.Active;
 
-            await AddAsync(newWorkoutPlanEntity);
+			await AddAsync(newWorkoutPlanEntity);
 
             return newWorkoutPlanEntity.ToDTO();
         }
@@ -82,34 +99,6 @@ public class WorkoutPlanService : BaseRepository<WorkoutPlanEntity>, IWorkoutPla
             WorkoutPlanEntity workoutPlanEntity = await FindAsync(wp => wp.Id == workoutPlanId && wp.BranchId == GetBranchId());
 
             return workoutPlanEntity.ToDTO();
-
-        }
-    }
-
-    public async Task<List<WorkoutPlanDTO>> GetWorkoutPlanListForGymAsync()
-    {
-        using (_logger.BeginScope(GetScopesInformation()))
-        {
-            _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-                                  new object[] { nameof(WorkoutPlanService), nameof(GetWorkoutPlanListForGymAsync), DateTime.Now.ToString() });
-
-            List<WorkoutPlanDTO> result = (await FindAllAsync(wp => wp.GymBranch.GymId == GetGymId())).Select(wp => wp.ToDTO()).ToList();
-
-            return result;
-
-        }
-    }
-
-    public async Task<List<WorkoutPlanDTO>> GetWorkoutPlanListForBranchAsync()
-    {
-        using (_logger.BeginScope(GetScopesInformation()))
-        {
-            _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
-                                  new object[] { nameof(WorkoutPlanService), nameof(GetWorkoutPlanListForBranchAsync), DateTime.Now.ToString() });
-
-            List<WorkoutPlanDTO> result = (await FindAllAsync(wp => wp.GymBranch.GymId == GetGymId())).Select(wp => wp.ToDTO()).ToList();
-
-            return result;
 
         }
     }

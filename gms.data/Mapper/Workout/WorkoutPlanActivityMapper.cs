@@ -9,6 +9,13 @@ public static class WorkoutPlanActivityMapper
 	{
 		return new WorkoutPlanActivityEntity()
 		{
+			WorkoutPlanId = source.WorkoutPlanId,
+			ActivityId = source.ActivityId,
+			WeekDayId = source.WeekDayId,
+			Sets = source.Sets,
+			Reps = source.Reps,
+			Kg = source.Kg,
+			RestTime = source.RestTime,
 		};
 	}
 
@@ -16,6 +23,14 @@ public static class WorkoutPlanActivityMapper
 	{
 		return new WorkoutPlanActivityDTO()
 		{
+			Id = source.Id,
+			WorkoutPlanId = source.WorkoutPlanId,
+			ActivityId = source.ActivityId,
+			WeekDayId = source.WeekDayId,
+			Sets = source.Sets,
+			Reps = source.Reps,
+			Kg = source.Kg,
+			RestTime = source.RestTime,
 		};
 	}
 

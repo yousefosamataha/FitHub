@@ -1,5 +1,159 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using gms.common.Models.WorkoutCat.WorkoutPlan
+@model List<WorkoutPlanDTO>
 @{
+    ViewData["Title"] = localizer["assign_workout_plans"];
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar pt-6 pb-2">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container"
+             class="app-container container-fluid d-flex align-items-stretch">
+            <!--begin::Toolbar wrapper-->
+            <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                        @localizer["assign_workout_plans"]
+                    </h1>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
+                        <li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
+                        <li class="breadcrumb-item text-gray-600">@localizer["workout_plans"]</li>
+                    </ol>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-fluid">
+            <!--begin::Membership List-->
+            <div class="card card-flush">
+                <!--begin::Card header-->
+                <div class="card-header align-items-center gap-2 gap-md-5">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <!--begin::Search-->
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
+                            <input type="text" groups-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_member_name"]" />
+                        </div>
+                        <!--end::Search-->
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                        <!--begin::Add Activity-->
+                        <a href="@Url.Action("AddNewWorkoutPlan", "Workout")" class="btn btn-primary d-flex align-items-center">
+                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_workout_plan"]
+                        </a>
+                        <!--end::Add Activity-->
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6" id="workoutPlans_list">
+                        <thead>
+                            <tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
+                                <th class="text-center min-w-150px">@localizer["image"]</th>
+                                <th class="text-start min-w-150px">@localizer["member_name"]</th>
+                                <th class="text-center min-w-150px">@localizer["status"]</th>
+                                <th class="text-center min-w-150px">@localizer["start_date"]</th>
+                                <th class="text-center min-w-150px">@localizer["end_date"]</th>
+                                <th class="text-center min-w-100px">@localizer["actions"]</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-700">
+                            <tr>
+                                @foreach (var wp in Model)
+                                {
+                                    <td class="text-center">
+                                        @if (wp.GymMemberUser.Image is not null)
+                                        {
+                                            <!--begin::Overlay-->
+                                            <a class="d-block overlay d-flex justify-content-center" data-fslightbox="lightbox-@wp.GymMemberUser.Id" href="@wp.GymMemberUser.Image">
+                                                <!--begin::Image-->
+                                                <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover symbol symbol-circle w-40px h-40px"
+                                                     style="background-image:url('@wp.GymMemberUser.Image') !important;">
+                                                </div>
+                                                <!--end::Image-->
+                                                <!--begin::Action-->
+                                                <div class="overlay-layer symbol symbol-circle bg-dark bg-opacity-25 shadow w-40px h-40px" style="@( IsRTL ? "right: 50%;transform: translateX(50%);" : "left: 50%;transform: translateX(-50%);" )">
+                                                    <i class="bi bi-eye-fill text-white fs-3"></i>
+                                                </div>
+                                                <!--end::Action-->
+                                            </a>
+                                            <!--end::Overlay-->
+                                        }
+                                        else
+                                        {
+                                            <!--begin::Thumbnail-->
+                                            <a href="#" class="symbol symbol-circle symbol-40px d-flex justify-content-center">
+                                                <span class="symbol-label symbol-label-blank"></span>
+                                            </a>
+                                            <!--end::Thumbnail-->
+                                        }
+                                    </td>
+                                    <td class="text-start">
+                                        <!--begin::Title-->
+                                        <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold" membership-list-filter="member_name">@wp.GymMemberUser.FirstName @wp.GymMemberUser.LastName</a>
+                                        <!--end::Title-->
+                                    </td>
+                                    <td class="text-center">
+                                        <!--begin::Badges-->
+                                        <div class="badge badge-light-@(wp.WorkoutPlanStatusId.ToString().ToLower())">@(localizer[wp.WorkoutPlanStatusId.ToString().ToLower()])</div>
+                                        <!--end::Badges-->
+                                    </td>
+                                    <td class="text-center" data-order="@wp.StartDate.ToString("dd/MM/yyyy")">
+                                        <span class="fw-bold">@wp.StartDate.ToString("dd/MM/yyyy")</span>
+                                    </td>
+                                    <td class="text-center" data-order="@wp.EndDate.ToString("dd/MM/yyyy")">
+                                        <span class="fw-bold">@wp.EndDate.ToString("dd/MM/yyyy")</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center flex-shrink-0">
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+                                                <i class="ki-solid ki-pencil fs-2"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+                                                <i class="ki-solid ki-trash fs-2"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-2 show-activity-videos-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["show_activity_videos"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
+                                                <i class="ki-solid ki-eye fs-2"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Membership List-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+@section Scripts {
+    <script type="module" src="~/assets/js/customJs/Workout/WorkoutPlansList.js" asp-append-version="true"></script>
 }

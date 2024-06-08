@@ -1,4 +1,6 @@
 ﻿using gms.common.Models.GymCat.Branch;
+using gms.data.Mapper.Identity;
+using gms.data.Mapper.Membership;
 using gms.data.Mapper.Shared;
 using gms.data.Models.Gym;
 
@@ -36,9 +38,14 @@ public static class BranchMapper
             IsMainBranch = source.IsMainBranch,
             GeneralSettingId = source.GeneralSettingId,
 			CreatedById = source.CreatedById,
+			CreatedAt = source.CreatedAt,
+			GymUsers = source.GymUsers?.Select(u => u.ToDTO()).ToList(),
+            Gym = source.Gym?.ToDTO(),
             Country = source.Country?.ToDTO(),
-            GeneralSetting = source.GeneralSetting?.ToDTO()
-		};
+            GeneralSetting = source.GeneralSetting?.ToDTO(),
+            GymGroups = source.GymGroups?.Select(g => g.ToDTO()).ToList(),
+            GymMembershipPlans = source.GymMembershipPlans?.Select(mp => mp.ToDTO()).ToList()
+        };
     }
 
 	public static GymBranchEntity ToUpdatedEntity(this GymBranchDTO source, GymBranchEntity entity)

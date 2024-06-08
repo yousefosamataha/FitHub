@@ -23,6 +23,8 @@ public interface IGymUserService
 
 	Task<GymUserEntity> GetGymUserByIdAsync(int userId);
 
+	Task<GymUserDTO> GetGymUserAsync(int userId);
+
     Task<GymUserDTO> CreateNewGymMemberUserAsync(CreateGymUserDTO entity, int branchId);
 
 	Task<List<GymUserDTO>> GetGymMemberUsersListAsync();

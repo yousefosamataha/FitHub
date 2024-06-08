@@ -21,5 +21,7 @@ internal class GymMemberGroupConfiguration : IEntityTypeConfiguration<GymMemberG
                .WithMany(gu => gu.GymMemberGroups)
                .HasForeignKey(gmg => gmg.GymMemberUserId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(gmg => gmg.GymMemberUser.IsDeleted == false);
     }
 }

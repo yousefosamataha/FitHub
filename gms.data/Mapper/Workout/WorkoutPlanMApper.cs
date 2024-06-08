@@ -36,9 +36,9 @@ public static class WorkoutPlanMApper
             StartDate = source.StartDate,
             EndDate = source.EndDate,
             Description = source.Description,
-            GymBranch = source.GymBranch.ToDTO(),
-            GymStaffUser = source.GymStaffUser.ToDTO(),
-            GymMemberUser = source.GymMemberUser.ToDTO()
+            GymBranch = source.GymBranch?.ToDTO(),
+            GymStaffUser = source.GymStaffUser?.ToDTO(),
+            GymMemberUser = source.GymMemberUser?.ToDTO()
         };
     }
 

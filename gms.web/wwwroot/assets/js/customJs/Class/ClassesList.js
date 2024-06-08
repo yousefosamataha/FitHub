@@ -195,6 +195,7 @@ var classesList = function () {
                         });
                     },
                     error: function (xhr) {
+                        console.log(xhr);
                         if (xhr.status == 403) {
                             jsonlocalizerData().then(data => {
                                 toastr.error(data["you_do_not_have_permission_to_access_this_action"]);

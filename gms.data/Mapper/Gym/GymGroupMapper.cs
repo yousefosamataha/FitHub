@@ -25,7 +25,8 @@ public static class GymGroupMapper
             BranchId = entity.BranchId,
             Name = entity.Name,
             Image = entity.Image?.Length != 0 ? $"data:image/{entity.ImageTypeId?.ToString()};base64,{Convert.ToBase64String(entity.Image)}" : null,
-            CreatedAt = entity.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
+            CreatedAt = entity.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture)),
+            GymMemberGroups = entity.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList()
         };
     }
 

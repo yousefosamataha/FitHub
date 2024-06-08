@@ -1,0 +1,95 @@
+﻿@using gms.common.ViewModels.Gym
+@model AddNewBranchVM
+@{
+    bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!--begin::Form-->
+<form id="add_new_branch_form" class="form d-flex flex-column flex-lg-row">
+    <!--begin::Wrapper-->
+    <div class="w-100">
+        <!--begin::Input group-->
+        <div class="col mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["branch_name"]</label>
+            <input type="text" asp-for="@Model.CreateBranch.BranchName" class="form-control" placeholder="@localizer["enter"] @localizer["branch_name"] @localizer["here"]" />
+        </div>
+        <!--end::Input group-->
+        <div class="row row-cols-1 row-cols-sm-3 rol-cols-md-1 row-cols-lg-3">
+            <div class="col mb-5 fv-row">
+                <label class="required form-label ms-2">@localizer["select_a_country"]</label>
+                <!--begin::Select2-->
+                <select id="SelectCountry" class="form-select" asp-for="@Model.CreateBranch.CountryId" data-placeholder="@localizer["select_an_option"]">
+                    <option></option>
+                    @foreach (var c in Model.CountriesList.OrderBy(c => c.Name))
+                    {
+                        <option value="@c.Id" data-country-flag="@c.Flag">@c.Name</option>
+                    }
+                </select>
+                <!--end::Select2-->
+            </div>
+            <div class="col mb-5">
+                <label class="form-label ms-2">@localizer["currency"]</label>
+                <!--begin::Select2-->
+                <select id="SelectCountryCurrency" class="form-select" data-control="select2" data-placeholder="@localizer["currency"]" disabled>
+                    <option></option>
+                    @foreach (var c in Model.CountriesList)
+                    {
+                        <option value="@c.Id">@c.Currency (@c.CurrencyCode)</option>
+                    }
+                </select>
+                <!--end::Select2-->
+            </div>
+            <div class="col mb-5">
+                <label class="form-label ms-2">@localizer["time_zone"]</label>
+                <!--begin::Select2-->
+                <select id="SelectCountryTimeZone" class="form-select" data-control="select2" data-placeholder="@localizer["time_zone"]" disabled>
+                    <option></option>
+                    @foreach (var c in Model.CountriesList)
+                    {
+                        <option value="@c.Id">@c.TimeZone (UTC @c.TimezoneOffset)</option>
+                    }
+                </select>
+                <!--end::Select2-->
+            </div>
+        </div>
+        <!--begin::Input group-->
+        <div class="col mb-5 fv-row">
+            <label class="required form-label ms-2">@localizer["address"]</label>
+            <input type="text" asp-for="@Model.CreateBranch.Address" class="form-control" placeholder="@localizer["enter"] @localizer["address"] @localizer["here"]" />
+        </div>
+        <!--end::Input group-->
+        <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+            <div class="col mb-5 fv-row">
+                <!--begin::Input group-->
+                <label class="required form-label ms-2">@localizer["contact_email"]</label>
+                <input type="email" asp-for="@Model.CreateBranch.Email" class="form-control" placeholder="@localizer["enter"] @localizer["email"] @localizer["here"]" style="direction:@(IsRTL ? "rtl" : "ltr" )" />
+                <!--end::Input group-->
+            </div>
+            <div class="col mb-5 fv-row">
+                <!--begin::Input group-->
+                <label class="required form-label ms-2">@localizer["contact_number"]</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="BranchContactNumber">+</span>
+                    <input type="text" class="form-control" asp-for="@Model.CreateBranch.ContactNumber" maxlength="10" placeholder="@localizer["enter"] @localizer["number"] @localizer["here"]" />
+                </div>
+                <!--end::Input group-->
+            </div>
+        </div>
+        <div class="d-flex justify-content-end px-5">
+            <!--begin::Reset Button-->
+            <button class="btn btn-light me-5" type="reset">@localizer["reset"]</button>
+            <!--end::Reset Button-->
+            <!--begin::Button-->
+            <button type="submit" id="add_new_branch_form_submit" class="btn btn-primary">
+                <span class="indicator-label">@localizer["save"]</span>
+                <span class="indicator-progress">
+                    @localizer["please_wait"]...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+            <!--end::Button-->
+        </div>
+    </div>
+    <!--end::Wrapper-->
+</form>
+<!--end::Form-->

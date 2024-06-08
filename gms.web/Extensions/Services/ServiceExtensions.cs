@@ -21,6 +21,8 @@ using gms.service.Membership.GymMembershipPaymentHistoryRepository;
 using gms.service.Membership.GymMembershipPlanRepository;
 using gms.service.Shared.CountryRepository;
 using gms.service.Subscription.SystemSubscriptionRepository;
+using gms.service.Workout.WorkoutPlanActivityRepository;
+using gms.service.Workout.WorkoutPlanRepository;
 using gms.services.Base;
 
 namespace gms.web.Extensions.Services;
@@ -77,6 +79,10 @@ public static class ServiceExtensions
 
         services.AddScoped<IGymSpecializationService, GymSpecializationService>();
 
-        services.AddScoped<IGymStaffSpecializationService, GymStaffSpecializationService>();
-    }
+		services.AddScoped<IGymStaffSpecializationService, GymStaffSpecializationService>();
+
+		services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
+
+		services.AddScoped<IWorkoutPlanActivityService, WorkoutPlanActivityService>();
+	}
 }

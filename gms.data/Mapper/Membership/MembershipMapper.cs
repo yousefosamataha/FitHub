@@ -1,4 +1,5 @@
 ﻿using gms.common.Models.MembershipCat.MembershipPlan;
+using gms.data.Mapper.Activity;
 using gms.data.Models.Membership;
 
 namespace gms.data.Mapper.Membership;
@@ -40,7 +41,8 @@ public static class MembershipMapper
 			ClassLimitDays = source.ClassLimitDays,
 			ClassLimitationId = source.ClassLimitationId,
 			CreatedById = source.CreatedById,
-			CreatedAt = source.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture))
+			CreatedAt = source.CreatedAt.AddHours(double.Parse(TimezoneOffset, System.Globalization.CultureInfo.InvariantCulture)),
+			MembershipActivities = source.MembershipActivities?.Select(ma => ma.ToDTO())?.ToList(),
 		};
 	}
 

@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\js\customJs\Workout\WorkoutPlansList.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="appsettings.Demo.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\customJs\Workout\WorkoutPlansList.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +61,10 @@
     <Folder Include="Views\Subscription\" />
     <Folder Include="Views\Staff\" />
     <Folder Include="Views\Nutrition\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\js\customJs\Workout\WorkoutPlansList.js" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ public record WorkoutPlanActivityDTO
     public int WorkoutPlanId { get; init; }
     public int ActivityId { get; init; }
     public WeekDayEnum WeekDayId { get; init; }
-    public int inits { get; init; }
+    public int Sets { get; init; }
     public int Reps { get; init; }
     public double Kg { get; init; }
     public TimeSpan RestTime { get; init; }

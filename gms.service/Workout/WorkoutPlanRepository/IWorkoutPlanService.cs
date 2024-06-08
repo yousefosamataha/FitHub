@@ -5,6 +5,8 @@ using gms.services.Base;
 namespace gms.service.Workout.WorkoutPlanRepository;
 public interface IWorkoutPlanService : IBaseRepository<WorkoutPlanEntity>
 {
+    Task<List<WorkoutPlanDTO>> GetWorkoutPlanListAsync();
+
     Task<WorkoutPlanDTO> CreateWorkoutPlanAsync(CreateWorkoutPlanDTO newWorkoutPlan);
 
     Task<WorkoutPlanDTO> UpdateWorkoutPlanAsync(UpdateWorkoutPlanDTO updateWorkoutPlanDTO);
@@ -12,10 +14,6 @@ public interface IWorkoutPlanService : IBaseRepository<WorkoutPlanEntity>
     Task<bool> DeleteWorkoutPlanAsync(int workoutPlanId);
 
     Task<WorkoutPlanDTO> GetWorkoutPlanByIdAsync(int workoutPlanId);
-
-    Task<List<WorkoutPlanDTO>> GetWorkoutPlanListForGymAsync();
-
-    Task<List<WorkoutPlanDTO>> GetWorkoutPlanListForBranchAsync();
 
     Task<List<WorkoutPlanDTO>> GetWorkoutPlanListForMemberByMemberIdAsync(int userId);
 

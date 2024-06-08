@@ -53,7 +53,6 @@ public class GymGeneralSettingService : BaseRepository<GymGeneralSettingEntity>,
 		}
 	}
 
-
 	public async Task<GeneralSettingDTO> GetBranchGeneralSettingAsync()
 	{
 		GymBranchEntity branchEntity = _context.GymBranches.Where(gb => gb.Id == GetBranchId()).FirstOrDefault();

@@ -213,6 +213,19 @@ public class GymUserService : IGymUserService
 		
     }
 
+    public async Task<GymUserDTO> GetGymUserAsync(int userId)
+    {
+        using (_logger.BeginScope(GetScopesInformation()))
+        {
+            _logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+                                  new object[] { nameof(GymUserService), nameof(GetGymUserByIdAsync), DateTime.Now.ToString() });
+
+            GymUserEntity userEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return userEntity.ToDTO();
+        }
+
+    }
+
     public async Task<GymUserDTO> UpdateGymUser(GymUserEntity entity)
 	{
 		using (_logger.BeginScope(GetScopesInformation()))
@@ -339,6 +352,7 @@ public class GymUserService : IGymUserService
 					Email = staff.Email,
 					Password = staff.PasswordHash,
 					StatusId = staff.StatusId,
+					GymUserTypeId = staff.GymUserTypeId,
 					RoleName = staffRoles?.FirstOrDefault()?.Split("_")[1],
 					GymMemberGroups = staff.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList()
 				});

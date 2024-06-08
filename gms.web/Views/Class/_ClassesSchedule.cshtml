@@ -29,38 +29,38 @@
     {
         <!--begin::Day-->
         <div id="kt_schedule_day_@((int)day.Key)" class="tab-pane fade @(Enum.GetName(typeof(DayOfWeek), currentDayOfWeek) == day.Key.ToString() ? "show active" : "")" role="tabpanel">
-        @foreach (var dayclass in day)
-        {
-            <!--begin::Time-->
-            <div class="d-flex flex-stack position-relative mt-6">
-                <!--begin::Bar-->
-                <div class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0"></div>
-                <!--end::Bar-->
-                <!--begin::Info-->
-                <div class="fw-semibold ms-5">
-                    <!--begin::Time-->
-                    <div class="fs-7 mb-1">
-                        @dayclass.ClassSchedule.StartTime - @dayclass.ClassSchedule.EndTime
-                        @* <span class="fs-7 text-muted text-uppercase">pm</span> *@
+            @foreach (var dayclass in day)
+            {
+                <!--begin::Time-->
+                <div class="d-flex flex-stack position-relative mt-6">
+                    <!--begin::Bar-->
+                    <div class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0"></div>
+                    <!--end::Bar-->
+                    <!--begin::Info-->
+                    <div class="fw-semibold ms-5">
+                        <!--begin::Time-->
+                        <div class="fs-7 mb-1">
+                            @dayclass.ClassSchedule.StartTime - @dayclass.ClassSchedule.EndTime
+                            @* <span class="fs-7 text-muted text-uppercase">pm</span> *@
+                        </div>
+                        <!--end::Time-->
+                        <!--begin::Title-->
+                        <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">@dayclass.ClassSchedule.ClassName</a>
+                        <!--end::Title-->
+                        @* <!--begin::User-->
+                        <div class="fs-7 text-muted">
+                            Lead by
+                            <a href="#">Terry Robins</a>
+                        </div>
+                        <!--end::User--> *@
                     </div>
-                    <!--end::Time-->
-                    <!--begin::Title-->
-                    <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">@dayclass.ClassSchedule.ClassName</a>
-                    <!--end::Title-->
-                    <!--begin::User-->
-                    <div class="fs-7 text-muted">
-                        Lead by
-                        <a href="#">Terry Robins</a>
-                    </div>
-                    <!--end::User-->
+                    <!--end::Info-->
+                    @* <!--begin::Action-->
+                    <a href="#" class="btn btn-light bnt-active-light-primary btn-sm">View</a>
+                    <!--end::Action--> *@
                 </div>
-                <!--end::Info-->
-                @* <!--begin::Action-->
-                <a href="#" class="btn btn-light bnt-active-light-primary btn-sm">View</a>
-                <!--end::Action--> *@
-            </div>
-            <!--end::Time-->
-        }
+                <!--end::Time-->
+            }
         </div>
         <!--end::Day-->
     }
