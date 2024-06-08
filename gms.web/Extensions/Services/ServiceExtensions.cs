@@ -29,53 +29,55 @@ namespace gms.web.Extensions.Services;
 
 public static class ServiceExtensions
 {
-	public static void AddCustomServices(this IServiceCollection services)
-	{
-		services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+    public static void AddCustomServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-		services.AddScoped<IGymService, GymService>();
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
-		services.AddScoped<IGymBranchService, GymBranchService>();
+        services.AddScoped<IGymService, GymService>();
 
-		services.AddScoped<ISystemSubscriptionService, SystemSubscriptionService>();
+        services.AddScoped<IGymBranchService, GymBranchService>();
 
-		services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<ISystemSubscriptionService, SystemSubscriptionService>();
 
-		services.AddScoped<IGymGeneralSettingService, GymGeneralSettingService>();
+        services.AddScoped<ICountryService, CountryService>();
 
-		services.AddScoped<IGymMembershipPlanService, GymMembershipPlanService>();
+        services.AddScoped<IGymGeneralSettingService, GymGeneralSettingService>();
 
-		services.AddScoped<IGymGroupService, GymGroupService>();
+        services.AddScoped<IGymMembershipPlanService, GymMembershipPlanService>();
 
-		services.AddScoped<IGymUserService, GymUserService>();
+        services.AddScoped<IGymGroupService, GymGroupService>();
 
-		services.AddScoped<IActivityService, ActivityService>();
+        services.AddScoped<IGymUserService, GymUserService>();
 
-		services.AddScoped<IActivityCategoryService, ActivityCategoryService>();
+        services.AddScoped<IActivityService, ActivityService>();
 
-		services.AddScoped<IMembershipActivityService, MembershipActivityService>();
+        services.AddScoped<IActivityCategoryService, ActivityCategoryService>();
 
-		services.AddScoped<IActivityVideoService, ActivityVideoService>();
+        services.AddScoped<IMembershipActivityService, MembershipActivityService>();
 
-		services.AddScoped<IGymRolesService, GymRolesService>();
+        services.AddScoped<IActivityVideoService, ActivityVideoService>();
 
-		services.AddScoped<IClassScheduleService, ClassScheduleService>();
+        services.AddScoped<IGymRolesService, GymRolesService>();
 
-		services.AddScoped<IGymLocationService, GymLocationService>();
+        services.AddScoped<IClassScheduleService, ClassScheduleService>();
 
-		services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
+        services.AddScoped<IGymLocationService, GymLocationService>();
 
-		services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
+        services.AddScoped<IClassScheduleDayService, ClassScheduleDayService>();
 
-		services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
+        services.AddScoped<IGymMemberGroupService, GymMemberGroupService>();
 
-		services.AddScoped<IGymMembershipPaymentHistoryService, GymMembershipPaymentHistoryService>();
+        services.AddScoped<IGymMemberMembershipService, GymMemberMembershipService>();
 
-		services.AddScoped<IGymNotificationService, GymNotificationService>();
+        services.AddScoped<IGymMembershipPaymentHistoryService, GymMembershipPaymentHistoryService>();
 
-		services.AddScoped<IGymStaffGroupService, GymStaffGroupService>();
+        services.AddScoped<IGymNotificationService, GymNotificationService>();
 
-		services.AddScoped<IGymSpecializationService, GymSpecializationService>();
+        services.AddScoped<IGymStaffGroupService, GymStaffGroupService>();
+
+        services.AddScoped<IGymSpecializationService, GymSpecializationService>();
 
 		services.AddScoped<IGymStaffSpecializationService, GymStaffSpecializationService>();
 
