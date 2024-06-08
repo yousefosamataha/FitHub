@@ -112,8 +112,18 @@
                                     <!--end::Select2-->
                                     <!--begin::Actions-->
                                     <div class="d-flex justify-content-end px-5">
-                                        <button id="select_branch_form_submit" type="submit" class="btn btn-primary me-2 flex-shrink-0">Continue</button>
-                                        <!--end::Submit-->
+                                        <!--begin::Reset Button-->
+                                        <button class="btn btn-light ms-5 me-5" type="reset">@localizer["back"]</button>
+                                        <!--end::Reset Button-->
+                                        <!--begin::Button-->
+                                        <button type="submit" id="select_branch_form_submit" class="btn btn-primary">
+                                            <span class="indicator-label">@localizer["continue"]</span>
+                                            <span class="indicator-progress">
+                                                @localizer["please_wait"]...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
+                                        <!--end::Button-->
                                     </div>
                                     <!--end::Actions-->
                                 </div>
@@ -153,7 +163,7 @@
                 },
                 dataType: 'json',
                 success: function (response) {
-                    window.location.href = `/Home/Index`;
+                    window.location.href = `/`;
                 }
             });
         });

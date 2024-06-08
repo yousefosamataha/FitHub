@@ -212,13 +212,16 @@ public class GymController : BaseController<GymController>
         var user = await _userManager.FindByIdAsync(GetUserId().ToString());
         var claimType = "BranchId";
 
-        var oldClaim = (await _userManager.GetClaimsAsync(user)).FirstOrDefault(c => c.Type == claimType);
+        var oldClaims = (await _userManager.GetClaimsAsync(user)).Where(c => c.Type == claimType);
 
-        if (oldClaim != null)
+        if (oldClaims != null)
         {
-            var result = await _userManager.RemoveClaimAsync(user, oldClaim);
-            if (result.Succeeded)
+            foreach (var cliam in oldClaims)
             {
+                await _userManager.RemoveClaimAsync(user, cliam);
+            }
+            //if (result.Succeeded)
+            //{
                 var newClaim = new Claim(claimType, branchId.ToString());
                 var sddNewClaimResult = await _userManager.AddClaimAsync(user, newClaim);
                 if (sddNewClaimResult.Succeeded)
@@ -226,7 +229,7 @@ public class GymController : BaseController<GymController>
                     await _userManager.UpdateSecurityStampAsync(user);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                 }
-            }
+            //}
         }
 
         return Json(new { Success = true, Message = "" });

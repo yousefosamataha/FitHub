@@ -1,4 +1,6 @@
-﻿namespace gms.common.Models.GymCat.GymGroup;
+﻿using gms.common.Models.GymCat.GymMemberGroup;
+
+namespace gms.common.Models.GymCat.GymGroup;
 
 public record GymGroupDTO
 {
@@ -8,4 +10,5 @@ public record GymGroupDTO
     public string? Image { get; init; }
     public string? ImageType { get; init; }
     public DateTime? CreatedAt { get; init; }
+    public List<GymMemberGroupDTO>? GymMemberGroups { get; init; }
 }

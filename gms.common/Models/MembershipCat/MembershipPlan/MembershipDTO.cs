@@ -1,4 +1,5 @@
 ﻿using gms.common.Enums;
+using gms.common.Models.ActivityCat.MembershipActivity;
 
 namespace gms.common.Models.MembershipCat.MembershipPlan;
 
@@ -18,4 +19,6 @@ public record MembershipDTO
     public MembershipClassLimitationEnum? ClassLimitationId { get; init; }
     public int? CreatedById { get; init; }
     public DateTime? CreatedAt { get; init; }
+
+	public ICollection<MembershipActivityDTO> MembershipActivities { get; set; }
 }

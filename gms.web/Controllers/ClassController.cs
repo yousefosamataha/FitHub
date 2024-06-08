@@ -179,6 +179,19 @@ public class ClassController : BaseController<ClassController>
 
 			return PartialView("_ClassesSchedule", classScheduleDaysList);
 		}
-
 	}
+
+	[HttpGet]
+    public async Task<JsonResult> ClassesScheduleForCalendar()
+    {
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                   new object[] { nameof(ClassController), nameof(DeleteClass), "HttpGet", DateTime.Now.ToString() });
+
+            List<ClassScheduleDayDTO> classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
+
+            return Json(new { Success = true, Message = "", Data = classScheduleDaysList });
+        }
+    }
 }

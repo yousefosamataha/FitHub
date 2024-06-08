@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using gms.service.Identity.GymUserRepository;
+using gms.common.ViewModels.Home;
+using gms.service.Class.ClassScheduleDayRepository;
 
 namespace gms.web.Controllers;
 
@@ -19,33 +21,38 @@ public class HomeController : BaseController<HomeController>
 	private readonly ICountryService _countryService;
     private readonly UserManager<GymUserEntity> _userManager;
 	private readonly IGymUserService _gymUserService;
+    private readonly IClassScheduleDayService _classScheduleDayService;
 
-	public HomeController
+    public HomeController
     (
-        IGymService gymService, 
-        IGymBranchService gymBranchService, 
-        ICountryService countryService, 
-        UserManager<GymUserEntity> userManager, 
-        IGymUserService gymUserService
-    )
-	{
-		_gymService = gymService;
-		_gymBranchService = gymBranchService;
-		_countryService = countryService;
-		_userManager = userManager;
-		_gymUserService = gymUserService;
-	}
+        IGymService gymService,
+        IGymBranchService gymBranchService,
+        ICountryService countryService,
+        UserManager<GymUserEntity> userManager,
+        IGymUserService gymUserService,
+        IClassScheduleDayService classScheduleDayService)
+    {
+        _gymService = gymService;
+        _gymBranchService = gymBranchService;
+        _countryService = countryService;
+        _userManager = userManager;
+        _gymUserService = gymUserService;
+        _classScheduleDayService = classScheduleDayService;
+    }
 
-	public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index()
 	{
         using (logger.BeginScope(GetScopesInformation()))
         {
             logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
                                   new object[] { nameof(HomeController), nameof(Index), "HttpGet", DateTime.Now.ToString() });
 
-			GymUserEntity userEntity = await _gymUserService.GetGymUserByEmail(GetUserEmail());
+			DashboardVM dashboardModel = new ();
+			dashboardModel.GymUserDTO = await _gymUserService.GetGymUserAsync(GetUserId());
+			dashboardModel.GymBranchDTO = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
+			dashboardModel.classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
 
-			return View(userEntity);
+            return View(dashboardModel);
 		}
 			
 	}

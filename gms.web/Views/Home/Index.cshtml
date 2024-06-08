@@ -1,5 +1,6 @@
-﻿@using gms.data.Models.Identity
-@model GymUserEntity
+﻿@using gms.common.Enums
+@using gms.common.ViewModels.Home
+@model DashboardVM
 @{
     ViewData["Title"] = localizer["dashboard"];
     var test = Model;
@@ -18,13 +19,13 @@
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        @localizer["hi"] @Model.FirstName
+                        @localizer["hi"] @Model.GymUserDTO.FirstName
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
-                        <li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@Model.GymBranch.Gym.Name</a></li>
-                        <li class="breadcrumb-item text-gray-600">@Model.GymBranch.BranchName</li>
+                        <li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@Model.GymBranchDTO.Gym.Name</a></li>
+                        <li class="breadcrumb-item text-gray-600">@Model.GymBranchDTO.BranchName</li>
                         <li class="breadcrumb-item text-gray-600">@localizer["dashboard"]</li>
                     </ol>
                     <!--end::Breadcrumb-->
@@ -48,8 +49,8 @@
                         <!--begin::Body-->
                         <div class="card-body">
                             <i class="ki-solid ki-profile-user fs-2x text-primary ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">50</div>
-                            <div class="fw-semibold text-gray-600">Active Members</div>
+                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Staff && u.StatusId == StatusEnum.Active).Count()</div>
+                            <div class="fw-semibold text-gray-700">@localizer["active_members"]</div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -61,8 +62,8 @@
                         <!--begin::Body-->
                         <div class="card-body">
                             <i class="ki-solid ki-profile-user fs-2x text-warning ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">20</div>
-                            <div class="fw-semibold text-gray-600">Staff User</div>
+                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Member && u.StatusId == StatusEnum.Active).Count()</div>
+                            <div class="fw-semibold text-gray-700">@localizer["active_staffs"]</div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -74,8 +75,8 @@
                         <!--begin::Body-->
                         <div class="card-body">
                             <i class="fa-solid fa-people-group fs-2x text-info ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">5</div>
-                            <div class="fw-semibold text-gray-600">Total Groups</div>
+                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymGroups.Count()</div>
+                            <div class="fw-semibold text-gray-700">@localizer["total_groups"]</div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -83,12 +84,12 @@
                 </div>
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
-                    <div class="card bg-light-success card-xl-stretch mb-xl-8">
+                    <div class="card bg-light-success card-xl-stretch mb-5 mb-xl-8">
                         <!--begin::Body-->
                         <div class="card-body">
                             <i class="ki-solid ki-wallet fs-2x text-success ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">500 $</div>
-                            <div class="fw-semibold text-gray-600">Daily Income</div>
+                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">500 @Model.GymBranchDTO.Country.CurrencySymbol</div>
+                            <div class="fw-semibold text-gray-700">@localizer["daily_income"]</div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -101,11 +102,19 @@
                 <div class="col-xl-9">
                     <!--begin::Card-->
                     <div class="card">
+                        <!--begin::Header-->
+                        <div class="card-header border-0">
+                            <h3 class="card-title fw-bold text-dark">@localizer["classes_schedule"]</h3>
+                        </div>
+                        <!--end::Header-->
                         <!--begin::Card body-->
                         <div class="card-body">
                             <!--begin::Calendar-->
                             <div id="kt_calendar_app"></div>
                             <!--end::Calendar-->
+                            <div class="d-none" id="class_schedule">
+                                <partial name="../Class/_ClassesSchedule" model="@Model.classScheduleDaysList" />
+                            </div>
                         </div>
                         <!--end::Card body-->
                     </div>
@@ -113,93 +122,67 @@
                 </div>
                 <div class="col-xl-3">
                     <!--begin::List Widget 2-->
-                    <div class="card card-xl-stretch mb-xl-8">
+                    <div class="card mb-5 mb-xl-8">
                         <!--begin::Header-->
                         <div class="card-header border-0">
-                            <h3 class="card-title fw-bold text-dark">Authors</h3>
+                            <h3 class="card-title fw-bold text-dark">@localizer["groups"]</h3>
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
-                        <div class="card-body pt-2">
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-7">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img src="assets/media/avatars/300-6.jpg" class="" alt="" />
+                        <div class="card-body pt-2 h-225px hover-scroll-y">
+                            @foreach (var g in Model.GymBranchDTO.GymGroups)
+                            {
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center mb-7">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-circle symbol-40px me-5">
+                                        @if (g.Image is not null)
+                                        {
+                                            <img src="@g.Image" />
+                                        }else{
+                                            <span class="symbol-label"></span>
+                                        }
+                                    </div>
+                                    <!--end::Avatar-->
+                                    <!--begin::Text-->
+                                    <div class="flex-grow-1">
+                                        <a href="#" class="text-dark fw-bold text-hover-primary fs-6">@g.Name</a>
+                                        <span class="text-muted text-gray-700 d-block fw-semibold">@localizer["member_count"] @($": {g.GymMemberGroups.Where(gmg => gmg.GymMemberUserId != 0).Count()}")</span>
+                                    </div>
+                                    <!--end::Text-->
                                 </div>
-                                <!--end::Avatar-->
-                                <!--begin::Text-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Emma Smith</a>
-                                    <span class="text-muted d-block fw-bold">Project Manager</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-7">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img src="assets/media/avatars/300-5.jpg" class="" alt="" />
-                                </div>
-                                <!--end::Avatar-->
-                                <!--begin::Text-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Sean Bean</a>
-                                    <span class="text-muted d-block fw-bold">PHP, SQLite, Artisan CLI</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-7">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img src="assets/media/avatars/300-11.jpg" class="" alt="" />
-                                </div>
-                                <!--end::Avatar-->
-                                <!--begin::Text-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Brian Cox</a>
-                                    <span class="text-muted d-block fw-bold">PHP, SQLite, Artisan CLI</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center mb-7">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img src="assets/media/avatars/300-9.jpg" class="" alt="" />
-                                </div>
-                                <!--end::Avatar-->
-                                <!--begin::Text-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Francis Mitcham</a>
-                                    <span class="text-muted d-block fw-bold">PHP, SQLite, Artisan CLI</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img src="assets/media/avatars/300-23.jpg" class="" alt="" />
-                                </div>
-                                <!--end::Avatar-->
-                                <!--begin::Text-->
-                                <div class="flex-grow-1">
-                                    <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Dan Wilson</a>
-                                    <span class="text-muted d-block fw-bold">PHP, SQLite, Artisan CLI</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Item-->
+                                <!--end::Item-->
+                            }
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end::List Widget 2-->
+                    <!--begin::List Widget 3-->
+                    <div class="card">
+                        <!--begin::Header-->
+                        <div class="card-header border-0">
+                            <h3 class="card-title fw-bold text-dark">@localizer["memberships"]</h3>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-2 h-225px hover-scroll-y">
+                            @foreach (var g in Model.GymBranchDTO.GymMembershipPlans)
+                            {
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center mb-7">
+                                    <!--begin::Text-->
+                                    <div class="flex-grow-1">
+                                        <a href="#" class="text-dark fw-bold text-hover-primary fs-6">@g.MembershipName</a>
+                                        <span class="text-muted d-block fw-bold"></span>
+                                    </div>
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Item-->
+                            }
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::List Widget 3-->
                 </div>
             </div>
             <!--end::Row-->

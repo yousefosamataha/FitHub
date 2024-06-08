@@ -47,6 +47,7 @@ public static class GymUserMapper
 			Email = entity.Email,
 			Password = entity.PasswordHash,
             StatusId = entity.StatusId,
+			GymUserTypeId =	entity.GymUserTypeId,
             GymMemberMembership = entity.GymMemberMemberships?.OrderByDescending(mmp => mmp.ExpiringDate).FirstOrDefault()?.ToDTO(),
             GymMemberGroups = entity.GymMemberGroups?.Select(gmg => gmg.ToDTO()).ToList(),
 			GymStaffGroups = entity.GymStaffGroups?.Select(gsg => gsg.ToDTO()).ToList(),

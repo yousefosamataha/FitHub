@@ -240,9 +240,9 @@
 					<!--begin:Menu sub-->
 					<div class="menu-sub menu-sub-accordion">
 						<!--begin:Menu item-->
-						<div class="menu-item">
+						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Index", "Home")">
+							<a class="menu-link" asp-controller="Workout" asp-action="Index">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -252,7 +252,7 @@
 						</div>
 						<!--end:Menu item-->
 						<!--begin:Menu item-->
-						<div class="menu-item" onclick="sideMenuTabClick(this, event)">
+						<div class="menu-item" side-menu-item="true">
 							<!--begin:Menu link-->
 							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
 								<span class="menu-bullet">
