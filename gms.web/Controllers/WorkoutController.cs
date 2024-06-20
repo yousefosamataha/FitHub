@@ -50,4 +50,16 @@ public class WorkoutController : BaseController<WorkoutController>
 
 		return Json(new { Success = true, Message = "" });
 	}
+
+    public async Task<IActionResult> ShowWorkoutPlan(int workoutPlanId)
+    {
+        using (logger.BeginScope(GetScopesInformation()))
+        {
+            logger.LogInformation("Request Received by Controller: {Controller}, Action: {ControllerAction}, HttpMethod: {Method}, DateTime: {DateTime}",
+                                  new object[] { nameof(ActivityController), nameof(ShowWorkoutPlan), "HttpGet", DateTime.Now.ToString() });
+
+            WorkoutPlanDTO workoutPlan = await _workoutPlanService.GetWorkoutPlanByIdAsync(workoutPlanId);
+            return View(workoutPlan);
+        }
+    }
 }

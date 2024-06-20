@@ -2,11 +2,15 @@
 
 public enum ModulesEnum
 {
-	Gym,
-	Class,
-	Membership,
-	ActivityCategory,
-	Activity,
-	Nutrition,
-	Workout
+    Memberships,
+	Manage_Members,
+	Manage_Staffs,
+	Roles,
+	Groups,
+    Training_Classes,
+    Activities,
+    Workout_Plans,
+    Subscriptions_Payment,
+    Subscriptions_History,
+    Branches
 }

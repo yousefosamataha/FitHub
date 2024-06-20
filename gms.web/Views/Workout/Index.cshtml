@@ -48,18 +48,21 @@
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-                            <input type="text" groups-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_member_name"]" />
+                            <input type="text" workoutPlans-list-filter="search" class="form-control w-250px ps-12" placeholder="@localizer["search_by_member_name"]" />
                         </div>
                         <!--end::Search-->
                     </div>
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        <!--begin::Add Activity-->
-                        <a href="@Url.Action("AddNewWorkoutPlan", "Workout")" class="btn btn-primary d-flex align-items-center">
-                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_workout_plan"]
-                        </a>
-                        <!--end::Add Activity-->
+                        @if (User.HasClaim(c => c.Type == "Permission" && c.Value == WorkoutPlansPermissions.Create))
+                        {
+                            <!--begin::Add Activity-->
+                            <a href="@Url.Action("AddNewWorkoutPlan", "Workout")" class="btn btn-primary d-flex align-items-center">
+                                <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_workout_plan"]
+                            </a>
+                            <!--end::Add Activity-->
+                        }
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -79,9 +82,9 @@
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-700">
-                            <tr>
-                                @foreach (var wp in Model)
-                                {
+                            @foreach (var wp in Model)
+                            {
+                                <tr>
                                     <td class="text-center">
                                         @if (wp.GymMemberUser.Image is not null)
                                         {
@@ -127,19 +130,25 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
-                                                <i class="ki-solid ki-pencil fs-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
-                                                <i class="ki-solid ki-trash fs-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-2 show-activity-videos-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["show_activity_videos"]" data-bs-custom-class="tooltip-inverse" data-id="@a.Id">
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == WorkoutPlansPermissions.Edit))
+                                            {
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse">
+                                                    <i class="ki-solid ki-pencil fs-2"></i>
+                                                </button>
+                                            }
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == WorkoutPlansPermissions.Delete))
+                                            {                                                
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-activity-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse">
+                                                    <i class="ki-solid ki-trash fs-2"></i>
+                                                </button>
+                                            }
+                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-2 show-workout-plan-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["show_workout_plan"]" data-bs-custom-class="tooltip-inverse" data-id="@wp.Id">
                                                 <i class="ki-solid ki-eye fs-2"></i>
                                             </button>
                                         </div>
                                     </td>
-                                }
-                            </tr>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <!--end::Table-->

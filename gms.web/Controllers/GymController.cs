@@ -234,5 +234,10 @@ public class GymController : BaseController<GymController>
 
         return Json(new { Success = true, Message = "" });
     }
-    #endregion
+	#endregion
+
+	public IActionResult UpgradePlan()
+	{
+		return View();
+	}
 }

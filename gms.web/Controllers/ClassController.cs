@@ -36,7 +36,7 @@ public class ClassController : BaseController<ClassController>
 		_classScheduleDayService = classScheduleDayService;
 	}
 
-	[Authorize(ClassPermissions.View)]
+	[Authorize(TrainingClassesPermissions.View)]
 	public async Task<IActionResult> Index()
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -54,7 +54,7 @@ public class ClassController : BaseController<ClassController>
 		}
 	}
 
-	[Authorize(ClassPermissions.Create)]
+	[Authorize(TrainingClassesPermissions.Create)]
 	public async Task<IActionResult> CreateNewClass()
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -97,7 +97,7 @@ public class ClassController : BaseController<ClassController>
 	}
 
 	[HttpGet]
-	[Authorize(ClassPermissions.Edit)]
+	[Authorize(TrainingClassesPermissions.Edit)]
 	public async Task<IActionResult> EditClass(int id)
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -155,7 +155,7 @@ public class ClassController : BaseController<ClassController>
 	}
 
 	[HttpPost]
-	[Authorize(ClassPermissions.Delete)]
+	[Authorize(TrainingClassesPermissions.Delete)]
 	public async Task<JsonResult> DeleteClass(int id)
 	{
 		using (logger.BeginScope(GetScopesInformation()))

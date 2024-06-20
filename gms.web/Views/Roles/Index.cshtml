@@ -102,8 +102,14 @@
 							<!--end::Card body-->
 							<!--begin::Card footer-->
 							<div class="card-footer d-flex justify-content-end pt-0">
-								<button type="button" class="btn btn-bg-light btn-light-danger my-1 me-2 delete-role-btn" data-id="@item.RoleId">@localizer["delete"]</button>
-								<button type="button" class="btn btn-bg-light btn-light-primary my-1 edit-role-btn" data-id="@item.RoleId">@localizer["edit"]</button>
+								@if (User.HasClaim(c => c.Type == "Permission" && c.Value == RolesPermissions.Delete))
+								{
+									<button type="button" class="btn btn-bg-light btn-light-danger my-1 me-2 delete-role-btn" data-id="@item.RoleId">@localizer["delete"]</button>
+								}
+								@if (User.HasClaim(c => c.Type == "Permission" && c.Value == RolesPermissions.Edit))
+								{
+									<button type="button" class="btn btn-bg-light btn-light-primary my-1 edit-role-btn" data-id="@item.RoleId">@localizer["edit"]</button>
+								}
 							</div>
 							<!--end::Card footer-->
 						</div>

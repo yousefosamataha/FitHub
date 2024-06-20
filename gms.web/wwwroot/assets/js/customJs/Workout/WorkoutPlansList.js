@@ -33,9 +33,21 @@ var workoutPlansList = function () {
 
     // Search Datatable
     var handleSearchDatatable = () => {
-        const filterSearch = document.querySelector('[memberships-list-filter="search"]');
+        const filterSearch = document.querySelector('[workoutPlans-list-filter="search"]');
         filterSearch.addEventListener('keyup', function (e) {
             datatable.search(e.target.value).draw();
+        });
+    }
+
+    // Show WorkoutPlan
+    var showWorkoutPlan = () => {
+        // Select all delete buttons
+        const showButtons = table.querySelectorAll('.show-workout-plan-btn');
+
+        showButtons.forEach(s => {
+            s.addEventListener("click", function (e) {
+                window.location.href = `/Workout/ShowWorkoutPlan?workoutPlanId=${this.dataset.id}`;
+            });
         });
     }
 
@@ -49,7 +61,8 @@ var workoutPlansList = function () {
             }
 
             initDatatable();
-            // handleSearchDatatable();
+            handleSearchDatatable();
+            showWorkoutPlan();
         }
     };
 }();

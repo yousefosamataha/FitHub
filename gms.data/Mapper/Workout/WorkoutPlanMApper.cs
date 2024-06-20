@@ -38,7 +38,8 @@ public static class WorkoutPlanMApper
             Description = source.Description,
             GymBranch = source.GymBranch?.ToDTO(),
             GymStaffUser = source.GymStaffUser?.ToDTO(),
-            GymMemberUser = source.GymMemberUser?.ToDTO()
+            GymMemberUser = source.GymMemberUser?.ToDTO(),
+            WorkoutPlanActivities = source.WorkoutPlanActivities?.Select(wpa => wpa.ToDTO()).ToList()
         };
     }
 

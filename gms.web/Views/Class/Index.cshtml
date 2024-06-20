@@ -60,11 +60,14 @@
                             <i class="ki-solid ki-calendar-2 fs-2"></i>@localizer["classes_schedule"]
                         </button>
                         <!--end::Add Class-->
-                        <!--begin::Add Class-->
-                        <button id="add_new_class" class="btn btn-primary d-flex align-items-center">
-                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_class"]
-                        </button>
-                        <!--end::Add Class-->
+                        @if (User.HasClaim(c => c.Type == "Permission" && c.Value == TrainingClassesPermissions.Create))
+                        {
+                            <!--begin::Add Class-->
+                            <button id="add_new_class" class="btn btn-primary d-flex align-items-center">
+                                <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_class"]
+                            </button>
+                            <!--end::Add Class-->
+                        }
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -95,12 +98,18 @@
                                     <td class="text-start" data-order="@c.ClassFees">@Model.BranchCurrencySymbol @c.ClassFees</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
-                                                <i class="ki-solid ki-pencil fs-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
-                                                <i class="ki-solid ki-trash fs-2"></i>
-                                            </button>
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == TrainingClassesPermissions.Edit))
+                                            {
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
+                                                    <i class="ki-solid ki-pencil fs-2"></i>
+                                                </button>
+                                            }
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == TrainingClassesPermissions.Delete))
+                                            {
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-class-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@c.Id">
+                                                    <i class="ki-solid ki-trash fs-2"></i>
+                                                </button>
+                                            }
                                         </div>
                                     </td>
                                 </tr>

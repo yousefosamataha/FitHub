@@ -41,7 +41,7 @@ public class ActivityController : BaseController<ActivityController>
 	}
 
 	#region Activity
-	[Authorize(ActivityPermissions.View)]
+	[Authorize(ActivitiesPermissions.View)]
 	public async Task<IActionResult> Index()
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -54,7 +54,7 @@ public class ActivityController : BaseController<ActivityController>
 		}
 	}
 
-	[Authorize(ActivityPermissions.Create)]
+	[Authorize(ActivitiesPermissions.Create)]
 	public async Task<IActionResult> AddNewActivity()
 	{
 		using (logger.BeginScope(GetScopesInformation()))
@@ -110,7 +110,7 @@ public class ActivityController : BaseController<ActivityController>
 	}
 
 	[HttpGet]
-	[Authorize(ActivityPermissions.Edit)]
+	[Authorize(ActivitiesPermissions.Edit)]
 	public async Task<IActionResult> EditActivity(int id)
 	{
 		using (logger.BeginScope(GetScopesInformation()))

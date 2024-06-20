@@ -63,11 +63,14 @@
                             </button>
                         </div>
                         <!--end::Flatpickr-->
-                        <!--begin::Add Membership-->
-                        <button id="add_new_group" class="btn btn-primary d-flex align-items-center">
-                            <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_group"]
-                        </button>
-                        <!--end::Add Membership-->
+                        @if (User.HasClaim(c => c.Type == "Permission" && c.Value == GroupsPermissions.Create))
+                        {
+                            <!--begin::Add Group-->
+                            <button id="add_new_group" class="btn btn-primary d-flex align-items-center">
+                                <i class="ki-outline ki-plus fs-2"></i>@localizer["add_new_group"]
+                            </button>
+                            <!--end::Add Group-->
+                        }
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -119,12 +122,18 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center flex-shrink-0">
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-group-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@gg.Id">
-                                                <i class="ki-solid ki-pencil fs-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-group-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@gg.Id">
-                                                <i class="ki-solid ki-trash fs-2"></i>
-                                            </button>
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == GroupsPermissions.Edit))
+                                            {
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-2 edit-group-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["edit"]" data-bs-custom-class="tooltip-inverse" data-id="@gg.Id">
+                                                    <i class="ki-solid ki-pencil fs-2"></i>
+                                                </button>
+                                            }
+                                            @if (User.HasClaim(c => c.Type == "Permission" && c.Value == GroupsPermissions.Delete))
+                                            {
+                                                <button type="button" class="btn btn-icon btn-bg-light btn-light-danger btn-sm me-2 delete-group-btn" data-bs-dismiss="click" data-bs-toggle="tooltip" title="@localizer["delete"]" data-bs-custom-class="tooltip-inverse" data-id="@gg.Id">
+                                                    <i class="ki-solid ki-trash fs-2"></i>
+                                                </button>
+                                            }
                                         </div>
                                     </td>
                                 </tr>
