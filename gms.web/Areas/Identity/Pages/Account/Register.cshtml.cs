@@ -126,7 +126,6 @@ namespace gms.web.Areas.Identity.Pages.Account
 			);
 
 
-
 			// (4) Create GeneralSetting
 			CreateGeneralSettingDTO GeneralSettingDTO = new();
 			GeneralSettingDTO.IsShared = true;

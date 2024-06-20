@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using gms.service.Identity.GymUserRepository;
 using gms.common.ViewModels.Home;
 using gms.service.Class.ClassScheduleDayRepository;
+using gms.service.Membership.GymMembershipPaymentHistoryRepository;
 
 namespace gms.web.Controllers;
 
@@ -22,25 +23,28 @@ public class HomeController : BaseController<HomeController>
     private readonly UserManager<GymUserEntity> _userManager;
 	private readonly IGymUserService _gymUserService;
     private readonly IClassScheduleDayService _classScheduleDayService;
+    private readonly IGymMembershipPaymentHistoryService _gymMembershipPaymentHistoryService;
 
-    public HomeController
-    (
-        IGymService gymService,
-        IGymBranchService gymBranchService,
-        ICountryService countryService,
-        UserManager<GymUserEntity> userManager,
-        IGymUserService gymUserService,
-        IClassScheduleDayService classScheduleDayService)
-    {
-        _gymService = gymService;
-        _gymBranchService = gymBranchService;
-        _countryService = countryService;
-        _userManager = userManager;
-        _gymUserService = gymUserService;
-        _classScheduleDayService = classScheduleDayService;
-    }
+	public HomeController
+	(
+		IGymService gymService,
+		IGymBranchService gymBranchService,
+		ICountryService countryService,
+		UserManager<GymUserEntity> userManager,
+		IGymUserService gymUserService,
+		IClassScheduleDayService classScheduleDayService,
+		IGymMembershipPaymentHistoryService gymMembershipPaymentHistoryService)
+	{
+		_gymService = gymService;
+		_gymBranchService = gymBranchService;
+		_countryService = countryService;
+		_userManager = userManager;
+		_gymUserService = gymUserService;
+		_classScheduleDayService = classScheduleDayService;
+		_gymMembershipPaymentHistoryService = gymMembershipPaymentHistoryService;
+	}
 
-    public async Task<IActionResult> Index()
+	public async Task<IActionResult> Index()
 	{
         using (logger.BeginScope(GetScopesInformation()))
         {
@@ -51,6 +55,7 @@ public class HomeController : BaseController<HomeController>
 			dashboardModel.GymUserDTO = await _gymUserService.GetGymUserAsync(GetUserId());
 			dashboardModel.GymBranchDTO = await _gymBranchService.GetBranchByIdAsync(GetBranchId());
 			dashboardModel.classScheduleDaysList = await _classScheduleDayService.GetClassScheduleDaysListAsync();
+			dashboardModel.MembershipPaymentHistoryList = await _gymMembershipPaymentHistoryService.GetMembershipPaymentListAsync();
 
             return View(dashboardModel);
 		}

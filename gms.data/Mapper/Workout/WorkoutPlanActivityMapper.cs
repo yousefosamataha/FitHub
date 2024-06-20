@@ -1,4 +1,5 @@
 ﻿using gms.common.Models.WorkoutCat.WorkoutPlanActivity;
+using gms.data.Mapper.Activity;
 using gms.data.Models.Workout;
 
 namespace gms.data.Mapper.Workout;
@@ -31,6 +32,7 @@ public static class WorkoutPlanActivityMapper
 			Reps = source.Reps,
 			Kg = source.Kg,
 			RestTime = source.RestTime,
+			Activity = source.Activity?.ToDTO()
 		};
 	}
 

@@ -41,62 +41,68 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-fluid">
-            <!--begin::Row-->
-            <div class="row g-5 g-xl-8">
-                <div class="col-xl-3">
-                    <!--begin::Statistics Widget 5-->
-                    <div class="card bg-light-primary hoverable card-xl-stretch mb-xl-8">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-solid ki-profile-user fs-2x text-primary ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Staff && u.StatusId == StatusEnum.Active).Count()</div>
-                            <div class="fw-semibold text-gray-700">@localizer["active_members"]</div>
+            @if (User.Claims.FirstOrDefault(c => c.Type.Equals("GymUserTypeId")).Value != "Member")
+            {
+                <!--begin::Row-->
+                <div class="row g-5 g-xl-8">
+                    <div class="col-xl-3">
+                        <!--begin::Statistics Widget 5-->
+                        <div class="card bg-light-primary hoverable card-xl-stretch mb-xl-8">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <i class="ki-solid ki-profile-user fs-2x text-primary ms-n1"></i>
+                                <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Staff && u.StatusId == StatusEnum.Active).Count()</div>
+                                <div class="fw-semibold text-gray-700">@localizer["active_members"]</div>
+                            </div>
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
+                        <!--end::Statistics Widget 5-->
                     </div>
-                    <!--end::Statistics Widget 5-->
-                </div>
-                <div class="col-xl-3">
-                    <!--begin::Statistics Widget 5-->
-                    <div class="card bg-light-warning card-xl-stretch mb-xl-8">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-solid ki-profile-user fs-2x text-warning ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Member && u.StatusId == StatusEnum.Active).Count()</div>
-                            <div class="fw-semibold text-gray-700">@localizer["active_staffs"]</div>
+                    <div class="col-xl-3">
+                        <!--begin::Statistics Widget 5-->
+                        <div class="card bg-light-warning card-xl-stretch mb-xl-8">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <i class="ki-solid ki-profile-user fs-2x text-warning ms-n1"></i>
+                                <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymUsers.Where(u => u.GymUserTypeId == GymUserTypeEnum.Member && u.StatusId == StatusEnum.Active).Count()</div>
+                                <div class="fw-semibold text-gray-700">@localizer["active_staffs"]</div>
+                            </div>
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
+                        <!--end::Statistics Widget 5-->
                     </div>
-                    <!--end::Statistics Widget 5-->
-                </div>
-                <div class="col-xl-3">
-                    <!--begin::Statistics Widget 5-->
-                    <div class="card bg-light-info card-xl-stretch mb-xl-8">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="fa-solid fa-people-group fs-2x text-info ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymGroups.Count()</div>
-                            <div class="fw-semibold text-gray-700">@localizer["total_groups"]</div>
+                    <div class="col-xl-3">
+                        <!--begin::Statistics Widget 5-->
+                        <div class="card bg-light-info card-xl-stretch mb-xl-8">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <i class="fa-solid fa-people-group fs-2x text-info ms-n1"></i>
+                                <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.GymBranchDTO.GymGroups.Count()</div>
+                                <div class="fw-semibold text-gray-700">@localizer["total_groups"]</div>
+                            </div>
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
+                        <!--end::Statistics Widget 5-->
                     </div>
-                    <!--end::Statistics Widget 5-->
-                </div>
-                <div class="col-xl-3">
-                    <!--begin::Statistics Widget 5-->
-                    <div class="card bg-light-success card-xl-stretch mb-5 mb-xl-8">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-solid ki-wallet fs-2x text-success ms-n1"></i>
-                            <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">500 @Model.GymBranchDTO.Country.CurrencySymbol</div>
-                            <div class="fw-semibold text-gray-700">@localizer["daily_income"]</div>
+                    @if (User.Claims.FirstOrDefault(c => c.Type.Equals("GymUserTypeId")).Value != "Staff")
+                    {
+                        <div class="col-xl-3">
+                            <!--begin::Statistics Widget 5-->
+                            <div class="card bg-light-success card-xl-stretch mb-5 mb-xl-8">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <i class="ki-solid ki-wallet fs-2x text-success ms-n1"></i>
+                                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">@Model.MembershipPaymentHistoryList.Where(mph => mph.PaidDate.Date == DateTime.Now.Date).Select(mph => mph.PaidAmount).Sum() @Model.GymBranchDTO.Country.CurrencySymbol</div>
+                                    <div class="fw-semibold text-gray-700">@localizer["daily_income"]</div>
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <!--end::Statistics Widget 5-->
                         </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Statistics Widget 5-->
+                    }
                 </div>
-            </div>
-            <!--end::Row-->
+                <!--end::Row-->
+            }
             <!--begin::Row-->
             <div class="row g-5 g-xl-8">
                 <div class="col-xl-9">

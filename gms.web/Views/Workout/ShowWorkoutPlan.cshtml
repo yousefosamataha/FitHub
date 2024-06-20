@@ -1,0 +1,117 @@
+﻿@using gms.common.Models.WorkoutCat.WorkoutPlan
+@model WorkoutPlanDTO
+@{
+	ViewData["Title"] = localizer["show_workout_plan"];
+	bool IsRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+	var test = Model;
+}
+
+<style>
+	tr.group td, :root.dark tr.group td {
+		padding-left: 10px !important;
+		/* text-align: center !important; */
+	}
+
+	tr.group,
+	tr.group:hover {
+		background-color: rgba(0, 0, 0, 0.1) !important;
+	}
+
+	,
+	:root.dark tr.group:hover {
+		background-color: rgba(0, 0, 0, 0.75) !important;
+	}
+</style>
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+	<!--begin::Toolbar-->
+	<div id="kt_app_toolbar" class="app-toolbar pt-6 pb-2">
+		<!--begin::Toolbar container-->
+		<div id="kt_app_toolbar_container"
+			 class="app-container container-fluid d-flex align-items-stretch">
+			<!--begin::Toolbar wrapper-->
+			<div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+						@localizer["show_workout_plan"]
+					</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ol class="breadcrumb text-muted fs-6 fw-semibold text-gray-600">
+						<li class="breadcrumb-item text-gray-600"><a class="text-gray-600 text-hover-primary" href="#">@localizer["home"]</a></li>
+						<li class="breadcrumb-item text-gray-600">@localizer["workout_plans"]</li>
+					</ol>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar wrapper-->
+		</div>
+		<!--end::Toolbar container-->
+	</div>
+	<!--end::Toolbar-->
+	<!--begin::Content-->
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<!--begin::Content container-->
+		<div id="kt_app_content_container" class="app-container container-fluid">
+            <!--begin::Membership List-->
+            <div class="card card-flush">
+				<!--begin::Card header-->
+				<div class="card-header">
+					<div class="card-title">
+						<h2>@localizer["basic_info"]</h2>
+					</div>
+				</div>
+				<!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Table-->
+					<table class="table align-middle table-row-dashed fs-6" id="workout_plan_activities_list">
+                        <thead>
+                            <tr class="text-start text-gray-800 fw-bold fs-7 gs-0">
+								<th class="text-start min-w-150px"> Day Id</th>
+								<th class="text-start min-w-150px"> Day Name</th>
+								<th class="text-start min-w-200px ps-10">@localizer["activity_name"]</th>
+								<th class="text-start min-w-150px">@localizer["sets"]</th>
+								<th class="text-start min-w-150px">@localizer["reps"]</th>
+								<th class="text-start min-w-150px">@localizer["kg"]</th>
+								<th class="text-start min-w-150px">@localizer["rest"]</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-700">
+							@foreach (var wpa in Model.WorkoutPlanActivities)
+							{
+								<tr>
+									<td>@((byte)wpa.WeekDayId)</td>
+									<td>@(localizer[wpa.WeekDayId.ToString().ToLower()])</td>
+									<td class="ps-10">
+										<a class="text-gray-800 text-hover-primary fs-5 fw-bold" asp-controller="Activity" asp-action="ActivityVideos" asp-route-activityId="@wpa.Activity.Id">
+											@wpa.Activity.Title
+										</a>
+									</td>
+									<td>@wpa.Sets</td>
+									<td>@wpa.Reps</td>
+									<td>@wpa.Kg</td>
+									<td>@wpa.RestTime</td>
+								</tr>
+							}
+                        </tbody>
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Membership List-->
+		</div>
+		<!--end::Content container-->
+	</div>
+	<!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+@section Scripts {
+	<script type="module" src="~/assets/js/customJs/Workout/ShowWorkoutPlan.js" asp-append-version="true"></script>
+}

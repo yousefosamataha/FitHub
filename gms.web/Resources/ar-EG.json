@@ -284,6 +284,7 @@
   "add_new_workout_plan": "إضافة خطة تمرين جديد",
   "start_date": "تاريخ البدء",
   "end_date": "تاريخ الأنتهاء",
+  "show_workout_plan": "عرض خطة التمرين",
   "---workout_plans/add_new_workout_plan---": "------------------",
   "beginner": "مبتدئ",
   "intermediate": "متوسط",
@@ -294,5 +295,8 @@
   "sets": "مجموعات",
   "reps": "تكرارات",
   "kg": "كجم",
-  "rest": "راحة"
+  "rest": "راحة",
+  "---access_denied---": "------------------",
+  "access_denied": "تم الرفض",
+  "you_do_not_have_access_to_this_resource": "ليس لديك حق الوصول إلى هذا المورد."
 }

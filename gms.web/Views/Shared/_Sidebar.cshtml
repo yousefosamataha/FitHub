@@ -1,4 +1,6 @@
-﻿<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+﻿@using gms.common.Enums
+@using gms.common.Permissions
+<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 	<!--begin::Wrapper-->
 	<div id="kt_app_sidebar_wrapper" class="app-sidebar-wrapper">
 		<div class="hover-scroll-y my-5 my-lg-2" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_header" data-kt-scroll-wrappers="#kt_app_sidebar_wrapper" data-kt-scroll-offset="5px" style="margin-left: 0.5rem;margin-right: 0.5rem;">
@@ -27,247 +29,296 @@
 					<!--end::Menu link-->
 				</div>
 				<!--end::Menu Item-->
-				<!--begin:Menu item-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<!--begin:Menu link-->
-					<span class="menu-link">
-						<span class="menu-icon">
-							<i class="ki-solid ki-badge fs-1"></i>
-						</span>
-						<span class="menu-title">@localizer["memberships"]</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<!--end:Menu link-->
-					<!--begin:Menu sub-->
-					<div class="menu-sub menu-sub-accordion">
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Membership" asp-action="AddNewMembership">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["add_new_membership"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Membership" asp-action="Index">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["memberships_list"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-					</div>
-					<!--end:Menu sub-->
-				</div>
-				<!--end:Menu item-->
-				<!--begin:Menu item-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion grand-parent">
-					<!--begin:Menu link-->
-					<span class="menu-link">
-						<span class="menu-icon">
-							<i class="ki-solid ki-profile-user fs-1"></i>
-						</span>
-						<span class="menu-title">@localizer["manage_users"]</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<!--end:Menu link-->
-					<!--begin:Menu sub-->
-					<div class="menu-sub menu-sub-accordion">
-						<!--begin:Menu item-->
-						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-							<!--begin:Menu link-->
-							<span class="menu-link">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["manage_members"]</span>
-								<span class="menu-arrow"></span>
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == MembershipsPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == MembershipsPermissions.Create))
+				{
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+								<i class="ki-solid ki-badge fs-1"></i>
 							</span>
-							<!--end:Menu link-->
-							<!--begin:Menu sub-->
-							<div class="menu-sub menu-sub-accordion">
+							<span class="menu-title">@localizer["memberships"]</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == MembershipsPermissions.Create))
+							{
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" asp-controller="GymUser" asp-action="CreateNewMember">
+									<a class="menu-link" asp-controller="Membership" asp-action="AddNewMembership">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">@localizer["add_new_member"]</span>
+										<span class="menu-title">@localizer["add_new_membership"]</span>
 									</a>
 									<!--end:Menu link-->
 								</div>
 								<!--end:Menu item-->
+							}
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == MembershipsPermissions.View))
+							{
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" asp-controller="GymUser" asp-action="MembersList">
+									<a class="menu-link" asp-controller="Membership" asp-action="Index">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">@localizer["members_list"]</span>
+										<span class="menu-title">@localizer["memberships_list"]</span>
 									</a>
 									<!--end:Menu link-->
 								</div>
 								<!--end:Menu item-->
-							</div>
-							<!--end:Menu sub-->
+							}
 						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-							<!--begin:Menu link-->
-							<span class="menu-link">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["manage_staffs"]</span>
-								<span class="menu-arrow"></span>
+						<!--end:Menu sub-->
+					</div>
+					<!--end:Menu item-->
+				}
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.Create) || User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.Create) || User.HasClaim(c => c.Type == "Permission" && c.Value == RolesPermissions.View))
+				{
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion grand-parent">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+								<i class="ki-solid ki-profile-user fs-1"></i>
 							</span>
-							<!--end:Menu link-->
-							<!--begin:Menu sub-->
-							<div class="menu-sub menu-sub-accordion">
+							<span class="menu-title">@localizer["manage_users"]</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.Create))
+							{
 								<!--begin:Menu item-->
-								<div class="menu-item" side-menu-item="true">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<!--begin:Menu link-->
-									<a class="menu-link" asp-controller="GymUser" asp-action="CreateNewStaff">
+									<span class="menu-link">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">@localizer["add_new_staff"]</span>
+										<span class="menu-title">@localizer["manage_members"]</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.Create))
+										{
+											<!--begin:Menu item-->
+											<div class="menu-item" side-menu-item="true">
+												<!--begin:Menu link-->
+												<a class="menu-link" asp-controller="GymUser" asp-action="CreateNewMember">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@localizer["add_new_member"]</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+										}
+										@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageMembersPermissions.View))
+										{
+											<!--begin:Menu item-->
+											<div class="menu-item" side-menu-item="true">
+												<!--begin:Menu link-->
+												<a class="menu-link" asp-controller="GymUser" asp-action="MembersList">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@localizer["members_list"]</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+										}
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+							}
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.Create))
+							{
+								<!--begin:Menu item-->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<!--begin:Menu link-->
+									<span class="menu-link">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["manage_staffs"]</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<!--end:Menu link-->
+									<!--begin:Menu sub-->
+									<div class="menu-sub menu-sub-accordion">
+										@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.Create))
+										{
+											<!--begin:Menu item-->
+											<div class="menu-item" side-menu-item="true">
+												<!--begin:Menu link-->
+												<a class="menu-link" asp-controller="GymUser" asp-action="CreateNewStaff">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@localizer["add_new_staff"]</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+										}
+										@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ManageStaffsPermissions.View))
+										{
+											<!--begin:Menu item-->
+											<div class="menu-item" side-menu-item="true">
+												<!--begin:Menu link-->
+												<a class="menu-link" asp-controller="GymUser" asp-action="StaffsList">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@localizer["staffs_list"]</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+										}
+									</div>
+									<!--end:Menu sub-->
+								</div>
+								<!--end:Menu item-->
+							}
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == RolesPermissions.View))
+							{
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" asp-controller="Roles" asp-action="Index">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["roles"]</span>
 									</a>
 									<!--end:Menu link-->
 								</div>
 								<!--end:Menu item-->
+							}
+						</div>
+						<!--end:Menu sub-->
+					</div>
+					<!--end:Menu item-->
+				}
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == GroupsPermissions.View))
+				{
+					<!--begin::Menu Item-->
+					<div class="menu-item" side-menu-item="true">
+						<!--begin::Menu link-->
+						<a class="menu-link" asp-controller="Gym" asp-action="GroupsList">
+							<!--begin::icone-->
+							<span class="menu-icon">
+								<i class="fa-solid fa-people-group fs-3"></i>
+							</span>
+							<!--begin::icon-->
+							<!--begin::Title-->
+							<span class="menu-title">@localizer["groups"]</span>
+							<!--end::Title-->
+						</a>
+						<!--end::Menu link-->
+					</div>
+					<!--end::Menu Item-->
+				}
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == TrainingClassesPermissions.View))
+				{
+					<!--begin::Menu Item-->
+					<div class="menu-item" side-menu-item="true">
+						<!--begin::Menu link-->
+						<a class="menu-link" asp-controller="Class" asp-action="Index">
+							<!--begin::icone-->
+							<span class="menu-icon">
+								<i class="ki-solid ki-calendar-2 fs-1"></i>
+							</span>
+							<!--begin::icon-->
+							<!--begin::Title-->
+							<span class="menu-title">@localizer["training_classes"]</span>
+							<!--end::Title-->
+						</a>
+						<!--end::Menu link-->
+					</div>
+					<!--end::Menu Item-->
+				}
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == ActivitiesPermissions.View))
+				{
+					<!--begin::Menu Item-->
+					<div class="menu-item" side-menu-item="true">
+						<!--begin::Menu link-->
+						<a class="menu-link" asp-controller="Activity" asp-action="Index">
+							<!--begin::icone-->
+							<span class="menu-icon">
+								<i class="fa-solid fa-person-running fs-1"></i>
+							</span>
+							<!--begin::icon-->
+							<!--begin::Title-->
+							<span class="menu-title">@localizer["activities"]</span>
+							<!--end::Title-->
+						</a>
+						<!--end::Menu link-->
+					</div>
+					<!--end::Menu Item-->
+				}
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == WorkoutPlansPermissions.View))
+				{
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+								<i class="fa-solid fa-dumbbell fs-4"></i>
+							</span>
+							<span class="menu-title">@localizer["workout_plans"]</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == WorkoutPlansPermissions.View))
+							{
 								<!--begin:Menu item-->
 								<div class="menu-item" side-menu-item="true">
 									<!--begin:Menu link-->
-									<a class="menu-link" asp-controller="GymUser" asp-action="StaffsList">
+									<a class="menu-link" asp-controller="Workout" asp-action="Index">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">@localizer["staffs_list"]</span>
+										<span class="menu-title">@localizer["assign_workout_plans"]</span>
 									</a>
 									<!--end:Menu link-->
 								</div>
 								<!--end:Menu item-->
+							}
+							@* <!--begin:Menu item-->
+							<div class="menu-item" side-menu-item="true">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+									<span class="menu-bullet">
+										<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">@localizer["daily_workout_plans"]</span>
+								</a>
+								<!--end:Menu link-->
 							</div>
-							<!--end:Menu sub-->
+							<!--end:Menu item--> *@
 						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Roles" asp-action="Index">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["roles"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
+						<!--end:Menu sub-->
 					</div>
-					<!--end:Menu sub-->
-				</div>
-				<!--end:Menu item-->
-				<!--begin::Menu Item-->
-				<div class="menu-item" side-menu-item="true">
-					<!--begin::Menu link-->
-					<a class="menu-link" asp-controller="Gym" asp-action="GroupsList">
-						<!--begin::icone-->
-						<span class="menu-icon">
-							<i class="fa-solid fa-people-group fs-3"></i>
-						</span>
-						<!--begin::icon-->
-						<!--begin::Title-->
-						<span class="menu-title">@localizer["groups"]</span>
-						<!--end::Title-->
-					</a>
-					<!--end::Menu link-->
-				</div>
-				<!--end::Menu Item-->
-				<!--begin::Menu Item-->
-				<div class="menu-item" side-menu-item="true">
-					<!--begin::Menu link-->
-					<a class="menu-link" asp-controller="Class" asp-action="Index">
-						<!--begin::icone-->
-						<span class="menu-icon">
-							<i class="ki-solid ki-calendar-2 fs-1"></i>
-						</span>
-						<!--begin::icon-->
-						<!--begin::Title-->
-						<span class="menu-title">@localizer["training_classes"]</span>
-						<!--end::Title-->
-					</a>
-					<!--end::Menu link-->
-				</div>
-				<!--end::Menu Item-->
-				<!--begin::Menu Item-->
-				<div class="menu-item" side-menu-item="true">
-					<!--begin::Menu link-->
-					<a class="menu-link" asp-controller="Activity" asp-action="Index">
-						<!--begin::icone-->
-						<span class="menu-icon">
-							<i class="fa-solid fa-person-running fs-1"></i>
-						</span>
-						<!--begin::icon-->
-						<!--begin::Title-->
-						<span class="menu-title">@localizer["activities"]</span>
-						<!--end::Title-->
-					</a>
-					<!--end::Menu link-->
-				</div>
-				<!--end::Menu Item-->
-				<!--begin:Menu item-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<!--begin:Menu link-->
-					<span class="menu-link">
-						<span class="menu-icon">
-							<i class="fa-solid fa-dumbbell fs-4"></i>
-						</span>
-						<span class="menu-title">@localizer["workout_plans"]</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<!--end:Menu link-->
-					<!--begin:Menu sub-->
-					<div class="menu-sub menu-sub-accordion">
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Workout" asp-action="Index">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["assign_workout_plans"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["daily_workout_plans"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-					</div>
-					<!--end:Menu sub-->
-				</div>
-				<!--end:Menu item-->
-				<!--begin:Menu item-->
+					<!--end:Menu item-->
+				}
+				@* <!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
 					<span class="menu-link">
@@ -295,7 +346,7 @@
 					</div>
 					<!--end:Menu sub-->
 				</div>
-				<!--end:Menu item-->
+				<!--end:Menu item--> *@
 				@* <!--begin::Menu Item-->
 				<div class="menu-item" onclick="sideMenuTabClick(this, event)" data-menu-item-tab="100">
 					<!--begin::Menu link-->
@@ -312,71 +363,80 @@
 					<!--end::Menu link-->
 				</div>
 				<!--end::Menu Item--> *@
-				<!--begin:Menu item-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<!--begin:Menu link-->
-					<span class="menu-link">
-						<span class="menu-icon">
-							<i class="ki-solid ki-wallet fs-1"></i>
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == SubscriptionsPaymentPermissions.View) || User.HasClaim(c => c.Type == "Permission" && c.Value == SubscriptionsHistoryPermissions.View))
+				{
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+								<i class="ki-solid ki-wallet fs-1"></i>
+							</span>
+							<span class="menu-title">@localizer["finances"]</span>
+							<span class="menu-arrow"></span>
 						</span>
-						<span class="menu-title">@localizer["finances"]</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<!--end:Menu link-->
-					<!--begin:Menu sub-->
-					<div class="menu-sub menu-sub-accordion">
-						<!--begin:Menu item-->
-						<div class="menu-item">
-							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Index", "Home")">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["incomes"]</span>
-							</a>
-							<!--end:Menu link-->
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							@* <!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="@Url.Action("Index", "Home")">
+									<span class="menu-bullet">
+										<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">@localizer["incomes"]</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="@Url.Action("Privacy", "Home")">
+									<span class="menu-bullet">
+										<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">@localizer["expenses"]</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item--> *@
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == SubscriptionsPaymentPermissions.View))
+							{
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" asp-controller="Membership" asp-action="MembershipPayment">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["subscriptions_payment"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							}
+							@if (User.HasClaim(c => c.Type == "Permission" && c.Value == SubscriptionsHistoryPermissions.View))
+							{
+								<!--begin:Menu item-->
+								<div class="menu-item" side-menu-item="true">
+									<!--begin:Menu link-->
+									<a class="menu-link" asp-controller="Membership" asp-action="SubscriptionHistory">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">@localizer["subscriptions_history"]</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							}
 						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item">
-							<!--begin:Menu link-->
-							<a class="menu-link" href="@Url.Action("Privacy", "Home")">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["expenses"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Membership" asp-action="MembershipPayment">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["subscriptions_payment"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
-						<!--begin:Menu item-->
-						<div class="menu-item" side-menu-item="true">
-							<!--begin:Menu link-->
-							<a class="menu-link" asp-controller="Membership" asp-action="SubscriptionHistory">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">@localizer["subscriptions_history"]</span>
-							</a>
-							<!--end:Menu link-->
-						</div>
-						<!--end:Menu item-->
+						<!--end:Menu sub-->
 					</div>
-					<!--end:Menu sub-->
-				</div>
-				<!--end:Menu item-->
+					<!--end:Menu item-->
+				}
 				@* <!--begin:Menu item-->
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<!--begin:Menu link-->
@@ -500,39 +560,45 @@
 					<!--end:Menu sub-->
 				</div>
 				<!--end:Menu item--> *@
-				<!--begin::Menu Item-->
-				<div class="menu-item" side-menu-item="true">
-					<!--begin::Menu link-->
-					<a class="menu-link" asp-controller="Gym" asp-action="BranchesList">
-						<!--begin::icone-->
-						<span class="menu-icon">
-							@* <i class="ki-solid ki-gear fs-1"></i> *@
-							<i class="ki-solid ki-geolocation-home fs-2x"></i>
-						</span>
-						<!--begin::icon-->
-						<!--begin::Title-->
-						<span class="menu-title">@localizer["branches"]</span>
-						<!--end::Title-->
-					</a>
-					<!--end::Menu link-->
-				</div>
-				<!--end::Menu Item-->
-				<!--begin::Menu Item-->
-				<div class="menu-item" side-menu-item="true">
-					<!--begin::Menu link-->
-					<a class="menu-link" asp-controller="Gym" asp-action="Settings">
-						<!--begin::icone-->
-						<span class="menu-icon">
-							<i class="ki-solid ki-gear fs-1"></i>
-						</span>
-						<!--begin::icon-->
-						<!--begin::Title-->
-						<span class="menu-title">@localizer["settings"]</span>
-						<!--end::Title-->
-					</a>
-					<!--end::Menu link-->
-				</div>
-				<!--end::Menu Item-->
+				@if (User.HasClaim(c => c.Type == "Permission" && c.Value == BranchesPermissions.View))
+				{
+					<!--begin::Menu Item-->
+					<div class="menu-item" side-menu-item="true">
+						<!--begin::Menu link-->
+						<a class="menu-link" asp-controller="Gym" asp-action="BranchesList">
+							<!--begin::icone-->
+							<span class="menu-icon">
+								@* <i class="ki-solid ki-gear fs-1"></i> *@
+								<i class="ki-solid ki-geolocation-home fs-2x"></i>
+							</span>
+							<!--begin::icon-->
+							<!--begin::Title-->
+							<span class="menu-title">@localizer["branches"]</span>
+							<!--end::Title-->
+						</a>
+						<!--end::Menu link-->
+					</div>
+					<!--end::Menu Item-->
+				}
+				@if (User.Claims.FirstOrDefault(c => c.Type.Equals("GymUserTypeId")).Value == "Owner")
+				{
+					<!--begin::Menu Item-->
+					<div class="menu-item" side-menu-item="true">
+						<!--begin::Menu link-->
+						<a class="menu-link" asp-controller="Gym" asp-action="Settings">
+							<!--begin::icone-->
+							<span class="menu-icon">
+								<i class="ki-solid ki-gear fs-1"></i>
+							</span>
+							<!--begin::icon-->
+							<!--begin::Title-->
+							<span class="menu-title">@localizer["settings"]</span>
+							<!--end::Title-->
+						</a>
+						<!--end::Menu link-->
+					</div>
+					<!--end::Menu Item-->
+				}
 			</div>
 			<!--end::Sidebar menu-->
 		</div>

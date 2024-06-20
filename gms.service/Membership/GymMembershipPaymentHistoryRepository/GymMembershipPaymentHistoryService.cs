@@ -36,6 +36,19 @@ public class GymMembershipPaymentHistoryService : BaseRepository<GymMembershipPa
 		_logger = logger;
 	}
 
+	public async Task<List<MembershipPaymentHistoryDTO>> GetMembershipPaymentListAsync()
+	{
+		using (_logger.BeginScope(GetScopesInformation()))
+		{
+			_logger.LogInformation("Request Received by Service: {Service}, ServiceMethod: {ServiceMethod}, DateTime: {DateTime}",
+								  new object[] { nameof(GymMembershipPaymentHistoryService), nameof(GetMembershipPaymentListAsync), DateTime.Now.ToString() });
+
+			List<GymMembershipPaymentHistoryEntity> membershipPaymentHistoryList = await FindAllAsync(mph => mph.GymMemberMembership.GymMembershipPlan.BranchId == GetBranchId());
+			return membershipPaymentHistoryList.Select(mph => mph.ToDTO()).ToList();
+		}
+
+	}
+
 	public async Task<MembershipPaymentHistoryDTO> CreateNewMembershipPaymentAsync(CreateMembershipPaymentHistoryDTO membershipPaymentDto)
     {
 		using (_logger.BeginScope(GetScopesInformation()))

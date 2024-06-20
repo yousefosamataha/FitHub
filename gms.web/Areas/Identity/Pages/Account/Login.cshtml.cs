@@ -85,16 +85,31 @@ namespace gms.web.Areas.Identity.Pages.Account
 
                     if (user is not null)
                     {
-                        await GetCustomClaims(user);
-
-                        await _signInManager.RefreshSignInAsync(user);
-
-                        _logger.LogInformation("User logged in.");
+                        if (user.GymBranch.Gym.SystemSubscriptions.OrderBy(ss => ss.SubscriptionStartTime).FirstOrDefault().SubscriptionStatusId == StatusEnum.InActive) {
                         
-                        if(user.GymUserTypeId == GymUserTypeEnum.Owner)
+                            if(user.GymUserTypeId == GymUserTypeEnum.Owner)
+                            {                        
+                                return RedirectToAction( "UpgradePlan", "Gym");
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
                         {
-                            return RedirectToAction( "SelectGymBranch", "Gym");
-                        } 
+							await GetCustomClaims(user);
+
+							await _signInManager.RefreshSignInAsync(user);
+
+							_logger.LogInformation("User logged in.");
+
+                            if (user.GymUserTypeId == GymUserTypeEnum.Owner)
+                            {
+                                return RedirectToAction("SelectGymBranch", "Gym");
+                            }
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }

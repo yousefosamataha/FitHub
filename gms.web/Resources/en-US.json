@@ -284,6 +284,7 @@
   "add_new_workout_plan": "Add New Workout Plan",
   "start_date": "Start Date",
   "end_date": "End Date",
+  "show_workout_plan": "Show Workout Plan",
   "---workout_plans/add_new_workout_plan---": "------------------",
   "beginner": "Beginner",
   "intermediate": "Intermediate",
@@ -294,5 +295,8 @@
   "sets": "Sets",
   "reps": "Reps",
   "kg": "Kg",
-  "rest": "Rest"
+  "rest": "Rest",
+  "---access_denied---": "------------------",
+  "access_denied": "Access Denied",
+  "you_do_not_have_access_to_this_resource": "You Do Not Have Access To This Resource."
 }
